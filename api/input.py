@@ -51,22 +51,19 @@ class RegistryHandler(RequestHandler):
             pass
 
     def post(self, registry_obj):
-        if registry_obj == "school":
-
-            pass
-
         try:
+            if registry_obj == "school":
+
+                pass
+
+
             # 判断商家编号merchant_code
 
             # 验证运单号tracking_number
 
             # 验证手机号phone_number
-            if not is_mobile(phone_number):
-                self.finish(json.dumps({'state': 3, 'message': 'phone error'}))
-                return
-            express_op = express.Express()
-            _ = express_op.intput(merchant_code, tracking_number, phone_number, dhl_code, remark)
-            self.finish(json.dumps({'state': 0, 'message': 'input success'}))
+
+            self.finish(json.dumps({'state': 10, 'message': 'action error'}))
         except Exception as ex:
             LOG.error("Input express error:%s"%ex)
             self.finish(json.dumps({'state': 4, 'message': 'input error'}))

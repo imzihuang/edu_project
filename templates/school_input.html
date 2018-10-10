@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>manage</title>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="css/bootstrap-table.min.css" rel="stylesheet" />
+
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/docs.min.js"></script>
+    <script src="js/bootstrap-table.min.js"></script>
+
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Redirect</a>
+          <form class="navbar-form navbar-right">
+            {%if user_name%}
+              <div class="form-group">
+                 <a class="button track-login">{{ user_name }}</a>
+             </div>
+             <button type="button" class="btn btn-default" onclick="logout()">注销</button>
+            {%else%}
+            <div class="form-group">
+              <input id="auth_code" type="text" class="form-control" placeholder="verify_code">
+            </div>
+            <button type="button" class="btn btn-default" onclick="verify_code()">登录</button>
+            {% end %}
+          </form>
+        </div>
+      </div>
+    </nav>
+
+<div class="container theme-showcase" role="main">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">输入路径和参数</h3>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="input-group">
+              <span class="input-group-addon">路径</span>
+              <input id="url" type="text" class="form-control" placeholder="url">
+            </div><!-- /input-group -->
+          </div><!-- /.col-lg-6 -->
+          <div class="col-lg-6">
+            <div class="input-group">
+              <span class="input-group-addon">参数</span>
+              <input id="parameter" type="text" class="form-control" placeholder="parameter">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button" onclick="add_data()">提交!</button>
+              </span>
+            </div><!-- /input-group -->
+          </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+      </div>
+
+    </div>
+
+
+    <div id="toolbar">
+        <div class="">
+            <input type="text" class="form-control" id="query_url" placeholder="路径" onkeydown="query_refresh()">
+        </div>
+    </div>
+    <table id="tb_departments"></table>
+
+</div>
+</body>
+
+
+ <style>
+     body {
+      padding-top: 70px;
+      padding-bottom: 30px;
+    }
+ </style>
+
+<script>
+    $(function () {
+        //初始化Table
+        var oTable = new TableInit();
+        oTable.Init();
+
+    });
+
+    var TableInit = function () {
+        var oTableInit = new Object();
+        //初始化Table
+        oTableInit.Init = function () {
+            $('#tb_departments').bootstrapTable({
+                url: '/get_data',         //请求后台的URL（*）
+                method: 'get',                      //请求方式（*）
+                toolbar: '#toolbar',                //工具按钮用哪个容器
+                striped: true,                      //是否显示行间隔色
+                cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+                pagination: true,                   //是否显示分页（*）
+                sortable: false,                     //是否启用排序
+                sortOrder: "asc",                   //排序方式
+                queryParams: oTableInit.queryParams,//传递参数（*）
+                sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
+                pageNumber:1,                       //初始化加载第一页，默认第一页
+                pageSize: 10,                       //每页的记录行数（*）
+                pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
+                search: true,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+                strictSearch: true,
+                showColumns: true,                  //是否显示所有的列
+                showRefresh: true,                  //是否显示刷新按钮
+                minimumCountColumns: 2,             //最少允许的列数
+                clickToSelect: true,                //是否启用点击选中行
+                height: 600,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+                uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
+                showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
+                cardView: false,                    //是否显示详细视图
+                detailView: false,                   //是否显示父子表
+                columns: [{
+                    checkbox: true
+                }, {
+                    field: 'name',
+                    title: '关键字'
+                }, {
+                    field: 'url',
+                    title: '路径'
+                }, {
+                    field: 'parameter',
+                    title: '参数'
+                },{
+                    field: 'redirect_url',
+                    title: '重定向'
+                },{
+                    field: 'operate',
+                    title: '操作',
+                    align: 'center',
+                    events: operateEvents,
+                    formatter: operateFormatter
+                }]
+            });
+        };
+
+        //得到查询的参数
+        oTableInit.queryParams = function (params) {
+            var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
+                limit: params.limit,   //页面大小
+                offset: params.offset,  //页码
+                url: $("#query_url").val(),
+                search: params.search
+            };
+            return temp;
+        };
+
+        window.operateEvents = {
+          'click .remove': function (e, value, row, index) {
+            //$('#tb_departments').bootstrapTable('remove', {
+            //  field: 'name',
+            //  values: [row.name]
+            //});
+            $.ajax({
+               type: "POST",
+               cache:false,
+               async : true,
+               dataType : "json",
+               url:  "/del_data",
+               data: {"name": row.name},
+               success: function(data){
+                   if ( data.state == "0" ){
+                       $('#tb_departments').bootstrapTable('refresh');
+                   }
+               }
+            });
+          }
+        };
+
+        function operateFormatter(value, row, index) {
+          return [
+            '<a class="remove" href="javascript:void(0)" title="Remove">',
+            '<i class="glyphicon glyphicon-remove"></i>',
+            '</a>'
+          ].join('');
+        }
+
+        return oTableInit;
+    };
+
+    function query_refresh(){
+        if (event.keyCode==13){
+            $('#tb_departments').bootstrapTable('refresh');
+        }
+    }
+
+    function add_data(){
+        if ($("#url").val() == undefined || $("#url").val() == null || $("#url").val() == ""){
+            alert("不允许为空");
+            return false;
+        }
+        var datas = {
+            "url": $("#url").val(),
+            "parameter": $("#parameter").val()
+        }
+        $.ajax({
+           type: "POST",
+           cache:false,
+           async : true,
+           dataType : "json",
+           url:  "/add_data",
+           data: datas,
+           success: function(data){
+               if ( data.state == "0" ){
+                    $('#tb_departments').bootstrapTable('refresh');
+               }
+           }
+        });
+    }
+
+    function verify_code() {
+        var code = $("#auth_code").val();
+        if (code == undefined || code == null || code == ""){
+            return false;
+        }
+        $.ajax({
+           type: "POST",
+           cache:false,
+           async : true,
+           dataType : "json",
+           url:  "/verify_auth",
+           data: {"verify_code": code},
+           success: function(data){
+               if (data.state == "0"){
+                    location.reload();
+               }
+           }
+        });
+    }
+
+    function logout() {
+        $.ajax({
+           type: "POST",
+           cache:false,
+           async : true,
+           dataType : "json",
+           url:  "/logout_auth",
+           data: {},
+           success: function(data){
+               if (data.state == "0"){
+                    location.reload();
+               }
+           }
+        });
+    }
+
+</script>
+</html>

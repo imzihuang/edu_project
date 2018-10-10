@@ -1,11 +1,10 @@
-import input
+from api import input
 from settings import default_settings
 
-#express api
-def _express_handlers():
+def _handlers():
     return [
         (r'(?P<registry_obj>.+)/input$', input.RegistryHandler),
     ]
 
 
-api_handlers = []#_express_handlers()
+api_handlers = _handlers()
