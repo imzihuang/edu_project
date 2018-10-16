@@ -6,18 +6,19 @@ import datetime
 from util.convert import *
 from db import api as db_api
 
-class SchoolLogic():
+class ClassLogic():
     def __init__(self):
         pass
 
-    def intput(self, name="", cardcode="", describe=""):
+    def intput(self, name="", grade="", school_code="", study_number=""):
         values = {
             "name": name,
-            "cardcode": cardcode,
-            "describe": describe
+            "grade": grade,
+            "school_code": school_code,
+            "study_number": study_number
         }
-        school_obj = db_api.school_create(values)
-        return school_obj
+        class_obj = db_api.class_create(values)
+        return class_obj
 
     def output(self):
         pass
