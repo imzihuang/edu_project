@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="renderer" content="webkit">
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<title>后端管理</title>
+
+		<meta name="keywords" content="后端管理">
+		<meta name="description" content="后端管理">
+
+		<!--[if lt IE 8]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+
+		<!--[if !IE]> -->
+		<script src="js/jquery.min.js"></script>
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+	    <script src="js/jquery-1.7.2.min.js"></script>
+	<![endif]-->
+
+		<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+		<link href="css/animate.min.css" rel="stylesheet" type="text/css">
+		<link href="css/style.min.css" rel="stylesheet" type="text/css">
+		<link href="css/Font-Awesome-4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+		<link href="css/style.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+		<!--<script type="text/javascript" src="js/jquery.pseudo.js"></script>-->
+		<style type="text/css">
+			.slimScrollDiv {
+				position: fixed!important;
+			}
+			.navbar-header {
+				float: left;
+			}
+			
+			.nav.navbar-top-links.navbar-right {
+				float: right;
+			}
+			
+			.form-group {''
+				display: none;
+			}
+			.fa-bars{
+				color: #fff;
+			}
+			.dropdown{
+				margin-right: 0;
+			}
+			.count-info .label{
+				right: 12px;
+			}
+			.navbar-right{margin-right: 15px!important;}
+		</style>
+	</head>
+
+	<body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
+		<div id="wrapper">
+			<!--左侧导航开始-->
+			<nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="nav-close"><i class="fa fa-times-circle"></i>
+            </div>
+            <div class="sidebar-collapse">
+                <ul class="nav" id="side-menu">
+                    <li class="nav-header">
+                        
+                    </li>
+                    <li class="Lilist active">
+                        <a href="#" class="titleA">
+                        	<i class="fa fa-envelope-o"></i>
+                            <span class="nav-label">学校管理</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level ulOne">
+                            <li>
+                                <a class="J_menuItem" name="schoolManage.html" id="schoolManage.html" href="javascript:void(0);">学校管理</a>
+                            </li>
+                           
+                        </ul>
+                    </li>
+                     <li class="Lilist">
+                        <a href="#" class="titleA">
+                            <i class="fa fa-folder-o"></i>
+                            <span class="nav-label">年级管理</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level ulTwo">
+                        	 <li>
+                                <a class="J_menuItem" name="gradelManage.html" id="gradelManage.html" href="javascript:void(0);">年级管理</a>
+                            </li>
+                       
+                        </ul>
+                    </li>
+                    
+                    <li class="Lilist">
+                        <a href="#" class="titleA">
+                            <i class="fa fa-bar-chart"></i>
+                            <span class="nav-label">教师管理</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level ulThree">
+                            <li>
+                                <a class="J_menuItem" name="teacherManage.html" id="teacherManage.html" href="javascript:void(0);">教师管理</a>
+                            </li>
+                            
+                        </ul>
+                    </li>
+                    
+                    <li class="Lilist" style="margin-bottom: 50px;">
+                        <a href="#" class="titleA">
+                            <i class="fa fa-sun-o"></i>
+                            <span class="nav-label">学生管理</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level ulFour">
+                            <li>
+                                <a class="J_menuItem" name="studentManage.html" id="studentManage.html" href="javascript:void(0);">学生管理</a>
+                            </li>
+                        </ul>
+
+                    </li>
+                </ul>
+            </div>
+        </nav>
+			<!--左侧导航结束-->
+			<!--右侧部分开始-->
+			<div id="page-wrapper" class="gray-bg dashbard-1">
+				<div class="row border-bottom">
+					<nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0;">
+						
+						<div class="navbar-header">
+							<div class="logobg" style="width: 200px; height: 50px;  position: absolute; top: 5px; left: 5px;">
+							</div>
+							
+							<form role="search" class="navbar-form-custom" method="post" action="search_results.html">
+							
+							</form>
+						</div>
+						<ul class="nav navbar-top-links navbar-right" style="width: 310px;">
+							<li class="m-t-xs" style="float: right;">
+								<a href="login.html"><i class="fa fa-power-off"></i>退出</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+	
+				<div class="row J_mainContent" id="content-main">
+					<iframe class="J_iframe" id="iframecontent" name="iframe0" width="100%" height="100%" src="schoolManage.html" frameborder="0" data-id="schoolManage.html" seamless></iframe>
+				</div>
+				
+			</div>
+			<!--右侧部分结束-->
+
+			</div>
+			
+			
+		</div>
+		
+
+		<script src="js/html5shiv.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
+		<script type="text/javascript" src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+		<script type="text/javascript" src="js/plugins/layer/layer.min.js"></script>
+	    <script type="text/javascript" src="js/hplus.min.js"></script>
+		<script type="text/javascript" src="js/contabs.min.js"></script>
+		<script type="text/javascript" src="js/plugins/pace/pace.min.js"></script>
+		<!--<script type="text/javascript" src="js/respond.min.js"></script>-->
+		<!--<script type="text/javascript" src="js/myown.js"></script>-->
+		<script>
+			$('.Lilist li a').each(function(){
+				$(this).click(function(){
+					$('.J_iframe').attr("src",$(this).attr("id"));
+				});
+			});
+			
+
+			$('.Lilist').mouseover(function(){
+				$(this).css('zIndex',10).siblings('li').css('zIndex',1);
+			});
+			$('#side-menu li').has("ul").children("ul").addClass("collapse");
+			$('#side-menu li').click(function(){
+				if($(this).attr('class')==="nav-header"){
+					return;
+				}else{
+					if($(this).attr('class').indexOf('active')!=-1){
+						$(this).find('ul').addClass("collapse in").parent().siblings().find('ul').removeClass('in');
+						$(this).find('ul').slideDown(500);
+					}else{
+						$(this).find('ul').removeClass("in");
+					};
+				};
+			});
+		</script>
+	</body>
+</html>

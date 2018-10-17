@@ -5,6 +5,7 @@ import json
 from util.convert import is_mobile
 import logging
 
+from logic import Logic
 from logic.school import SchoolLogic
 from logic.classlogic import ClassLogic
 from logic.teacher import TeacherLogic
@@ -16,44 +17,35 @@ LOG = logging.getLogger(__name__)
 class RegistryHandler(RequestHandler):
     def post(self, registry_obj):
         try:
+            _op = Logic()
+            _infos = dict()
             if registry_obj == "school":
-                _school_info = self._get_school_argument()
-                school_op = SchoolLogic()
-                _ = school_op.intput(**_school_info)
-                self.finish(json.dumps({'state': 0, 'message': 'input school info success.'}))
-                return
+                _infos = self._get_school_argument()
+                _op = SchoolLogic()
 
             if registry_obj == "class":
-                _class_info = self._get_class_argument()
-                class_op = ClassLogic()
-                _ = class_op.intput(**_class_info)
-                self.finish(json.dumps({'state': 0, 'message': 'input class info success.'}))
-                return
+                _infos = self._get_class_argument()
+                _op = ClassLogic()
 
             if registry_obj == "teacher":
-                _teacher_info = self._get_teacher_argument()
-                teacher_op = TeacherLogic()
-                _ = teacher_op.intput(**_teacher_info)
-                self.finish(json.dumps({'state': 0, 'message': 'input teacher info success.'}))
-                return
+                _infos = self._get_teacher_argument()
+                _op = TeacherLogic()
 
             if registry_obj == "student":
-                _student_info = self._get_student_argument()
-                student_op = StudentLogic()
-                _ = student_op.intput(**_student_info)
-                self.finish(json.dumps({'state': 0, 'message': 'input student info success.'}))
-                return
+                _infos = self._get_student_argument()
+                _op = StudentLogic()
 
             if registry_obj == "relative":
-                _relative_info = self._get_relative_argument()
-                relative_obj = RelativeLogic()
-                _ = relative_obj.intput(**_relative_info)
-                self.finish(json.dumps({'state': 0, 'message': 'input relative info success.'}))
-                return
+                _infos = self._get_relative_argument()
+                _op = RelativeLogic()
 
-            self.finish(json.dumps({'state': 10, 'message': 'action error'}))
+            _ = _op.intput(**_infos)
+            if _:
+                self.finish(json.dumps({'state': 0, 'message': 'input school info success.'}))
+            else:
+                self.finish(json.dumps({'state': 10, 'message': 'action error'}))
         except Exception as ex:
-            LOG.error("Input express error:%s"%ex)
+            LOG.error("Input %s error:%s"%(registry_obj, ex))
             self.finish(json.dumps({'state': 4, 'message': 'input error'}))
 
     def _get_school_argument(self):
@@ -84,12 +76,14 @@ class RegistryHandler(RequestHandler):
         age = int(self.get_argument('age', 0))
         school_code = self.get_argument('school_code', '')
         class_code = self.get_argument('school_code', '')
+        phone = self.get_argument('phone', '')
         return {
             "name": name,
             "sex": sex,
             "age": age,
             "school_code": school_code,
-            "class_code": class_code
+            "class_code": class_code,
+            "phone": phone
         }
 
     def _get_student_argument(self):
@@ -127,9 +121,3 @@ class RegistryHandler(RequestHandler):
             "relation": relation,
             "phone": phone
         }
-
-    def _org_argument(self, registry_obj):
-        if registry_obj == "school":
-            return self._get_school_argument()
-            pass
-

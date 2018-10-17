@@ -78,11 +78,11 @@ class RelativeInfo(BaseModel):
     name = Column(VARCHAR(100), nullable=False)
     sex = Column(Integer, default=0)
     age = Column(Integer, default=1)
-    student_code = Column(VARCHAR(36), nullable=False)
+    student_code = Column(VARCHAR(200), nullable=False)
     user_code = Column(VARCHAR(36), nullable=False)
     relation = Column(VARCHAR(36), nullable=False)
     phone = Column(VARCHAR(36), nullable=False)
-    features = Column(Text)
+    features = Column(LargeBinary(length=65536))
     create_time = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_time = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>后端管理</title>
+		<meta name="keywords" content="后端管理">
+		<meta name="description" content="后端管理">
+
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/font-awesome.min.css" rel="stylesheet">
+		<link href="css/animate.min.css" rel="stylesheet">
+		<link href="css/style.min.css" rel="stylesheet">
+		<link href="css/pager.css" rel="stylesheet" type="text/css" />
+		<link href="css/style.css" rel="stylesheet" type="text/css" />
+		<link href="js/plugins/layer/layer/skin/default/layer.css" rel="stylesheet" type="text/css" />
+
+		<script src="js/jquery.min.js"></script>
+
+	</head>
+
+	<body class="gray-bg">
+		<div class="wrapper wrapper-content animated fadeIn">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="tabs-container">
+						<div class="panel-body">
+							<div class="wrapper wrapper-content animated fadeInRight">
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="bgBackground">
+											<div class="ibox-title-Myown1">
+												<div class="zx_searchTit">
+													<div class="sendInquiry1" style="float: left;">
+														<label class="control-label">学校编号：</label>
+														<input type="text" name="" value="" />
+													</div>
+													<div class="sendInquiry1" style="float: left;">
+														<label class="control-label">学校名称：</label>
+														<input type="text" name="" value="" />
+													</div>
+													<div class="sendInquiry1" style="float: left;">
+														<label class="control-label">设备卡号：</label>
+														<input type="text" name="" value="" />
+													</div>
+													<div class="sendInquiry0 col-sm-4" style="position: relative; margin:3.5px 0 0 0;"><button class="btn btn-primary btn-myown">查询</button>&nbsp;&nbsp;
+														<button class="btn btn-primary btn-myown" id="addManage">批量导入</button>
+													</div>
+													<div style="clear: both;"></div>
+												</div>
+											</div>
+											<div class="ibox-content">
+												<table class="table table-striped table-bordered table-hover dataTables-example">
+													<thead>
+														<tr class="zx_checkedAll">
+															<th colspan="6" style="text-align: left; background: none;padding: 10px 0px;">
+																<button class="btn btn-default btn-myown" id="delInfo" disabled="disabled"><i class="fa fa-trash"></i>&nbsp;删除选中项</button>
+																<button class="btn btn-primary btn-myown" id="addInfo">+添加学校</button>
+															</th>
+														</tr>
+														<tr class="zx_thTitle">
+															<th><input type="checkbox" class="zx_checkedBtn" id="zx_checkedAllBtn" name="allcheck" value="allCheck"></th>
+															<th>序号</th>
+															<th>学校编号</th>
+															<th>学校名称</th>
+															<th>设备卡号</th>
+															<th>描述</th>
+															<th>创建时间</th>
+															<th>最后一次更新时间</th>
+															<th style="width: 120px;">操作</th>
+														</tr>
+													</thead>
+													<tbody id="tbody">
+														<tr class="gradeX">
+															<td><input type="checkbox" class="zx_checkedBtn"></td>
+															<td class="centerSort">
+																1
+															</td>
+															<td class="userMessage">18910636363</td>
+															<td>哈哈哈小学</td>
+															<td class="center">124314</td>
+															<td class="center">超级设备</td>
+															<td class="center">2017 01-1 12:00:00</td>
+															<td class="center">2017 01-1 12:00:00</td>
+															<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除"></i></td>
+														</tr>
+														
+													</tbody>
+												</table>
+												<div id="page">
+													<a href="javascript:void(0);"> 首页</a>
+													<a href="javascript:void(0);">
+														&lt;上一页</a>
+													<a href="javascript:void(0);">1</a>
+													<a class="current">2</a>
+													<a href="javascript:void(0);">3</a>
+													<a href="javascript:void(0);">4</a>
+													<a href="javascript:void(0);">5</a>
+													<a href="javascript:void(0);">下一页 &gt;</a>
+													<a href="javascript:void(0);">尾页</a>
+													<span class="text">共282页记录</span>
+													<span class="text page-jump">跳转第<input type="text" id="jumpPage" name="jumpPage" class="ipt-jump">页 
+								<input type="hidden" id="jumpPageCount" name="jumpPageCount" value="282" class="ipt-jump"> 
+								<input type="hidden" id="jumpPageUrl" name="jumpPageUrl" value="url" class="ipt-jump">
+								<input name="jumpButton" onclick="jumpPages()" type="button" value="跳转" class="btn-jump" id="jumpButton">
+								</span>
+													<div class="clear"></div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		</div>
+		</div>
+
+		<div id="addInfoContent" style="display: none; width: 500px; padding: 20px;">
+			<div style="margin: 10px 0;">
+				<span>学校名称：</span><input type="text" style="width: 350px;" />
+			</div>
+			<div style="margin: 10px 0;">
+				<span>设备卡号：</span><input type="text" style="width: 350px;" />
+			</div>
+			<div style="margin: 10px 0;">
+				<span>描述：</span><input type="text" style="width: 350px;" />
+			</div>
+		</div>
+
+		<div id="editAreaContent" style="display: none; width: 500px; padding: 20px;">
+			<div style="margin: 10px 0;">
+				<span>学校编号：</span><input type="text" style="width: 350px;" />
+			</div>
+			<div style="margin: 10px 0;">
+				<span>学校名称：</span><input type="text" style="width: 350px;" />
+			</div>
+			<div style="margin: 10px 0;">
+				<span>设备卡号：</span><input type="text" style="width: 350px;" />
+			</div>
+		</div>
+
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/plugins/layer/layer.js"></script>
+		<script type="text/javascript">
+			$(function() {
+				//全选按钮
+				$("#zx_checkedAllBtn").click(function() {
+					if(this.checked) {
+						$("#tbody :checkbox").prop("checked", true);
+					} else {
+						$("#tbody :checkbox").prop("checked", false);
+					}
+					allchk();
+
+				});
+
+				$("#tbody :checkbox").click(function() {
+						allchk()
+					})
+					//全选
+				function allchk() {
+					$('#delInfo').attr("disabled", false);
+					var chknum = $("#tbody :checkbox").size(); //选项总个数 
+					var chk = 0;
+					$("#tbody :checkbox").each(function(index, ele) {
+						$(this).parents('tr').attr('id', "trId_" + index);
+						if($(this).prop("checked") == true) {
+							chk++;
+						}
+					});
+					if(chknum == chk) { //全选 
+						$("input[name=allcheck]").prop("checked", true);
+					} else { //不全选 
+						$("input[name=allcheck]").prop("checked", false);
+					}
+					if(chk >= 1) {
+						$('#delInfo').attr('class', 'btn btn-primary btn-myown');
+					} else {
+						$('#delInfo').attr('class', 'btn btn-default btn-myown');
+					}
+				}
+
+				//============
+				//删除选中项
+				$('#delInfo').click(function() {
+					var valArr = new Array;
+					getValArr(valArr);
+
+					if(valArr.length > 0) {
+
+						layer.confirm('确定删除选中的学校？', {
+							btn: ['确定', '取消'] //按钮
+						}, function() {
+							$.ajax({
+								method:'POST',
+								xhrFields:{
+									"withCredentials":true
+								},
+								contentType:"application/x-www-form-urlencoded;chartset=UTF-8",
+								url:"",
+								data:sendData,
+								dataType:'json',
+								jsonpCallback:'',
+								cache:false,
+								timeout:"1000000",
+								success:function(data){
+									console.log(valArr)
+									delData(valArr);
+									layer.closeAll();
+									layer.msg('删除成功', {
+										icon: 1,
+										time: 600
+									});
+									$('#delInfo').attr("disabled", "disabled");
+									$('#delInfo').attr('class', 'btn btn-default btn-myown');
+								},
+								complete:function(XMLHttpRequest,status){
+									
+								}
+							})
+							
+						}, function() {});
+					} else {
+						$('#delInfo').attr("disabled", "disabled");
+					}
+
+				});
+
+				function getValArr(valArr) {
+					$("#tbody :checkbox").each(function(index, ele) {
+						if($(ele).prop("checked")) {
+							valArr.push(index);
+						}
+					});
+				}
+
+				function delData(valArr) {
+					for(var i = 0; i < valArr.length; i++) {
+						$('#trId_' + valArr[i]).remove();
+					}
+				}
+
+				//==========
+				var layerIndex;
+				//添加
+				$('#addInfo').click(function() {
+					layerIndex = layer.open({
+						title: '添加学校',
+						type: 1,
+						skin: 'layui-layer-demo', //样式类名
+						anim: 2,
+						shadeClose: true, //开启遮罩关闭
+						btn: ['确定', '取消'], //按钮
+						content: $('#addInfoContent'),
+						yes: function() {
+							layer.closeAll();
+							layer.msg('添加成功', {
+								icon: 1,
+								time: 800 //2s后自动关闭
+							});
+						}
+					});
+				});
+
+				$('.areapen').click(function() {
+					layerIndex = layer.open({
+						title: '修改学校信息',
+						type: 1,
+						skin: 'layui-layer-demo', //样式类名
+						closeBtn: 0, //不显示关闭按钮
+						anim: 2,
+						shadeClose: true, //开启遮罩关闭
+						btn: ['确定', '取消'], //按钮
+						content: $('#editAreaContent'),
+						yes: function() {
+							layer.closeAll();
+							layer.msg('修改成功', {
+								icon: 1,
+								time: 800 //2s后自动关闭
+							});
+						}
+					});
+				});
+
+				$('.fa-close').click(function() {
+
+					layer.confirm('确定删除选中的学校？', {
+						btn: ['确定', '取消'] //按钮
+					}, function() {
+						layer.msg('已经删除选中的学校', {
+							icon: 1,
+							time: 600
+						});
+					}, function() {
+						/*layer.msg('也可以这样', {
+							time: 20000, //20s后自动关闭
+							btn: ['明白了', '知道了']
+						});*/
+					});
+				});
+
+				//=========
+				$('#selAccount').css('display', 'none');
+				$('#selAccountTop').css('display', 'none');
+
+			});
+		</script>
+	</body>
+
+</html>

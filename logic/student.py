@@ -5,8 +5,9 @@ from random import randint
 import datetime
 from util.convert import *
 from db import api as db_api
+from logic import Logic
 
-class StudentLogic():
+class StudentLogic(Logic):
     def __init__(self):
         pass
 

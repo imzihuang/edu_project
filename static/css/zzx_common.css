@@ -1,0 +1,79 @@
+button,input{
+	outline: none;
+}
+.zx_thTitle th,tbody td{
+	text-align: center;
+}
+.zx_checkedBtn {
+	/*display: inline;*/
+    width: 16px;
+    vertical-align: middle;
+}
+.zx_checkSpan{
+	vertical-align: middle;
+}
+
+.zx_checkedAllth_one{
+	width: 124px;
+    text-align: center;
+}
+.zx_checkedAll th{
+	background-color: #fff !important;
+}
+.zx_checkedAll{
+	border-bottom: 1px solid #EBEBEB;
+}
+.zx_searchTit{
+	    padding-bottom: 5px;
+}
+.zx_searchTit .zx_search{
+	float: left;
+}
+.zx_keyword_textareaSpan{
+	vertical-align: middle;
+    width: auto;
+    padding: 0 15px 0 0;
+}
+.zx_keyword_textarea{
+	    vertical-align: middle;
+    resize: horizontal;
+    outline: none;
+    height: 60px;
+        max-width:75%;
+}
+.zzx_col-sm-2{
+	float: left;
+	width:20%;
+	padding: 0;
+}
+.zzx_col-sm-3{
+	float: left;
+	padding: 0;
+	margin-left: 10px;
+}
+.zzx_col-sm-4{
+	float: left;
+	padding: 0;
+}
+/*5 + 5 + 2  */
+.zzx_col-sm-5{
+	float: left;
+	width:50%;
+	padding: 0;
+}
+.zzx_col-sm-6{
+	float: left;
+	width:50%
+}
+thead tr th{
+	text-align: center;
+}
+tbody tr td{
+	text-align: center;
+}
+.redColor{
+	color:red;
+}
+/*.sendInquiry1, .sendInquiry2, .sendInquiry3{
+	width: 250px;
+}*/
