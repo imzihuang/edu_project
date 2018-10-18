@@ -8,6 +8,7 @@ TEMPLATES_PATH = os.path.join(os.path.dirname(os.path.normpath(__file__)), 'temp
 
 default_settings = {
     'base_url': '/',
+    'view_prefix': 'edu',
     'static_path': STATIC_PATH,
     'templates_path': TEMPLATES_PATH,
     'api_version': 'v1.0',
