@@ -29,7 +29,6 @@ def make_app():
     return My_Application(api_handlers + views_handlers, **settings)
 
 if __name__ == "__main__":
-    options.logging = 'info'
     app = make_app()
     server = httpserver.HTTPServer(app, xheaders=True)
     server.bind(options.port)
