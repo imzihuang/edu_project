@@ -11,7 +11,7 @@ from views import views_handlers
 import settings
 import logging
 
-define("port", default=8081, help="run on the given port", type=int)
+define("port", default=8080, help="run on the given port", type=int)
 setproctitle('edu:server')
 
 if settings.default_settings.get("log_path", ""):
