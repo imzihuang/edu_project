@@ -15,7 +15,7 @@ default_settings = {
     'api_key': '',
     'enabled_methods': ['get', 'post', 'put', 'patch', 'delete'],
     'exclude_namespaces': [],
-    'log_path': "/var/log/express.log"
+    'log_path': "./log/edu.log"
 }
 
 models = []
