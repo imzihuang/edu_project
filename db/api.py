@@ -198,3 +198,40 @@ def relative_count(**filters):
     return query.count()
 
 #####################relative end################################
+
+
+#####################user begin################################
+def user_create(values):
+    class_ref = models.UserInfo()
+    class_ref.update(values)
+    session = get_session()
+    with session.begin():
+        class_ref.save(session)
+        return class_ref
+
+def user_update(code, values):
+    query = model_query(models.UserInfo).filter_by(code=code)
+    result = query.update(values)
+    if not result:
+        raise exception.NotFound(code=code)
+
+def user_get(code):
+    query = model_query(models.UserInfo)
+    result = query.filter_by(code=code).first()
+    if not result:
+        raise exception.NotFound(code=code)
+    return result
+
+def user_list(offset=0, limit=1000, **filters):
+    query = model_query(models.UserInfo, **filters)
+    if offset:
+        query.offset(offset)
+    if limit:
+        query.limit(limit)
+    return query.all()
+
+def user_count(**filters):
+    query = model_query(models.UserInfo, **filters)
+    return query.count()
+
+#####################user end################################

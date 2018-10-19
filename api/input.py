@@ -43,7 +43,7 @@ class RegistryHandler(RequestHandler):
             if _:
                 self.finish(json.dumps({'state': 0, 'message': 'input school info success.'}))
             else:
-                self.finish(json.dumps({'state': 10, 'message': 'action error'}))
+                self.finish(json.dumps({'state': 10, 'message': 'action %s error'%registry_obj}))
         except Exception as ex:
             LOG.error("Input %s error:%s"%(registry_obj, ex))
             self.finish(json.dumps({'state': 4, 'message': 'input error'}))

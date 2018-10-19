@@ -12,10 +12,10 @@ default_settings = {
     'static_path': STATIC_PATH,
     'templates_path': TEMPLATES_PATH,
     'api_version': 'v1.0',
-    'api_key': '',
     'enabled_methods': ['get', 'post', 'put', 'patch', 'delete'],
     'exclude_namespaces': [],
-    'log_path': "./log/edu.log"
+    'log_path': "./log/edu.log",
+    'model_checkpoint': './model/20180920-153747'
 }
 
 models = []

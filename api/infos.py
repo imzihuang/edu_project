@@ -15,29 +15,29 @@ from logic.relative import RelativeLogic
 LOG = logging.getLogger(__name__)
 
 class InfosHandler(RequestHandler):
-    def get(self, registry_obj):
+    def get(self, infos_obj):
         limit = int(self.get_argument('limit', 100))
         offset = int(self.get_argument('offset', 1))
         try:
             _op = Logic()
             _value = dict()
-            if registry_obj == "school":
+            if infos_obj == "school":
                 _value = self._get_school_argument()
                 _op = SchoolLogic()
 
-            if registry_obj == "class":
+            if infos_obj == "class":
                 _value = self._get_class_argument()
                 _op = ClassLogic()
 
-            if registry_obj == "teacher":
+            if infos_obj == "teacher":
                 _value = self._get_teacher_argument()
                 _op = TeacherLogic()
 
-            if registry_obj == "student":
+            if infos_obj == "student":
                 _value = self._get_student_argument()
                 _op = StudentLogic()
 
-            if registry_obj == "relative":
+            if infos_obj == "relative":
                 _value = self._get_relative_argument()
                 _op = RelativeLogic()
 
@@ -45,9 +45,9 @@ class InfosHandler(RequestHandler):
             if _:
                 self.finish(json.dumps(_))
             else:
-                self.finish(json.dumps({'state': 10, 'message': 'action error'}))
+                self.finish(json.dumps({'state': 10, 'message': 'action %s error'%infos_obj}))
         except Exception as ex:
-            LOG.error("query %s error:%s"%(registry_obj, ex))
+            LOG.error("query %s error:%s"%(infos_obj, ex))
             self.finish(json.dumps({"count": 0, "state":1, "message":"error", "data":[]}))
 
 
