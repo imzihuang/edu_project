@@ -31,6 +31,7 @@ class LoginViewHandler(RequestHandler):
         return self.templates_path
 
     def get(self):
+        LOG.info("-----------------login-----------")
         self.render("login.html")
 
 class ManageViewHandler(RequestHandler):

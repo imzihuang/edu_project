@@ -4,7 +4,7 @@ from settings import default_settings
 from views import input
 
 def _handlers():
-    prefix = default_settings.get('view_prefix', '/edu')
+    prefix = default_settings.get('view_prefix', 'edu')
     if prefix[-1] != '/':
         prefix += '/'
     return [
