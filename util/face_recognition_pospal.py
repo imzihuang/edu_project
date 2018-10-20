@@ -45,108 +45,13 @@ class Recognition:
         self.debug = False
         self.detect = Detection()
         self.encoder = Encoder(model_checkpoint)
-        self.identifier = Identifier()
-        #self.db_helper = MongoDBHelper()
-        self.db_helper = mysqlDBHelper()
 
-    def register_identity(self, image, group_id, person_id, face_url):
+    def register_face(self, image, relative_code):
         err_code, face = self.detect.find_max_face(image)
         if err_code == error_code.ERROR_CODE_OK:
-            face.group_id = group_id
-            face.person_id = person_id
-            face.face_url = face_url
-            face.embedding = self.encoder.generate_embedding(face)
-            self.db_helper.insert_identity(face)
+            return err_code, self.encoder.generate_embedding(face)
+        return err_code, 'error'
 
-    def delete_identity(self, group_id, person_id):
-        face = Face()
-        face.group_id = group_id
-        face.person_id = person_id
-        return self.db_helper.delete_identity(face)
-
-    def register_face(self, image, school_id, class_id,person_id, face_id):
-        err_code, face = self.detect.find_max_face(image)
-        if err_code == error_code.ERROR_CODE_OK:
-            face.school_id = school_id
-            face.class_id = class_id
-            face.person_id = person_id
-            face.face_id = face_id
-            face.feature = self.encoder.generate_embedding(face)
-            self.db_helper.insert_face(face)
-            return err_code,face.feature
-        return err_code,'error'
-
-    def delete_face(self, school_id, class_id,person_id, face_id):
-        face = Face()
-        face.school_id = school_id
-        face.class_id = class_id
-        face.person_id = person_id
-        face.face_id = face_id
-        try:
-            self.db_helper.delete_face(face)
-            code = 0
-        except:
-            code = 1
-        return code
-
-
-
-    def identify(self,  df,image):
-        bg = datetime.now()
-        err_code, face = self.detect.find_max_face(image)
-        if err_code == error_code.ERROR_CODE_OK:
-            #group_faces = self.db_helper.find_face_embeddings(group_id)
-            face.feature = self.encoder.generate_embedding(face)
-            #person_id, score ,face_url= self.identifier.identify(face, group_faces)
-            #return person_id, score, face_url
-            dls= self.identifier.identify(face, df)
-            return dls
-        #return err_code, None, None,None
-        return err_code
-
-class Identifier:
-    def __init__(self):
-        # names_file = "face_data/names.json"
-        # encodings_file = "face_data/encodings.json"
-        # self.known_embs = get_encodings_from_json(encodings_file)
-        # self.known_names = get_names_from_json(names_file)
-        pass
-
-    # 1
-    def eudis1(self, v1, v2):
-        return np.linalg.norm(v1 - v2)
-
-    # 2
-    def eudis2(self, v1, v2):
-        return distance.euclidean(v1, v2)
-
-    # 3
-    def eudis3(self, v1, v2):
-        return euclidean_distances(v1, v2)
-
-    # 5
-    def eudis5(self, v1, v2):
-        dist = [(a - b) ** 2 for a, b in zip(v1, v2)]
-        dist = math.sqrt(sum(dist))
-        return dist
-
-
-    def identify(self, face, group_faces):
-        bg = datetime.now()
-        dl = []
-        if face.feature is not None:
-            dis = group_faces['feature'].apply(self.eudis1, args=(face.feature,))
-            group_faces['dis'] = dis
-            group_faces=group_faces.sort_values(by='dis')[:1] #取前面5条数据
-            for  result in zip(group_faces['face_id'],group_faces['person_id'],group_faces['dis'],group_faces['class_id']):
-                kv = {}
-                kv['confidence'] = round(convert_distance_to_score(result[2]) *100,2)
-                kv['face_id'] = result[0]
-                kv['person_id'] = result[1]
-                kv['class_id'] = result[3]
-                kv['tag'] ='new tag'
-                dl.append(kv)
-            return  dl
 
 class Encoder:
     def __init__(self, model_checkpoint):
