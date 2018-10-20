@@ -18,14 +18,6 @@ class Face:
         self.container_image = None
         self.feature = None
 
-        self.group_id = None
-        self.person_id = None
-        self.face_url = None
-        self.bounding_box = None
-        self.image = None
-        self.container_image = None
-        self.embedding  = None
-
 class Recognition:
     def __init__(self, model_checkpoint):
         self.debug = False

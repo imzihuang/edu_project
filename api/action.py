@@ -21,7 +21,7 @@ class ActionHandler(RequestHandler):
             self.login()
             return
         if action == "identy":
-            self.handle_upload()
+            self.face_upload()
             return
 
         if action == "face_signin":
