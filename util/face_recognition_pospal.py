@@ -1,26 +1,12 @@
 # -*- coding: utf-8 -*-
-import pickle
-import os
-import cv2
 import numpy as np
 import tensorflow as tf
 from scipy import misc
 import align_pospal.detect_face
 import facenet_pospal as facenet
-import json
-import math
-import uuid
 from common_util import rotate_cv2, z_rotate, get_max_face_area, get_crop_bounding_boxes, convert_distance_to_score, get_names_from_json, \
     get_encodings_from_json
 import error_code
-from datetime import datetime
-from mongoDB_helper import MongoDBHelper
-from mysqlDB_helper import  mysqlDBHelper
-from scipy.spatial import distance
-from sklearn.metrics.pairwise import euclidean_distances
-from time import  clock
-#import pandas as pd
-import json
 class Face:
     def __init__(self):
         self.school_id = None
