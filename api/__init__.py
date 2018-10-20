@@ -6,8 +6,8 @@ from settings import default_settings
 def _handlers():
     return [
         (r'(?P<registry_obj>.+)/input$', input.RegistryHandler),
-        (r'(?P<infos_obj>.+)/infos', infos.InfosHandler),
-        (r'(?P<action>.+)/action', action.ActionHandler),
+        (r'(?P<infos_obj>.+)/infos$', infos.InfosHandler),
+        (r'(?P<action>.+)/action$', action.ActionHandler),
     ]
 
 
