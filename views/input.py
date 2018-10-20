@@ -42,7 +42,7 @@ class ManageViewHandler(RequestHandler):
     def get_template_path(self):
         return self.templates_path
 
-    def get(self, registry_obj):
+    def get(self, manage_obj):
         #real_ip = self.request.headers.get("x-real-ip", self.request.headers.get("x-forwarded-for", ""))
 
-        self.render(registry_obj + 'Manage.html', user_name=self.get_secure_cookie('user_name'))
+        self.render(manage_obj + 'Manage.html', user_name=self.get_secure_cookie('user_name'))

@@ -1,1 +1,1 @@
-killall product:web
+killall edu:server
