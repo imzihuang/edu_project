@@ -25,8 +25,11 @@ class StudentLogic(Logic):
         student_obj = db_api.student_create(values)
         return student_obj
 
-    def output(self):
-        pass
+    def update(self, code="", **kwargs):
+        if not code or not kwargs:
+            return False
+        _ = db_api.student_update(code, kwargs)
+        return _
 
     def infos(self, code="", name="", grade="",
               school_code="", school_name="",

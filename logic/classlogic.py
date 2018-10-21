@@ -21,8 +21,11 @@ class ClassLogic(Logic):
         class_obj = db_api.class_create(values)
         return class_obj
 
-    def output(self):
-        pass
+    def update(self, code="", **kwargs):
+        if not code or not kwargs:
+            return False
+        _ = db_api.class_update(code, kwargs)
+        return _
 
     def infos(self, code="", name="", school_code="", school_name="", grade="", limit=100, offset=1):
         offset = (offset - 1) * limit if offset > 0 else 0

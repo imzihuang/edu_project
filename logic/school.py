@@ -8,8 +8,6 @@ from db import api as db_api
 from logic import Logic
 
 class SchoolLogic(Logic):
-    def __init__(self):
-        pass
 
     def intput(self, name="", cardcode="", describe=""):
         values = {
@@ -20,8 +18,11 @@ class SchoolLogic(Logic):
         school_obj = db_api.school_create(values)
         return school_obj
 
-    def update(self):
-        pass
+    def update(self, code="", **kwargs):
+        if not code or not kwargs:
+            return False
+        _ = db_api.school_update(code, kwargs)
+        return _
 
     def infos(self, code="", name="", cardcode="", limit=100, offset=1):
         offset = (offset-1)*limit if offset > 0 else 0

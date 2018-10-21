@@ -33,6 +33,7 @@ def school_update(code, values):
     result = query.update(values)
     if not result:
         raise exception.NotFound(code=code)
+    return result
 
 def school_get(code):
     query = model_query(models.SchoolInfo)
@@ -69,6 +70,7 @@ def class_update(code, values):
     result = query.update(values)
     if not result:
         raise exception.NotFound(code=code)
+    return result
 
 def class_get(code):
     query = model_query(models.ClassInfo)
@@ -105,6 +107,7 @@ def teacher_update(code, values):
     result = query.update(values)
     if not result:
         raise exception.NotFound(code=code)
+    return result
 
 def teacher_get(code):
     query = model_query(models.TeacherInfo)
@@ -141,6 +144,7 @@ def student_update(code, values):
     result = query.update(values)
     if not result:
         raise exception.NotFound(code=code)
+    return result
 
 def student_get(code):
     query = model_query(models.StudentInfo)
@@ -177,6 +181,7 @@ def relative_update(code, values):
     result = query.update(values)
     if not result:
         raise exception.NotFound(code=code)
+    return result
 
 def relative_get(code):
     query = model_query(models.RelativeInfo)
@@ -225,6 +230,7 @@ def user_update(code, values):
     result = query.update(values)
     if not result:
         raise exception.NotFound(code=code)
+    return result
 
 def user_get(code):
     query = model_query(models.UserInfo)

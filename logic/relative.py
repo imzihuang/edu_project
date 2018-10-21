@@ -8,8 +8,6 @@ from db import api as db_api
 from logic import Logic
 
 class RelativeLogic(Logic):
-    def __init__(self):
-        pass
 
     def intput(self, name="", sex=0, age=0, student_code="", relation="", phone=""):
         values = {
@@ -23,8 +21,11 @@ class RelativeLogic(Logic):
         relativel_obj = db_api.relative_create(values)
         return relativel_obj
 
-    def output(self):
-        pass
+    def update(self, code="", **kwargs):
+        if not code or not kwargs:
+            return False
+        _ = db_api.relative_update(code, kwargs)
+        return _
 
     def infos(self, code="", name="",
               school_code="", school_name="",

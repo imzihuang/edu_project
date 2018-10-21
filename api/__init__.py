@@ -1,14 +1,13 @@
-from api import input
-from api import infos
-from api import action
-from settings import default_settings
+#coding:utf-8
+
+from api import input, update, infos, action
 
 def _handlers():
     return [
         (r'(?P<registry_obj>.+)/input$', input.RegistryHandler),
+        (r'(?P<update_obj>.+)/infos$', update.UpdateHandler),
         (r'(?P<infos_obj>.+)/infos$', infos.InfosHandler),
         (r'(?P<action>.+)/action$', action.ActionHandler),
     ]
-
 
 api_handlers = _handlers()

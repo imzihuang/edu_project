@@ -8,8 +8,8 @@ class Logic():
     def intput(self, *args, **kwargs):
         return
 
-    def output(self, *args, **kwargs):
-        return
+    def update(self, code="", **kwargs):
+        return True
 
     def infos(self, *args, **kwargs):
         return
