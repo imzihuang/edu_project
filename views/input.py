@@ -46,6 +46,6 @@ class ManageViewHandler(RequestHandler):
         #real_ip = self.request.headers.get("x-real-ip", self.request.headers.get("x-forwarded-for", ""))
         if manage_obj not in("school", "class", "teacher", "student", "relative"):
             self.redirect(self.prefix + r'login.html', permanent=True)
-            return 
+            return
 
         self.render(manage_obj + 'Manage.html', user_name=self.get_secure_cookie('user_name'))

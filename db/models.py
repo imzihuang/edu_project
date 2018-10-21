@@ -82,12 +82,18 @@ class RelativeInfo(BaseModel):
     user_code = Column(VARCHAR(36), nullable=False)
     relation = Column(VARCHAR(36), nullable=False)
     phone = Column(VARCHAR(36), nullable=False)
-    features = Column(LargeBinary(length=65536))
+
     create_time = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_time = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     def to_dict(self):
        return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
+
+class RelativeFeature(BaseModel):
+    __tablename__ = 'relative_feature'
+    id = Column(Integer, primary_key=True)
+    relative_code = Column(VARCHAR(36), nullable=False)
+    features = Column(LargeBinary(length=65536))
 
 class UserInfo(BaseModel):
     __tablename__ = 'user_info'

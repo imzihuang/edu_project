@@ -165,12 +165,12 @@ def student_count(**filters):
 
 #####################relative begin################################
 def relative_create(values):
-    class_ref = models.RelativeInfo()
-    class_ref.update(values)
+    relative_ref = models.RelativeInfo()
+    relative_ref.update(values)
     session = get_session()
     with session.begin():
-        class_ref.save(session)
-        return class_ref
+        relative_ref.save(session)
+        return relative_ref
 
 def relative_update(code, values):
     query = model_query(models.RelativeInfo).filter_by(code=code)
@@ -197,6 +197,17 @@ def relative_count(**filters):
     query = model_query(models.RelativeInfo, **filters)
     return query.count()
 
+def relative_auth(values):
+    session = get_session()
+    query = model_query(models.RelativeFeature, session=session).filter_by(relative_code=values.get("relative_code"))
+    if query:
+        result = query.update(values)
+        return result
+    relative_ref = models.RelativeFeature()
+    relative_ref.update(values)
+    with session.begin():
+        relative_ref.save(session)
+        return relative_ref
 #####################relative end################################
 
 
