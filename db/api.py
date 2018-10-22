@@ -23,12 +23,9 @@ def school_create(values):
     school_ref = models.SchoolInfo()
     school_ref.update(values)
     session = get_session()
-    session.add(school_ref)
-    session.commit()
-    return school_ref
-    #with session.begin():
-    #    school_ref.save(session)
-    #    return school_ref
+    with session.begin():
+        school_ref.save(session)
+        return school_ref
 
 def school_update(id, values):
     query = model_query(models.SchoolInfo).filter_by(id=id)
@@ -223,11 +220,9 @@ def user_create(values):
     user_ref = models.UserInfo()
     user_ref.update(values)
     session = get_session()
-    session.add(user_ref)
-    return user_ref
-    #with session.begin():
-    #    class_ref.save(session)
-    #    return class_ref
+    with session.begin():
+        user_ref.save(session)
+        return user_ref
 
 def user_update(id, values):
     query = model_query(models.UserInfo).filter_by(id=id)

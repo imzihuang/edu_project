@@ -20,6 +20,7 @@ class EngineFacade():
     def get_session(self, connect="", autocommit=True):
         connect = connect or self.connect
         engine = create_engine(connect, **self.kwargs)
-        return sqlalchemy.orm.sessionmaker(bind=engine,
+        sessionmaker = sqlalchemy.orm.sessionmaker(bind=engine,
                             class_=Session,
                             autocommit=autocommit)
+        return sessionmaker()
