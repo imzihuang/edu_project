@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy import orm
 
 class EngineFacade():
     def __init__(self, connect, **kwargs):
@@ -17,4 +17,6 @@ class EngineFacade():
     def get_session(self, connect="", autocommit=True):
         connect = connect or self.connect
         engine = create_engine(connect, **self.kwargs)
-        return sessionmaker(bind=engine, autocommit=autocommit)
+        sessionmaker = orm.get_maker(engine=engine, autocommit=autocommit)
+        return sessionmaker
+        #sessionmaker(bind=engine, autocommit=autocommit)
