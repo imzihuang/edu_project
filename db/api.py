@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import uuid
 from db import models
 from db.base import *
 from util import exception
@@ -20,6 +21,8 @@ def model_query(model, session=None, *args, **kwargs):
 
 #####################school begin################################
 def school_create(values):
+    if not values.get('id'):
+        values['id'] = str(uuid.uuid4())
     school_ref = models.SchoolInfo()
     school_ref.update(values)
     session = get_session()
@@ -57,6 +60,8 @@ def school_count(**filters):
 
 #####################class begin################################
 def class_create(values):
+    if not values.get('id'):
+        values['id'] = str(uuid.uuid4())
     class_ref = models.ClassInfo()
     class_ref.update(values)
     session = get_session()
@@ -94,12 +99,14 @@ def class_count(**filters):
 
 #####################teacher begin################################
 def teacher_create(values):
-    class_ref = models.TeacherInfo()
-    class_ref.update(values)
+    if not values.get('id'):
+        values['id'] = str(uuid.uuid4())
+    teacher_ref = models.TeacherInfo()
+    teacher_ref.update(values)
     session = get_session()
     with session.begin():
-        class_ref.save(session)
-        return class_ref
+        teacher_ref.save(session)
+        return teacher_ref
 
 def teacher_update(id, values):
     query = model_query(models.TeacherInfo).filter_by(id=id)
@@ -131,12 +138,14 @@ def teacher_count(**filters):
 
 #####################student begin################################
 def student_create(values):
-    class_ref = models.StudentInfo()
-    class_ref.update(values)
+    if not values.get('id'):
+        values['id'] = str(uuid.uuid4())
+    student_ref = models.StudentInfo()
+    student_ref.update(values)
     session = get_session()
     with session.begin():
-        class_ref.save(session)
-        return class_ref
+        student_ref.save(session)
+        return student_ref
 
 def student_update(id, values):
     query = model_query(models.StudentInfo).filter_by(id=id)
@@ -168,6 +177,8 @@ def student_count(**filters):
 
 #####################relative begin################################
 def relative_create(values):
+    if not values.get('id'):
+        values['id'] = str(uuid.uuid4())
     relative_ref = models.RelativeInfo()
     relative_ref.update(values)
     session = get_session()
@@ -217,6 +228,8 @@ def relative_auth(values):
 
 #####################user begin################################
 def user_create(values):
+    if not values.get('id'):
+        values['id'] = str(uuid.uuid4())
     user_ref = models.UserInfo()
     user_ref.update(values)
     session = get_session()
