@@ -3,9 +3,6 @@
 from db.models import register_db
 from db import api
 from util.encrypt_md5 import encry_md5
-from util.ini_client import ini_load
-
-_conf = ini_load('config/commin.ini')
 
 def add_user(admin_userinfo):
     try:
