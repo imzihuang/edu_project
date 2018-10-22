@@ -1,10 +1,9 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import datetime
-from db.base import *
 from db import models
-import exception
+from db.base import *
+from util import exception
 
 
 def model_query(model, session=None, *args, **kwargs):
