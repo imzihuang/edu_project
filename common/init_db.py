@@ -1,7 +1,7 @@
 # coding:utf-8
 
-from models import register_db
-import api
+from db.models import register_db
+from db import api
 from util.encrypt_md5 import encry_md5
 from util.ini_client import ini_load
 
