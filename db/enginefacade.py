@@ -22,5 +22,4 @@ class EngineFacade():
         engine = create_engine(connect, **self.kwargs)
         return sqlalchemy.orm.sessionmaker(bind=engine,
                             class_=Session,
-                            autocommit=autocommit,
-                            expire_on_commit=False)
+                            autocommit=autocommit)
