@@ -61,20 +61,20 @@ class ActionHandler(RequestHandler):
 
 
     def face_upload(self):
-        relative_code = self.get_argument('relative_code', '')
-        if not relative_code:
+        relative_id = self.get_argument('relative_id', '')
+        if not relative_id:
             self.finish(json.dumps({'state': 1, 'message': 'relative_code is None'}))
             return
         # 获取用户上传的数据
         img = self.request.files['image']
-        file_path = self.application.settings.get('static_path') + self.face_path + relative_code + '.jpg'
+        file_path = self.application.settings.get('static_path') + self.face_path + relative_id + '.jpg'
         img.save(file_path)
         face_image = misc.imread(file_path, mode='RGB')
         # 人脸注册服务
-        err_code, feature = self.recognition_service.register_face(face_image, relative_code)
+        err_code, feature = self.recognition_service.register_face(face_image, relative_id)
         #将特征写入数据库
         _op = ActionLogic()
-        if _op.auth_feature(relative_code, feature):
+        if _op.auth_feature(relative_id, feature):
             self.finish(json.dumps({'state': 0, 'message': 'auth feature success.'}))
         else:
             self.finish(json.dumps({'state': 1, 'message': 'auth feature error'}))

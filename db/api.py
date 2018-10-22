@@ -28,18 +28,18 @@ def school_create(values):
         school_ref.save(session)
         return school_ref
 
-def school_update(code, values):
-    query = model_query(models.SchoolInfo).filter_by(code=code)
+def school_update(id, values):
+    query = model_query(models.SchoolInfo).filter_by(id=id)
     result = query.update(values)
     if not result:
-        raise exception.NotFound(code=code)
+        raise exception.NotFound(code=id)
     return result
 
-def school_get(code):
+def school_get(id):
     query = model_query(models.SchoolInfo)
-    result = query.filter_by(code=code).first()
+    result = query.filter_by(id=id).first()
     if not result:
-        raise exception.NotFound(code=code)
+        raise exception.NotFound(code=id)
     return result
 
 def school_list(offset=0, limit=1000, **filters):
@@ -65,18 +65,18 @@ def class_create(values):
         class_ref.save(session)
         return class_ref
 
-def class_update(code, values):
-    query = model_query(models.ClassInfo).filter_by(code=code)
+def class_update(id, values):
+    query = model_query(models.ClassInfo).filter_by(id=id)
     result = query.update(values)
     if not result:
-        raise exception.NotFound(code=code)
+        raise exception.NotFound(code=id)
     return result
 
-def class_get(code):
+def class_get(id):
     query = model_query(models.ClassInfo)
-    result = query.filter_by(code=code).first()
+    result = query.filter_by(id=id).first()
     if not result:
-        raise exception.NotFound(code=code)
+        raise exception.NotFound(code=id)
     return result
 
 def class_list(offset=0, limit=1000, **filters):
@@ -102,18 +102,18 @@ def teacher_create(values):
         class_ref.save(session)
         return class_ref
 
-def teacher_update(code, values):
-    query = model_query(models.TeacherInfo).filter_by(code=code)
+def teacher_update(id, values):
+    query = model_query(models.TeacherInfo).filter_by(id=id)
     result = query.update(values)
     if not result:
-        raise exception.NotFound(code=code)
+        raise exception.NotFound(code=id)
     return result
 
-def teacher_get(code):
+def teacher_get(id):
     query = model_query(models.TeacherInfo)
-    result = query.filter_by(code=code).first()
+    result = query.filter_by(id=id).first()
     if not result:
-        raise exception.NotFound(code=code)
+        raise exception.NotFound(code=id)
     return result
 
 def teacher_list(offset=0, limit=1000, **filters):
@@ -139,18 +139,18 @@ def student_create(values):
         class_ref.save(session)
         return class_ref
 
-def student_update(code, values):
-    query = model_query(models.StudentInfo).filter_by(code=code)
+def student_update(id, values):
+    query = model_query(models.StudentInfo).filter_by(id=id)
     result = query.update(values)
     if not result:
-        raise exception.NotFound(code=code)
+        raise exception.NotFound(code=id)
     return result
 
-def student_get(code):
+def student_get(id):
     query = model_query(models.StudentInfo)
-    result = query.filter_by(code=code).first()
+    result = query.filter_by(id=id).first()
     if not result:
-        raise exception.NotFound(code=code)
+        raise exception.NotFound(code=id)
     return result
 
 def student_list(offset=0, limit=1000, **filters):
@@ -176,18 +176,18 @@ def relative_create(values):
         relative_ref.save(session)
         return relative_ref
 
-def relative_update(code, values):
-    query = model_query(models.RelativeInfo).filter_by(code=code)
+def relative_update(id, values):
+    query = model_query(models.RelativeInfo).filter_by(id=id)
     result = query.update(values)
     if not result:
-        raise exception.NotFound(code=code)
+        raise exception.NotFound(id=id)
     return result
 
-def relative_get(code):
+def relative_get(id):
     query = model_query(models.RelativeInfo)
-    result = query.filter_by(code=code).first()
+    result = query.filter_by(id=id).first()
     if not result:
-        raise exception.NotFound(code=code)
+        raise exception.NotFound(code=id)
     return result
 
 def relative_list(offset=0, limit=1000, **filters):
@@ -204,7 +204,7 @@ def relative_count(**filters):
 
 def relative_auth(values):
     session = get_session()
-    query = model_query(models.RelativeFeature, session=session).filter_by(relative_code=values.get("relative_code"))
+    query = model_query(models.RelativeFeature, session=session).filter_by(relative_id=values.get("relative_id"))
     if query:
         result = query.update(values)
         return result
@@ -225,18 +225,18 @@ def user_create(values):
         class_ref.save(session)
         return class_ref
 
-def user_update(code, values):
-    query = model_query(models.UserInfo).filter_by(code=code)
+def user_update(id, values):
+    query = model_query(models.UserInfo).filter_by(id=id)
     result = query.update(values)
     if not result:
-        raise exception.NotFound(code=code)
+        raise exception.NotFound(code=id)
     return result
 
-def user_get(code):
+def user_get(id):
     query = model_query(models.UserInfo)
-    result = query.filter_by(code=code).first()
+    result = query.filter_by(id=id).first()
     if not result:
-        raise exception.NotFound(code=code)
+        raise exception.NotFound(code=id)
     return result
 
 def user_list(offset=0, limit=1000, **filters):

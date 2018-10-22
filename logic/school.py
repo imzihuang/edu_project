@@ -18,17 +18,17 @@ class SchoolLogic(Logic):
         school_obj = db_api.school_create(values)
         return school_obj
 
-    def update(self, code="", **kwargs):
-        if not code or not kwargs:
+    def update(self, id="", **kwargs):
+        if not id or not kwargs:
             return False
-        _ = db_api.school_update(code, kwargs)
+        _ = db_api.school_update(id, kwargs)
         return _
 
-    def infos(self, code="", name="", cardcode="", limit=100, offset=1):
+    def infos(self, id="", name="", cardcode="", limit=100, offset=1):
         offset = (offset-1)*limit if offset > 0 else 0
         filters = dict()
-        if code:
-            filters.update({"code": code})
+        if id:
+            filters.update({"id": id})
         if name:
             filters.update({"name": name})
         if cardcode:

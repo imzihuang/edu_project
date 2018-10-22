@@ -52,84 +52,84 @@ class InfosHandler(RequestHandler):
 
 
     def _get_school_argument(self):
-        code = self.get_argument('code', '')
+        id = self.get_argument('id', '')
         name = self.get_argument('name', '')
         cardcode = self.get_argument('cardcode', '')
         return {
-            "code": code,
+            "id": id,
             "name": name,
             "cardcode": cardcode
         }
 
     def _get_class_argument(self):
-        code = self.get_argument('code', '')
+        id = self.get_argument('id', '')
         name = self.get_argument('name', '')
         grade = self.get_argument('grade', '')
-        school_code = self.get_argument('school_code', '')
-        school_name = self.get_argument('school_code', '')
+        school_id = self.get_argument('school_id', '')
+        school_name = self.get_argument('school_name', '')
         return {
-            "code": code,
+            "id": id,
             "name": name,
             "grade": grade,
-            "school_code": school_code,
+            "school_id": school_id,
             "school_name": school_name
         }
 
     def _get_teacher_argument(self):
-        code = self.get_argument('code', '')
+        id = self.get_argument('id', '')
         name = self.get_argument('name', '')
-        school_code = self.get_argument('school_code', '')
+        school_id = self.get_argument('school_id', '')
         school_name = self.get_argument('school_name', '')
-        class_code = self.get_argument('school_code', '')
+        class_id = self.get_argument('school_id', '')
         class_name = self.get_argument('class_name', '')
         phone = self.get_argument('phone', '')
         return {
-            "code": code,
+            "id": id,
             "name": name,
-            "school_code": school_code,
+            "school_id": school_id,
             "school_name": school_name,
-            "class_code": class_code,
+            "class_id": class_id,
             "class_name": class_name,
             "phone": phone
         }
 
     def _get_student_argument(self):
-        code = self.get_argument('code', '')
+        id = self.get_argument('id', '')
         name = self.get_argument('name', '')
         grade = self.get_argument('grade', '')
-        school_code = self.get_argument('school_code', '')
+        school_id = self.get_argument('school_id', '')
         school_name = self.get_argument('school_name', '')
-        class_code = self.get_argument('class_code', '')
+        class_id = self.get_argument('class_id', '')
         class_name = self.get_argument('class_name', '')
-        relative_code = self.get_argument('relative_code', '')
+        relative_id = self.get_argument('relative_id', '')
         relative_name = self.get_argument('relative_name', '')
         return {
-            "code": code,
+            "id": id,
             "name": name,
             "grade": grade,
-            "school_code": school_code,
+            "school_id": school_id,
             "school_name": school_name,
-            "class_code": class_code,
+            "class_id": class_id,
             "class_name": class_name,
-            "relative_code": relative_code,
+            "relative_id": relative_id,
             "relative_name": relative_name
         }
 
 
     def _get_relative_argument(self):
-        code = self.get_argument('code', '')
+        id = self.get_argument('id', '')
         name = self.get_argument('name', '')
-        student_code = self.get_argument('student_code', '')
+        student_id = self.get_argument('student_id', '')
         student_name = self.get_argument('student_name', '')
-        school_code = self.get_argument('school_code', '')
+        school_id = self.get_argument('school_id', '')
         school_name = self.get_argument('school_name', '')
         phone = self.get_argument('phone', '')
         return {
-            "code": code,
+            "id": id,
             "name": name,
-            "student_code": student_code,
+            "student_id": student_id,
             "student_name": student_name,
-            "school_code": school_code,
+            "school_id": school_id,
             "school_name": school_name,
             "phone": phone
         }

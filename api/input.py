@@ -61,12 +61,12 @@ class RegistryHandler(RequestHandler):
     def _get_class_argument(self):
         name = self.get_argument('name', '')
         grade = self.get_argument('grade', '')
-        school_code = self.get_argument('school_code', '')
+        school_id = self.get_argument('school_id', '')
         student_number = int(self.get_argument('study_number', 0))
         return {
             "name": name,
             "grade": grade,
-            "school_code": school_code,
+            "school_id": school_id,
             "student_number": student_number
         }
 
@@ -74,15 +74,15 @@ class RegistryHandler(RequestHandler):
         name = self.get_argument('name', '')
         sex = int(self.get_argument('sex', 0))
         age = int(self.get_argument('age', 0))
-        school_code = self.get_argument('school_code', '')
-        class_code = self.get_argument('school_code', '')
+        school_id = self.get_argument('school_id', '')
+        class_id = self.get_argument('school_id', '')
         phone = self.get_argument('phone', '')
         return {
             "name": name,
             "sex": sex,
             "age": age,
-            "school_code": school_code,
-            "class_code": class_code,
+            "school_id": school_id,
+            "class_id": class_id,
             "phone": phone
         }
 
@@ -91,17 +91,17 @@ class RegistryHandler(RequestHandler):
         sex = int(self.get_argument('sex', 0))
         age = int(self.get_argument('age', 0))
         grade = self.get_argument('grade', '')
-        class_code = self.get_argument('class_code', '')
-        school_code = self.get_argument('school_code', '')
+        class_id = self.get_argument('class_id', '')
+        school_id = self.get_argument('school_id', '')
         status = self.get_argument('status', 'apply')
-        relation_number = int(self.get_argument('school_code', 3))
+        relation_number = int(self.get_argument('relation_number', 3))
         return {
             "name": name,
             "sex": sex,
             "age": age,
             "grade": grade,
-            "class_code": class_code,
-            "school_code": school_code,
+            "class_id": class_id,
+            "school_id": school_id,
             "status": status,
             "relation_number": relation_number
         }
@@ -110,14 +110,14 @@ class RegistryHandler(RequestHandler):
         name = self.get_argument('name', '')
         sex = int(self.get_argument('sex', 0))
         age = int(self.get_argument('age', 0))
-        student_code = self.get_argument('student_code', '')
+        student_id = self.get_argument('student_id', '')
         relation = self.get_argument('relation', '')
         phone = self.get_argument('phone', '')
         return {
             "name": name,
             "sex": sex,
             "age": age,
-            "student_code": student_code,
+            "student_id": student_id,
             "relation": relation,
             "phone": phone
         }

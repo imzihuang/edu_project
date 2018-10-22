@@ -8,7 +8,7 @@ class Logic():
     def intput(self, *args, **kwargs):
         return
 
-    def update(self, code="", **kwargs):
+    def update(self, id="", **kwargs):
         return True
 
     def infos(self, *args, **kwargs):
