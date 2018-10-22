@@ -1,8 +1,12 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+import sqlalchemy
 from sqlalchemy import create_engine
-from sqlalchemy import orm
+from sqlalchemy.orm import sessionmaker
+
+class Session(sqlalchemy.orm.session.Session):
+    """oslo.db-specific Session subclass."""
 
 class EngineFacade():
     def __init__(self, connect, **kwargs):
@@ -17,6 +21,7 @@ class EngineFacade():
     def get_session(self, connect="", autocommit=True):
         connect = connect or self.connect
         engine = create_engine(connect, **self.kwargs)
-        sessionmaker = orm.get_maker(engine=engine, autocommit=autocommit)
-        return sessionmaker
-        #sessionmaker(bind=engine, autocommit=autocommit)
+        return sessionmaker(bind=engine,
+                            class_=Session,
+                            autocommit=autocommit,
+                            expire_on_commit=False)
