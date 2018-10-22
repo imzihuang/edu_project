@@ -11,6 +11,9 @@ def add_user(admin_userinfo):
     except Exception as ex:
         raise ex
 
+#先创建好数据库
+#CREATE DATABASE `eduprodb` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+
 if __name__ == "__main__":
     register_db()
     add_user({

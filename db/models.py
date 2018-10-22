@@ -6,11 +6,11 @@ from sqlalchemy.types import *
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
 from datetime import datetime
-from base import get_engine
+from base import get_engine, ModelBase
 
-BaseModel = declarative_base()
+Base = declarative_base()
 
-class SchoolInfo(BaseModel):
+class SchoolInfo(Base, ModelBase):
     __tablename__ = 'school_info'
     id = Column(VARCHAR(36), primary_key=True)
     name = Column(VARCHAR(100), nullable=False)
@@ -22,7 +22,7 @@ class SchoolInfo(BaseModel):
     def to_dict(self):
        return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
 
-class ClassInfo(BaseModel):
+class ClassInfo(Base, ModelBase):
     __tablename__ = 'class_info'
     id = Column(VARCHAR(36), primary_key=True)
     name = Column(VARCHAR(100), nullable=False)
@@ -35,7 +35,7 @@ class ClassInfo(BaseModel):
     def to_dict(self):
        return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
 
-class TeacherInfo(BaseModel):
+class TeacherInfo(Base, ModelBase):
     __tablename__ = 'teacher_info'
     id = Column(VARCHAR(36), primary_key=True)
     name = Column(VARCHAR(100), nullable=False)
@@ -50,7 +50,7 @@ class TeacherInfo(BaseModel):
     def to_dict(self):
        return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
 
-class StudentInfo(BaseModel):
+class StudentInfo(Base, ModelBase):
     __tablename__ = 'student_info'
     id = Column(VARCHAR(36), primary_key=True)
     name = Column(VARCHAR(100), nullable=False)
@@ -67,7 +67,7 @@ class StudentInfo(BaseModel):
     def to_dict(self):
        return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
 
-class RelativeInfo(BaseModel):
+class RelativeInfo(Base, ModelBase):
     __tablename__ = 'relative_info'
     id = Column(VARCHAR(36), primary_key=True)
     name = Column(VARCHAR(100), nullable=False)
@@ -84,13 +84,13 @@ class RelativeInfo(BaseModel):
     def to_dict(self):
        return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
 
-class RelativeFeature(BaseModel):
+class RelativeFeature(Base, ModelBase):
     __tablename__ = 'relative_feature'
     id = Column(VARCHAR(36), primary_key=True)
     relative_id = Column(VARCHAR(36), nullable=False)
     features = Column(LargeBinary(length=65536))
 
-class UserInfo(BaseModel):
+class UserInfo(Base, ModelBase):
     __tablename__ = 'user_info'
     id = Column(VARCHAR(36), primary_key=True)
     name = Column(VARCHAR(100), nullable=False)
@@ -103,7 +103,7 @@ class UserInfo(BaseModel):
        return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
 
 
-class SignInfo(BaseModel):
+class SignInfo(Base, ModelBase):
     __tablename__ = 'sign_info'
     id = Column(VARCHAR(36), primary_key=True)
     relative_id = Column(VARCHAR(36), nullable=False)
@@ -121,9 +121,9 @@ class SignInfo(BaseModel):
 
 def register_db():
     engine = get_engine()
-    BaseModel.metadata.create_all(engine)
+    Base.metadata.create_all(engine)
 
 
 def unregister_db():
     engine = get_engine()
-    BaseModel.metadata.drop_all(engine)
+    Base.metadata.drop_all(engine)
