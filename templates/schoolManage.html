@@ -94,34 +94,34 @@
 
 		<form id="addInfoContent" style="display: none; width: 500px; padding: 20px;">
 			<div style="margin: 10px 0;">
-				<span>学校名称：</span><input type="text" style="width: 350px;" id="add-name" name="add_name" />
+				<span>学校名称：</span><input type="text" style="width: 350px;" id="add_name" name="add_name" />
 				<div class="errorPart"></div>
 			</div>
 			<div style="margin: 10px 0;">
-				<span>设备卡号：</span><input type="text" style="width: 350px;" id="add-cardcode" name="add_cardcode" />
+				<span>设备卡号：</span><input type="text" style="width: 350px;" id="add_cardcode" name="add_cardcode" />
 				<div class="errorPart"></div>
 			</div>
 			<div style="margin: 10px 0;">
-				<span>描述：</span><input type="text" style="width: 350px;" id="add-describe" name="add_describe" />
+				<span>描述：</span><input type="text" style="width: 350px;" id="add_describe" name="add_describe" />
 				<div class="errorPart"></div>
 			</div>
 		</form>
 
 		<form id="editAreaContent" style="display: none; width: 500px; padding: 20px;">
 			<div style="margin: 10px 0;">
-				<span>学校编号：</span><input type="text" style="width: 350px;" id="edit-id" name="edit_id" />
+				<span>学校编号：</span><input type="text" style="width: 350px;" id="edit_id" name="edit_id" />
 				<div class="errorPart"></div>
 			</div>
 			<div style="margin: 10px 0;">
-				<span>学校名称：</span><input type="text" style="width: 350px;" id="edit-name" name="edit_name" />
+				<span>学校名称：</span><input type="text" style="width: 350px;" id="edit_name" name="edit_name" />
 				<div class="errorPart"></div>
 			</div>
 			<div style="margin: 10px 0;">
-				<span>设备卡号：</span><input type="text" style="width: 350px;" id="edit-cardcode" name="edit_cardcode" />
+				<span>设备卡号：</span><input type="text" style="width: 350px;" id="edit_cardcode" name="edit_cardcode" />
 				<div class="errorPart"></div>
 			</div>
 			<div style="margin: 10px 0;">
-				<span>描述：</span><input type="text" style="width: 350px;" id="edit-describe" name="edit_describe" />
+				<span>描述：</span><input type="text" style="width: 350px;" id="edit_describe" name="edit_describe" />
 				<div class="errorPart"></div>
 			</div>
 		</form>
@@ -301,9 +301,9 @@
 				var layerIndex;
 				//添加
 				$('#addInfo').click(function() {
-					$("#add-name").val("");
-					$("#add-cardcode").val("");
-					$("add-describe").val("");
+					$("#add_name").val("");
+					$("#add_cardcode").val("");
+					$("add_describe").val("");
 					layerIndex = layer.open({
 						title: '添加学校',
 						type: 1,
@@ -330,9 +330,9 @@
 								},
 								submitHandler: function() {
 									var data = {
-										'name': $("#add-name").val(),
-										'cardcode': $("#add-cardcode").val(),
-										'describe': $("add-describe").val()
+										'name': $("#add_name").val(),
+										'cardcode': $("#add_cardcode").val(),
+										'describe': $("add_describe").val()
 									}
 									$.ajax({
 										type: "POST",
@@ -412,10 +412,10 @@
 								},
 								submitHandler: function() {
 									var data = {
-										'id': $("#edit-id").val(),
-										'name': $("#edit-name").val(),
-										'cardcode': $("#edit-cardcode").val(),
-										'describe': $("edit-describe").val()
+										'id': $("#edit_id").val(),
+										'name': $("#edit_name").val(),
+										'cardcode': $("#edit_cardcode").val(),
+										'describe': $("edit_describe").val()
 									}
 									$.ajax({
 										type: "POST",
