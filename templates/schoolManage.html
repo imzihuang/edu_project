@@ -151,7 +151,7 @@
 							var msg = JSON.parse(msg);
 							var strs = '';
 							console.log(msg);
-							if(msg.length > 0) {
+							if(msg.data.length > 0) {
 								for(var i = 0; i < msg.data.length; i++) {
 									strs += '<tr class="gradeX">' +
 										'<td><input type="checkbox" class="zx_checkedBtn"></td>' +
@@ -301,6 +301,9 @@
 				var layerIndex;
 				//添加
 				$('#addInfo').click(function() {
+					$("#add-name").val("");
+					$("#add-cardcode").val("");
+					$("add-describe").val("");
 					layerIndex = layer.open({
 						title: '添加学校',
 						type: 1,
@@ -309,7 +312,7 @@
 						shadeClose: true, //开启遮罩关闭
 						btn: ['确定', '取消'], //按钮
 						content: $('#addInfoContent'),
-						yes: function() {
+						yes: function() {console.log(111);
 							$("#addInfoContent").validate({
 								focusCleanup: true,
 								focusInvalid: false,
