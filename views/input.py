@@ -34,6 +34,17 @@ class LoginViewHandler(RequestHandler):
         LOG.info("-----------------login-----------")
         self.render("login.html")
 
+class IndextHandler(RequestHandler):
+    def initialize(self, static_path, templates_path, **kwargs):
+        self.static_path = static_path
+        self.templates_path = templates_path
+
+    def get_template_path(self):
+        return self.templates_path
+
+    def get(self):
+        self.render("index.html")
+
 class ManageViewHandler(RequestHandler):
     def initialize(self, static_path, templates_path, **kwds):
         self.static_path = static_path
