@@ -7,6 +7,9 @@ from util.convert import *
 from db import api as db_api
 from logic import Logic
 
+import logging
+LOG = logging.getLogger(__name__)
+
 class RelativeLogic(Logic):
 
     def intput(self, name="", sex=0, age=0, student_id="", relation="", phone=""):
@@ -58,4 +61,33 @@ class RelativeLogic(Logic):
 
         relative_list = db_api.relative_list(offset=offset, limit=limit, **filters)
         relative_count = db_api.relative_count(**filters)
-        return {"count": relative_count, "state": 0, "message": "query success", "data": relative_list}
+        return {"count": relative_count, "state": 0, "message": "query success", "data": self.views(relative_list)}
+
+    def info(self, id):
+        if not id:
+            return
+        relative_info = db_api.relative_get(id)
+        return self.views(relative_info)
+
+    def info_by_phone(self, phone="", verify_code=""):
+        if not phone:
+            return
+        filters = dict()
+        if phone:
+            filters.update({"phone": phone})
+        if verify_code:
+            filters.update({"verify_code": verify_code})
+        relative_infos = db_api.relative_list(**filters)
+        if relative_infos:
+            return self.views(relative_infos[0])
+
+    def auth_feature(self, relative_id, features):
+        try:
+            values = {
+                "features": features
+            }
+            db_api.relative_update(relative_id, values)
+            return True
+        except Exception as ex:
+            LOG.info("update relative %s feature faild:%s"%(relative_id, ex))
+            return False

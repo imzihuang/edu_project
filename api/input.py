@@ -3,6 +3,7 @@
 from tornado.web import RequestHandler
 import json
 from util.convert import is_mobile
+from util.exception import ParamExist
 import logging
 
 from logic import Logic
@@ -44,9 +45,12 @@ class RegistryHandler(RequestHandler):
                 self.finish(json.dumps({'state': 0, 'message': 'input info success.'}))
             else:
                 self.finish(json.dumps({'state': 10, 'message': 'action %s error'%registry_obj}))
+        except ParamExist as ex:
+            LOG.error("Input %s error:%s" % (registry_obj, ex))
+            self.finish(json.dumps({'state': 1, 'message': 'params exit'}))
         except Exception as ex:
             LOG.error("Input %s error:%s"%(registry_obj, ex))
-            self.finish(json.dumps({'state': 4, 'message': 'input error'}))
+            self.finish(json.dumps({'state': 2, 'message': 'input error'}))
 
     def _get_school_argument(self):
         name = self.get_argument('name', '')

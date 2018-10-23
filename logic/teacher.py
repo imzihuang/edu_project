@@ -56,4 +56,4 @@ class TeacherLogic(Logic):
 
         teacher_list = db_api.teacher_list(offset=offset, limit=limit, **filters)
         teacher_count = db_api.teacher_count(**filters)
-        return {"count": teacher_count, "state": 0, "message": "query success", "data": teacher_list}
+        return {"count": teacher_count, "state": 0, "message": "query success", "data": self.views(teacher_list)}

@@ -13,3 +13,11 @@ class Logic():
 
     def infos(self, *args, **kwargs):
         return
+
+    def views(self, models):
+        if isinstance(models, list):
+            result = []
+            for model in models:
+                result.append(model.to_dict())
+            return result
+        return models.to_dict()

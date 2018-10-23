@@ -47,4 +47,4 @@ class ClassLogic(Logic):
 
         class_list = db_api.class_list(offset=offset, limit=limit, **filters)
         class_count = db_api.class_count(**filters)
-        return {"count": class_count, "state": 0, "message": "query success", "data": class_list}
+        return {"count": class_count, "state": 0, "message": "query success", "data": self.views(class_list)}

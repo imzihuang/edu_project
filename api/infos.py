@@ -3,6 +3,7 @@
 from tornado.web import RequestHandler
 import json
 from util.convert import is_mobile
+from util.exception import ParamExist
 import logging
 
 from logic import Logic
@@ -45,10 +46,10 @@ class InfosHandler(RequestHandler):
             if _:
                 self.finish(json.dumps(_))
             else:
-                self.finish(json.dumps({'state': 10, 'message': 'action %s error'%infos_obj}))
+                self.finish(json.dumps({'state': 1, 'message': 'action %s error'%infos_obj}))
         except Exception as ex:
             LOG.error("query %s error:%s"%(infos_obj, ex))
-            self.finish(json.dumps({"count": 0, "state":1, "message":"error", "data":[]}))
+            self.finish(json.dumps({"count": 10, "state":1, "message":"error", "data":[]}))
 
 
     def _get_school_argument(self):
