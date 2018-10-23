@@ -15,7 +15,7 @@ class Logic():
         return
 
     def views(self, models):
-        if models in (list,):
+        if isinstance(models, list):
             result = []
             for model in models:
                 result.append(model.to_dict())
