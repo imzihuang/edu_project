@@ -13,6 +13,7 @@ class ExpressException(Exception):
     code = 500
     headers = {}
     safe = False
+    key = ""
 
     def __init__(self, message=None, **kwargs):
         self.kwargs = kwargs
@@ -73,4 +74,9 @@ class ExpressException(Exception):
 class NotFound(ExpressException):
     message = "Resource could not be found."
     code = 404
+    safe = True
+
+class ParamExist(ExpressException):
+    message = "Params Exist."
+    code = 408
     safe = True

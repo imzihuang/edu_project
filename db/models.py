@@ -75,6 +75,7 @@ class RelativeInfo(Base, ModelBase):
     age = Column(Integer, default=1)
     student_id = Column(VARCHAR(200), nullable=False)
     user_id = Column(VARCHAR(36), nullable=False)
+    wxuser_id = Column(VARCHAR(36), nullable=False)
     relation = Column(VARCHAR(36), nullable=False)
     phone = Column(VARCHAR(36), nullable=False)
 
@@ -111,7 +112,6 @@ class WXUserInfo(Base, ModelBase):
     id = Column(VARCHAR(36), primary_key=True)
     openid = Column(VARCHAR(50), nullable=False)
     session_key = Column(VARCHAR(50), nullable=False)
-    user_code = Column(VARCHAR(100))
     phone = Column(VARCHAR(36))
 
     def to_dict(self):

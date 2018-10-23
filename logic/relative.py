@@ -63,6 +63,23 @@ class RelativeLogic(Logic):
         relative_count = db_api.relative_count(**filters)
         return {"count": relative_count, "state": 0, "message": "query success", "data": self.views(relative_list)}
 
+    def info(self, id):
+        if not id:
+            return
+        relative_info = db_api.relative_get(id)
+        return self.views(relative_info)
+
+    def info_by_phone(self, phone="", verify_code=""):
+        if not phone:
+            return
+        filters = dict()
+        if phone:
+            filters.update({"phone": phone})
+        if verify_code:
+            filters.update({"verify_code": verify_code})
+        relative_infos = db_api.relative_list(**filters)
+        if relative_infos:
+            return self.views(relative_infos[0])
 
     def auth_feature(self, relative_id, features):
         try:

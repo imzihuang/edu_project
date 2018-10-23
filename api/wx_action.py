@@ -4,9 +4,11 @@ from tornado.web import RequestHandler
 import tornado.httpclient
 from six.moves.urllib import parse
 from util.face import RecognitionService
+from util.exception import ParamExist
 import logging
 import json
-from logic.actionlogic import ActionLogic
+from logic.userlogic import WXUserLogic
+from logic.relative import RelativeLogic
 from util.ini_client import ini_load
 
 _conf = ini_load('config/service.ini')
@@ -22,15 +24,22 @@ class WXActionHandler(RequestHandler):
         self.face_path = face_path
 
     def post(self, action):
-        if action == "login":
-            self.login()
-            return
-        if action == "bind":
-            self.bind_user()
-            return
+        try:
+            if action == "login":
+                self.login()
+                return
+            if action == "bind":
+                self.bind_user()
+                return
+        except ParamExist as ex:
+            LOG.error("Wx action %s error:%s" % (action, ex))
+            self.finish(json.dumps({'state': 1, 'message': 'params exit'}))
+        except Exception as ex:
+            LOG.error("Wx action %s error:%s" % (action, ex))
+            self.finish(json.dumps({'state': 10, 'message': 'wx action error'}))
 
     def login(self):
-        code = int(self.get_argument('code', ''))
+        code = self.get_argument('code', '')
         app_id = _dic_con.get("appid")
         secret = _dic_con.get("secret")
         #https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code
@@ -47,11 +56,33 @@ class WXActionHandler(RequestHandler):
         openid = dic_body.get('openid')
         session_key = dic_body.get('session_key')
         #存储openid和session_key,并返回识别session串
+        _op = WXUserLogic()
+        exit_app = _op.info_by_openid(openid=openid)
+        if exit_app:
+            _op.update(exit_app.get("id"), session_key=session_key)
+            self.finish(json.dumps({'state': 0, 'session_code': exit_app.get("id")}))
+        else:
+            _ = _op.intput(openid=openid, session_key=session_key)
+            self.finish(json.dumps({'state': 0, 'session_code': _.get("id")}))
 
+    def bind_user(self):
+        phone = self.get_argument('phone', '')
+        verify_code = self.get_argument('verify_code', '')
+        edu_session = self.get_argument('edu_session', '')
+        relative_op = RelativeLogic()
+        relative_info = relative_op.info_by_phone(phone=phone, verify_code=verify_code)
+        if not relative_info:
+            self.finish(json.dumps({'state': 1, 'message': 'phone not singn'}))
+            return
 
-        #_op = ActionLogic()
+        wx_op = WXUserLogic()
+        wx_info = wx_op.update(edu_session, phone=phone)
+        if wx_info:
+            relative_op.update(relative_info.get("id"), wxuser_id=wx_info.get("id"))
+            self.finish(json.dumps({'state': 0, 'edu_session': edu_session}))
+        else:
+            self.finish(json.dumps({'state': 1, 'message': 'wx id not singn'}))
 
-        self.finish(json.dumps({'state': 2, 'message': 'login fail'}))
 
 
 

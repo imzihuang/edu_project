@@ -16,37 +16,41 @@ LOG = logging.getLogger(__name__)
 
 class UpdateHandler(RequestHandler):
     def post(self, update_obj):
-        _id = ""
-        _value = {}
-        _op = Logic()
-        if update_obj == "school":
-            _id, _value = self._get_school_argument()
-            _op = SchoolLogic()
+        try:
+            _id = ""
+            _value = {}
+            _op = Logic()
+            if update_obj == "school":
+                _id, _value = self._get_school_argument()
+                _op = SchoolLogic()
 
-        if update_obj == "class":
-            _id, _value = self._get_class_argument()
-            _op = ClassLogic()
+            if update_obj == "class":
+                _id, _value = self._get_class_argument()
+                _op = ClassLogic()
 
-        if update_obj == "teacher":
-            _id, _value = self._get_teacher_argument()
-            _op = TeacherLogic()
+            if update_obj == "teacher":
+                _id, _value = self._get_teacher_argument()
+                _op = TeacherLogic()
 
-        if update_obj == "student":
-            _id, _value = self._get_student_argument()
-            _op = StudentLogic()
+            if update_obj == "student":
+                _id, _value = self._get_student_argument()
+                _op = StudentLogic()
 
-        if update_obj == "relative":
-            _id, _value = self._get_relative_argument()
-            _op = RelativeLogic()
+            if update_obj == "relative":
+                _id, _value = self._get_relative_argument()
+                _op = RelativeLogic()
 
-        if not _value or not _id:
-            self.finish(json.dumps({'state': 9, 'message': 'params %s is None' % update_obj}))
-        _ = _op.update(_id, **_value)
-        if not _:
-            self.finish(json.dumps({'state': 0, 'message': 'update info success.'}))
-        else:
-            self.finish(json.dumps({'state': 10, 'message': 'action %s error' % update_obj}))
-        pass
+            if not _value or not _id:
+                self.finish(json.dumps({'state': 9, 'message': 'params %s is None' % update_obj}))
+            _ = _op.update(_id, **_value)
+            if not _:
+                self.finish(json.dumps({'state': 0, 'message': 'update info success.'}))
+            else:
+                self.finish(json.dumps({'state': 10, 'message': 'action %s error' % update_obj}))
+        except Exception as ex:
+            LOG.error("Input %s error:%s" % (update_obj, ex))
+            self.finish(json.dumps({'state': 10, 'message': 'update action error'}))
+
 
     def _get_school_argument(self):
         id = self.get_argument('id', '')

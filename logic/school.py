@@ -4,6 +4,7 @@
 from random import randint
 import datetime
 from util.convert import *
+from util.exception import ParamExist
 from db import api as db_api
 from logic import Logic
 import logging
@@ -12,6 +13,11 @@ LOG = logging.getLogger(__name__)
 class SchoolLogic(Logic):
 
     def intput(self, name="", cardcode="", describe=""):
+        if not name or not cardcode:
+            LOG.error("school name or cardcode is None")
+            return False
+        if db_api.school_list(name=name):
+            raise ParamExist(key="name", value=name)
         values = {
             "name": name,
             "cardcode": cardcode,
