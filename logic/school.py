@@ -40,4 +40,4 @@ class SchoolLogic(Logic):
         school_list = db_api.school_list(offset=offset, limit=limit, **filters)
         LOG.info("11111111111111111111%r"%school_list)
         school_count = db_api.school_count(**filters)
-        return {"count": school_count, "state": 0, "message": "query success", "data": school_list}
+        return {"count": school_count, "state": 0, "message": "query success", "data": self.views(school_list)}

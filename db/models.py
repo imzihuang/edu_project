@@ -89,6 +89,9 @@ class RelativeFeature(Base, ModelBase):
     id = Column(VARCHAR(36), primary_key=True)
     relative_id = Column(VARCHAR(36), nullable=False)
     features = Column(LargeBinary(length=65536))
+    def to_dict(self):
+       return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
+
 
 class UserInfo(Base, ModelBase):
     __tablename__ = 'user_info'
