@@ -169,7 +169,7 @@
 							} else {
 								$("#tbody").html('<tr><td colspan="9" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
 							}
-//							layPage(msg.count, msg.result.pageSize, msg.result.pageNo)
+							//							layPage(msg.count, msg.result.pageSize, msg.result.pageNo)
 						},
 						error: function() {
 							console.log("error");
@@ -312,12 +312,13 @@
 						shadeClose: true, //开启遮罩关闭
 						btn: ['确定', '取消'], //按钮
 						content: $('#addInfoContent'),
-						yes: function() {console.log(111);
+						yes: function() {
+							console.log(111);
 							$("#addInfoContent").validate({
 								focusCleanup: true,
 								focusInvalid: false,
 								debug: true,
-								rule: {
+								rules: {
 									add_name: {
 										required: true,
 									},
@@ -328,7 +329,8 @@
 										required: true,
 									},
 								},
-								submitHandler: function() {console.log(12311);
+								submitHandler: function() {
+									console.log(12311);
 									var data = {
 										'name': $("#add_name").val(),
 										'cardcode': $("#add_cardcode").val(),
@@ -372,7 +374,8 @@
 										required: '必填',
 									},
 								},
-								errorPlacement: function(error, element) {console.log(2222);
+								errorPlacement: function(error, element) {
+									console.log(2222);
 									error.appendTo(element.parent().find(".errorPart"));
 								},
 								success: function() {
