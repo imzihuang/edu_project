@@ -6,6 +6,8 @@ import datetime
 from util.convert import *
 from db import api as db_api
 from logic import Logic
+import logging
+LOG = logging.getLogger(__name__)
 
 class SchoolLogic(Logic):
 
@@ -33,7 +35,9 @@ class SchoolLogic(Logic):
             filters.update({"name": name})
         if cardcode:
             filters.update({"cardcode": cardcode})
+        LOG.info("11111111111111111111")
 
         school_list = db_api.school_list(offset=offset, limit=limit, **filters)
+        LOG.info("11111111111111111111%r"%school_list)
         school_count = db_api.school_count(**filters)
         return {"count": school_count, "state": 0, "message": "query success", "data": school_list}
