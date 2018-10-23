@@ -264,3 +264,42 @@ def user_count(**filters):
     return query.count()
 
 #####################user end################################
+
+#####################wx user begin################################
+def wxuser_create(values):
+    if not values.get('id'):
+        values['id'] = str(uuid.uuid4())
+    wxuser_ref = models.WXUserInfo()
+    wxuser_ref.update(values)
+    session = get_session()
+    with session.begin():
+        wxuser_ref.save(session)
+        return wxuser_ref
+
+def wxuser_update(id, values):
+    query = model_query(models.WXUserInfo).filter_by(id=id)
+    result = query.update(values)
+    if not result:
+        raise exception.NotFound(code=id)
+    return result
+
+def wxuser_get(id):
+    query = model_query(models.WXUserInfo)
+    result = query.filter_by(id=id).first()
+    if not result:
+        raise exception.NotFound(code=id)
+    return result
+
+def wxuser_list(offset=0, limit=1000, **filters):
+    query = model_query(models.WXUserInfo, **filters)
+    if offset:
+        query.offset(offset)
+    if limit:
+        query.limit(limit)
+    return query.all()
+
+def wxuser_count(**filters):
+    query = model_query(models.WXUserInfo, **filters)
+    return query.count()
+
+#####################user end################################

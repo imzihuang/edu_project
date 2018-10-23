@@ -7,6 +7,7 @@ from util.face import RecognitionService
 import logging
 import json
 from logic.actionlogic import ActionLogic
+from logic.relative import RelativeLogic
 
 LOG = logging.getLogger(__name__)
 
@@ -73,7 +74,7 @@ class ActionHandler(RequestHandler):
         # 人脸注册服务
         err_code, feature = self.recognition_service.register_face(face_image, relative_id)
         #将特征写入数据库
-        _op = ActionLogic()
+        _op = RelativeLogic()
         if _op.auth_feature(relative_id, feature):
             self.finish(json.dumps({'state': 0, 'message': 'auth feature success.'}))
         else:

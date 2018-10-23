@@ -15,17 +15,6 @@ class ActionLogic(Logic):
     def __init__(self):
         pass
 
-    def auth_feature(self, relative_id, features):
-        try:
-            values = {
-                "features": features
-            }
-            db_api.relative_update(relative_id, values)
-            return True
-        except Exception as ex:
-            LOG.info("update relative %s feature faild:%s"%(relative_id, ex))
-            return False
-
     def auth_username(self, name, pwd):
         filters = {
             "name": name,
