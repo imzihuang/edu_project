@@ -148,7 +148,7 @@
 						data: senddata,
 						timeout: "30000",
 						success: function(msg) {
-							var data = JSON.parse(msg);
+							var msg = JSON.parse(msg);
 							var strs = '';
 							console.log(msg);
 							if(msg.length > 0) {
