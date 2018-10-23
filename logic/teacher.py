@@ -23,8 +23,11 @@ class TeacherLogic(Logic):
         teacher_obj = db_api.teacher_create(values)
         return teacher_obj
 
-    def output(self):
-        pass
+    def update(self, id="", **kwargs):
+        if not id or not kwargs:
+            return False
+        _ = db_api.teacher_update(id, kwargs)
+        return _
 
     def infos(self, id="", name="", school_id="", school_name="", class_id="", class_name="", phone="", limit=100, offset=1):
         offset = (offset - 1) * limit if offset > 0 else 0

@@ -103,6 +103,18 @@ class UserInfo(Base, ModelBase):
        return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
 
 
+class WXUserInfo(Base, ModelBase):
+    __tablename__ = 'wx_userinfo'
+    id = Column(VARCHAR(36), primary_key=True)
+    openid = Column(VARCHAR(50), nullable=False)
+    session_key = Column(VARCHAR(50), nullable=False)
+    user_code = Column(VARCHAR(100))
+    phone = Column(VARCHAR(36))
+
+    def to_dict(self):
+       return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
+
+
 class SignInfo(Base, ModelBase):
     __tablename__ = 'sign_info'
     id = Column(VARCHAR(36), primary_key=True)

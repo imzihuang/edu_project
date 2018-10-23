@@ -8,6 +8,7 @@ def _handlers():
         (r'(?P<update_obj>.+)/infos$', update.UpdateHandler),
         (r'(?P<infos_obj>.+)/infos$', infos.InfosHandler),
         (r'(?P<action>.+)/action$', action.ActionHandler),
+        (r'(?P<action>.+)/wx_action$', action.WXActionHandler),
     ]
 
 api_handlers = _handlers()
