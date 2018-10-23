@@ -1318,3 +1318,7 @@ select{
 	height: 30px;
 	margin-left: -3px;
 }
+.errorPart{
+	padding-left: 10px;
+	clear: both;
+}

@@ -9,15 +9,15 @@
 		<meta name="keywords" content="后端管理">
 		<meta name="description" content="后端管理">
 
-		<link href="../css/bootstrap.min.css" rel="stylesheet">
-		<link href="../css/font-awesome.min.css" rel="stylesheet">
-		<link href="../css/animate.min.css" rel="stylesheet">
-		<link href="../css/style.min.css" rel="stylesheet">
-		<link href="../css/pager.css" rel="stylesheet" type="text/css" />
-		<link href="../css/style.css" rel="stylesheet" type="text/css" />
-		<link href="../js/plugins/layer/layer/skin/default/layer.css" rel="stylesheet" type="text/css" />
+		<link href="../static/css/bootstrap.min.css" rel="stylesheet">
+		<link href="../static/css/font-awesome.min.css" rel="stylesheet">
+		<link href="../static/css/animate.min.css" rel="stylesheet">
+		<link href="../static/css/style.min.css" rel="stylesheet">
+<!--		<link href="../static/css/pager.css" rel="stylesheet" type="text/css" />-->
+		<link href="../static/css/style.css" rel="stylesheet" type="text/css" />
+		<link href="../static/js/plugins/layer/layer/skin/default/layer.css" rel="stylesheet" type="text/css" />
 
-		<script src="../js/jquery.min.js"></script>
+		<script src="../static/js/jquery.min.js"></script>
 
 	</head>
 
@@ -73,41 +73,10 @@
 														</tr>
 													</thead>
 													<tbody id="tbody">
-														<tr class="gradeX">
-															<td><input type="checkbox" class="zx_checkedBtn"></td>
-															<td class="centerSort">
-																1
-															</td>
-															<td class="userMessage">18910636363</td>
-															<td>哈哈哈小学</td>
-															<td class="center">124314</td>
-															<td class="center">超级设备</td>
-															<td class="center">2017 01-1 12:00:00</td>
-															<td class="center">2017 01-1 12:00:00</td>
-															<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除"></i></td>
-														</tr>
-														
+
 													</tbody>
 												</table>
-												<div id="page">
-													<a href="javascript:void(0);"> 首页</a>
-													<a href="javascript:void(0);">
-														&lt;上一页</a>
-													<a href="javascript:void(0);">1</a>
-													<a class="current">2</a>
-													<a href="javascript:void(0);">3</a>
-													<a href="javascript:void(0);">4</a>
-													<a href="javascript:void(0);">5</a>
-													<a href="javascript:void(0);">下一页 &gt;</a>
-													<a href="javascript:void(0);">尾页</a>
-													<span class="text">共282页记录</span>
-													<span class="text page-jump">跳转第<input type="text" id="jumpPage" name="jumpPage" class="ipt-jump">页 
-								<input type="hidden" id="jumpPageCount" name="jumpPageCount" value="282" class="ipt-jump"> 
-								<input type="hidden" id="jumpPageUrl" name="jumpPageUrl" value="url" class="ipt-jump">
-								<input name="jumpButton" onclick="jumpPages()" type="button" value="跳转" class="btn-jump" id="jumpButton">
-								</span>
-													<div class="clear"></div>
-												</div>
+												<div id="layPage"></div>
 											</div>
 										</div>
 									</div>
@@ -123,34 +92,114 @@
 		</div>
 		</div>
 
-		<div id="addInfoContent" style="display: none; width: 500px; padding: 20px;">
+		<form id="addInfoContent" style="display: none; width: 500px; padding: 20px;">
 			<div style="margin: 10px 0;">
-				<span>学校名称：</span><input type="text" style="width: 350px;" />
+				<span>学校名称：</span><input type="text" style="width: 350px;" id="add-name" name="add_name" />
+				<div class="errorPart"></div>
 			</div>
 			<div style="margin: 10px 0;">
-				<span>设备卡号：</span><input type="text" style="width: 350px;" />
+				<span>设备卡号：</span><input type="text" style="width: 350px;" id="add-cardcode" name="add_cardcode" />
+				<div class="errorPart"></div>
 			</div>
 			<div style="margin: 10px 0;">
-				<span>描述：</span><input type="text" style="width: 350px;" />
+				<span>描述：</span><input type="text" style="width: 350px;" id="add-describe" name="add_describe" />
+				<div class="errorPart"></div>
 			</div>
-		</div>
+		</form>
 
-		<div id="editAreaContent" style="display: none; width: 500px; padding: 20px;">
+		<form id="editAreaContent" style="display: none; width: 500px; padding: 20px;">
 			<div style="margin: 10px 0;">
-				<span>学校编号：</span><input type="text" style="width: 350px;" />
+				<span>学校编号：</span><input type="text" style="width: 350px;" id="edit-id" name="edit_id" />
+				<div class="errorPart"></div>
 			</div>
 			<div style="margin: 10px 0;">
-				<span>学校名称：</span><input type="text" style="width: 350px;" />
+				<span>学校名称：</span><input type="text" style="width: 350px;" id="edit-name" name="edit_name" />
+				<div class="errorPart"></div>
 			</div>
 			<div style="margin: 10px 0;">
-				<span>设备卡号：</span><input type="text" style="width: 350px;" />
+				<span>设备卡号：</span><input type="text" style="width: 350px;" id="edit-cardcode" name="edit_cardcode" />
+				<div class="errorPart"></div>
 			</div>
-		</div>
+			<div style="margin: 10px 0;">
+				<span>描述：</span><input type="text" style="width: 350px;" id="edit-describe" name="edit_describe" />
+				<div class="errorPart"></div>
+			</div>
+		</form>
 
-		<script src="../js/bootstrap.min.js"></script>
-		<script src="../js/plugins/layer/layer.js"></script>
+		<script src="../static/js/bootstrap.min.js"></script>
+		<script src="../static/js/plugins/layer/layer.js"></script>
+		<script src="../static/js/jquery.validate.min.js"></script>
 		<script type="text/javascript">
 			$(function() {
+				getAjaxData({
+					"id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
+					"name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
+					"cardcode": $("#school-cardcode").val() == '' ? undefined : $("#school-cardcode").val(),
+					"limit": 20,
+					"offset": 1,
+				});
+
+				function getAjaxData(senddata) {
+					$.ajax({
+						type: "GET",
+						contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+						url: "/school/infos",
+						async: false,
+						data: senddata,
+						timeout: "30000",
+						success: function(msg) {
+							var data = JSON.parse(msg);
+							var strs = '';
+							console.log(msg);
+							if(msg.length > 0) {
+								for(var i = 0; i < msg.data.length; i++) {
+									strs += '<tr class="gradeX">' +
+										'<td><input type="checkbox" class="zx_checkedBtn"></td>' +
+										'<td class="centerSort">' + (i + 1) + '</td>' +
+										'<td class="userMessage">' + msg.data[i].id + '</td>' +
+										'<td>' + msg.data[i].name + '</td>' +
+										'<td class="center">' + msg.data[i].cardcode + '</td>' +
+										'<td class="center">' + msg.data[i].describe + '</td>' +
+										'<td class="center">' + msg.data[i].create_time + '</td>' +
+										'<td class="center">' + msg.data[i].update_time + '</td>' +
+										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除"></i></td>' +
+										'</tr>'
+								}
+								$("#tbody").html(strs);
+							} else {
+								$("#tbody").html('<tr><td colspan="9" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
+							}
+							layPage(msg.result.count, msg.result.pageSize, msg.result.pageNo)
+						},
+						error: function() {
+							console.log("error");
+						}
+					});
+				}
+
+				function layPage(paCount, pgSize, pageIndex) {
+					layui.laypage.reder({
+						elem: "layPage",
+						count: pgCount,
+						curr: pageIndex,
+						limit: pgSize,
+						layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
+						jump: function(e, first) {
+							if(!first) {
+								pageIndex = e.curr;
+								pgSize = e.limit;
+								var district = "";
+								getAjaxData({
+									"id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
+									"name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
+									"cardcode": $("#school-cardcode").val() == '' ? undefined : $("#school-cardcode").val(),
+									"limit": pgSize,
+									"offset": pageIndex,
+								});
+							}
+						}
+					})
+				}
 				//全选按钮
 				$("#zx_checkedAllBtn").click(function() {
 					if(this.checked) {
@@ -200,18 +249,18 @@
 							btn: ['确定', '取消'] //按钮
 						}, function() {
 							$.ajax({
-								method:'POST',
-								xhrFields:{
-									"withCredentials":true
+								method: 'POST',
+								xhrFields: {
+									"withCredentials": true
 								},
-								contentType:"application/x-www-form-urlencoded;chartset=UTF-8",
-								url:"",
-								data:sendData,
-								dataType:'json',
-								jsonpCallback:'',
-								cache:false,
-								timeout:"1000000",
-								success:function(data){
+								contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+								url: "",
+								data: sendData,
+								dataType: 'json',
+								jsonpCallback: '',
+								cache: false,
+								timeout: "1000000",
+								success: function(data) {
 									console.log(valArr)
 									delData(valArr);
 									layer.closeAll();
@@ -222,11 +271,11 @@
 									$('#delInfo').attr("disabled", "disabled");
 									$('#delInfo').attr('class', 'btn btn-default btn-myown');
 								},
-								complete:function(XMLHttpRequest,status){
-									
+								complete: function(XMLHttpRequest, status) {
+
 								}
 							})
-							
+
 						}, function() {});
 					} else {
 						$('#delInfo').attr("disabled", "disabled");
@@ -261,11 +310,73 @@
 						btn: ['确定', '取消'], //按钮
 						content: $('#addInfoContent'),
 						yes: function() {
-							layer.closeAll();
-							layer.msg('添加成功', {
-								icon: 1,
-								time: 800 //2s后自动关闭
+							$("#addInfoContent").validate({
+								focusCleanup: true,
+								focusInvalid: false,
+								debug: true,
+								rule: {
+									add_name: {
+										required: true,
+									},
+									add_cardcode: {
+										required: true,
+									},
+									add_describe: {
+										required: true,
+									},
+								},
+								submitHandler: function() {
+									var data = {
+										'name': $("#add-name").val(),
+										'cardcode': $("#add-cardcode").val(),
+										'describe': $("add-describe").val()
+									}
+									$.ajax({
+										type: "POST",
+										contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+										url: "/school/input",
+										async: false,
+										data: data,
+										timeout: "30000",
+										success: function(msg) {
+											layer.closeAll();
+											layer.msg('添加成功', {
+												icon: 1,
+												time: 800 //2s后自动关闭
+											});
+											getAjaxData({
+												"id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
+												"name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
+												"cardcode": $("#school-cardcode").val() == '' ? undefined : $("#school-cardcode").val(),
+												"limit": 20,
+												"offset": 1,
+											});
+										},
+										error: function() {
+											layer.msg('添加失败');
+											console.log("error");
+										}
+									});
+								},
+								messages: {
+									add_name: {
+										required: '必填',
+									},
+									add_cardcode: {
+										required: '必填',
+									},
+									add_describe: {
+										required: '必填',
+									},
+								},
+								errorPlacement: function(error, element) {
+									error.appendTo(element.parent().find(".errorPart"));
+								},
+								success: function() {
+
+								}
 							});
+
 						}
 					});
 				});
@@ -281,11 +392,74 @@
 						btn: ['确定', '取消'], //按钮
 						content: $('#editAreaContent'),
 						yes: function() {
-							layer.closeAll();
-							layer.msg('修改成功', {
-								icon: 1,
-								time: 800 //2s后自动关闭
+							$("#addInfoContent").validate({
+								focusCleanup: true,
+								focusInvalid: false,
+								debug: true,
+								rule: {
+									edit_id: {
+										required: true,
+									},
+									edit_name: {
+										required: true,
+									},
+									add_describe: {
+										required: true,
+									},
+								},
+								submitHandler: function() {
+									var data = {
+										'id': $("#edit-id").val()
+										'name': $("#edit-name").val(),
+										'cardcode': $("#edit-cardcode").val(),
+										'describe': $("edit-describe").val()
+									}
+									$.ajax({
+										type: "POST",
+										contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+										url: "/school/updae",
+										async: false,
+										data: data,
+										timeout: "30000",
+										success: function(msg) {
+											layer.closeAll();
+											layer.msg('修改成功', {
+												icon: 1,
+												time: 800 //2s后自动关闭
+											});
+											getAjaxData({
+												"id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
+												"name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
+												"cardcode": $("#school-cardcode").val() == '' ? undefined : $("#school-cardcode").val(),
+												"limit": 20,
+												"offset": 1,
+											});
+										},
+										error: function() {
+											layer.msg('添加失败');
+											console.log("error");
+										}
+									});
+								},
+								messages: {
+									add_name: {
+										required: '必填',
+									},
+									add_cardcode: {
+										required: '必填',
+									},
+									add_describe: {
+										required: '必填',
+									},
+								},
+								errorPlacement: function(error, element) {
+									error.appendTo(element.parent().find(".errorPart"));
+								},
+								success: function() {
+
+								}
 							});
+
 						}
 					});
 				});
