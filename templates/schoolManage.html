@@ -161,7 +161,7 @@
 										'<td class="center">' + msg.data[i].cardcode + '</td>' +
 										'<td class="center">' + msg.data[i].describe + '</td>' +
 										'<td class="center">' + msg.data[i].create_time + '</td>' +
-										'<td class="center">' + msg.data[i].update_time + '</td>' +
+										'<td class="center">' + msg.data[i].updated_time + '</td>' +
 										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除"></i></td>' +
 										'</tr>'
 								}
@@ -328,7 +328,7 @@
 										required: true,
 									},
 								},
-								submitHandler: function() {
+								submitHandler: function() {console.log(12311);
 									var data = {
 										'name': $("#add_name").val(),
 										'cardcode': $("#add_cardcode").val(),
@@ -372,7 +372,7 @@
 										required: '必填',
 									},
 								},
-								errorPlacement: function(error, element) {
+								errorPlacement: function(error, element) {console.log(2222);
 									error.appendTo(element.parent().find(".errorPart"));
 								},
 								success: function() {
