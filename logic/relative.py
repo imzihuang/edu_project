@@ -61,7 +61,7 @@ class RelativeLogic(Logic):
 
         relative_list = db_api.relative_list(offset=offset, limit=limit, **filters)
         relative_count = db_api.relative_count(**filters)
-        return {"count": relative_count, "state": 0, "message": "query success", "data": relative_list}
+        return {"count": relative_count, "state": 0, "message": "query success", "data": self.views(relative_list)}
 
 
     def auth_feature(self, relative_id, features):

@@ -69,4 +69,4 @@ class StudentLogic(Logic):
 
         student_list = db_api.student_list(offset=offset, limit=limit, **filters)
         student_count = db_api.student_count(**filters)
-        return {"count": student_count, "state": 0, "message": "query success", "data": student_list}
+        return {"count": student_count, "state": 0, "message": "query success", "data": self.views(student_list)}
