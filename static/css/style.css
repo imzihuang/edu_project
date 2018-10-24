@@ -1322,4 +1322,5 @@ select{
 	padding-left: 100px;
 	clear: both;
 	line-height: normal;
+	position: absolute;
 }
