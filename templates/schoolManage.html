@@ -314,8 +314,10 @@
 						shadeClose: true, //开启遮罩关闭
 						btn: ['确定', '取消'], //按钮
 						content: $('#addInfoContent'),
-						yes: function() {
+						yes: function(form) {
 							console.log(111);
+							form.submit();
+
 							$("#addInfoContentform").validate({
 								focusCleanup: true,
 								focusInvalid: false,
@@ -377,7 +379,6 @@
 									},
 								},
 								errorPlacement: function(error, element) {
-									console.log(2222);
 									error.appendTo(element.parent().find(".errorPart"));
 								},
 								success: function() {
@@ -401,9 +402,9 @@
 						content: $('#editAreaContent'),
 						yes: function() {
 							$("#editAreaContentform").validate({
-//								focusCleanup: true,
-//								focusInvalid: false,
-//								debug: true,
+								focusCleanup: true,
+								focusInvalid: false,
+								debug: true,
 								 rules: {
 									edit_id: {
 										required: true,
