@@ -318,11 +318,7 @@
 						content: $('#addInfoContent'),
 						yes: function() {
 							$("#addInfoContentSubmit").click();
-							$.validator.setDefaults({
-					            submitHandler: function () {
-					                alert("提交事件!");
-					            }
-					        });
+							
 							$("#addInfoContentform").validate({
 								focusCleanup: true,
 								focusInvalid: false,
@@ -355,41 +351,41 @@
 										minlength: '必填5',
 									},
 								},
-//								submitHandler: function(form) {
-//									console.log(2);
-//									var data = {
-//										'name': $("#add_name").val(),
-//										'cardcode': $("#add_cardcode").val(),
-//										'describe': $("#add_describe").val()
-//									}
-//									$.ajax({
-//										type: "POST",
-//										contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-//										url: "/school/input",
-//										async: false,
-//										data: data,
-//										timeout: "30000",
-//										success: function(msg) {
-//											layer.closeAll();
-//											layer.msg('添加成功', {
-//												icon: 1,
-//												time: 800 //2s后自动关闭
-//											});
-//											getAjaxData({
-//												"id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
-//												"name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
-//												"cardcode": $("#school-cardcode").val() == '' ? undefined : $("#school-cardcode").val(),
-//												"limit": 20,
-//												"offset": 1,
-//											});
-//										},
-//										error: function() {
-//											layer.msg('添加失败');
-//											console.log("error");
-//										}
-//									});
-//
-//								},
+								submitHandler: function(form) {
+									console.log(2);
+									var data = {
+										'name': $("#add_name").val(),
+										'cardcode': $("#add_cardcode").val(),
+										'describe': $("#add_describe").val()
+									}
+									$.ajax({
+										type: "POST",
+										contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+										url: "/school/input",
+										async: false,
+										data: data,
+										timeout: "30000",
+										success: function(msg) {
+											layer.closeAll();
+											layer.msg('添加成功', {
+												icon: 1,
+												time: 800 //2s后自动关闭
+											});
+											getAjaxData({
+												"id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
+												"name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
+												"cardcode": $("#school-cardcode").val() == '' ? undefined : $("#school-cardcode").val(),
+												"limit": 20,
+												"offset": 1,
+											});
+										},
+										error: function() {
+											layer.msg('添加失败');
+											console.log("error");
+										}
+									});
+
+								},
 								errorPlacement: function(error, element) {
 									error.appendTo(element.parent().find(".errorPart"));
 								},
