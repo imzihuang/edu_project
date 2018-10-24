@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-class Logic():
+class Logic(object):
     def __init__(self):
         pass
 
