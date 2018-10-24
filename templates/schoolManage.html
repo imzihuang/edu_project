@@ -133,7 +133,7 @@
 		<script src="js/plugins/layer/layer.js"></script>
 		<script src="js/jquery.validate.min.js"></script>
 		<script type="text/javascript">
-		$(document).ready(function(){
+			$(document).ready(function() {
 				getAjaxData({
 					"id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
 					"name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
@@ -159,10 +159,10 @@
 									strs += '<tr class="gradeX">' +
 										'<td><input type="checkbox" class="zx_checkedBtn"></td>' +
 										'<td class="centerSort">' + (i + 1) + '</td>' +
-										'<td class="userMessage">' + msg.data[i].id + '</td>' +
+										'<td class="userMessage data_id">' + msg.data[i].id + '</td>' +
 										'<td>' + msg.data[i].name + '</td>' +
-										'<td class="center">' + msg.data[i].cardcode + '</td>' +
-										'<td class="center">' + msg.data[i].describe + '</td>' +
+										'<td class="center data_cardcode">' + msg.data[i].cardcode + '</td>' +
+										'<td class="center data_describe">' + msg.data[i].describe + '</td>' +
 										'<td class="center">' + msg.data[i].create_time + '</td>' +
 										'<td class="center">' + msg.data[i].updated_time + '</td>' +
 										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除"></i></td>' +
@@ -303,77 +303,70 @@
 				//==========
 				var layerIndex;
 				$("#addInfoContentform").validate({
-								focusCleanup: true,
-								focusInvalid: false,
-								debug: true,
-								rules: {
-									add_name: {
-										required: true,
-										minlength: 5,
-									},
-									add_cardcode: {
-										required: true,
-										minlength: 5,
-									},
-									add_describe: {
-										required: true,
-										minlength: 5,
-									},
-								},
-								messages: {
-									add_name: {
-										required: '必填',
-										minlength: '必填5',
-									},
-									add_cardcode: {
-										required: '必填',
-										minlength: '必填5',
-									},
-									add_describe: {
-										required: '必填',
-										minlength: '必填5',
-									},
-								},
-								submitHandler: function(form) {
-									console.log(2);
-									var data = {
-										'name': $("#add_name").val(),
-										'cardcode': $("#add_cardcode").val(),
-										'describe': $("#add_describe").val()
-									}
-									$.ajax({
-										type: "POST",
-										contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-										url: "/school/input",
-										async: false,
-										data: data,
-										timeout: "30000",
-										success: function(msg) {
-											layer.closeAll();
-											layer.msg('添加成功', {
-												icon: 1,
-												time: 800 //2s后自动关闭
-											});
-											getAjaxData({
-												"id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
-												"name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
-												"cardcode": $("#school-cardcode").val() == '' ? undefined : $("#school-cardcode").val(),
-												"limit": 20,
-												"offset": 1,
-											});
-										},
-										error: function() {
-											layer.msg('添加失败');
-											console.log("error");
-										}
-									});
+					focusCleanup: true,
+					focusInvalid: false,
+					debug: true,
+					rules: {
+						add_name: {
+							required: true,
+						},
+						add_cardcode: {
+							required: true,
+						},
+						add_describe: {
+							required: true,
+						},
+					},
+					messages: {
+						add_name: {
+							required: '必填',
+						},
+						add_cardcode: {
+							required: '必填',
+						},
+						add_describe: {
+							required: '必填',
+						},
+					},
+					submitHandler: function(form) {
+						var data = {
+							'name': $("#add_name").val(),
+							'cardcode': $("#add_cardcode").val(),
+							'describe': $("#add_describe").val()
+						}
+						$.ajax({
+							type: "POST",
+							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+							url: "/school/input",
+							async: false,
+							data: data,
+							timeout: "30000",
+							success: function(msg) {
+								layer.closeAll();
+								layer.msg('添加成功', {
+									icon: 1,
+									time: 800 //2s后自动关闭
+								});
+								getAjaxData({
+									"id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
+									"name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
+									"cardcode": $("#school-cardcode").val() == '' ? undefined : $("#school-cardcode").val(),
+									"limit": 20,
+									"offset": 1,
+								});
+							},
+							error: function() {
+								layer.msg('添加失败');
+								console.log("error");
+							}
+						});
 
-								},
-								errorPlacement: function(error, element) {
-									error.appendTo(element.parent().find(".errorPart"));
-								},
-								success: function() {}
-							});
+					},
+					errorPlacement: function(error, element) {
+						error.appendTo(element.parent().find(".errorPart"));
+					},
+					success: function() {}
+				});
 				//添加
 				$('#addInfo').click(function() {
 					$("#add_name").val("");
@@ -390,13 +383,15 @@
 						content: $('#addInfoContent'),
 						yes: function() {
 							$("#addInfoContentSubmit").click();
-							
-							
 						}
 					});
 				});
 
 				$('.areapen').click(function() {
+					$("#edit_id").val($(this).parent());
+					$("#add_name").val("");
+					$("#add_cardcode").val("");
+					$("#add_describe").val("");
 					layerIndex = layer.open({
 						title: '修改学校信息',
 						type: 1,
