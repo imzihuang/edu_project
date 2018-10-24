@@ -49,11 +49,10 @@ class ClassLogic(Logic):
         #更新学生数和学校名称
         views_list = self.views(class_list)
         for view in views_list:
-            class_id = view.get("id")
-            school_list = db_api.school_list(class_id=class_id)
+            school_list = db_api.school_list(id=view.get("school_id"))
             if school_list:
                 view.update({"school_name": school_list[0].name})
-            student_count = db_api.student_count(class_id=class_id)
+            student_count = db_api.student_count(class_id=view.get("id"))
             view.update({"reality_number": student_count})
 
         class_count = db_api.class_count(**filters)
