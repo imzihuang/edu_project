@@ -397,7 +397,16 @@
 									icon: 1,
 									time: 800 //2s后自动关闭
 								});
-                                window.location.reload();
+//                              window.location.reload();
+getAjaxData({
+									"id": $("#class-id").val() == '' ? undefined : $("#class-id").val(),
+									"name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
+									"school_id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
+									"school_name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
+									"grade": $("#grade").val() == '' ? undefined : $("#grade").val(),
+									"limit": 20,
+									"offset": 1,
+								});
 							},
 							error: function() {
 								layer.msg('添加失败');
