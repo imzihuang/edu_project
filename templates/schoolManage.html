@@ -161,7 +161,7 @@
 										'<td><input type="checkbox" class="zx_checkedBtn"></td>' +
 										'<td class="centerSort">' + (i + 1) + '</td>' +
 										'<td class="userMessage data_id">' + msg.data[i].id + '</td>' +
-										'<td>' + msg.data[i].name + '</td>' +
+										'<td class="data_name">' + msg.data[i].name + '</td>' +
 										'<td class="center data_cardcode">' + msg.data[i].cardcode + '</td>' +
 										'<td class="center data_describe">' + msg.data[i].describe + '</td>' +
 										'<td class="center">' + msg.data[i].create_time + '</td>' +
@@ -463,11 +463,11 @@
 
 					}
 				});
-				$('.areapen').click(function() {
+				$('.areapen').click(function() {alert(22);
 					$("#edit_id").val($(this).parent("td").siblings(".data_id").html());
-					$("#add_name").val($(this).parent("td").siblings(".data_name").html());
-					$("#add_cardcode").val($(this).parent("td").siblings(".data_cardcode").html());
-					$("#add_describe").val($(this).parent("td").siblings(".data_describe").html());
+					$("#edit_name").val($(this).parent("td").siblings(".data_name").html());
+					$("#edit_cardcode").val($(this).parent("td").siblings(".data_cardcode").html());
+					$("#edit_describe").val($(this).parent("td").siblings(".data_describe").html());
 					$(".error").css("display", "none");
 					layerIndex = layer.open({
 						title: '修改学校信息',
