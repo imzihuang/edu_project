@@ -1319,7 +1319,7 @@ select{
 	margin-left: -3px;
 }
 .errorPart{
-	padding-left: 0px;
+	padding-left: 100px;
 	clear: both;
 	line-height: normal;
 }
