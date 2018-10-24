@@ -216,7 +216,7 @@
 				$("#tbody :checkbox").click(function() {
 						allchk()
 					})
-					//全选
+				//全选
 				function allchk() {
 					$('#delInfo').attr("disabled", false);
 					var chknum = $("#tbody :checkbox").size(); //选项总个数 
@@ -303,7 +303,6 @@
 				var layerIndex;
 				//添加
 				$('#addInfo').click(function() {
-					$(".layui-layer-btn0").attr("type","submit");
 					$("#add_name").val("");
 					$("#add_cardcode").val("");
 					$("add_describe").val("");
@@ -323,23 +322,29 @@
 								rules: {
 									add_name: {
 										required: true,
+										minlength: 5,
 									},
 									add_cardcode: {
 										required: true,
+										minlength: 5,
 									},
 									add_describe: {
 										required: true,
+										minlength: 5,
 									},
 								},
 								messages: {
 									add_name: {
 										required: '必填',
+										minlength: '必填5',
 									},
 									add_cardcode: {
 										required: '必填',
+										minlength: '必填5',
 									},
 									add_describe: {
 										required: '必填',
+										minlength: '必填5',
 									},
 								},
 								submitHandler: function(form) {
