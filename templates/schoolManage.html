@@ -317,9 +317,9 @@
 						yes: function() {
 							console.log(111);
 							$("#addInfoContentform").validate({
-//								focusCleanup: true,
-//								focusInvalid: false,
-//								debug: true,
+								focusCleanup: true,
+								focusInvalid: false,
+								debug: true,
 								rules: {
 									add_name: {
 										required: true,
@@ -378,7 +378,7 @@
 								},
 								errorPlacement: function(error, element) {
 									console.log(2222);
-									error.appendTo(element.parent().find(".errorPart"));
+									error.appendTo(element.find(".errorPart"));
 								},
 								success: function() {
 
