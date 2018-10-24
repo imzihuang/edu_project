@@ -368,7 +368,6 @@
 						error.appendTo(element.parent().find(".errorPart"));
 					},
 					success: function() {
-						$(".error").css("display", "none");
 					}
 				});
 				//添加
@@ -376,7 +375,6 @@
 					$("#add_name").val("");
 					$("#add_cardcode").val("");
 					$("#add_describe").val("");
-					$(".error").css("display", "none");
 					layerIndex = layer.open({
 						title: '添加学校',
 						type: 1,
@@ -405,7 +403,7 @@
 						edit_cardcode: {
 							required: true,
 						},
-						add_describe: {
+						edit_describe: {
 							required: true,
 						},
 					},
@@ -419,7 +417,7 @@
 						edit_cardcode: {
 							required: '必填',
 						},
-						add_describe: {
+						edit_describe: {
 							required: '必填',
 						},
 					},
@@ -463,7 +461,6 @@
 						error.appendTo(element.parent().find(".errorPart"));
 					},
 					success: function() {
-						$(".error").css("display", "none");
 					}
 				});
 				$('.areapen').click(function() {
@@ -471,7 +468,6 @@
 					$("#edit_name").val($(this).parent("td").siblings(".data_name").html());
 					$("#edit_cardcode").val($(this).parent("td").siblings(".data_cardcode").html());
 					$("#edit_describe").val($(this).parent("td").siblings(".data_describe").html());
-					$(".error").css("display", "none");
 					layerIndex = layer.open({
 						title: '修改学校信息',
 						type: 1,
