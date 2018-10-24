@@ -337,7 +337,7 @@
 									var data = {
 										'name': $("#add_name").val(),
 										'cardcode': $("#add_cardcode").val(),
-										'describe': $("add_describe").val()
+										'describe': $("#add_describe").val()
 									}
 									$.ajax({
 										type: "POST",
@@ -378,6 +378,7 @@
 									},
 								},
 								errorPlacement: function(error, element) {
+									console.log(element.parent());
 									error.appendTo(element.parent().find(".errorPart"));
 								},
 								success: function() {
