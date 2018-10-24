@@ -435,7 +435,7 @@
 							async: false,
 							data: data,
 							timeout: "30000",
-							success: function(msg) {
+							success: function(msg) {alert(2222);
 								layer.closeAll();
 								layer.msg('修改成功', {
 									icon: 1,
@@ -463,7 +463,7 @@
 
 					}
 				});
-				$('.areapen').click(function() {alert(22);
+				$('.areapen').click(function() {
 					$("#edit_id").val($(this).parent("td").siblings(".data_id").html());
 					$("#edit_name").val($(this).parent("td").siblings(".data_name").html());
 					$("#edit_cardcode").val($(this).parent("td").siblings(".data_cardcode").html());
