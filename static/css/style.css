@@ -1319,6 +1319,6 @@ select{
 	margin-left: -3px;
 }
 .errorPart{
-	padding-left: 100px;
+	padding-left: 0px;
 	clear: both;
 }
