@@ -302,71 +302,71 @@
 				//==========
 				var layerIndex;
 				$("#addInfoContentform").validate({
-								focusCleanup: true,
-								focusInvalid: false,
-								debug: true,
-								rules: {
-									add_name: {
-										required: true,
-									},
-									add_cardcode: {
-										required: true,
-									},
-									add_describe: {
-										required: true,
-									},
-								},
-								submitHandler: function() {
+					focusCleanup: true,
+					focusInvalid: false,
+					debug: true,
+					rules: {
+						add_name: {
+							required: true,
+						},
+						add_cardcode: {
+							required: true,
+						},
+						add_describe: {
+							required: true,
+						},
+					},
+					messages: {
+						add_name: {
+							required: '必填',
+						},
+						add_cardcode: {
+							required: '必填',
+						},
+						add_describe: {
+							required: '必填',
+						},
+					},
+					submitHandler: function() {
+						console.log(2);
+						var data = {
+							'name': $("#add_name").val(),
+							'cardcode': $("#add_cardcode").val(),
+							'describe': $("#add_describe").val()
+						}
+						$.ajax({
+							type: "POST",
+							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+							url: "/school/input",
+							async: false,
+							data: data,
+							timeout: "30000",
+							success: function(msg) {
+								layer.closeAll();
+								layer.msg('添加成功', {
+									icon: 1,
+									time: 800 //2s后自动关闭
+								});
+								getAjaxData({
+									"id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
+									"name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
+									"cardcode": $("#school-cardcode").val() == '' ? undefined : $("#school-cardcode").val(),
+									"limit": 20,
+									"offset": 1,
+								});
+							},
+							error: function() {
+								layer.msg('添加失败');
+								console.log("error");
+							}
+						});
 
-								},
-								messages: {
-									add_name: {
-										required: '必填',
-									},
-									add_cardcode: {
-										required: '必填',
-									},
-									add_describe: {
-										required: '必填',
-									},
-								},
-								errorPlacement: function(error, element) {
-									error.appendTo(element.parent().find(".errorPart"));
-								},
-								success: function() {console.log(2);
-									var data = {
-										'name': $("#add_name").val(),
-										'cardcode': $("#add_cardcode").val(),
-										'describe': $("#add_describe").val()
-									}
-									$.ajax({
-										type: "POST",
-										contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-										url: "/school/input",
-										async: false,
-										data: data,
-										timeout: "30000",
-										success: function(msg) {
-											layer.closeAll();
-											layer.msg('添加成功', {
-												icon: 1,
-												time: 800 //2s后自动关闭
-											});
-											getAjaxData({
-												"id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
-												"name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
-												"cardcode": $("#school-cardcode").val() == '' ? undefined : $("#school-cardcode").val(),
-												"limit": 20,
-												"offset": 1,
-											});
-										},
-										error: function() {
-											layer.msg('添加失败');
-											console.log("error");
-										}
-									});
-								}
-							});
+					},
+					errorPlacement: function(error, element) {
+						error.appendTo(element.parent().find(".errorPart"));
+					},
+					success: function() {}
+				});
 
 				//添加
 				$('#addInfo').click(function() {
@@ -382,9 +382,7 @@
 						btn: ['确定', '取消'], //按钮
 						content: $('#addInfoContent'),
 						yes: function() {
-							console.log(111);
 
-							
 						}
 					});
 				});
