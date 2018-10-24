@@ -427,7 +427,7 @@
 							'id': $("#edit_id").val(),
 							'name': $("#edit_name").val(),
 							'cardcode': $("#edit_cardcode").val(),
-							'describe': $("edit_describe").val()
+							'describe': $("#edit_describe").val()
 						}
 						$.ajax({
 							type: "POST",
@@ -436,7 +436,7 @@
 							async: false,
 							data: data,
 							timeout: "30000",
-							success: function(msg) {alert(2222);
+							success: function(msg) {
 								layer.closeAll();
 								layer.msg('修改成功', {
 									icon: 1,
