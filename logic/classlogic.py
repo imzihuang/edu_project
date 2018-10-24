@@ -11,12 +11,12 @@ class ClassLogic(Logic):
     def __init__(self):
         pass
 
-    def intput(self, name="", grade="", school_id="", study_number=""):
+    def intput(self, name="", grade="", school_id="", student_number=0):
         values = {
             "name": name,
             "grade": grade,
             "school_id": school_id,
-            "study_number": study_number
+            "student_number": student_number
         }
         class_obj = db_api.class_create(values)
         return class_obj
