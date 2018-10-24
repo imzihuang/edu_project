@@ -314,9 +314,8 @@
 						shadeClose: true, //开启遮罩关闭
 						btn: ['确定', '取消'], //按钮
 						content: $('#addInfoContent'),
-						yes: function(form) {
+						yes: function() {
 							console.log(111);
-							form.submit();
 
 							$("#addInfoContentform").validate({
 								focusCleanup: true,
