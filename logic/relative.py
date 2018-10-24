@@ -60,8 +60,22 @@ class RelativeLogic(Logic):
             filters.update({"phone": phone})
 
         relative_list = db_api.relative_list(offset=offset, limit=limit, **filters)
+        # 关联学生
+        views_list = self.views(relative_list)
+        for view in views_list:
+            _ = view.get("student_id").split(',')
+            student_ids = []
+            student_names = []
+            for stu_id in _:
+                student_info = db_api.student_get(stu_id)
+                if student_info:
+                    student_ids.append(stu_id)
+                    student_names.append(student_info.name)
+            view.update({"student_ids": student_ids})
+            view.update({"student_names": student_names})
+
         relative_count = db_api.relative_count(**filters)
-        return {"count": relative_count, "state": 0, "message": "query success", "data": self.views(relative_list)}
+        return {"count": relative_count, "state": 0, "message": "query success", "data": views_list}
 
     def info(self, id):
         if not id:
@@ -81,13 +95,17 @@ class RelativeLogic(Logic):
         if relative_infos:
             return self.views(relative_infos[0])
 
-    def auth_feature(self, relative_id, features):
+    def auth_face_feature(self, relative_id, features):
         try:
             values = {
+                "relative_id": relative_id,
                 "features": features
             }
-            db_api.relative_update(relative_id, values)
+            db_api.relative_face_auth(values)
             return True
         except Exception as ex:
             LOG.info("update relative %s feature faild:%s"%(relative_id, ex))
             return False
+
+    def get_face_feature(self, relative_id=""):
+        pass

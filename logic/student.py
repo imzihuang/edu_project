@@ -68,5 +68,15 @@ class StudentLogic(Logic):
             filters.update({"relative_id": relative_id})
 
         student_list = db_api.student_list(offset=offset, limit=limit, **filters)
+        #关联学校和班级
+        views_list = self.views(student_list)
+        for view in views_list:
+            school_list = db_api.school_list(id=view.get("school_id"))
+            if school_list:
+                view.update({"school_name": school_list[0].name})
+            class_list = db_api.class_list(id=view.get("class_id"))
+            if class_list:
+                view.update({"class_name": class_list[0].name})
+
         student_count = db_api.student_count(**filters)
         return {"count": student_count, "state": 0, "message": "query success", "data": self.views(student_list)}

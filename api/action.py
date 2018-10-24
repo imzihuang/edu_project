@@ -75,7 +75,7 @@ class ActionHandler(RequestHandler):
         err_code, feature = self.recognition_service.register_face(face_image, relative_id)
         #将特征写入数据库
         _op = RelativeLogic()
-        if _op.auth_feature(relative_id, feature):
+        if _op.auth_face_feature(relative_id, feature):
             self.finish(json.dumps({'state': 0, 'message': 'auth feature success.'}))
         else:
             self.finish(json.dumps({'state': 1, 'message': 'auth feature error'}))
