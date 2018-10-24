@@ -315,6 +315,7 @@
 						btn: ['确定', '取消'], //按钮
 						content: $('#addInfoContent'),
 						yes: function() {
+						$(".layui-layer-btn0").click(function(){
 							$("#addInfoContentform").validate({
 								focusCleanup: true,
 								focusInvalid: false,
@@ -335,15 +336,15 @@
 								},
 								messages: {
 									add_name: {
-										required: '必填',
+										required: '必填5',
 										minlength: '必填5',
 									},
 									add_cardcode: {
-										required: '必填',
+										required: '必填5',
 										minlength: '必填5',
 									},
 									add_describe: {
-										required: '必填',
+										required: '必填5',
 										minlength: '必填5',
 									},
 								},
@@ -387,6 +388,8 @@
 								},
 								success: function() {}
 							});
+						});
+							
 						}
 					});
 				});
