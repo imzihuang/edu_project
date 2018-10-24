@@ -432,7 +432,7 @@
 						$.ajax({
 							type: "POST",
 							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-							url: "/school/updae",
+							url: "/school/update",
 							async: false,
 							data: data,
 							timeout: "30000",
@@ -451,7 +451,7 @@
 								});
 							},
 							error: function() {
-								layer.msg('添加失败');
+								layer.msg('修改失败');
 								console.log("error");
 							}
 						});
