@@ -9,15 +9,15 @@
 		<meta name="keywords" content="后端管理">
 		<meta name="description" content="后端管理">
 
-		<link href="../static/css/bootstrap.min.css" rel="stylesheet">
-		<link href="../static/css/font-awesome.min.css" rel="stylesheet">
-		<link href="../static/css/animate.min.css" rel="stylesheet">
-		<link href="../static/css/style.min.css" rel="stylesheet">
-		<link href="../static/css/pager.css" rel="stylesheet" type="text/css" />
-		<link href="../static/css/style.css" rel="stylesheet" type="text/css" />
-		<link href="../static/js/plugins/layer/layer/skin/default/layer.css" rel="stylesheet" type="text/css" />
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/font-awesome.min.css" rel="stylesheet">
+		<link href="css/animate.min.css" rel="stylesheet">
+		<link href="css/style.min.css" rel="stylesheet">
+		<link href="css/pager.css" rel="stylesheet" type="text/css" />
+		<link href="css/style.css" rel="stylesheet" type="text/css" />
+		<link href="js/plugins/layer/layer/skin/default/layer.css" rel="stylesheet" type="text/css" />
 
-		<script src="../static/js/jquery.min.js"></script>
+		<script src="js/jquery.min.js"></script>
 
 	</head>
 
@@ -35,33 +35,34 @@
 												<div class="zx_searchTit">
 													<div class="sendInquiry1" style="float: left;">
 														<label class="control-label">教师编号：</label>
-														<input type="text" name="" value="" />
+														<input type="text" name="" value="" id="teacher-id"/>
 													</div>
 													<div class="sendInquiry1" style="float: left;">
 														<label class="control-label">教师名称：</label>
-														<input type="text" name="" value="" />
+														<input type="text" name="" value="" id="teacher-name"/>
 													</div>
 													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">所属学校编号：</label>
-														<input type="text" name="" value="" />
+														<input type="text" name="" value="" id="teacher-school-id"/>
 													</div>
 													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">所属学校名称：</label>
-														<input type="text" name="" value="" />
+														<input type="text" name="" value="" id="teacher-school-name"/>
 													</div>
 													<div class="sendInquiry1" style="float: left;">
 														<label class="control-label">班级编号：</label>
-														<input type="text" name="" value="" />
+														<input type="text" name="" value="" id="teacher-class-id"/>
 													</div>
 													<div class="sendInquiry1" style="float: left;">
 														<label class="control-label">班级名称：</label>
-														<input type="text" name="" value="" />
+														<input type="text" name="" value="" id="teacher-class-name"/>
 													</div>
 													<div class="sendInquiry1" style="float: left;">
 														<label class="control-label">联系电话：</label>
-														<input type="text" name="" value="" />
+														<input type="text" name="" value="" id="teacher-phone"/>
 													</div>
-													<div class="sendInquiry0 col-sm-4" style="position: relative; margin:3.5px 0 0 0;"><button class="btn btn-primary btn-myown">查询</button>&nbsp;&nbsp;
+													<div class="sendInquiry0 col-sm-4" style="position: relative; margin:3.5px 0 0 0;">
+														<button class="btn btn-primary btn-myown" id="searchBtn">查询</button>&nbsp;&nbsp;
 														<button class="btn btn-primary btn-myown" id="addManage">批量导入</button>
 													</div>
 													<div style="clear: both;"></div>
@@ -83,6 +84,7 @@
 															<th>教师名称</th>
 															<th>性别</th>
 															<th>年龄</th>
+															<th>联系电话</th>
 															<th>学校编号</th>
 															<th>班级编号</th>
 															<th>创建时间</th>
@@ -91,43 +93,10 @@
 														</tr>
 													</thead>
 													<tbody id="tbody">
-														<tr class="gradeX">
-															<td><input type="checkbox" class="zx_checkedBtn"></td>
-															<td class="centerSort">
-																1
-															</td>
-															<td class="userMessage">18910636363</td>
-															<td>哈哈哈老师</td>
-															<td class="center">女</td>
-															<td class="center">35</td>
-															<td class="center">2222</td>
-															<td class="center">33333</td>
-															<td class="center">2017 01-1 12:00:00</td>
-															<td class="center">2017 01-1 12:00:00</td>
-															<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除"></i></td>
-														</tr>
 														
 													</tbody>
 												</table>
-												<div id="page">
-													<a href="javascript:void(0);"> 首页</a>
-													<a href="javascript:void(0);">
-														&lt;上一页</a>
-													<a href="javascript:void(0);">1</a>
-													<a class="current">2</a>
-													<a href="javascript:void(0);">3</a>
-													<a href="javascript:void(0);">4</a>
-													<a href="javascript:void(0);">5</a>
-													<a href="javascript:void(0);">下一页 &gt;</a>
-													<a href="javascript:void(0);">尾页</a>
-													<span class="text">共282页记录</span>
-													<span class="text page-jump">跳转第<input type="text" id="jumpPage" name="jumpPage" class="ipt-jump">页 
-								<input type="hidden" id="jumpPageCount" name="jumpPageCount" value="282" class="ipt-jump"> 
-								<input type="hidden" id="jumpPageUrl" name="jumpPageUrl" value="url" class="ipt-jump">
-								<input name="jumpButton" onclick="jumpPages()" type="button" value="跳转" class="btn-jump" id="jumpButton">
-								</span>
-													<div class="clear"></div>
-												</div>
+												<div id="layPage"></div>
 											</div>
 										</div>
 									</div>
@@ -144,54 +113,155 @@
 		</div>
 
 		<div id="addInfoContent" style="display: none; width: 500px; padding: 20px;">
-			<div style="margin: 10px 0;">
-				<span>教师姓名：</span><input type="text" style="width: 350px;" />
+			<form id="addInfoContentform" role="form" method="POST">
+			<div style="margin: 20px 0;">
+				<span>教师名称：</span><input type="text" style="width: 350px;" id="add_name" name="add_name" />
+				<div class="errorPart"></div>
 			</div>
-			<div style="margin: 10px 0;">
-				<span>性别：</span><input type="text" style="width: 350px;" />
+			<div style="margin: 20px 0;">
+				<span>性别：</span><input type="text" style="width: 350px;" id="add_sex" name="add_sex" />
+				<div class="errorPart"></div>
 			</div>
-			<div style="margin: 10px 0;">
-				<span>年龄：</span><input type="text" style="width: 350px;" />
+			<div style="margin: 20px 0;">
+				<span>年龄：</span><input type="text" style="width: 350px;" id="add_age" name="add_age" />
+				<div class="errorPart"></div>
 			</div>
-			<div style="margin: 10px 0;">
-				<span>所属学校：</span><input type="text" style="width: 350px;" />
+			<div style="margin: 20px 0;">
+				<span>所属学校编号：</span><input type="text" style="width: 350px;" id="add_school_id" name="add_school_id" />
+				<div class="errorPart"></div>
 			</div>
-			<div style="margin: 10px 0;">
-				<span>所属班级：</span><input type="text" style="width: 350px;" />
+			<div style="margin: 20px 0;">
+				<span>所属班级：</span><input type="text" style="width: 350px;" id="add_class_id" name="add_class_id" />
+				<div class="errorPart"></div>
 			</div>
-			<div style="margin: 10px 0;">
-				<span>联系电话：</span><input type="text" style="width: 350px;" />
+			<div style="margin: 20px 0;">
+				<span>联系电话：</span><input type="text" style="width: 350px;" id="add_phone" name="add_phone" />
+				<div class="errorPart"></div>
 			</div>
+			<input class="submit" type="submit" value="提交" id="addInfoContentSubmit" style="display: none;">
+			</form>
 		</div>
 
 		<div id="editAreaContent" style="display: none; width: 500px; padding: 20px;">
-			<div style="margin: 10px 0;">
-				<span>教师编号：</span><input type="text" style="width: 350px;" />
+			<form id="editAreaContentform" role="form">
+			<div style="margin: 20px 0;">
+				<span>教师编号：</span><input type="text" style="width: 350px;" id="edit_id" name="edit_id" />
+				<div class="errorPart"></div>
 			</div>
-			<div style="margin: 10px 0;">
-				<span>教师名称：</span><input type="text" style="width: 350px;" />
+			<div style="margin: 20px 0;">
+				<span>教师名称：</span><input type="text" style="width: 350px;" id="edit_name" name="edit_name" />
+				<div class="errorPart"></div>
 			</div>
-			<div style="margin: 10px 0;">
-				<span>所属学校编号：</span><input type="text" style="width: 350px;" />
+			<div style="margin: 20px 0;">
+				<span>性别：</span><input type="text" style="width: 350px;" id="edit_sex" name="edit_sex" />
+				<div class="errorPart"></div>
 			</div>
-			<div style="margin: 10px 0;">
-				<span>班级编号：</span><input type="text" style="width: 350px;" />
+			<div style="margin: 20px 0;">
+				<span>年龄：</span><input type="text" style="width: 350px;" id="edit_age" name="edit_age" />
+				<div class="errorPart"></div>
 			</div>
-			<div style="margin: 10px 0;">
-				<span>性别：</span><input type="text" style="width: 350px;" />
+			<div style="margin: 20px 0;">
+				<span>所属学校编号：</span><input type="text" style="width: 350px;" id="edit_school_id" name="edit_school_id" />
+				<div class="errorPart"></div>
 			</div>
-			<div style="margin: 10px 0;">
-				<span>年龄：</span><input type="text" style="width: 350px;" />
+			<div style="margin: 20px 0;">
+				<span>班级编号：</span><input type="text" style="width: 350px;" id="edit_class_id" name="edit_class_id" />
+				<div class="errorPart"></div>
 			</div>
-			<div style="margin: 10px 0;">
-				<span>联系电话：</span><input type="text" style="width: 350px;" />
+			
+			<div style="margin: 20px 0;">
+				<span>联系电话：</span><input type="text" style="width: 350px;" id="edit_phone" name="edit_phone" />
+				<div class="errorPart"></div>
 			</div>
+			<input class="submit" type="submit" value="提交" id="editAreaContentSubmit" style="display: none;">
+			</form>
 		</div>
 
-		<script src="../static/js/bootstrap.min.js"></script>
-		<script src="../static/js/plugins/layer/layer.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/plugins/layer/layer.js"></script>
+		<script src="js/jquery.validate.min.js"></script>
 		<script type="text/javascript">
-			$(function() {
+			$(document).ready(function() {
+				getAjaxData({
+					"id": $("#teacher-id").val() == '' ? undefined : $("#teacher-id").val(),
+					"name": $("#teacher-name").val() == '' ? undefined : $("#teacher-name").val(),
+					"school_id": $("#teacher-school-id").val() == '' ? undefined : $("#teacher-school-id").val(),
+					"school_name": $("#teacher-school-name").val() == '' ? undefined : $("#teacher-school-name").val(),
+					"class_id": $("#teacher-class-id").val() == '' ? undefined : $("#teacher-class-id").val(),
+					"class_name": $("#teacher-class-name").val() == '' ? undefined : $("#teacher-class-name").val(),
+					"phone": $("#teacher-phone").val() == '' ? undefined : $("#teacher-phone").val(),
+					"limit": 20,
+					"offset": 1,
+				});
+				
+				function getAjaxData(senddata) {
+					$.ajax({
+						type: "GET",
+						contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+						url: "/teacher/infos",
+						async: false,
+						data: senddata,
+						timeout: "30000",
+						success: function(msg) {
+							var msg = JSON.parse(msg);
+							var strs = '';
+							console.log(msg);
+							if(msg.data.length > 0) {
+								for(var i = 0; i < msg.data.length; i++) {
+									strs += '<tr class="gradeX">' +
+										'<td><input type="checkbox" class="zx_checkedBtn"></td>' +
+										'<td class="centerSort">' + (i + 1) + '</td>' +
+										'<td class="userMessage data_code">' + msg.data[i].code + '</td>' +
+										'<td class="data_name">' + msg.data[i].name + '</td>' +
+										'<td class="center data_sex">' + msg.data[i].sex + '</td>' +
+										'<td class="center data_age">' + msg.data[i].age + '</td>' +
+										'<td class="center data_phone">' + msg.data[i].phone + '</td>' +
+										'<td class="center data_school_id">' + msg.data[i].school_id + '</td>' +
+										'<td class="center data_class_id">' + msg.data[i].class_id + '</td>' +
+										'<td class="center">' + msg.data[i].create_time + '</td>' +
+										'<td class="center">' + msg.data[i].updated_time + '</td>' +
+										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除"></i></td>' +
+										'</tr>'
+								}
+								$("#tbody").html(strs);
+							} else {
+								$("#tbody").html('<tr><td colspan="11" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
+							}
+							//							layPage(msg.count, msg.result.pageSize, msg.result.pageNo)
+						},
+						error: function() {
+							console.log("error");
+						}
+					});
+				}
+				
+				function layPage(paCount, pgSize, pageIndex) {
+					layui.laypage.reder({
+						elem: "layPage",
+						count: pgCount,
+						curr: pageIndex,
+						limit: pgSize,
+						layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
+						jump: function(e, first) {
+							if(!first) {
+								pageIndex = e.curr;
+								pgSize = e.limit;
+								var district = "";
+								getAjaxData({
+									"id": $("#teacher-id").val() == '' ? undefined : $("#teacher-id").val(),
+									"name": $("#teacher-name").val() == '' ? undefined : $("#teacher-name").val(),
+									"school_id": $("#teacher-school-id").val() == '' ? undefined : $("#teacher-school-id").val(),
+									"school_name": $("#teacher-school-name").val() == '' ? undefined : $("#teacher-school-name").val(),
+									"class_id": $("#teacher-class-id").val() == '' ? undefined : $("#teacher-class-id").val(),
+									"class_name": $("#teacher-class-name").val() == '' ? undefined : $("#teacher-class-name").val(),
+									"phone": $("#teacher-phone").val() == '' ? undefined : $("#teacher-phone").val(),
+									"limit": pgSize,
+									"offset": pageIndex,
+								});
+							}
+						}
+					})
+				}
 				//全选按钮
 				$("#zx_checkedAllBtn").click(function() {
 					if(this.checked) {
@@ -289,10 +359,106 @@
 					}
 				}
 
-				//==========
-				var layerIndex;
+				//查询
+				$("#searchBtn").click(function(){
+					getAjaxData({
+						"id": $("#teacher-id").val() == '' ? undefined : $("#teacher-id").val(),
+						"name": $("#teacher-name").val() == '' ? undefined : $("#teacher-name").val(),
+						"school_id": $("#teacher-school-id").val() == '' ? undefined : $("#teacher-school-id").val(),
+						"school_name": $("#teacher-school-name").val() == '' ? undefined : $("#teacher-school-name").val(),
+						"class_id": $("#teacher-class-id").val() == '' ? undefined : $("#teacher-class-id").val(),
+						"class_name": $("#teacher-class-name").val() == '' ? undefined : $("#teacher-class-name").val(),
+						"phone": $("#teacher-phone").val() == '' ? undefined : $("#teacher-phone").val(),
+						"limit": 20,
+						"offset": 1,
+					});
+				});
 				//添加
+				var layerIndex;
+				$("#addInfoContentform").validate({
+					focusCleanup: true,
+					focusInvalid: false,
+					debug: true,
+					rules: {
+						add_name: {
+							required: true,
+						},
+						add_sex: {
+							required: true,
+						},
+						add_age: {
+							required: true,
+						},
+						add_school_id: {
+							required: true,
+						},
+						add_class_id: {
+							required: true,
+						},
+						add_phone: {
+							required: true,
+						},
+					},
+					messages: {
+						add_name: {
+							required: '必填',
+						},
+						add_sex: {
+							required: '必填',
+						},
+						add_age: {
+							required: '必填',
+						},
+						add_school_id: {
+							required: '必填',
+						},
+						add_class_id: {
+							required: '必填',
+						},
+						add_phone: {
+							required: '必填',
+						},
+					},
+					submitHandler: function(form) {
+						var data = {
+							'name': $("#add_name").val(),
+							'sex': $("#add_sex").val(),
+							'age': $("#add_age").val(),
+							'school_id': $("#add_school_id").val(),
+							'class_id': $("#add_class_id").val(),
+							'phone': $("#add_phone").val()
+						}
+						$.ajax({
+							type: "POST",
+							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+							url: "/teacher/input",
+							async: false,
+							data: data,
+							timeout: "30000",
+							success: function(msg) {
+								layer.closeAll();
+								layer.msg('添加成功', {
+									icon: 1,
+									time: 800 //2s后自动关闭
+								});
+                                window.location.reload();
+							},
+							error: function() {
+								layer.msg('添加失败');
+								console.log("error");
+							}
+						});
+
+					},
+					errorPlacement: function(error, element) {
+						error.appendTo(element.parent().find(".errorPart"));
+					},
+					success: function() {
+					}
+				});
 				$('#addInfo').click(function() {
+					$("input").val("");
+					$(".errorPart").html("");
 					layerIndex = layer.open({
 						title: '添加老师',
 						type: 1,
@@ -302,16 +468,108 @@
 						btn: ['确定', '取消'], //按钮
 						content: $('#addInfoContent'),
 						yes: function() {
-							layer.closeAll();
-							layer.msg('添加成功', {
-								icon: 1,
-								time: 800 //2s后自动关闭
-							});
+							$("#addInfoContentSubmit").click();
 						}
 					});
 				});
+                //编辑
+                $("#editAreaContentform").validate({
+					focusCleanup: true,
+					focusInvalid: false,
+					debug: true,
+					rules: {
+						edit_id: {
+							required: true,
+						},
+						edit_name: {
+							required: true,
+						},
+						edit_sex: {
+							required: true,
+						},
+						edit_age: {
+							required: true,
+						},
+						edit_school_id: {
+							required: true,
+						},
+						edit_class_id: {
+							required: true,
+						},
+						edit_phone: {
+							required: true,
+						},
+					},
+					messages: {
+						edit_id: {
+							required: '必填',
+						},
+						edit_name: {
+							required: '必填',
+						},
+						edit_sex: {
+							required: '必填',
+						},
+						edit_age: {
+							required: '必填',
+						},
+						edit_school_id: {
+							required: '必填',
+						},
+						edit_class_id: {
+							required: '必填',
+						},
+						edit_phone: {
+							required: '必填',
+						},
+					},
+					submitHandler: function(form) {
+						var data = {
+							'id': $("#edit_id").val(),
+							'name': $("#edit_name").val(),
+							'school_id': $("#edit_sex").val(),
+							'class_id': $("#edit_age").val(),
+							'sex': $("#edit_school_id").val(),
+							'age': $("#edit_class_id").val(),
+							'phone': $("#edit_phone").val()
+						}
+						$.ajax({
+							type: "POST",
+							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+							url: "/teacher/updae",
+							async: false,
+							data: data,
+							timeout: "30000",
+							success: function(msg) {
+								layer.closeAll();
+								layer.msg('修改成功', {
+									icon: 1,
+									time: 800 //2s后自动关闭
+								});
+                                window.location.reload()
+							},
+							error: function() {
+								layer.msg('修改失败');
+								console.log("error");
+							}
+						});
+					},
 
+					errorPlacement: function(error, element) {
+						error.appendTo(element.parent().find(".errorPart"));
+					},
+					success: function() {
+					}
+				});
 				$('.areapen').click(function() {
+					$(".errorPart").html("");
+					$("#edit_id").val($(this).parent("td").siblings(".data_code").html());
+					$("#edit_name").val($(this).parent("td").siblings(".data_name").html());
+					$("#edit_sex").val($(this).parent("td").siblings(".data_sex").html());
+					$("#edit_age").val($(this).parent("td").siblings(".data_age").html());
+					$("#edit_school_id").val($(this).parent("td").siblings(".data_school_id").html());
+					$("#edit_class_id").val($(this).parent("td").siblings(".data_class_id").html());
+					$("#edit_phone").val($(this).parent("td").siblings(".data_phone").html());
 					layerIndex = layer.open({
 						title: '修改老师信息',
 						type: 1,
@@ -322,17 +580,12 @@
 						btn: ['确定', '取消'], //按钮
 						content: $('#editAreaContent'),
 						yes: function() {
-							layer.closeAll();
-							layer.msg('修改成功', {
-								icon: 1,
-								time: 800 //2s后自动关闭
-							});
+							$("#editAreaContentSubmit").click();
 						}
 					});
 				});
 
 				$('.fa-close').click(function() {
-
 					layer.confirm('确定删除选中的老师？', {
 						btn: ['确定', '取消'] //按钮
 					}, function() {
@@ -347,10 +600,6 @@
 						});*/
 					});
 				});
-
-				//=========
-				$('#selAccount').css('display', 'none');
-				$('#selAccountTop').css('display', 'none');
 
 			});
 		</script>
