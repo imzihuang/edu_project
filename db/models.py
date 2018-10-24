@@ -43,7 +43,7 @@ class TeacherInfo(Base, ModelBase):
     age = Column(Integer, default=1)
     school_id = Column(VARCHAR(36), nullable=False)
     class_id = Column(VARCHAR(36), nullable=False)
-    user_id = Column(VARCHAR(36), nullable=False)
+    user_id = Column(VARCHAR(36))
     create_time = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_time = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -59,7 +59,7 @@ class StudentInfo(Base, ModelBase):
     school_id = Column(VARCHAR(36), nullable=False)
     class_id = Column(VARCHAR(36), nullable=False)
     status = Column(VARCHAR(36), default="apply")
-    user_id = Column(VARCHAR(36), nullable=False)
+    user_id = Column(VARCHAR(36))
     relation_number = Column(Integer, default=3)
     create_time = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_time = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
@@ -74,8 +74,8 @@ class RelativeInfo(Base, ModelBase):
     sex = Column(Integer, default=0)
     age = Column(Integer, default=1)
     student_id = Column(VARCHAR(200), nullable=False)
-    user_id = Column(VARCHAR(36), nullable=False)
-    wxuser_id = Column(VARCHAR(36), nullable=False)
+    user_id = Column(VARCHAR(36))
+    wxuser_id = Column(VARCHAR(36))
     relation = Column(VARCHAR(36), nullable=False)
     phone = Column(VARCHAR(36), nullable=False)
 
