@@ -94,17 +94,18 @@
 		<div id="addInfoContent" style="display: none; width: 500px; padding: 20px;">
 			<form id="addInfoContentform" role="form" method="POST">
 				<div style="margin: 10px 0;">
-					<span>学校名称：</span><input type="text" style="width: 350px;" id="add_name" name="add_name" class="validate[required]"/>
+					<span>学校名称：</span><input type="text" style="width: 350px;" id="add_name" name="add_name" />
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 10px 0;">
-					<span>设备卡号：</span><input type="text" style="width: 350px;" id="add_cardcode" name="add_cardcode"/>
+					<span>设备卡号：</span><input type="text" style="width: 350px;" id="add_cardcode" name="add_cardcode" />
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 10px 0;">
-					<span>描述：</span><input type="text" style="width: 350px;" id="add_describe" name="add_describe"/>
+					<span>描述：</span><input type="text" style="width: 350px;" id="add_describe" name="add_describe" />
 					<div class="errorPart"></div>
 				</div>
+				<input type="submit" value="提交" id="addInfoContentSubmit"/>
 			</form>
 		</div>
 		<div id="editAreaContent" style="display: none; width: 500px; padding: 20px;">
@@ -216,7 +217,7 @@
 				$("#tbody :checkbox").click(function() {
 						allchk()
 					})
-				//全选
+					//全选
 				function allchk() {
 					$('#delInfo').attr("disabled", false);
 					var chknum = $("#tbody :checkbox").size(); //选项总个数 
@@ -306,7 +307,8 @@
 					$("#add_name").val("");
 					$("#add_cardcode").val("");
 					$("#add_describe").val("");
-					$(".error").css("display","none");
+					$(".error").css("display", "none");
+					$(".layui-layer-btn0")
 					layerIndex = layer.open({
 						title: '添加学校',
 						type: 1,
@@ -316,6 +318,7 @@
 						btn: ['确定', '取消'], //按钮
 						content: $('#addInfoContent'),
 						yes: function() {
+							$("#addInfoContentSubmit").click();
 							$("#addInfoContentform").validate({
 								focusCleanup: true,
 								focusInvalid: false,
