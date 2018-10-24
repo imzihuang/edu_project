@@ -1321,4 +1321,5 @@ select{
 .errorPart{
 	padding-left: 0px;
 	clear: both;
+	line-height: normal;
 }
