@@ -317,7 +317,41 @@
 						btn: ['确定', '取消'], //按钮
 						content: $('#addInfoContent'),
 						yes: function() {
-							
+							$("#addInfoContentSubmit").click();
+							$("#addInfoContentform").validate({
+								focusCleanup: true,
+								focusInvalid: false,
+								debug: true,
+								rules: {
+									add_name: {
+										required: true,
+										minlength: 5,
+									},
+									add_cardcode: {
+										required: true,
+										minlength: 5,
+									},
+									add_describe: {
+										required: true,
+										minlength: 5,
+									},
+								},
+								messages: {
+									add_name: {
+										required: '必填',
+										minlength: '必填5',
+									},
+									add_cardcode: {
+										required: '必填',
+										minlength: '必填5',
+									},
+									add_describe: {
+										required: '必填',
+										minlength: '必填5',
+									},
+								},
+								submitHandler: function(form) {
+									console.log(2);
 									var data = {
 										'name': $("#add_name").val(),
 										'cardcode': $("#add_cardcode").val(),
@@ -350,7 +384,12 @@
 										}
 									});
 
-								
+								},
+								errorPlacement: function(error, element) {
+									error.appendTo(element.parent().find(".errorPart"));
+								},
+								success: function() {}
+							});
 						}
 					});
 				});
@@ -381,7 +420,8 @@
 										required: true,
 									},
 								},
-								submitHandler: function() {
+								submitHandler: function(form) {
+									form.submit();
 									var data = {
 										'id': $("#edit_id").val(),
 										'name': $("#edit_name").val(),
