@@ -366,7 +366,9 @@
 					errorPlacement: function(error, element) {
 						error.appendTo(element.parent().find(".errorPart"));
 					},
-					success: function() {}
+					success: function() {
+						$(".error").css("display", "none");
+					}
 				});
 				//添加
 				$('#addInfo').click(function() {
@@ -421,7 +423,6 @@
 						},
 					},
 					submitHandler: function(form) {
-						form.submit();
 						var data = {
 							'id': $("#edit_id").val(),
 							'name': $("#edit_name").val(),
@@ -460,7 +461,7 @@
 						error.appendTo(element.parent().find(".errorPart"));
 					},
 					success: function() {
-
+						$(".error").css("display", "none");
 					}
 				});
 				$('.areapen').click(function() {
