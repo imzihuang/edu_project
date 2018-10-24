@@ -9,15 +9,15 @@
 		<meta name="keywords" content="后端管理">
 		<meta name="description" content="后端管理">
 
-		<link href="../static/css/bootstrap.min.css" rel="stylesheet">
-		<link href="../static/css/font-awesome.min.css" rel="stylesheet">
-		<link href="../static/css/animate.min.css" rel="stylesheet">
-		<link href="../static/css/style.min.css" rel="stylesheet">
-		<link href="../static/css/pager.css" rel="stylesheet" type="text/css" />
-		<link href="../static/css/style.css" rel="stylesheet" type="text/css" />
-		<link href="../static/js/plugins/layer/layer/skin/default/layer.css" rel="stylesheet" type="text/css" />
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/font-awesome.min.css" rel="stylesheet">
+		<link href="css/animate.min.css" rel="stylesheet">
+		<link href="css/style.min.css" rel="stylesheet">
+		<link href="css/pager.css" rel="stylesheet" type="text/css" />
+		<link href="css/style.css" rel="stylesheet" type="text/css" />
+		<link href="js/plugins/layer/skin/default/layer.css" rel="stylesheet" type="text/css" />
 
-		<script src="../static/js/jquery.min.js"></script>
+		<script src="js/jquery.min.js"></script>
 
 	</head>
 
@@ -35,37 +35,38 @@
 												<div class="zx_searchTit">
 													<div class="sendInquiry1" style="float: left;">
 														<label class="control-label">学生编号：</label>
-														<input type="text" name="" value="" />
+														<input type="text" name="" value="" id="student-id"/>
 													</div>
 													<div class="sendInquiry1" style="float: left;">
 														<label class="control-label">学生名称：</label>
-														<input type="text" name="" value="" />
+														<input type="text" name="" value="" id="student-name"/>
 													</div>
 													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">所属学校编号：</label>
-														<input type="text" name="" value="" />
+														<input type="text" name="" value="" id="school-id"/>
 													</div>
 													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">所属学校名称：</label>
-														<input type="text" name="" value="" />
+														<input type="text" name="" value="" id="student-name"/>
 													</div>
 													<div class="sendInquiry1" style="float: left;">
 														<label class="control-label">班级编号：</label>
-														<input type="text" name="" value="" />
+														<input type="text" name="" value="" id="relative-id"/>
 													</div>
 													<div class="sendInquiry1" style="float: left;">
 														<label class="control-label">班级名称：</label>
-														<input type="text" name="" value="" />
+														<input type="text" name="" value="" id="relative-name"/>
 													</div>
 													<div class="sendInquiry1" style="float: left;">
 														<label class="control-label">亲属编号：</label>
-														<input type="text" name="" value="" />
+														<input type="text" name="" value="" id="family-id"/>
 													</div>
 													<div class="sendInquiry1" style="float: left;">
 														<label class="control-label">亲属姓名：</label>
-														<input type="text" name="" value="" />
+														<input type="text" name="" value="" id="family-name"/>
 													</div>
-													<div class="sendInquiry0 col-sm-4" style="position: relative; margin:3.5px 0 0 0;"><button class="btn btn-primary btn-myown">查询</button>&nbsp;&nbsp;
+													<div class="sendInquiry0 col-sm-4" style="position: relative; margin:3.5px 0 0 0;">
+														<button class="btn btn-primary btn-myown" id="searchBtn">查询</button>&nbsp;&nbsp;
 														<button class="btn btn-primary btn-myown" id="addManage">批量导入</button>
 													</div>
 													<div style="clear: both;"></div>
@@ -117,25 +118,7 @@
 														
 													</tbody>
 												</table>
-												<div id="page">
-													<a href="javascript:void(0);"> 首页</a>
-													<a href="javascript:void(0);">
-														&lt;上一页</a>
-													<a href="javascript:void(0);">1</a>
-													<a class="current">2</a>
-													<a href="javascript:void(0);">3</a>
-													<a href="javascript:void(0);">4</a>
-													<a href="javascript:void(0);">5</a>
-													<a href="javascript:void(0);">下一页 &gt;</a>
-													<a href="javascript:void(0);">尾页</a>
-													<span class="text">共282页记录</span>
-													<span class="text page-jump">跳转第<input type="text" id="jumpPage" name="jumpPage" class="ipt-jump">页 
-								<input type="hidden" id="jumpPageCount" name="jumpPageCount" value="282" class="ipt-jump"> 
-								<input type="hidden" id="jumpPageUrl" name="jumpPageUrl" value="url" class="ipt-jump">
-								<input name="jumpButton" onclick="jumpPages()" type="button" value="跳转" class="btn-jump" id="jumpButton">
-								</span>
-													<div class="clear"></div>
-												</div>
+												<div id="layPage"></div>
 											</div>
 										</div>
 									</div>
@@ -152,71 +135,76 @@
 		</div>
 
 		<div id="addInfoContent" style="display: none; width: 500px; padding: 20px;">
+			<form id="addInfoContentform" role="form" method="POST">
 			<div style="margin: 10px 0;">
-				<span>学生姓名：</span><input type="text" style="width: 350px;" />
+				<span>学生姓名：</span><input type="text" style="width: 350px;" id="add_name" name="add_name" />
 			</div>
 			<div style="margin: 10px 0;">
-				<span>性别：</span><input type="text" style="width: 350px;" />
+				<span>性别：</span><input type="text" style="width: 350px;" id="add_sex" name="add_sex" />
 			</div>
 			<div style="margin: 10px 0;">
-				<span>年龄：</span><input type="text" style="width: 350px;" />
+				<span>年龄：</span><input type="text" style="width: 350px;" id="add_age" name="add_age" />
 			</div>
 			<div style="margin: 10px 0;">
-				<span>年级：</span><input type="text" style="width: 350px;" />
+				<span>年级：</span><input type="text" style="width: 350px;" id="add_grade" name="add_grade" />
 			</div>
 			<div style="margin: 10px 0;">
-				<span>所属班级：</span><input type="text" style="width: 350px;" />
+				<span>所属班级：</span><input type="text" style="width: 350px;" id="add_class" name="add_class"/>
 			</div>
 			<div style="margin: 10px 0;">
-				<span>所属学校：</span><input type="text" style="width: 350px;" />
+				<span>所属学校：</span><input type="text" style="width: 350px;" id="add_school" name="add_school"/>
 			</div>
 			<div style="margin: 10px 0;">
 				<span>学生状态：</span>
-				<select style="width: 350px;" >
+				<select style="width: 350px;" id="add_state" name="add_state">
 					<option name="apply">报名</option>
 					<option name="dropout">退学</option>
 					<option name="graduate">毕业</option>
 				</select>
 			</div>
 			<div style="margin: 10px 0;">
-				<span>亲属上限：</span><input type="text" style="width: 350px;" />
+				<span>亲属上限：</span><input type="text" style="width: 350px;" id="add_limit" name="add_limit"/>
 			</div>
+			<input class="submit" type="submit" value="提交" id="addInfoContentSubmit" style="display: none;">
+			</form>
 		</div>
 
 		<div id="editAreaContent" style="display: none; width: 500px; padding: 20px;">
+			<form id="editAreaContentform" role="form">
 			<div style="margin: 10px 0;">
-				<span>学生编号：</span><input type="text" style="width: 350px;" />
+				<span>学生编号：</span><input type="text" style="width: 350px;"  id="edit_name" name="edit_name" />
 			</div>
 			<div style="margin: 10px 0;">
-				<span>学生名称：</span><input type="text" style="width: 350px;" />
+				<span>学生名称：</span><input type="text" style="width: 350px;" id="edit_number" name="edit_number" />
 			</div>
 			<div style="margin: 10px 0;">
-				<span>性别：</span><input type="text" style="width: 350px;" />
+				<span>性别：</span><input type="text" style="width: 350px;" id="edit_sex" name="edit_sex" />
 			</div>
 			<div style="margin: 10px 0;">
-				<span>年级：</span><input type="text" style="width: 350px;" />
+				<span>年级：</span><input type="text" style="width: 350px;"  id="edit_grade" name="edit_grade" />
 			</div>
 			<div style="margin: 10px 0;">
-				<span>班级编号：</span><input type="text" style="width: 350px;" />
+				<span>班级编号：</span><input type="text" style="width: 350px;"  id="edit_class" name="edit_class" />
 			</div>
 			<div style="margin: 10px 0;">
-				<span>学校编号：</span><input type="text" style="width: 350px;" />
+				<span>学校编号：</span><input type="text" style="width: 350px;"  id="edit_school" name="edit_school" />
 			</div>
 			<div style="margin: 10px 0;">
 				<span>状态：</span>
-				<select style="width: 350px;" >
+				<select style="width: 350px;" id="add_state" name="add_state">
 					<option name="apply">报名</option>
 					<option name="dropout">退学</option>
 					<option name="graduate">毕业</option>
 				</select>
 			</div>
 			<div style="margin: 10px 0;">
-				<span>亲属上限：</span><input type="text" style="width: 350px;" />
+				<span>亲属上限：</span><input type="text" style="width: 350px;" id="edit_limit" name="edit_limit"/>
 			</div>
+			</form>
 		</div>
 
-		<script src="../static/js/bootstrap.min.js"></script>
-		<script src="../static/js/plugins/layer/layer.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/plugins/layer/layer.js"></script>
 		<script type="text/javascript">
 			$(function() {
 				//全选按钮
