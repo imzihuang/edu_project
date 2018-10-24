@@ -46,5 +46,14 @@ class ClassLogic(Logic):
             filters.update({"grade": grade})
 
         class_list = db_api.class_list(offset=offset, limit=limit, **filters)
+        #更新学生数和学校名称
+        views_list = self.views(class_list)
+        for view in views_list:
+            school_list = db_api.school_list(id=view.get("school_id"))
+            if school_list:
+                view.update({"school_name": school_list[0].name})
+            student_count = db_api.student_count(class_id=view.get("id"))
+            view.update({"reality_number": student_count})
+
         class_count = db_api.class_count(**filters)
-        return {"count": class_count, "state": 0, "message": "query success", "data": self.views(class_list)}
+        return {"count": class_count, "state": 0, "message": "query success", "data": views_list}

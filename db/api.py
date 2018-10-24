@@ -212,7 +212,7 @@ def relative_count(**filters):
     query = model_query(models.RelativeInfo, **filters)
     return query.count()
 
-def relative_auth(values):
+def relative_face_auth(values):
     session = get_session()
     query = model_query(models.RelativeFeature, session=session).filter_by(relative_id=values.get("relative_id"))
     if query:
@@ -223,6 +223,7 @@ def relative_auth(values):
     with session.begin():
         relative_ref.save(session)
         return relative_ref
+
 #####################relative end################################
 
 

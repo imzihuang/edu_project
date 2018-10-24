@@ -54,6 +54,15 @@ class TeacherLogic(Logic):
         if phone:
             filters.update({"phone": phone})
 
+        #关联班级名和学校名
         teacher_list = db_api.teacher_list(offset=offset, limit=limit, **filters)
+        views_list = self.views(teacher_list)
+        for view in views_list:
+            school_list = db_api.school_list(id=view.get("school_id"))
+            if school_list:
+                view.update({"school_name": school_list[0].name})
+            class_list = db_api.class_list(id=view.get("class_id"))
+            if class_list:
+                view.update({"class_name": class_list[0].name})
         teacher_count = db_api.teacher_count(**filters)
-        return {"count": teacher_count, "state": 0, "message": "query success", "data": self.views(teacher_list)}
+        return {"count": teacher_count, "state": 0, "message": "query success", "data": views_list}
