@@ -94,7 +94,7 @@
 		<div id="addInfoContent" style="display: none; width: 500px; padding: 20px;">
 			<form id="addInfoContentform" role="form" method="POST">
 				<div style="margin: 10px 0;">
-					<span>学校名称：</span><input type="text" style="width: 350px;" id="add_name" name="add_name"/>
+					<span>学校名称：</span><input type="text" style="width: 350px;" id="add_name" name="add_name" class="validate[required]"/>
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 10px 0;">
@@ -305,7 +305,7 @@
 				$('#addInfo').click(function() {
 					$("#add_name").val("");
 					$("#add_cardcode").val("");
-					$("add_describe").val("");
+					$("#add_describe").val("");
 					$(".error").css("display","none");
 					layerIndex = layer.open({
 						title: '添加学校',
@@ -316,6 +316,7 @@
 						btn: ['确定', '取消'], //按钮
 						content: $('#addInfoContent'),
 						yes: function() {
+							$("#addInfoContentform").submit(;)
 							$("#addInfoContentform").validate({
 								focusCleanup: true,
 								focusInvalid: false,
