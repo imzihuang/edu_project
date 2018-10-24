@@ -91,8 +91,8 @@
 
 		</div>
 		</div>
-
-		<form id="addInfoContent" style="display: none; width: 500px; padding: 20px;">
+        <div id="addInfoContent" style="display: none; width: 500px; padding: 20px;">
+		<form id="addInfoContentform" role="form">
 			<div style="margin: 10px 0;">
 				<span>学校名称：</span><input type="text" style="width: 350px;" id="add_name" name="add_name" />
 				<div class="errorPart"></div>
@@ -106,8 +106,9 @@
 				<div class="errorPart"></div>
 			</div>
 		</form>
-
-		<form id="editAreaContent" style="display: none; width: 500px; padding: 20px;">
+        </div>
+        <div id="editAreaContent" style="display: none; width: 500px; padding: 20px;">
+		<form id="editAreaContentform" role="form">
 			<div style="margin: 10px 0;">
 				<span>学校编号：</span><input type="text" style="width: 350px;" id="edit_id" name="edit_id" />
 				<div class="errorPart"></div>
@@ -125,6 +126,7 @@
 				<div class="errorPart"></div>
 			</div>
 		</form>
+		</div>
 
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/plugins/layer/layer.js"></script>
@@ -314,10 +316,10 @@
 						content: $('#addInfoContent'),
 						yes: function() {
 							console.log(111);
-							$("#addInfoContent").validate({
-								focusCleanup: true,
-								focusInvalid: false,
-								debug: true,
+							$("#addInfoContentform").validate({
+//								focusCleanup: true,
+//								focusInvalid: false,
+//								debug: true,
 								rules: {
 									add_name: {
 										required: true,
@@ -398,7 +400,7 @@
 						btn: ['确定', '取消'], //按钮
 						content: $('#editAreaContent'),
 						yes: function() {
-							$("#addInfoContent").validate({
+							$("#editAreaContentform").validate({
 //								focusCleanup: true,
 //								focusInvalid: false,
 //								debug: true,
