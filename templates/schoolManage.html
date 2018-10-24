@@ -96,15 +96,15 @@
 			<form id="addInfoContentform" role="form" method="POST">
 				<div style="margin: 10px 0;">
 					<span>学校名称：</span><input type="text" style="width: 350px;" id="add_name" name="add_name" />
-					<div class="errorPart"></div>
+					<!--<div class="errorPart"></div>-->
 				</div>
 				<div style="margin: 10px 0;">
 					<span>设备卡号：</span><input type="text" style="width: 350px;" id="add_cardcode" name="add_cardcode" />
-					<div class="errorPart"></div>
+					<!--<div class="errorPart"></div>-->
 				</div>
 				<div style="margin: 10px 0;">
 					<span>描述：</span><input type="text" style="width: 350px;" id="add_describe" name="add_describe" />
-					<div class="errorPart"></div>
+					<!--<div class="errorPart"></div>-->
 				</div>
 				<input class="submit" type="submit" value="提交" id="addInfoContentSubmit" style="display: none;">
 			</form>
@@ -113,19 +113,19 @@
 			<form id="editAreaContentform" role="form">
 				<div style="margin: 10px 0;">
 					<span>学校编号：</span><input type="text" style="width: 350px;" id="edit_id" name="edit_id" />
-					<div class="errorPart"></div>
+					<!--<div class="errorPart"></div>-->
 				</div>
 				<div style="margin: 10px 0;">
 					<span>学校名称：</span><input type="text" style="width: 350px;" id="edit_name" name="edit_name" />
-					<div class="errorPart"></div>
+					<!--<div class="errorPart"></div>-->
 				</div>
 				<div style="margin: 10px 0;">
 					<span>设备卡号：</span><input type="text" style="width: 350px;" id="edit_cardcode" name="edit_cardcode" />
-					<div class="errorPart"></div>
+					<!--<div class="errorPart"></div>-->
 				</div>
 				<div style="margin: 10px 0;">
 					<span>描述：</span><input type="text" style="width: 350px;" id="edit_describe" name="edit_describe" />
-					<div class="errorPart"></div>
+					<!--<div class="errorPart"></div>-->
 				</div>
 				<input class="submit" type="submit" value="提交" id="editAreaContentSubmit" style="display: none;">
 			</form>
@@ -219,7 +219,7 @@
 				$("#tbody :checkbox").click(function() {
 						allchk()
 					})
-					//全选
+				//全选
 				function allchk() {
 					$('#delInfo').attr("disabled", false);
 					var chknum = $("#tbody :checkbox").size(); //选项总个数 
@@ -242,7 +242,6 @@
 					}
 				}
 
-				//============
 				//删除选中项
 				$('#delInfo').click(function() {
 					var valArr = new Array;
@@ -312,7 +311,7 @@
 						"offset": 1,
 					});
 				});
-				//==========
+				//添加
 				var layerIndex;
 				$("#addInfoContentform").validate({
 					focusCleanup: true,
@@ -376,16 +375,14 @@
 
 					},
 					errorPlacement: function(error, element) {
-						error.appendTo(element.parent().find(".errorPart"));
+//						error.appendTo(element.parent().find(".errorPart"));
 					},
 					success: function() {
 					}
 				});
-				//添加
+				
 				$('#addInfo').click(function() {
-					$("#add_name").val("");
-					$("#add_cardcode").val("");
-					$("#add_describe").val("");
+					$("input").val("");
 					layerIndex = layer.open({
 						title: '添加学校',
 						type: 1,
@@ -399,7 +396,7 @@
 						}
 					});
 				});
-
+                //编辑
 				$("#editAreaContentform").validate({
 					focusCleanup: true,
 					focusInvalid: false,
@@ -469,7 +466,7 @@
 					},
 
 					errorPlacement: function(error, element) {
-						error.appendTo(element.parent().find(".errorPart"));
+//						error.appendTo(element.parent().find(".errorPart"));
 					},
 					success: function() {
 					}
@@ -495,7 +492,6 @@
 				});
 
 				$('.fa-close').click(function() {
-
 					layer.confirm('确定删除选中的学校？', {
 						btn: ['确定', '取消'] //按钮
 					}, function() {
@@ -510,10 +506,6 @@
 						});*/
 					});
 				});
-
-				//=========
-				$('#selAccount').css('display', 'none');
-				$('#selAccountTop').css('display', 'none');
 
 			});
 		</script>
