@@ -94,15 +94,15 @@
 		<div id="addInfoContent" style="display: none; width: 500px; padding: 20px;">
 			<form id="addInfoContentform" role="form" method="POST">
 				<div style="margin: 10px 0;">
-					<span>学校名称：</span><input type="text" style="width: 350px;" id="add_name" name="addName" required/>
+					<span>学校名称：</span><input type="text" style="width: 350px;" id="add_name" name="add_name" required/>
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 10px 0;">
-					<span>设备卡号：</span><input type="text" style="width: 350px;" id="add_cardcode" name="addCardcode" required/>
+					<span>设备卡号：</span><input type="text" style="width: 350px;" id="add_cardcode" name="add_cardcode" required/>
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 10px 0;">
-					<span>描述：</span><input type="text" style="width: 350px;" id="add_describe" name="addDescribe" required/>
+					<span>描述：</span><input type="text" style="width: 350px;" id="add_describe" name="add_describe" required/>
 					<div class="errorPart"></div>
 				</div>
 			</form>
@@ -301,34 +301,18 @@
 
 				//==========
 				var layerIndex;
-				//添加
-				$('#addInfo').click(function() {
-					$("#add_name").val("");
-					$("#add_cardcode").val("");
-					$("add_describe").val("");
-					layerIndex = layer.open({
-						title: '添加学校',
-						type: 1,
-						skin: 'layui-layer-demo', //样式类名
-						anim: 2,
-						shadeClose: true, //开启遮罩关闭
-						btn: ['确定', '取消'], //按钮
-						content: $('#addInfoContent'),
-						yes: function() {
-							console.log(111);
-
-							$("#addInfoContentform").validate({
+				$("#addInfoContentform").validate({
 								focusCleanup: true,
 								focusInvalid: false,
 								debug: true,
 								rules: {
-									addName: {
+									add_name: {
 										required: true,
 									},
-									addCardcode: {
+									add_cardcode: {
 										required: true,
 									},
-									addDescribe: {
+									add_describe: {
 										required: true,
 									},
 								},
@@ -336,13 +320,13 @@
 
 								},
 								messages: {
-									addName: {
+									add_name: {
 										required: '必填',
 									},
-									addCardcode: {
+									add_cardcode: {
 										required: '必填',
 									},
-									addDescribe: {
+									add_describe: {
 										required: '必填',
 									},
 								},
@@ -384,6 +368,23 @@
 								}
 							});
 
+				//添加
+				$('#addInfo').click(function() {
+					$("#add_name").val("");
+					$("#add_cardcode").val("");
+					$("add_describe").val("");
+					layerIndex = layer.open({
+						title: '添加学校',
+						type: 1,
+						skin: 'layui-layer-demo', //样式类名
+						anim: 2,
+						shadeClose: true, //开启遮罩关闭
+						btn: ['确定', '取消'], //按钮
+						content: $('#addInfoContent'),
+						yes: function() {
+							console.log(111);
+
+							
 						}
 					});
 				});
