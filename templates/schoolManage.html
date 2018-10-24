@@ -301,21 +301,7 @@
 
 				//==========
 				var layerIndex;
-				//添加
-				$('#addInfo').click(function() {
-					$("#add_name").val("");
-					$("#add_cardcode").val("");
-					$("add_describe").val("");
-					layerIndex = layer.open({
-						title: '添加学校',
-						type: 1,
-						skin: 'layui-layer-demo', //样式类名
-						anim: 2,
-						shadeClose: true, //开启遮罩关闭
-						btn: ['确定', '取消'], //按钮
-						content: $('#addInfoContent'),
-						yes: function() {
-							$("#addInfoContentform").validate({
+				$("#addInfoContentform").validate({
 								focusCleanup: true,
 								focusInvalid: false,
 								debug: true,
@@ -387,6 +373,21 @@
 								},
 								success: function() {}
 							});
+				//添加
+				$('#addInfo').click(function() {
+					$("#add_name").val("");
+					$("#add_cardcode").val("");
+					$("add_describe").val("");
+					layerIndex = layer.open({
+						title: '添加学校',
+						type: 1,
+						skin: 'layui-layer-demo', //样式类名
+						anim: 2,
+						shadeClose: true, //开启遮罩关闭
+						btn: ['确定', '取消'], //按钮
+						content: $('#addInfoContent'),
+						yes: function() {
+							
 						}
 					});
 				});
