@@ -119,7 +119,11 @@
 				<div class="errorPart"></div>
 			</div>
 			<div style="margin: 20px 0;">
-				<span>性别：</span><input type="text" style="width: 350px;" id="add_sex" name="add_sex" />
+				<span>性别：</span>
+				<select style="width: 350px;" id="add_sex" name="add_sex">
+					<option name="0">女</option>
+					<option name="1">男</option>
+				</select>
 				<div class="errorPart"></div>
 			</div>
 			<div style="margin: 20px 0;">
@@ -153,7 +157,11 @@
 				<div class="errorPart"></div>
 			</div>
 			<div style="margin: 20px 0;">
-				<span>性别：</span><input type="text" style="width: 350px;" id="edit_sex" name="edit_sex" />
+				<span>性别：</span>
+				<select style="width: 350px;" id="edit_sex" name="edit_sex" >
+					<option name="0">女</option>
+					<option name="1">男</option>
+				</select>
 				<div class="errorPart"></div>
 			</div>
 			<div style="margin: 20px 0;">
@@ -422,7 +430,7 @@
 					submitHandler: function(form) {
 						var data = {
 							'name': $("#add_name").val(),
-							'sex': $("#add_sex").val(),
+							'sex': $("#add_sex option:selected").val(),
 							'age': $("#add_age").val(),
 							'school_id': $("#add_school_id").val(),
 							'class_id': $("#add_class_id").val(),
@@ -538,16 +546,16 @@
 						var data = {
 							'id': $("#edit_id").val(),
 							'name': $("#edit_name").val(),
-							'school_id': $("#edit_sex").val(),
-							'class_id': $("#edit_age").val(),
-							'sex': $("#edit_school_id").val(),
-							'age': $("#edit_class_id").val(),
+							'school_id': $("#edit_school_id").val(),
+							'class_id': $("#edit_class_id").val(),
+							'sex': $("#edit_sex option:selected").val(),
+							'age': $("#edit_age").val(),
 							'phone': $("#edit_phone").val()
 						}
 						$.ajax({
 							type: "POST",
 							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-							url: "/teacher/updae",
+							url: "/teacher/update",
 							async: false,
 							data: data,
 							timeout: "30000",
