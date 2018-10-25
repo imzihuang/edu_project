@@ -250,12 +250,17 @@
 									}else{
 										msg.data[i].status = "毕业";
 									}
+									if(msg.data[i].sex == 0){
+										msg.data[i].sex = "女";
+									}else{
+										msg.data[i].sex = "男";
+									}
 									strs += '<tr class="gradeX">' +
 										'<td><input type="checkbox" class="zx_checkedBtn"></td>' +
 										'<td class="centerSort">' + (i + 1) + '</td>' +
 										'<td class="userMessage data_id">' + msg.data[i].id + '</td>' +
 										'<td class="data_name">' + msg.data[i].name + '</td>' +
-										'<td class="center data_sex">' + msg.data[i].sex == 0?'女':'男' + '</td>' +
+										'<td class="center data_sex">' + msg.data[i].sex + '</td>' +
 										'<td class="center data_age">' + msg.data[i].age + '</td>' +
 										'<td class="center data_grade">' + msg.data[i].grade + '</td>' +
 										'<td class="center data_class_id">' + msg.data[i].class_id + '</td>' +
