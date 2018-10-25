@@ -134,7 +134,7 @@
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/plugins/layer/layer.js"></script>
 		<script src="js/jquery.validate.min.js"></script>
-		<script src="js/layui.all.js"></script>
+		<script src="js/layui.js"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
 				getAjaxData({
@@ -176,7 +176,7 @@
 							} else {
 								$("#tbody").html('<tr><td colspan="9" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
 							}
-							layPage(msg.count, 20, 1)
+							layPage(msg.count, 20, 1);
 						},
 						error: function() {
 							console.log("error");
@@ -187,7 +187,7 @@
 				function layPage(paCount, pgSize, pageIndex) {
 					layui.laypage.reder({
 						elem: "layPage",
-						count: pgCount,
+						count: paCount,
 						curr: pageIndex,
 						limit: pgSize,
 						layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
