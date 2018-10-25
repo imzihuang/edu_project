@@ -121,8 +121,8 @@
 			<div style="margin: 20px 0;">
 				<span>性别：</span>
 				<select style="width: 350px;" id="add_sex" name="add_sex">
-					<option name="0">女</option>
-					<option name="1">男</option>
+					<option value="0">女</option>
+					<option value="1">男</option>
 				</select>
 				<div class="errorPart"></div>
 			</div>
@@ -159,8 +159,8 @@
 			<div style="margin: 20px 0;">
 				<span>性别：</span>
 				<select style="width: 350px;" id="edit_sex" name="edit_sex" >
-					<option name="0">女</option>
-					<option name="1">男</option>
+					<option value="0">女</option>
+					<option value="1">男</option>
 				</select>
 				<div class="errorPart"></div>
 			</div>
@@ -233,7 +233,7 @@
 								}
 								$("#tbody").html(strs);
 							} else {
-								$("#tbody").html('<tr><td colspan="11" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
+								$("#tbody").html('<tr><td colspan="12" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
 							}
 							//							layPage(msg.count, msg.result.pageSize, msg.result.pageNo)
 						},
