@@ -77,6 +77,7 @@ class StudentLogic(Logic):
             class_list = db_api.class_list(id=view.get("class_id"))
             if class_list:
                 view.update({"class_name": class_list[0].name})
+                view.update({"grade": class_list[0].grade})
 
         student_count = db_api.student_count(**filters)
-        return {"count": student_count, "state": 0, "message": "query success", "data": self.views(student_list)}
+        return {"count": student_count, "state": 0, "message": "query success", "data": views_list}
