@@ -73,17 +73,25 @@ class RelativeInfo(Base, ModelBase):
     name = Column(VARCHAR(100), nullable=False)
     sex = Column(Integer, default=0)
     age = Column(Integer, default=1)
-    student_id = Column(VARCHAR(200), nullable=False)
     user_id = Column(VARCHAR(36))
     wxuser_id = Column(VARCHAR(36))
-    relation = Column(VARCHAR(36), nullable=False)
     phone = Column(VARCHAR(36), nullable=False)
-
     create_time = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_time = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     def to_dict(self):
        return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
+
+class RelationInfo(Base, ModelBase):
+    __tablename__ = 'relation_info'
+    id = Column(VARCHAR(36), primary_key=True)
+    relation = Column(VARCHAR(36), nullable=False)
+    student_id = Column(VARCHAR(36), nullable=False)
+    relative_id = Column(VARCHAR(36), nullable=False)
+
+    def to_dict(self):
+       return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
+
 
 class RelativeFeature(Base, ModelBase):
     __tablename__ = 'relative_feature'

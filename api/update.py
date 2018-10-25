@@ -11,6 +11,7 @@ from logic.classlogic import ClassLogic
 from logic.teacher import TeacherLogic
 from logic.student import StudentLogic
 from logic.relative import RelativeLogic
+from logic.relation import RelationLogic
 
 LOG = logging.getLogger(__name__)
 
@@ -39,6 +40,10 @@ class UpdateHandler(RequestHandler):
             if update_obj == "relative":
                 _id, _value = self._get_relative_argument()
                 _op = RelativeLogic()
+
+            if update_obj == "relation":
+                _id, _value = self._get_relation_argument()
+                _op = RelationLogic()
 
             if not _value or not _id:
                 self.finish(json.dumps({'state': 9, 'message': 'params %s is None' % update_obj}))
@@ -138,8 +143,6 @@ class UpdateHandler(RequestHandler):
         name = self.get_argument('name', '')
         sex = int(self.get_argument('sex', 0))
         age = int(self.get_argument('age', 0))
-        student_id = self.get_argument('student_id', '')
-        relation = self.get_argument('relation', '')
         phone = self.get_argument('phone', '')
         result = {}
         if name:
@@ -148,11 +151,19 @@ class UpdateHandler(RequestHandler):
             result.update({"sex": sex})
         if age:
             result.update({"age": age})
-        if student_id:
-            result.update({"class_id": student_id})
-        if relation:
-            result.update({"relation": relation})
         if phone:
             result.update({"phone": phone})
+        return id, result
+
+    def _get_relation_argument(self):
+        id = self._get_argument('id', '')
+        relation = self.get_argument('relation', '')
+        student_id = self.get_argument('student_id', '')
+        relative_id = self.get_argument('relative_id', '')
+        result = {
+            "relation": relation,
+            "student_id": student_id,
+            "relative_id": relative_id
+        }
         return id, result
 

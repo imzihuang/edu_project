@@ -7,15 +7,23 @@ from db.base import *
 from util import exception
 
 
-def model_query(model, session=None, *args, **kwargs):
+def model_query(model, session=None,  *args, **kwargs):
     """
     :param model:
     :param session: if present, the session to use
     """
     session = session or get_session()
     query = session.query(model, *args)
-    if kwargs:
-        query = query.filter_by(**kwargs)
+    filter_dict = {}
+    for key, value in kwargs:
+        if isinstance(value, list, tuple, set, frozenset):
+            column_attr = getattr(model, key)
+            query = query.filter(column_attr.in_(value))
+        else:
+            filter_dict[key] = value
+
+    if filter_dict:
+        query = query.filter_by(**filter_dict)
 
     return query
 
@@ -224,8 +232,46 @@ def relative_face_auth(values):
         relative_ref.save(session)
         return relative_ref
 
+
 #####################relative end################################
 
+#####################relation begin################################
+def relation_create(values):
+    if not values.get('id'):
+        values['id'] = str(uuid.uuid4())
+    relation_ref = models.RelationInfo()
+    relation_ref.update(values)
+    session = get_session()
+    with session.begin():
+        relation_ref.save(session)
+        return relation_ref
+
+def relation_update(id, values):
+    query = model_query(models.RelationInfo).filter_by(id=id)
+    result = query.update(values)
+    if not result:
+        raise exception.NotFound(code=id)
+    return result
+
+def relation_get(id):
+    query = model_query(models.RelationInfo)
+    result = query.filter_by(id=id).first()
+    if not result:
+        raise exception.NotFound(code=id)
+    return result
+
+def relation_list(offset=0, limit=1000, **filters):
+    query = model_query(models.RelationInfo, **filters)
+    if offset:
+        query.offset(offset)
+    if limit:
+        query.limit(limit)
+    return query.all()
+
+def relation_count(**filters):
+    query = model_query(models.RelationInfo, **filters)
+    return query.count()
+#####################relation end################################
 
 #####################user begin################################
 def user_create(values):

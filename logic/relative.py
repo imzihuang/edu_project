@@ -12,12 +12,11 @@ LOG = logging.getLogger(__name__)
 
 class RelativeLogic(Logic):
 
-    def intput(self, name="", sex=0, age=0, student_id="", relation="", phone=""):
+    def intput(self, name="", sex=0, age=0, relation="", phone=""):
         values = {
             "name": name,
             "sex": sex,
             "age": age,
-            "student_id": student_id,
             "relation": relation,
             "phone": phone
         }
@@ -31,8 +30,7 @@ class RelativeLogic(Logic):
         return _
 
     def infos(self, id="", name="",
-              school_id="", school_name="",
-              student_id="", student_name="",
+              school_id="", student_name="",
               phone="",
               limit=100, offset=1):
         offset = (offset - 1) * limit if offset > 0 else 0
@@ -41,20 +39,11 @@ class RelativeLogic(Logic):
             filters.update({"id": id})
         if name:
             filters.update({"name": name})
-        if school_id or school_name:
-            if school_name:
-                _school_list = db_api.school_list(name=school_name)
-                if not _school_list:
-                    return {"count": 0, "state": 0, "message": "query success", "data": []}
-                school_id = _school_list[0].id
-            filters.update({"school_id": school_id})
+
         if student_id or student_name:
-            if student_name:
-                _student_list = db_api.student_list(name=student_name)
-                if not _student_list:
-                    return {"count": 0, "state": 0, "message": "query success", "data": []}
-                student_id = _student_list[0].id
-            filters.update({"student_id": student_id})
+            _relation_list = self._get_relations_by_student()
+            _ids = [_relation.relative_id for _relation in _relation_list]
+            filters.update({"id": _ids})
 
         if phone:
             filters.update({"phone": phone})
@@ -109,3 +98,13 @@ class RelativeLogic(Logic):
 
     def get_face_feature(self, relative_id=""):
         pass
+
+    def _get_relations_by_student(self, student_id="", student_name=""):
+        if student_id:
+            _relation_list = db_api.relation_list(student_id=student_id)
+            return _relation_list
+
+        _student_list = db_api.student_list(name=student_name)
+        student_id = [_student.id for _student in _student_list]
+        _relation_list = db_api.relation_list(student_id=student_id)
+        return _relation_list

@@ -49,7 +49,7 @@ class InfosHandler(RequestHandler):
                 self.finish(json.dumps({'state': 1, 'message': 'action %s error'%infos_obj}))
         except Exception as ex:
             LOG.error("query %s error:%s"%(infos_obj, ex))
-            self.finish(json.dumps({"count": 10, "state":1, "message":"error", "data":[]}))
+            self.finish(json.dumps({"state":1, "message":"error", "data":[]}))
 
 
     def _get_school_argument(self):
