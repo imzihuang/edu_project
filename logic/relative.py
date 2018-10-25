@@ -94,14 +94,14 @@ class RelativeLogic(Logic):
             return True
         except Exception as ex:
             LOG.info("update relative %s feature faild:%s"%(relative_id, ex))
-            return False
+            return 
 
     def get_face_feature(self, relative_id=""):
         pass
 
     def _get_relations_by_student(self, student_id="", student_name=""):
         if student_id:
-            _relation_list = db_api.relation_list(student_id=student_id)
+            _relation_list = db_api.student_list(student_id=student_id)
             return _relation_list
 
         _student_list = db_api.student_list(name=student_name)
