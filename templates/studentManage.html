@@ -179,10 +179,6 @@
 				<div class="errorPart"></div>
 			</div>
 			<div style="margin: 20px 0;">
-				<span>年级：</span><input type="text" style="width: 350px;" id="edit_grade" name="edit_grade"/>
-				<div class="errorPart"></div>
-			</div>
-			<div style="margin: 20px 0;">
 				<span>班级编号：</span><input type="text" style="width: 350px;" id="edit_class_id" name="edit_class_id"/>
 				<div class="errorPart"></div>
 			</div>
@@ -250,6 +246,9 @@
 										msg.data[i].sex = "女";
 									}else{
 										msg.data[i].sex = "男";
+									}
+									if(msg.data[i].grade == undefined){
+										msg.data[i].grade = "暂无"
 									}
 									strs += '<tr class="gradeX">' +
 										'<td><input type="checkbox" class="zx_checkedBtn"></td>' +
@@ -435,9 +434,6 @@
 						add_age: {
 							required: true,
 						},
-						add_grade: {
-							required: true,
-						},
 						add_class_id: {
 							required: true,
 						},
@@ -459,9 +455,6 @@
 							required: '必填',
 						},
 						add_age: {
-							required: '必填',
-						},
-						add_grade: {
 							required: '必填',
 						},
 						add_class_id: {
@@ -547,9 +540,6 @@
 						edit_age: {
 							required: true,
 						},
-						edit_grade: {
-							required: true,
-						},
 						edit_class_id: {
 							required: true,
 						},
@@ -570,9 +560,6 @@
 						edit_age: {
 							required:  '必填',
 						},
-						edit_grade: {
-							required:  '必填',
-						},
 						edit_class_id: {
 							required:  '必填',
 						},
@@ -589,7 +576,6 @@
 							'name': $("#edit_name").val(),
 							'sex': $("#edit_sex option:selected").val(),
 							'age': $("#edit_age").val(),
-							'grade': $("#edit_grade").val(),
 							'class_id': $("#edit_class_id").val(),
 							'school_id': $("#edit_school_id").val(),
 							'status': $("#edit_status option:selected").val(),
