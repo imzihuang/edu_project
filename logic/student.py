@@ -56,13 +56,13 @@ class StudentLogic(Logic):
                     return {"count": 0, "state": 0, "message": "query success", "data": []}
                 class_id = _class_list[0].id
             filters.update({"class_id": class_id})
+
+        #会覆盖前面的id属性
         if relative_id or relative_name:
-            if relative_name:
-                _relative_list = db_api.relative_list(name=relative_name)
-                if not _relative_list:
-                    return {"count": 0, "state": 0, "message": "query success", "data": []}
-                relative_id = _relative_list[0].id
-            filters.update({"relative_id": relative_id})
+            _relation_list = self._get_relations_by_relative(relative_id, relative_name)
+            if not _relation_list:
+                _ids = [_relation.student_id for _relation in _relation_list]
+            filters.update({"id": _ids})
 
         student_list = db_api.student_list(offset=offset, limit=limit, **filters)
         #关联学校和班级
@@ -78,3 +78,13 @@ class StudentLogic(Logic):
 
         student_count = db_api.student_count(**filters)
         return {"count": student_count, "state": 0, "message": "query success", "data": views_list}
+
+    def _get_relations_by_relative(self, relative_id="", relative_name=""):
+        if relative_id:
+            _relation_list = db_api.relation_list(relative_id=relative_id)
+            return _relation_list
+
+        _relative_list = db_api.relative_list(name=relative_name)
+        relative_id = [_relative.id for _relative in _relative_list]
+        _relation_list = db_api.relation_list(relative_id=relative_id)
+        return _relation_list
