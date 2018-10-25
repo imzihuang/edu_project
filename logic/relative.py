@@ -30,7 +30,7 @@ class RelativeLogic(Logic):
         return _
 
     def infos(self, id="", name="",
-              school_id="", student_name="",
+              student_id="", student_name="",
               phone="",
               limit=100, offset=1):
         offset = (offset - 1) * limit if offset > 0 else 0
@@ -49,6 +49,8 @@ class RelativeLogic(Logic):
             filters.update({"phone": phone})
 
         relative_list = db_api.relative_list(offset=offset, limit=limit, **filters)
+        # 关联学生
+        views_list = self.views(relative_list)
 
         relative_count = db_api.relative_count(**filters)
         return {"count": relative_count, "state": 0, "message": "query success", "data": views_list}
@@ -88,7 +90,7 @@ class RelativeLogic(Logic):
 
     def _get_relations_by_student(self, student_id="", student_name=""):
         if student_id:
-            _relation_list = db_api.student_list(student_id=student_id)
+            _relation_list = db_api.relation_list(student_id=student_id)
             return _relation_list
 
         _student_list = db_api.student_list(name=student_name)

@@ -120,15 +120,11 @@ class InfosHandler(RequestHandler):
         name = self.get_argument('name', '')
         student_id = self.get_argument('student_id', '')
         student_name = self.get_argument('student_name', '')
-        school_id = self.get_argument('school_id', '')
-        school_name = self.get_argument('school_name', '')
         phone = self.get_argument('phone', '')
         return {
             "id": id,
             "name": name,
             "student_id": student_id,
             "student_name": student_name,
-            "school_id": school_id,
-            "school_name": school_name,
             "phone": phone
         }
