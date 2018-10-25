@@ -33,11 +33,11 @@
 										<div class="bgBackground">
 											<div class="ibox-title-Myown1">
 												<div class="zx_searchTit">
-													<div class="sendInquiry1" style="float: left;">
+													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">班级编号：</label>
 														<input type="text" name="" value="" id="class-id" />
 													</div>
-													<div class="sendInquiry1" style="float: left;">
+													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">班级名称：</label>
 														<input type="text" name="" value="" id="class-name" />
 													</div>
@@ -45,11 +45,11 @@
 														<label class="control-label">所属学校编号：</label>
 														<input type="text" name="" value="" id="school-id" />
 													</div>
-													<div class="sendInquiry1" style="float: left;">
+													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">学校名称：</label>
 														<input type="text" name="" value="" id="school-name" />
 													</div>
-													<div class="sendInquiry1" style="float: left;">
+													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">年级：</label>
 														<input type="text" name="" value="" id="grade" />
 													</div>
@@ -397,16 +397,16 @@
 									icon: 1,
 									time: 800 //2s后自动关闭
 								});
-//                              window.location.reload();
-getAjaxData({
-									"id": $("#class-id").val() == '' ? undefined : $("#class-id").val(),
-									"name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
-									"school_id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
-									"school_name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
-									"grade": $("#grade").val() == '' ? undefined : $("#grade").val(),
-									"limit": 20,
-									"offset": 1,
-								});
+                                window.location.reload();
+//getAjaxData({
+//									"id": $("#class-id").val() == '' ? undefined : $("#class-id").val(),
+//									"name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
+//									"school_id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
+//									"school_name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
+//									"grade": $("#grade").val() == '' ? undefined : $("#grade").val(),
+//									"limit": 20,
+//									"offset": 1,
+//								});
 							},
 							error: function() {
 								layer.msg('添加失败');
