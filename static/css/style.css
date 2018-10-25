@@ -1317,6 +1317,7 @@ body.fixed-sidebar.full-height-layout.gray-bg.pace-done.mini-navbar .nav>li.acti
 select{
 	height: 30px;
 	margin-left: -3px;
+	border: 1px solid #dcdcdc;
 }
 .errorPart{
 	padding-left: 100px;

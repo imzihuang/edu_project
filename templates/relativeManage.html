@@ -33,11 +33,11 @@
 										<div class="bgBackground">
 											<div class="ibox-title-Myown1">
 												<div class="zx_searchTit">
-													<div class="sendInquiry1" style="float: left;">
+													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">亲属编号：</label>
 														<input type="text" name="" value="" id="relative-id" />
 													</div>
-													<div class="sendInquiry1" style="float: left;">
+													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">亲属名称：</label>
 														<input type="text" name="" value="" id="relative-name" />
 													</div>
@@ -49,15 +49,15 @@
 														<label class="control-label">学生姓名：</label>
 														<input type="text" name="" value="" id="relative-student-name" />
 													</div>
-													<div class="sendInquiry1" style="float: left;">
+													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">所属学校编号：</label>
 														<input type="text" name="" value="" id="relative-school-id" />
 													</div>
-													<div class="sendInquiry1" style="float: left;">
+													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">所属学校名称：</label>
 														<input type="text" name="" value="" id="relative-school-name" />
 													</div>
-													<div class="sendInquiry1" style="float: left;">
+													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">联系电话：</label>
 														<input type="text" name="" value="" id="family-phone" />
 													</div>
@@ -213,6 +213,8 @@
 										'<td class="center data_student_names">' + msg.data[i].student_names + '</td>' +
 										'<td class="center data_relation">' + msg.data[i].relation + '</td>' +
 										'<td class="center data_phone">' + msg.data[i].phone + '</td>' +
+										'<td class="center">' + msg.data[i].create_time + '</td>' +
+										'<td class="center">' + msg.data[i].update_time + '</td>' +
 										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除"></i></td>' +
 										'</tr>'
 								}
