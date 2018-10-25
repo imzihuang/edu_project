@@ -117,6 +117,7 @@
 			<form id="addInfoContentform" role="form" method="POST">
 				<div style="margin: 10px 0;">
 					<span>亲属名称：</span><input type="text" style="width: 350px;" id="add_name" name="add_name" />
+					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 10px 0;">
 					<span>性别：</span>
@@ -124,20 +125,31 @@
 						<option value="0">女</option>
 						<option value="1">男</option>
 					</select>
+					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 10px 0;">
 					<span>年龄：</span><input type="text" style="width: 350px;" id="add_age" name="add_age" />
+					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 10px 0;">
 					<span>学生编号：</span><input type="text" style="width: 350px;" id="add_student_id" name="add_student_id" />
+					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 10px 0;">
-					<span>与学生的关系：</span><input type="text" style="width: 350px;" id="add_relation" name="add_relation" />
+					<span>与学生的关系：</span>
+					<select style="width: 350px;" id="add_relation" name="add_relation" >
+						<option value="father">父亲 </option>
+						<option value="moter">母亲 </option>
+						<option value="grandfather">爷爷  </option>
+						<option value="grandmother">奶奶 </option>
+					</select>
+					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 10px 0;">
 					<span>电话号码：</span><input type="text" style="width: 350px;" id="add_phone" name="add_phone" />
 				</div>
 				<input class="submit" type="submit" value="提交" id="addInfoContentSubmit" style="display: none;">
+				<div class="errorPart"></div>
 			</form>
 		</div>
 
@@ -145,9 +157,11 @@
 			<form id="editAreaContentform" role="form">
 				<div style="margin: 10px 0;">
 					<span>亲属编号：</span><input type="text" style="width: 350px;" id="edit_id" name="edit_id" />
+					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 10px 0;">
 					<span>亲属名称：</span><input type="text" style="width: 350px;" id="edit_name" name="edit_name" />
+					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 10px 0;">
 					<span>性别：</span>
@@ -155,18 +169,29 @@
 						<option value="0">女</option>
 						<option value="1">男</option>
 					</select>
+					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 10px 0;">
 					<span>年龄：</span><input type="text" style="width: 350px;" id="edit_age" name="edit_age" />
+					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 10px 0;">
 					<span>学生编号：</span><input type="text" style="width: 350px;" id="edit_student_id" name="edit_student_id" />
+					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 10px 0;">
-					<span>与学生的关系：</span><input type="text" style="width: 350px;" id="edit_relation" name="edit_relation" />
+					<span>与学生的关系：</span>
+					<select style="width: 350px;" id="edit_relation" name="edit_relation">
+						<option value="father">父亲 </option>
+						<option value="moter">母亲 </option>
+						<option value="grandfather">爷爷  </option>
+						<option value="grandmother">奶奶 </option>
+					</select>
+					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 10px 0;">
 					<span>电话号码：</span><input type="text" style="width: 350px;" id="edit_phone" name="edit_phone" />
+					<div class="errorPart"></div>
 				</div>
 				<input class="submit" type="submit" value="提交" id="editAreaContentSubmit" style="display: none;">
 			</form>
@@ -206,6 +231,15 @@
 										msg.data[i].sex = "女";
 									}else{
 										msg.data[i].sex = "男";
+									}
+									if(msg.data[i].relation == "father"){
+										msg.data[i].relation = "父亲";
+									}else if(msg.data[i].relation == "moter"){
+										msg.data[i].relation = "母亲 ";
+									}else if(msg.data[i].relation == "grandfather"){
+										msg.data[i].relation = "爷爷  ";
+									}else if(msg.data[i].relation == "grandmother"){
+										msg.data[i].relation = "奶奶  ";
 									}
 									strs += '<tr class="gradeX">' +
 										'<td><input type="checkbox" class="zx_checkedBtn"></td>' +
@@ -405,7 +439,7 @@
 							'sex': $("#add_sex option:selected").val(),
 							'age': $("#add_age").val(),
 							'student_id': $("#add_student_id").val(),
-							'relation': $("#add_relation").val(),
+							'relation': $("#add_relation option:selected").val(),
 							'phone': $("#add_phone").val()
 						}
 						$.ajax({
@@ -509,7 +543,7 @@
 							'sex': $("#edit_sex option:selected").val(),
 							'age': $("#edit_age").val(),
 							'student_id': $("#edit_student_id").val(),
-							'relation': $("#edit_relation").val(),
+							'relation': $("#edit_relation option:selected").val(),
 							'phone': $("#edit_phone").val()
 						}
 						$.ajax({
