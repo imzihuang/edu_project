@@ -16,6 +16,7 @@
 		<link href="css/pager.css" rel="stylesheet" type="text/css" />
 		<link href="css/style.css" rel="stylesheet" type="text/css" />
 		<link href="js/plugins/layer/skin/default/layer.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="//res.layui.com/layui/dist/css/layui.css"  media="all">
 
 		<script src="js/jquery.min.js"></script>
 
@@ -134,7 +135,7 @@
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/plugins/layer/layer.js"></script>
 		<script src="js/jquery.validate.min.js"></script>
-		<script src="js/layui.js"></script>
+		<script src="//res.layui.com/layui/dist/layui.js" charset="utf-8"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
 				getAjaxData({
@@ -185,7 +186,7 @@
 				}
 
 				function layPage(paCount, pgSize, pageIndex) {
-					laypage.render({
+					layui.laypage.render({
 						elem: "layPage",
 						count: paCount,
 						curr: pageIndex,
