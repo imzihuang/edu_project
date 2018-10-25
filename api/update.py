@@ -112,7 +112,6 @@ class UpdateHandler(RequestHandler):
         name = self.get_argument('name', '')
         sex = int(self.get_argument('sex', 0))
         age = int(self.get_argument('age', 0))
-        grade = self.get_argument('grade', '')
         class_id = self.get_argument('class_id', '')
         school_id = self.get_argument('school_id', '')
         status = self.get_argument('status', 'apply')
@@ -124,8 +123,6 @@ class UpdateHandler(RequestHandler):
             result.update({"sex": sex})
         if age:
             result.update({"age": age})
-        if grade:
-            result.update({"grade": grade})
         if school_id:
             result.update({"school_id": school_id})
         if class_id:
