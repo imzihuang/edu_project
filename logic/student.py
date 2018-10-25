@@ -11,12 +11,11 @@ class StudentLogic(Logic):
     def __init__(self):
         pass
 
-    def intput(self, name="", sex=0, age=0, grade="", school_id="", class_id="", status="apply", relation_number=3):
+    def intput(self, name="", sex=0, age=0, school_id="", class_id="", status="apply", relation_number=3):
         values = {
             "name": name,
             "sex": sex,
             "age": age,
-            "grade": grade,
             "school_id": school_id,
             "class_id": class_id,
             "status": status,
@@ -31,7 +30,7 @@ class StudentLogic(Logic):
         _ = db_api.student_update(id, kwargs)
         return _
 
-    def infos(self, id="", name="", grade="",
+    def infos(self, id="", name="",
               school_id="", school_name="",
               class_id="", class_name="",
               relative_id="", relative_name="",
@@ -42,8 +41,6 @@ class StudentLogic(Logic):
             filters.update({"id": id})
         if name:
             filters.update({"name": name})
-        if grade:
-            filters.update({"grade": grade})
         if school_id or school_name:
             if school_name:
                 _school_list = db_api.school_list(name=school_name)
@@ -77,6 +74,7 @@ class StudentLogic(Logic):
             class_list = db_api.class_list(id=view.get("class_id"))
             if class_list:
                 view.update({"class_name": class_list[0].name})
+                view.update({"grade": class_list[0].grade})
 
         student_count = db_api.student_count(**filters)
-        return {"count": student_count, "state": 0, "message": "query success", "data": self.views(student_list)}
+        return {"count": student_count, "state": 0, "message": "query success", "data": views_list}

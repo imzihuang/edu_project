@@ -94,7 +94,6 @@ class RegistryHandler(RequestHandler):
         name = self.get_argument('name', '')
         sex = int(self.get_argument('sex', 0))
         age = int(self.get_argument('age', 0))
-        grade = self.get_argument('grade', '')
         class_id = self.get_argument('class_id', '')
         school_id = self.get_argument('school_id', '')
         status = self.get_argument('status', 'apply')
@@ -103,7 +102,6 @@ class RegistryHandler(RequestHandler):
             "name": name,
             "sex": sex,
             "age": age,
-            "grade": grade,
             "class_id": class_id,
             "school_id": school_id,
             "status": status,
