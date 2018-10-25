@@ -33,11 +33,11 @@
 										<div class="bgBackground">
 											<div class="ibox-title-Myown1">
 												<div class="zx_searchTit">
-													<div class="sendInquiry1" style="float: left;">
+													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">学生编号：</label>
 														<input type="text" name="" value="" id="student-id"/>
 													</div>
-													<div class="sendInquiry1" style="float: left;">
+													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">学生名称：</label>
 														<input type="text" name="" value="" id="student-name"/>
 													</div>
@@ -49,19 +49,19 @@
 														<label class="control-label">所属学校名称：</label>
 														<input type="text" name="" value="" id="school-name"/>
 													</div>
-													<div class="sendInquiry1" style="float: left;">
+													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">班级编号：</label>
 														<input type="text" name="" value="" id="class-id"/>
 													</div>
-													<div class="sendInquiry1" style="float: left;">
+													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">班级名称：</label>
 														<input type="text" name="" value="" id="class-name"/>
 													</div>
-													<div class="sendInquiry1" style="float: left;">
+													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">亲属编号：</label>
 														<input type="text" name="" value="" id="relative-id"/>
 													</div>
-													<div class="sendInquiry1" style="float: left;">
+													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">亲属姓名：</label>
 														<input type="text" name="" value="" id="relative-name"/>
 													</div>
@@ -98,23 +98,6 @@
 														</tr>
 													</thead>
 													<tbody id="tbody">
-														<tr class="gradeX">
-															<td><input type="checkbox" class="zx_checkedBtn"></td>
-															<td class="centerSort">
-																1
-															</td>
-															<td class="userMessage">18910636363</td>
-															<td>哈哈哈学生</td>
-															<td class="center">124314</td>
-															<td class="center">超级设备</td>
-															<td class="userMessage">18910636363</td>
-															<td>哈哈哈学生</td>
-															<td class="center">124314</td>
-															<td class="center">超级设备</td>
-															<td class="center">2017 01-1 12:00:00</td>
-															<td class="center">2017 01-1 12:00:00</td>
-															<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除"></i></td>
-														</tr>
 														
 													</tbody>
 												</table>
@@ -260,18 +243,24 @@
 							console.log(msg);
 							if(msg.data.length > 0) {
 								for(var i = 0; i < msg.data.length; i++) {
+									if(msg.data[i].status == "apply"){
+										msg.data[i].status = "报名";
+									}else if(msg.data[i].status == "dropout"){
+										msg.data[i].status = "退学";
+									}else{
+										msg.data[i].status = "毕业";
+									}
 									strs += '<tr class="gradeX">' +
 										'<td><input type="checkbox" class="zx_checkedBtn"></td>' +
 										'<td class="centerSort">' + (i + 1) + '</td>' +
 										'<td class="userMessage data_id">' + msg.data[i].id + '</td>' +
 										'<td class="data_name">' + msg.data[i].name + '</td>' +
-										'<td class="center data_sex">' + msg.data[i].sex + '</td>' +
+										'<td class="center data_sex">' + msg.data[i].sex == 0?'女':'男' + '</td>' +
 										'<td class="center data_age">' + msg.data[i].age + '</td>' +
 										'<td class="center data_grade">' + msg.data[i].grade + '</td>' +
 										'<td class="center data_class_id">' + msg.data[i].class_id + '</td>' +
 										'<td class="data_school_id">' + msg.data[i].school_id + '</td>' +
 										'<td class="center data_status">' + msg.data[i].status + '</td>' +
-										'<td class="center data_relation_number">' + msg.data[i].relation_number + '</td>' +
 										'<td class="center">' + msg.data[i].create_time + '</td>' +
 										'<td class="center">' + msg.data[i].update_time + '</td>' +
 										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除"></i></td>' +
@@ -416,9 +405,14 @@
 				//查询
 				$("#searchBtn").click(function(){
 					getAjaxData({
-						"id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
-						"name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
-						"cardcode": $("#school-cardcode").val() == '' ? undefined : $("#school-cardcode").val(),
+						"id": $("#student-id").val() == '' ? undefined : $("#student-id").val(),
+						"name": $("#student-name").val() == '' ? undefined : $("#student-name").val(),
+						"school_id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
+						"school_name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
+						"class_id": $("#class-id").val() == '' ? undefined : $("#class-id").val(),
+						"class_name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
+						"relative_id": $("#relative-id").val() == '' ? undefined : $("#relative-id").val(),
+						"relative_name": $("#relative-name").val() == '' ? undefined : $("#relative-namee").val(),
 						"limit": 20,
 						"offset": 1,
 					});
