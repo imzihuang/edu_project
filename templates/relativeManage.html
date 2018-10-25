@@ -455,7 +455,19 @@
 									icon: 1,
 									time: 800 //2s后自动关闭
 								});
-                                window.location.reload();
+								getAjaxData({
+									"id": $("#relative-id").val() == '' ? undefined : $("#relative-id").val(),
+									"name": $("#relative-name").val() == '' ? undefined : $("#relative-name").val(),
+									"student_id": $("#relative-student-id").val() == '' ? undefined : $("#relative-student-id").val(),
+									"student_name": $("#relative-student-name").val() == '' ? undefined : $("#relative-student-name").val(),
+									"school_id": $("#relative-school-id").val() == '' ? undefined : $("#relative-school-id").val(),
+									"school_name": $("#relative-school-name").val() == '' ? undefined : $("#relative-school-name").val(),
+									"phone": $("#family-phone").val() == '' ? undefined : $("#family-phone").val(),
+									"limit": 20,
+									"offset": 1,
+								});
+//                              window.location.reload();
+
 							},
 							error: function() {
 								layer.msg('添加失败');
