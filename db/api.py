@@ -15,7 +15,7 @@ def model_query(model, session=None,  *args, **kwargs):
     session = session or get_session()
     query = session.query(model, *args)
     filter_dict = {}
-    for key, value in kwargs:
+    for key, value in kwargs.items():
         if isinstance(value, (list, tuple, set, frozenset)):
             column_attr = getattr(model, key)
             query = query.filter(column_attr.in_(value))
