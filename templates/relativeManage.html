@@ -564,11 +564,10 @@
 	                    type: "POST",
 	                    data: formData,
 	                    contentType: false,
-	                    processData: false,
+	                    processData: false
+	                    timeout: "30000",
 	                    success: function (data) {
-	                       
 	                            alert("上传成功！");
-	                       
 	                    }
 	                });
 	            });
