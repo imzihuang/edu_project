@@ -15,7 +15,9 @@ define("port", default=9090, help="run on the given port", type=int)
 setproctitle('edu:server')
 
 if settings.default_settings.get("log_path", ""):
-    logging.basicConfig(filename=settings.default_settings.get("log_path", ""))
+    logging.basicConfig(format='%(asctime)s  %(filename)s : %(levelname)s  %(message)s',
+                        filename=settings.default_settings.get("log_path", ""),
+                        datefmt='%Y-%m-%d %A %H:%M:%S', )
 
 
 class My_Application(Application):
