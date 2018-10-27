@@ -18,9 +18,38 @@
 		<link href="js/plugins/layer/skin/default/layer.css" rel="stylesheet" type="text/css" />
 
 		<script src="js/jquery.min.js"></script>
-
+    
 	</head>
-
+    <style type="text/css">
+    	#imgPreview {
+		 width: 40%;
+		 height: 180px;
+		 margin: 10px auto 0px auto;
+		 border: 1px solid black;
+		 text-align: center;
+		}
+		#prompt3 {
+		 width: 100%;
+		 height: 180px;
+		 text-align: center;
+		 position: relative;
+		}
+		#imgSpan {
+		 position: absolute;
+		 top: 60px;
+		 left: 40px;
+		}
+		.filepath {
+		 width: 100%;
+		 height: 100%;
+		 opacity: 0;
+		}
+		#img3 {
+		 height: 100%;
+		 width: 100%;
+		 display: none;
+		}
+    </style>
 	<body class="gray-bg">
 		<div class="wrapper wrapper-content animated fadeIn">
 			<div class="row">
@@ -163,9 +192,19 @@
 					<span>亲属编号：</span><input type="text" style="width: 350px;" id="certify_id" name="certify_id" disabled="disabled" />
 					<div class="errorPart"></div>
 				</div>
-				<input type="file" id="file1" /><br />
-				<input type="button" id="upload" name="upload" value="上传" />
-				<img src="" style="display:none" id="imgWait" /> 
+				<div id="imgPreview">
+				 <div id="prompt3">
+				 <span id="imgSpan">
+				 点击上传
+				   <br />
+				 <i class="aui-iconfont aui-icon-plus"></i>
+				   <!--AUI框架中的图标-->
+				 </span>
+				 <input type="file" id="file" class="filepath" onchange="changepic(this)" accept="image/jpg,image/jpeg,image/png,image/PNG">
+				  <!--当vaule值改变时执行changepic函数，规定上传的文件只能是图片-->
+				 </div>
+				 <img src="#" id="img3" />
+				</div>
 				
 				<input class="submit" type="submit" value="提交" id="certifyContentSubmit" style="display: none;">
 			</form>
@@ -571,39 +610,16 @@
 	                    }
 	                });
 	            });
-                //成果主图
-				    function upload(){
-				         uploadImg();
-				     }
-				    function uploadImg(){
-				    //loading
-				    $("#loading").ajaxStart(function() {
-				        $(this).show();
-				    }).ajaxComplete(function() {
-				        $(this).hide();
-				    });
-				    var elementIds=["flag"]; //flag为id、name属性名
-				    $.ajaxFileUpload({
-				        url: '/identy/action',//接口url
-				        type: 'post',
-				        secureuri: false, //一般设置为false
-				        fileElementId: 'projectUpload', // 上传文件的id、name属性名
-				        dataType: 'text', //返回值类型，一般设置为json、application/json
-				        elementIds: elementIds, //传递参数到服务器
-				        success: function(data, status){
-				            
-				            var temp =  $.parseJSON(data);
-				            var fileUrl = temp.fileUrl;
-				            $("#photourl").val(fileUrl);
-				            $(".imageTips").empty();             
-				            $(".imageTips").append("<img height=\"100\" width=\"100\" src=\""+fileUrl+"\"></img> ");
-				            alert("上传成功！");
-				        },
-				        error: function(data, status, e){ 
-				            alert(e);
-				        }
-				    });
-				}
+              function changepic() {
+				 $("#prompt3").css("display", "none");
+				 var reads = new FileReader();
+				 f = document.getElementById('file').files[0];
+				 reads.readAsDataURL(f);
+				 reads.onload = function(e) {
+				 document.getElementById('img3').src = this.result;
+				 $("#img3").css("display", "block");
+				 };
+				}			
 				$('.fa-close').click(function() {
 
 					layer.confirm('确定删除选中的学生？', {
