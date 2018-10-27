@@ -75,6 +75,7 @@ class UpdateHandler(RequestHandler):
         id = self.get_argument('id', '')
         name = self.get_argument('name', '')
         grade = self.get_argument('grade', '')
+        cardcode = self.get_argument('cardcode', '')
         school_id = self.get_argument('school_id', '')
         student_number = int(self.get_argument('study_number', 0))
         result = {}
@@ -82,6 +83,8 @@ class UpdateHandler(RequestHandler):
             result.update({"name", name})
         if grade:
             result.update({"grade": grade})
+        if cardcode:
+            result.update({"cardcode": cardcode})
         if school_id:
             result.update({"school_id": school_id})
         if student_number:

@@ -11,10 +11,11 @@ class ClassLogic(Logic):
     def __init__(self):
         pass
 
-    def intput(self, name="", grade="", school_id="", student_number=0):
+    def intput(self, name="", grade="", cardcode="", school_id="", student_number=0):
         values = {
             "name": name,
             "grade": grade,
+            "cardcode": cardcode,
             "school_id": school_id,
             "student_number": student_number
         }
@@ -27,13 +28,15 @@ class ClassLogic(Logic):
         _ = db_api.class_update(id, kwargs)
         return _
 
-    def infos(self, id="", name="", school_id="", school_name="", grade="", limit=100, offset=1):
+    def infos(self, id="", name="", school_id="", school_name="", grade="", cardcode="", limit=100, offset=1):
         offset = (offset - 1) * limit if offset > 0 else 0
         filters = dict()
         if id:
             filters.update({"id": id})
         if name:
             filters.update({"name": name})
+        if cardcode:
+            filters.update({"cardcode": cardcode})
         if school_id or school_id:
             if school_name:
                 _school_list = db_api.school_list(name=school_name)
