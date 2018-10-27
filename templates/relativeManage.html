@@ -194,15 +194,27 @@
 				</div>
 				<div id="imgPreview">
 				 <div id="prompt3">
-				 <span id="imgSpan">
-				 点击上传
-				   <br />
-				 <i class="aui-iconfont aui-icon-plus"></i>
-				   <!--AUI框架中的图标-->
-				 </span>
-				 <input type="file" id="file" class="filepath" onchange="changepic(this)" accept="image/jpg,image/jpeg,image/png,image/PNG">
+					 <span id="imgSpan">
+					 点击上传
+					   <br />
+					 <i class="aui-iconfont aui-icon-plus"></i>
+					   <!--AUI框架中的图标-->
+					 </span>
+					 <input type="file" id="file" class="filepath" onchange="changepic(this)" accept="image/jpg,image/jpeg,image/png,image/PNG">
 				  <!--当vaule值改变时执行changepic函数，规定上传的文件只能是图片-->
 				 </div>
+				 <script type="text/javascript">
+	                function changepic() {
+					 $("#prompt3").css("display", "none");
+					 var reads = new FileReader();
+					 f = document.getElementById('file').files[0];
+					 reads.readAsDataURL(f);
+					 reads.onload = function(e) {
+					 document.getElementById('img3').src = this.result;
+					 $("#img3").css("display", "block");
+					 };
+					}	
+				 </script>
 				 <img src="#" id="img3" />
 				</div>
 				
@@ -595,31 +607,7 @@
 						}
 					});
 				});
-	            $("#upload").click(function () {
-	                var formData = new FormData();
-	                formData.append("myfile", document.getElementById("file1").files[0]); console.log(formData);
-	                $.ajax({
-	                    url: "/identy/action",
-	                    type: "POST",
-	                    data: formData,
-	                    contentType: false,
-	                    processData: false,
-	                    timeout: "30000",
-	                    success: function (data) {
-	                            alert("上传成功！");
-	                    }
-	                });
-	            });
-              function changepic() {
-				 $("#prompt3").css("display", "none");
-				 var reads = new FileReader();
-				 f = document.getElementById('file').files[0];
-				 reads.readAsDataURL(f);
-				 reads.onload = function(e) {
-				 document.getElementById('img3').src = this.result;
-				 $("#img3").css("display", "block");
-				 };
-				}			
+	          		
 				$('.fa-close').click(function() {
 
 					layer.confirm('确定删除选中的学生？', {
