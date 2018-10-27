@@ -8,15 +8,18 @@ import logging
 import json
 from logic.actionlogic import ActionLogic
 from logic.relative import RelativeLogic
+from util.ini_client import ini_load
+
+_conf = ini_load('config/service.ini')
+_dic_con = _conf.get_fields('face_model')
+recognition_service = RecognitionService(_dic_con.get("path"))
 
 LOG = logging.getLogger(__name__)
 
 class ActionHandler(RequestHandler):
-    def initialize(self, static_path, model_checkpoint, face_path, **kwds):
+    def initialize(self, static_path, face_path, **kwds):
         #model_checkpoint ='./model/20180920-153747'
         self.static_path = static_path
-        model_url = self.static_path + model_checkpoint
-        self.recognition_service = RecognitionService(model_url)
         self.face_path = face_path
 
     def post(self, action):
@@ -74,7 +77,7 @@ class ActionHandler(RequestHandler):
         img.save(file_path)
         face_image = misc.imread(file_path, mode='RGB')
         # 人脸注册服务
-        err_code, feature = self.recognition_service.register_face(face_image, relative_id)
+        err_code, feature = recognition_service.register_face(face_image, relative_id)
         #将特征写入数据库
         _op = RelativeLogic()
         if _op.auth_face_feature(relative_id, feature):

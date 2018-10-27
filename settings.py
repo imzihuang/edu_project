@@ -15,7 +15,6 @@ default_settings = {
     'enabled_methods': ['get', 'post', 'put', 'patch', 'delete'],
     'exclude_namespaces': [],
     'log_path': "./log/edu.log",
-    'model_checkpoint': '/model/20180920-153747',
     'face_path': '/image/face/'
 }
 

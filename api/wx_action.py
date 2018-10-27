@@ -18,10 +18,6 @@ LOG = logging.getLogger(__name__)
 
 
 class WXActionHandler(RequestHandler):
-    def initialize(self, model_checkpoint, face_path, **kwds):
-        #model_checkpoint ='./model/20180920-153747'
-        self.recognition_service = RecognitionService(model_checkpoint)
-        self.face_path = face_path
 
     def post(self, action):
         try:
