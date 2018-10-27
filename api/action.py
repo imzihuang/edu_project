@@ -78,11 +78,11 @@ class ActionHandler(RequestHandler):
             self.finish(json.dumps({'state': 1, 'message': 'relative_code is None'}))
             return
         # 获取用户上传的数据
-        img = self.request.files.get('image', '')
-        #img = self.get_argument('image', '')
+        #img = self.request.files.get('image', '')
+        img = self.get_argument('image', '')
         file_path = self.static_path + self.face_path + relative_id + '.jpg'
         with open(file_path, 'wb') as up:
-            up.write(img)
+            up.write(base64.base64(img.rpartition(",")[-1]))
         face_image = misc.imread(file_path, mode='RGB')
         # 人脸注册服务
         err_code, feature = recognition_service.register_face(face_image, relative_id)
