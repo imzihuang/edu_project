@@ -50,14 +50,6 @@
 														<input type="text" name="" value="" id="relative-student-name" />
 													</div>
 													<div class="sendInquiry2" style="float: left;">
-														<label class="control-label">所属学校编号：</label>
-														<input type="text" name="" value="" id="relative-school-id" />
-													</div>
-													<div class="sendInquiry2" style="float: left;">
-														<label class="control-label">所属学校名称：</label>
-														<input type="text" name="" value="" id="relative-school-name" />
-													</div>
-													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">联系电话：</label>
 														<input type="text" name="" value="" id="family-phone" />
 													</div>
@@ -84,9 +76,6 @@
 															<th>亲属名称</th>
 															<th>性别</th>
 															<th>年龄</th>
-															<th>学生编号</th>
-															<th>学生名称</th>
-															<th>关系</th>
 															<th>电话号码</th>
 															<th>创建时间</th>
 															<th>最后一次更新时间</th>
@@ -132,20 +121,6 @@
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 10px 0;">
-					<span>学生编号：</span><input type="text" style="width: 350px;" id="add_student_id" name="add_student_id" />
-					<div class="errorPart"></div>
-				</div>
-				<div style="margin: 10px 0;">
-					<span>与学生的关系：</span>
-					<select style="width: 350px;" id="add_relation" name="add_relation" >
-						<option value="father">父亲 </option>
-						<option value="moter">母亲 </option>
-						<option value="grandfather">爷爷  </option>
-						<option value="grandmother">奶奶 </option>
-					</select>
-					<div class="errorPart"></div>
-				</div>
-				<div style="margin: 10px 0;">
 					<span>电话号码：</span><input type="text" style="width: 350px;" id="add_phone" name="add_phone" />
 				</div>
 				<input class="submit" type="submit" value="提交" id="addInfoContentSubmit" style="display: none;">
@@ -176,20 +151,6 @@
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 10px 0;">
-					<span>学生编号：</span><input type="text" style="width: 350px;" id="edit_student_id" name="edit_student_id" />
-					<div class="errorPart"></div>
-				</div>
-				<div style="margin: 10px 0;">
-					<span>与学生的关系：</span>
-					<select style="width: 350px;" id="edit_relation" name="edit_relation">
-						<option value="father">父亲 </option>
-						<option value="moter">母亲 </option>
-						<option value="grandfather">爷爷  </option>
-						<option value="grandmother">奶奶 </option>
-					</select>
-					<div class="errorPart"></div>
-				</div>
-				<div style="margin: 10px 0;">
 					<span>电话号码：</span><input type="text" style="width: 350px;" id="edit_phone" name="edit_phone" />
 					<div class="errorPart"></div>
 				</div>
@@ -207,8 +168,6 @@
 					"name": $("#relative-name").val() == '' ? undefined : $("#relative-name").val(),
 					"student_id": $("#relative-student-id").val() == '' ? undefined : $("#relative-student-id").val(),
 					"student_name": $("#relative-student-name").val() == '' ? undefined : $("#relative-student-name").val(),
-					"school_id": $("#relative-school-id").val() == '' ? undefined : $("#relative-school-id").val(),
-					"school_name": $("#relative-school-name").val() == '' ? undefined : $("#relative-school-name").val(),
 					"phone": $("#family-phone").val() == '' ? undefined : $("#family-phone").val(),
 					"limit": 20,
 					"offset": 1,
@@ -232,15 +191,7 @@
 									}else{
 										msg.data[i].sex = "男";
 									}
-									if(msg.data[i].relation == "father"){
-										msg.data[i].relation = "父亲";
-									}else if(msg.data[i].relation == "moter"){
-										msg.data[i].relation = "母亲 ";
-									}else if(msg.data[i].relation == "grandfather"){
-										msg.data[i].relation = "爷爷  ";
-									}else if(msg.data[i].relation == "grandmother"){
-										msg.data[i].relation = "奶奶  ";
-									}
+									
 									strs += '<tr class="gradeX">' +
 										'<td><input type="checkbox" class="zx_checkedBtn"></td>' +
 										'<td class="centerSort">' + (i + 1) + '</td>' +
@@ -248,18 +199,17 @@
 										'<td class="data_name">' + msg.data[i].name + '</td>' +
 										'<td class="center data_sex">' + msg.data[i].sex + '</td>' +
 										'<td class="center data_age">' + msg.data[i].age + '</td>' +
-										'<td class="center data_student_ids">' + msg.data[i].student_ids + '</td>' +
-										'<td class="center data_student_names">' + msg.data[i].student_names + '</td>' +
-										'<td class="center data_relation">' + msg.data[i].relation + '</td>' +
 										'<td class="center data_phone">' + msg.data[i].phone + '</td>' +
 										'<td class="center">' + msg.data[i].create_time + '</td>' +
 										'<td class="center">' + msg.data[i].update_time + '</td>' +
-										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除"></i></td>' +
-										'</tr>'
+										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;' +
+										'<i class="fa fa-close" title="删除"></i>&nbsp;&nbsp;' +
+										'<i class="fa fa-open" title="认证"></i>&nbsp;&nbsp;' +
+										'</td></tr>'
 								}
 								$("#tbody").html(strs);
 							} else {
-								$("#tbody").html('<tr><td colspan="13" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
+								$("#tbody").html('<tr><td colspan="10" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
 							}
 							//							layPage(msg.count, msg.result.pageSize, msg.result.pageNo)
 						},
@@ -286,8 +236,6 @@
 									"name": $("#relative-name").val() == '' ? undefined : $("#relative-name").val(),
 									"student_id": $("#relative-student-id").val() == '' ? undefined : $("#relative-student-id").val(),
 									"student_name": $("#relative-student-name").val() == '' ? undefined : $("#relative-student-name").val(),
-									"school_id": $("#relative-school-id").val() == '' ? undefined : $("#relative-school-id").val(),
-									"school_name": $("#relative-school-name").val() == '' ? undefined : $("#relative-school-name").val(),
 									"phone": $("#family-phone").val() == '' ? undefined : $("#family-phone").val(),
 									"limit": 20,
 									"offset": 1,
@@ -406,12 +354,6 @@
 						add_age: {
 							required: true,
 						},
-						add_student_id: {
-							required: true,
-						},
-						add_relation: {
-							required: true,
-						},
 						add_phone: {
 							required: true,
 						},
@@ -423,12 +365,6 @@
 						add_age: {
 							required: '必填',
 						},
-						add_student_id: {
-							required: '必填',
-						},
-						add_relation: {
-							required: '必填',
-						},
 						add_phone: {
 							required: '必填',
 						},
@@ -438,8 +374,6 @@
 							'name': $("#add_name").val(),
 							'sex': $("#add_sex option:selected").val(),
 							'age': $("#add_age").val(),
-							'student_id': $("#add_student_id").val(),
-							'relation': $("#add_relation option:selected").val(),
 							'phone': $("#add_phone").val()
 						}
 						$.ajax({
@@ -460,8 +394,6 @@
 									"name": $("#relative-name").val() == '' ? undefined : $("#relative-name").val(),
 									"student_id": $("#relative-student-id").val() == '' ? undefined : $("#relative-student-id").val(),
 									"student_name": $("#relative-student-name").val() == '' ? undefined : $("#relative-student-name").val(),
-									"school_id": $("#relative-school-id").val() == '' ? undefined : $("#relative-school-id").val(),
-									"school_name": $("#relative-school-name").val() == '' ? undefined : $("#relative-school-name").val(),
 									"phone": $("#family-phone").val() == '' ? undefined : $("#family-phone").val(),
 									"limit": 20,
 									"offset": 1,
@@ -515,12 +447,6 @@
 						edit_age: {
 							required: true,
 						},
-						edit_student_id: {
-							required: true,
-						},
-						edit_relation: {
-							required: true,
-						},
 						edit_phone: {
 							required: true,
 						},
@@ -538,12 +464,6 @@
 						edit_age: {
 							required: '必填',
 						},
-						edit_student_id: {
-							required: '必填',
-						},
-						edit_relation: {
-							required: '必填',
-						},
 						edit_phone: {
 							required: '必填',
 						},
@@ -554,8 +474,6 @@
 							'name': $("#edit_name").val(),
 							'sex': $("#edit_sex option:selected").val(),
 							'age': $("#edit_age").val(),
-							'student_id': $("#edit_student_id").val(),
-							'relation': $("#edit_relation option:selected").val(),
 							'phone': $("#edit_phone").val()
 						}
 						$.ajax({
@@ -592,8 +510,6 @@
 					$("#edit_name").val($(this).parent("td").siblings(".data_name").html());
 					$("#edit_sex").val($(this).parent("td").siblings(".data_sex").html());
 					$("#edit_age").val($(this).parent("td").siblings(".data_age").html());
-					$("#edit_student_id").val($(this).parent("td").siblings(".data_student_ids").html());
-					$("#edit_relation").val($(this).parent("td").siblings(".data_relation").html());
 					$("#edit_phone").val($(this).parent("td").siblings(".data_phone").html());
 					layerIndex = layer.open({
 						title: '修改学生信息',
