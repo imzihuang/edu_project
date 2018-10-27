@@ -82,7 +82,6 @@ class ActionHandler(RequestHandler):
         file_path = self.static_path + self.face_path + relative_id + '.jpg'
         with open(file_path, 'wb') as up:
             up.write(img)
-        
         face_image = misc.imread(file_path, mode='RGB')
         # 人脸注册服务
         err_code, feature = recognition_service.register_face(face_image, relative_id)
