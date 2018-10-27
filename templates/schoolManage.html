@@ -453,14 +453,14 @@
 									icon: 1,
 									time: 800 //2s后自动关闭
 								});
-								getAjaxData({
-									"id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
-									"name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
-									"cardcode": $("#school-cardcode").val() == '' ? undefined : $("#school-cardcode").val(),
-									"limit": 20,
-									"offset": 1,
-								});
-//                              window.location.reload()
+								// getAjaxData({
+								// 	"id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
+								// 	"name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
+								// 	"cardcode": $("#school-cardcode").val() == '' ? undefined : $("#school-cardcode").val(),
+								// 	"limit": 20,
+								// 	"offset": 1,
+								// });
+                             window.location.reload()
 							},
 							error: function() {
 								layer.msg('修改失败');
