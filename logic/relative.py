@@ -12,12 +12,11 @@ LOG = logging.getLogger(__name__)
 
 class RelativeLogic(Logic):
 
-    def intput(self, name="", sex=0, age=0, relation="", phone=""):
+    def intput(self, name="", sex=0, age=0, phone=""):
         values = {
             "name": name,
             "sex": sex,
             "age": age,
-            "relation": relation,
             "phone": phone
         }
         relativel_obj = db_api.relative_create(values)
