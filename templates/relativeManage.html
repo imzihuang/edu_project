@@ -26,6 +26,7 @@
 		 height: 180px;
 		 border: 1px solid black;
 		 text-align: center;
+		 display: inline-block;
 		}
 		#prompt3 {
 		 width: 100%;
@@ -603,7 +604,7 @@
 						content: $('#certifyContent'),
 						yes: function() {
 							var data = {
-								'relative_id': $("#relative_id").val(),
+								'relative_id': $("#certify_id").val(),
 								'image': document.getElementById('img3').src
 							}
 							$.ajax({
