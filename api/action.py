@@ -12,9 +12,11 @@ from logic.relative import RelativeLogic
 LOG = logging.getLogger(__name__)
 
 class ActionHandler(RequestHandler):
-    def initialize(self, model_checkpoint, face_path, **kwds):
+    def initialize(self, static_path, model_checkpoint, face_path, **kwds):
         #model_checkpoint ='./model/20180920-153747'
-        self.recognition_service = RecognitionService(model_checkpoint)
+        self.static_path = static_path
+        model_url = self.static_path + model_checkpoint
+        self.recognition_service = RecognitionService(model_url)
         self.face_path = face_path
 
     def post(self, action):
@@ -68,7 +70,7 @@ class ActionHandler(RequestHandler):
             return
         # 获取用户上传的数据
         img = self.request.files['image']
-        file_path = self.application.settings.get('static_path') + self.face_path + relative_id + '.jpg'
+        file_path = self.static_path + self.face_path + relative_id + '.jpg'
         img.save(file_path)
         face_image = misc.imread(file_path, mode='RGB')
         # 人脸注册服务
