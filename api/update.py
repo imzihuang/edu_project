@@ -113,7 +113,7 @@ class UpdateHandler(RequestHandler):
 
 
     def _get_student_argument(self):
-        id = self._get_argument('id', '')
+        id = self.get_argument('id', '')
         name = self.get_argument('name', '')
         sex = int(self.get_argument('sex', 0))
         age = int(self.get_argument('age', 0))
@@ -139,7 +139,7 @@ class UpdateHandler(RequestHandler):
         return id, result
 
     def _get_relative_argument(self):
-        id = self._get_argument('id', '')
+        id = self.get_argument('id', '')
         name = self.get_argument('name', '')
         sex = int(self.get_argument('sex', 0))
         age = int(self.get_argument('age', 0))
@@ -156,7 +156,7 @@ class UpdateHandler(RequestHandler):
         return id, result
 
     def _get_relation_argument(self):
-        id = self._get_argument('id', '')
+        id = self.get_argument('id', '')
         relation = self.get_argument('relation', '')
         student_id = self.get_argument('student_id', '')
         relative_id = self.get_argument('relative_id', '')
