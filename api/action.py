@@ -10,11 +10,16 @@ from logic.actionlogic import ActionLogic
 from logic.relative import RelativeLogic
 from util.ini_client import ini_load
 
+LOG = logging.getLogger(__name__)
+
 _conf = ini_load('config/service.ini')
 _dic_con = _conf.get_fields('face_model')
-recognition_service = RecognitionService(_dic_con.get("path"))
+try:
+    recognition_service = RecognitionService(_dic_con.get("path"))
+except Exception as ex:
+    LOG.error("init face reconf error:%s"%ex)
+    recognition_service = None
 
-LOG = logging.getLogger(__name__)
 
 class ActionHandler(RequestHandler):
     def initialize(self, static_path, face_path, **kwds):
