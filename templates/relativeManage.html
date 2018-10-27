@@ -24,7 +24,6 @@
     	#imgPreview {
 		 width: 40%;
 		 height: 180px;
-		 margin: 10px auto 0px auto;
 		 border: 1px solid black;
 		 text-align: center;
 		}
@@ -36,8 +35,8 @@
 		}
 		#imgSpan {
 		 position: absolute;
-		 top: 60px;
-		 left: 40px;
+		 top: 75px;
+		 left: 63px;
 		}
 		.filepath {
 		 width: 100%;
@@ -192,7 +191,7 @@
 					<span>亲属编号：</span><input type="text" style="width: 350px;" id="certify_id" name="certify_id" disabled="disabled" />
 					<div class="errorPart"></div>
 				</div>
-				<div id="imgPreview">
+				上传图片：<div id="imgPreview">
 				 <div id="prompt3">
 					 <span id="imgSpan">
 					 点击上传
@@ -205,14 +204,14 @@
 				 </div>
 				 <script type="text/javascript">
 	                function changepic() {
-					 $("#prompt3").css("display", "none");
-					 var reads = new FileReader();
-					 f = document.getElementById('file').files[0];
-					 reads.readAsDataURL(f);
-					 reads.onload = function(e) {
-					 document.getElementById('img3').src = this.result;
-					 $("#img3").css("display", "block");
-					 };
+						 $("#prompt3").css("display", "none");
+						 var reads = new FileReader();
+						 f = document.getElementById('file').files[0];
+						 reads.readAsDataURL(f);
+						 reads.onload = function(e) {
+						 document.getElementById('img3').src = this.result;
+						 $("#img3").css("display", "block");
+						 };
 					}	
 				 </script>
 				 <img src="#" id="img3" />
@@ -592,7 +591,7 @@
 				});
 				$('.certify').click(function() {
 					$(".errorPart").html("");
-					$("#edit_id").val($(this).parent("td").siblings(".data_id").html());
+					$("#certify_id").val($(this).parent("td").siblings(".data_id").html());
 					layerIndex = layer.open({
 						title: '亲属认证',
 						type: 1,
@@ -603,7 +602,30 @@
 						btn: ['确定', '取消'], //按钮
 						content: $('#certifyContent'),
 						yes: function() {
-							$("#certifyContentSubmit").click();
+							var data = {
+								'relative_id': $("#relative_id").val(),
+								'image': document.getElementById('img3').src
+							}
+							$.ajax({
+								type: "POST",
+								contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+								url: "/identy/action",
+								async: false,
+								data: data,
+								timeout: "30000",
+								success: function(msg) {
+									layer.closeAll();
+									layer.msg('认证成功', {
+										icon: 1,
+										time: 800 //2s后自动关闭
+									});
+	                                window.location.reload()
+								},
+								error: function() {
+									layer.msg('认证失败');
+									console.log("error");
+								}
+							});
 						}
 					});
 				});
