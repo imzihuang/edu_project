@@ -48,10 +48,7 @@ class UpdateHandler(RequestHandler):
             if not _value or not _id:
                 self.finish(json.dumps({'state': 9, 'message': 'params %s is None' % update_obj}))
             _ = _op.update(_id, **_value)
-            if not _:
-                self.finish(json.dumps({'state': 0, 'message': 'update info success.'}))
-            else:
-                self.finish(json.dumps({'state': 10, 'message': 'action %s error' % update_obj}))
+            self.finish(json.dumps({'state': 0, 'message': 'update info success.'}))
         except Exception as ex:
             LOG.error("Input %s error:%s" % (update_obj, ex))
             self.finish(json.dumps({'state': 10, 'message': 'update action error'}))
