@@ -7,6 +7,8 @@ import time
 import struct
 from urlparse import urlparse
 from types import GeneratorType, NoneType
+import collections
+import six
 
 
 TS_UNITS = ('year', 'month', 'day', 'hour', 'minute', 'sec')
@@ -624,4 +626,15 @@ def pre_date(days=0):
     :return:
     """
     return datetime.now() - timedelta(days=days)
+
+def to_list(x, default=None):
+    if x is None:
+        return default
+    if not isinstance(x, collections.Iterable) or \
+            isinstance(x, six.string_types):
+        return [x]
+    elif isinstance(x, list):
+        return x
+    else:
+        return list(x)
 
