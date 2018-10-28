@@ -14,7 +14,8 @@ default_settings = {
     'api_version': 'v1.0',
     'enabled_methods': ['get', 'post', 'put', 'patch', 'delete'],
     'exclude_namespaces': [],
-    'log_path': "./log/edu.log",
+    'log_info': "./log/edu_info.log",
+    'log_error': "./log/edu_error.log",
     'face_path': '/image/face/'
 }
 

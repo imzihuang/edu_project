@@ -1,1 +1,1 @@
-nohup python -O main.py --port=8081 &
+nohup python -O main.py --port=9090 &

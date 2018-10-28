@@ -12,11 +12,19 @@ import settings
 import logging
 
 define("port", default=9090, help="run on the given port", type=int)
+print options.port
 setproctitle('edu:server')
 
-if settings.default_settings.get("log_path", ""):
-    logging.basicConfig(format='%(asctime)s  %(filename)s : %(levelname)s  %(message)s',
-                        filename=settings.default_settings.get("log_path", ""),
+if settings.default_settings.get("log_info", ""):
+    logging.basicConfig(level=logging.INFO,
+                        format='%(asctime)s  %(filename)s : %(levelname)s  %(message)s',
+                        filename=settings.default_settings.get("log_info", ""),
+                        datefmt='%Y-%m-%d %A %H:%M:%S', )
+
+if settings.default_settings.get("log_error", ""):
+    logging.basicConfig(level=logging.ERROR,
+                        format='%(asctime)s  %(filename)s : %(levelname)s  %(message)s',
+                        filename=settings.default_settings.get("log_error", ""),
                         datefmt='%Y-%m-%d %A %H:%M:%S', )
 
 
@@ -36,6 +44,3 @@ if __name__ == "__main__":
     server.bind(options.port)
     server.start(0)
     IOLoop.instance().start()
-
-    #app.listen(options.port)
-    #tornado.ioloop.IOLoop.current().start()
