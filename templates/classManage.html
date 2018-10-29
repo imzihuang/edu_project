@@ -75,6 +75,7 @@
 															<th>班级编号</th>
 															<th>班级名称</th>
 															<th>班级所属年级</th>
+															<th>设备卡号</th>
 															<th>班级所属学校编号</th>
 															<th>班级所属学校名称</th>
 															<th>预计学生总数</th>
@@ -115,6 +116,10 @@
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
+					<span>设备卡号：</span><input type="text" style="width: 350px;" id="add_cardcode" name="add_cardcode" />
+					<div class="errorPart"></div>
+				</div>
+				<div style="margin: 20px 0;">
 					<span>所属学校编号：</span><input type="text" style="width: 350px;" id="add_school_id" name="add_school_id" />
 					<div class="errorPart"></div>
 				</div>
@@ -138,6 +143,10 @@
 				</div>
 				<div style="margin: 20px 0;">
 					<span>年级：</span><input type="text" style="width: 350px;" id="edit_grade" name="edit_grade" />
+					<div class="errorPart"></div>
+				</div>
+				<div style="margin: 20px 0;">
+					<span>设备卡号：</span><input type="text" style="width: 350px;" id="edit_cardcode" name="edit_cardcode" />
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
@@ -187,6 +196,7 @@
 										'<td class="userMessage data_id">' + msg.data[i].id + '</td>' +
 										'<td >' + msg.data[i].name + '</td>' +
 										'<td class="center data_grade">' + msg.data[i].grade + '</td>' +
+										'<td class="center data_cardcode">' + msg.data[i].cardcode + '</td>' +
 										'<td class="center data_school_id">' + msg.data[i].school_id + '</td>' +
 										'<td class="center data_name">' + msg.data[i].school_name + '</td>' +
 										'<td class="center data_study_number">' + msg.data[i].study_number + '</td>' +
@@ -198,7 +208,7 @@
 								}
 								$("#tbody").html(strs);
 							} else {
-								$("#tbody").html('<tr><td colspan="12" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
+								$("#tbody").html('<tr><td colspan="13" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
 							}
 							//							layPage(msg.count, msg.result.pageSize, msg.result.pageNo)
 						},
@@ -356,6 +366,9 @@
 						add_grade: {
 							required: true,
 						},
+						add_cardcode: {
+							required: true,
+						},
 						add_school_id: {
 							required: true,
 						},
@@ -370,6 +383,9 @@
 						add_grade: {
 							required: '必填',
 						},
+						add_cardcode: {
+							required: '必填',
+						},
 						add_school_id: {
 							required: '必填',
 						},
@@ -381,6 +397,7 @@
 						var data = {
 							'name': $("#add_name").val(),
 							'grade': $("#add_grade").val(),
+							'cardcode': $("#add_cardcode").val(),
 							'school_id': $("#add_school_id").val(),
 							'study_number': $("#add_study_number").val()
 						}
@@ -453,6 +470,9 @@
 						edit_grade: {
 							required: true,
 						},
+						edit_cardcode: {
+							required: true,
+						},
 						edit_school_id: {
 							required: true,
 						},
@@ -470,6 +490,9 @@
 						edit_grade: {
 							required:'必填',
 						},
+						edit_cardcode: {
+							required:'必填',
+						},
 						edit_school_id: {
 							required:'必填',
 						},
@@ -482,6 +505,7 @@
 							'id': $("#edit_id").val(),
 							'name': $("#edit_name").val(),
 							'grade': $("#edit_grade").val(),
+							'cardcode': $("#edit_cardcode").val(),
 							'school_id': $("#edit_school_id").val(),
 							'student_number': $("#edit_student_number").val(),
 						}
@@ -518,6 +542,7 @@
 					$("#edit_id").val($(this).parent("td").siblings(".data_id").html());
 					$("#edit_name").val($(this).parent("td").siblings(".data_name").html());
 					$("#edit_grade").val($(this).parent("td").siblings(".data_grade").html());
+					$("#edit_cardcode").val($(this).parent("td").siblings(".data_cardcode").html());
 					$("#edit_school_id").val($(this).parent("td").siblings(".data_school_id").html());
 					$("#edit_student_number").val($(this).parent("td").siblings(".data_study_number").html());
 					layerIndex = layer.open({
