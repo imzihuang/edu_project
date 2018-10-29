@@ -172,7 +172,11 @@
 				<div class="errorPart"></div>
 			</div>
 			<div style="margin: 20px 0;">
-				<span>性别：</span><input type="text" style="width: 350px;" id="edit_sex" name="edit_sex"/>
+				<span>性别：</span>
+				<select style="width: 350px;" id="edit_sex" name="edit_sex">
+					<option value="0">女</option>
+					<option value="1">男</option>
+				</select>
 				<div class="errorPart"></div>
 			</div>
 			<div style="margin: 20px 0;">
@@ -430,9 +434,6 @@
 						add_name: {
 							required: true,
 						},
-						add_sex: {
-							required: true,
-						},
 						add_age: {
 							required: true,
 						},
@@ -452,9 +453,6 @@
 					messages: {
 						add_name: {
 							required:  '必填',
-						},
-						add_sex: {
-							required: '必填',
 						},
 						add_age: {
 							required: '必填',
@@ -615,7 +613,11 @@
 					$(".errorPart").html("");
 					$("#edit_id").val($(this).parent("td").siblings(".data_id").html());
 					$("#edit_name").val($(this).parent("td").siblings(".data_name").html());
-					$("#edit_sex").val($(this).parent("td").siblings(".data_sex").html());
+					if($(this).parent("td").siblings(".data_sex").html() == '男'){
+						$("#edit_sex option[value = 1]").attr('selected', 'selected');
+					}else{
+						$("#edit_sex option[value = 0]").attr('selected', 'selected');
+					}
 					$("#edit_age").val($(this).parent("td").siblings(".data_age").html());
 					$("#edit_grade").val($(this).parent("td").siblings(".data_grade").html());
 					$("#edit_class_id").val($(this).parent("td").siblings(".data_class_id").html());

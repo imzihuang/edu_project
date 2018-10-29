@@ -35,31 +35,31 @@
 												<div class="zx_searchTit">
 													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">教师编号：</label>
-														<input type="text" name="" value="" id="teacher-id"/>
+														<input type="text" name="" value="" id="teacher-id" />
 													</div>
 													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">教师名称：</label>
-														<input type="text" name="" value="" id="teacher-name"/>
+														<input type="text" name="" value="" id="teacher-name" />
 													</div>
 													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">所属学校编号：</label>
-														<input type="text" name="" value="" id="teacher-school-id"/>
+														<input type="text" name="" value="" id="teacher-school-id" />
 													</div>
 													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">所属学校名称：</label>
-														<input type="text" name="" value="" id="teacher-school-name"/>
+														<input type="text" name="" value="" id="teacher-school-name" />
 													</div>
 													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">班级编号：</label>
-														<input type="text" name="" value="" id="teacher-class-id"/>
+														<input type="text" name="" value="" id="teacher-class-id" />
 													</div>
 													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">班级名称：</label>
-														<input type="text" name="" value="" id="teacher-class-name"/>
+														<input type="text" name="" value="" id="teacher-class-name" />
 													</div>
 													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">联系电话：</label>
-														<input type="text" name="" value="" id="teacher-phone"/>
+														<input type="text" name="" value="" id="teacher-phone" />
 													</div>
 													<div class="sendInquiry0 col-sm-4" style="position: relative; margin:3.5px 0 0 0;">
 														<button class="btn btn-primary btn-myown" id="searchBtn">查询</button>&nbsp;&nbsp;
@@ -93,7 +93,6 @@
 														</tr>
 													</thead>
 													<tbody id="tbody">
-														
 													</tbody>
 												</table>
 												<div id="layPage"></div>
@@ -105,83 +104,79 @@
 						</div>
 					</div>
 				</div>
-
 			</div>
-		</div>
-
-		</div>
 		</div>
 
 		<div id="addInfoContent" style="display: none; width: 500px; padding: 20px;">
 			<form id="addInfoContentform" role="form" method="POST">
-			<div style="margin: 20px 0;">
-				<span>教师名称：</span><input type="text" style="width: 350px;" id="add_name" name="add_name" />
-				<div class="errorPart"></div>
-			</div>
-			<div style="margin: 20px 0;">
-				<span>性别：</span>
-				<select style="width: 350px;" id="add_sex" name="add_sex">
-					<option value="0">女</option>
-					<option value="1">男</option>
-				</select>
-				<div class="errorPart"></div>
-			</div>
-			<div style="margin: 20px 0;">
-				<span>年龄：</span><input type="text" style="width: 350px;" id="add_age" name="add_age" />
-				<div class="errorPart"></div>
-			</div>
-			<div style="margin: 20px 0;">
-				<span>所属学校：</span><input type="text" style="width: 350px;" id="add_school_id" name="add_school_id" />
-				<div class="errorPart"></div>
-			</div>
-			<div style="margin: 20px 0;">
-				<span>所属班级：</span><input type="text" style="width: 350px;" id="add_class_id" name="add_class_id" />
-				<div class="errorPart"></div>
-			</div>
-			<div style="margin: 20px 0;">
-				<span>联系电话：</span><input type="text" style="width: 350px;" id="add_phone" name="add_phone" />
-				<div class="errorPart"></div>
-			</div>
-			<input class="submit" type="submit" value="提交" id="addInfoContentSubmit" style="display: none;">
+				<div style="margin: 20px 0;">
+					<span>教师名称：</span><input type="text" style="width: 350px;" id="add_name" name="add_name" />
+					<div class="errorPart"></div>
+				</div>
+				<div style="margin: 20px 0;">
+					<span>性别：</span>
+					<select style="width: 350px;" id="add_sex" name="add_sex">
+						<option value="0">女</option>
+						<option value="1">男</option>
+					</select>
+					<div class="errorPart"></div>
+				</div>
+				<div style="margin: 20px 0;">
+					<span>年龄：</span><input type="text" style="width: 350px;" id="add_age" name="add_age" />
+					<div class="errorPart"></div>
+				</div>
+				<div style="margin: 20px 0;">
+					<span>所属学校：</span><input type="text" style="width: 350px;" id="add_school_id" name="add_school_id" />
+					<div class="errorPart"></div>
+				</div>
+				<div style="margin: 20px 0;">
+					<span>所属班级：</span><input type="text" style="width: 350px;" id="add_class_id" name="add_class_id" />
+					<div class="errorPart"></div>
+				</div>
+				<div style="margin: 20px 0;">
+					<span>联系电话：</span><input type="text" style="width: 350px;" id="add_phone" name="add_phone" />
+					<div class="errorPart"></div>
+				</div>
+				<input class="submit" type="submit" value="提交" id="addInfoContentSubmit" style="display: none;">
 			</form>
 		</div>
 
 		<div id="editAreaContent" style="display: none; width: 500px; padding: 20px;">
 			<form id="editAreaContentform" role="form">
-			<div style="margin: 20px 0;">
-				<span>教师编号：</span><input type="text" style="width: 350px;" id="edit_id" name="edit_id" />
-				<div class="errorPart"></div>
-			</div>
-			<div style="margin: 20px 0;">
-				<span>教师名称：</span><input type="text" style="width: 350px;" id="edit_name" name="edit_name" />
-				<div class="errorPart"></div>
-			</div>
-			<div style="margin: 20px 0;">
-				<span>性别：</span>
-				<select style="width: 350px;" id="edit_sex" name="edit_sex" >
-					<option value="0">女</option>
-					<option value="1">男</option>
-				</select>
-				<div class="errorPart"></div>
-			</div>
-			<div style="margin: 20px 0;">
-				<span>年龄：</span><input type="text" style="width: 350px;" id="edit_age" name="edit_age" />
-				<div class="errorPart"></div>
-			</div>
-			<div style="margin: 20px 0;">
-				<span>所属学校编号：</span><input type="text" style="width: 350px;" id="edit_school_id" name="edit_school_id" />
-				<div class="errorPart"></div>
-			</div>
-			<div style="margin: 20px 0;">
-				<span>班级编号：</span><input type="text" style="width: 350px;" id="edit_class_id" name="edit_class_id" />
-				<div class="errorPart"></div>
-			</div>
-			
-			<div style="margin: 20px 0;">
-				<span>联系电话：</span><input type="text" style="width: 350px;" id="edit_phone" name="edit_phone" />
-				<div class="errorPart"></div>
-			</div>
-			<input class="submit" type="submit" value="提交" id="editAreaContentSubmit" style="display: none;">
+				<div style="margin: 20px 0;">
+					<span>教师编号：</span><input type="text" style="width: 350px;" id="edit_id" name="edit_id" />
+					<div class="errorPart"></div>
+				</div>
+				<div style="margin: 20px 0;">
+					<span>教师名称：</span><input type="text" style="width: 350px;" id="edit_name" name="edit_name" />
+					<div class="errorPart"></div>
+				</div>
+				<div style="margin: 20px 0;">
+					<span>性别：</span>
+					<select style="width: 350px;" id="edit_sex" name="edit_sex">
+						<option value="0">女</option>
+						<option value="1">男</option>
+					</select>
+					<div class="errorPart"></div>
+				</div>
+				<div style="margin: 20px 0;">
+					<span>年龄：</span><input type="text" style="width: 350px;" id="edit_age" name="edit_age" />
+					<div class="errorPart"></div>
+				</div>
+				<div style="margin: 20px 0;">
+					<span>所属学校编号：</span><input type="text" style="width: 350px;" id="edit_school_id" name="edit_school_id" />
+					<div class="errorPart"></div>
+				</div>
+				<div style="margin: 20px 0;">
+					<span>班级编号：</span><input type="text" style="width: 350px;" id="edit_class_id" name="edit_class_id" />
+					<div class="errorPart"></div>
+				</div>
+
+				<div style="margin: 20px 0;">
+					<span>联系电话：</span><input type="text" style="width: 350px;" id="edit_phone" name="edit_phone" />
+					<div class="errorPart"></div>
+				</div>
+				<input class="submit" type="submit" value="提交" id="editAreaContentSubmit" style="display: none;">
 			</form>
 		</div>
 
@@ -201,7 +196,7 @@
 					"limit": 20,
 					"offset": 1,
 				});
-				
+
 				function getAjaxData(senddata) {
 					$.ajax({
 						type: "GET",
@@ -242,7 +237,7 @@
 						}
 					});
 				}
-				
+
 				function layPage(paCount, pgSize, pageIndex) {
 					layui.laypage.render({
 						elem: "layPage",
@@ -319,18 +314,18 @@
 							btn: ['确定', '取消'] //按钮
 						}, function() {
 							$.ajax({
-								method:'POST',
-								xhrFields:{
-									"withCredentials":true
+								method: 'POST',
+								xhrFields: {
+									"withCredentials": true
 								},
-								contentType:"application/x-www-form-urlencoded;chartset=UTF-8",
-								url:"",
-								data:sendData,
-								dataType:'json',
-								jsonpCallback:'',
-								cache:false,
-								timeout:"1000000",
-								success:function(data){
+								contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+								url: "",
+								data: sendData,
+								dataType: 'json',
+								jsonpCallback: '',
+								cache: false,
+								timeout: "1000000",
+								success: function(data) {
 									console.log(valArr)
 									delData(valArr);
 									layer.closeAll();
@@ -341,11 +336,11 @@
 									$('#delInfo').attr("disabled", "disabled");
 									$('#delInfo').attr('class', 'btn btn-default btn-myown');
 								},
-								complete:function(XMLHttpRequest,status){
-									
+								complete: function(XMLHttpRequest, status) {
+
 								}
 							})
-							
+
 						}, function() {});
 					} else {
 						$('#delInfo').attr("disabled", "disabled");
@@ -368,7 +363,7 @@
 				}
 
 				//查询
-				$("#searchBtn").click(function(){
+				$("#searchBtn").click(function() {
 					getAjaxData({
 						"id": $("#teacher-id").val() == '' ? undefined : $("#teacher-id").val(),
 						"name": $("#teacher-name").val() == '' ? undefined : $("#teacher-name").val(),
@@ -391,9 +386,6 @@
 						add_name: {
 							required: true,
 						},
-						add_sex: {
-							required: true,
-						},
 						add_age: {
 							required: true,
 						},
@@ -409,9 +401,6 @@
 					},
 					messages: {
 						add_name: {
-							required: '必填',
-						},
-						add_sex: {
 							required: '必填',
 						},
 						add_age: {
@@ -449,18 +438,18 @@
 									icon: 1,
 									time: 800 //2s后自动关闭
 								});
-                                window.location.reload();
-//			                    getAjaxData({
-//									"id": $("#teacher-id").val() == '' ? undefined : $("#teacher-id").val(),
-//									"name": $("#teacher-name").val() == '' ? undefined : $("#teacher-name").val(),
-//									"school_id": $("#teacher-school-id").val() == '' ? undefined : $("#teacher-school-id").val(),
-//									"school_name": $("#teacher-school-name").val() == '' ? undefined : $("#teacher-school-name").val(),
-//									"class_id": $("#teacher-class-id").val() == '' ? undefined : $("#teacher-class-id").val(),
-//									"class_name": $("#teacher-class-name").val() == '' ? undefined : $("#teacher-class-name").val(),
-//									"phone": $("#teacher-phone").val() == '' ? undefined : $("#teacher-phone").val(),
-//									"limit": 20,
-//									"offset": 1,
-//								});
+								window.location.reload();
+								//			                    getAjaxData({
+								//									"id": $("#teacher-id").val() == '' ? undefined : $("#teacher-id").val(),
+								//									"name": $("#teacher-name").val() == '' ? undefined : $("#teacher-name").val(),
+								//									"school_id": $("#teacher-school-id").val() == '' ? undefined : $("#teacher-school-id").val(),
+								//									"school_name": $("#teacher-school-name").val() == '' ? undefined : $("#teacher-school-name").val(),
+								//									"class_id": $("#teacher-class-id").val() == '' ? undefined : $("#teacher-class-id").val(),
+								//									"class_name": $("#teacher-class-name").val() == '' ? undefined : $("#teacher-class-name").val(),
+								//									"phone": $("#teacher-phone").val() == '' ? undefined : $("#teacher-phone").val(),
+								//									"limit": 20,
+								//									"offset": 1,
+								//								});
 							},
 							error: function() {
 								layer.msg('添加失败');
@@ -472,8 +461,7 @@
 					errorPlacement: function(error, element) {
 						error.appendTo(element.parent().find(".errorPart"));
 					},
-					success: function() {
-					}
+					success: function() {}
 				});
 				$('#addInfo').click(function() {
 					$("input").val("");
@@ -491,8 +479,8 @@
 						}
 					});
 				});
-                //编辑
-                $("#editAreaContentform").validate({
+				//编辑
+				$("#editAreaContentform").validate({
 					focusCleanup: true,
 					focusInvalid: false,
 					debug: true,
@@ -501,9 +489,6 @@
 							required: true,
 						},
 						edit_name: {
-							required: true,
-						},
-						edit_sex: {
 							required: true,
 						},
 						edit_age: {
@@ -524,9 +509,6 @@
 							required: '必填',
 						},
 						edit_name: {
-							required: '必填',
-						},
-						edit_sex: {
 							required: '必填',
 						},
 						edit_age: {
@@ -565,7 +547,7 @@
 									icon: 1,
 									time: 800 //2s后自动关闭
 								});
-                                window.location.reload()
+								window.location.reload()
 							},
 							error: function() {
 								layer.msg('修改失败');
@@ -577,14 +559,17 @@
 					errorPlacement: function(error, element) {
 						error.appendTo(element.parent().find(".errorPart"));
 					},
-					success: function() {
-					}
+					success: function() {}
 				});
 				$('.areapen').click(function() {
 					$(".errorPart").html("");
 					$("#edit_id").val($(this).parent("td").siblings(".data_code").html());
 					$("#edit_name").val($(this).parent("td").siblings(".data_name").html());
-					$("#edit_sex").val($(this).parent("td").siblings(".data_sex").html());
+					if($(this).parent("td").siblings(".data_sex").html() == '男') {
+						$("#edit_sex option[value = 1]").attr('selected', 'selected');
+					} else {
+						$("#edit_sex option[value = 0]").attr('selected', 'selected');
+					}
 					$("#edit_age").val($(this).parent("td").siblings(".data_age").html());
 					$("#edit_school_id").val($(this).parent("td").siblings(".data_school_id").html());
 					$("#edit_class_id").val($(this).parent("td").siblings(".data_class_id").html());
