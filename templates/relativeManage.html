@@ -27,7 +27,6 @@
 		 border: 1px solid black;
 		 text-align: center;
 		 display: inline-block;
-		 position: absolute;
 		}
 		#prompt3 {
 		 width: 180px;
@@ -203,7 +202,7 @@
 				 </div>
 				 <script type="text/javascript">
 	                function changepic() {
-//					 $("#prompt3").css("display", "none");
+					
 					 var reads = new FileReader();
 					 f = document.getElementById('file').files[0];
 					 reads.readAsDataURL(f);
@@ -212,6 +211,7 @@
 					 $("#img3").css("display", "block");
 					 $(".clickMain").css("display","none");
 					 $("#imgSpan").css("position","absolute");
+					  $("#prompt3").css("top", "-180px");
 };
 					}
 				 </script>
