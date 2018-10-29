@@ -450,16 +450,16 @@
 									icon: 1,
 									time: 800 //2s后自动关闭
 								});
-								getAjaxData({
-									"id": $("#relative-id").val() == '' ? undefined : $("#relative-id").val(),
-									"name": $("#relative-name").val() == '' ? undefined : $("#relative-name").val(),
-									"student_id": $("#relative-student-id").val() == '' ? undefined : $("#relative-student-id").val(),
-									"student_name": $("#relative-student-name").val() == '' ? undefined : $("#relative-student-name").val(),
-									"phone": $("#family-phone").val() == '' ? undefined : $("#family-phone").val(),
-									"limit": 20,
-									"offset": 1,
-								});
-//                              window.location.reload();
+//								getAjaxData({
+//									"id": $("#relative-id").val() == '' ? undefined : $("#relative-id").val(),
+//									"name": $("#relative-name").val() == '' ? undefined : $("#relative-name").val(),
+//									"student_id": $("#relative-student-id").val() == '' ? undefined : $("#relative-student-id").val(),
+//									"student_name": $("#relative-student-name").val() == '' ? undefined : $("#relative-student-name").val(),
+//									"phone": $("#family-phone").val() == '' ? undefined : $("#family-phone").val(),
+//									"limit": 20,
+//									"offset": 1,
+//								});
+                                window.location.reload();
 
 							},
 							error: function() {
@@ -569,7 +569,11 @@
 					$(".errorPart").html("");
 					$("#edit_id").val($(this).parent("td").siblings(".data_id").html());
 					$("#edit_name").val($(this).parent("td").siblings(".data_name").html());
-					$("#edit_sex").val($(this).parent("td").siblings(".data_sex").html());
+					$("#edit_sex option).each(function(){
+					   if($(this).text() === $(this).parent("td").siblings(".data_sex").html()){
+					      $(this).attr('selected', 'selected);
+					   }
+					});
 					$("#edit_age").val($(this).parent("td").siblings(".data_age").html());
 					$("#edit_phone").val($(this).parent("td").siblings(".data_phone").html());
 					layerIndex = layer.open({
