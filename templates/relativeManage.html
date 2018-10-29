@@ -193,7 +193,7 @@
 				<span>上传图片：</span><div id="imgPreview">
 				 <div id="prompt3">
 					 <span id="imgSpan">
-					 点击上传
+					 <span class="clickMain">点击上传</span>
 					   <br />
 					 <i class="aui-iconfont aui-icon-plus"></i>
 					 </span>
@@ -208,7 +208,8 @@
 					 reads.onload = function(e) {
 					 document.getElementById('img3').src = this.result;
 					 $("#img3").css("display", "block");
-					 };
+					 $(".clickMain").css("display","none");
+};
 					}
 				 </script>
 				 <img src="#" id="img3" />
