@@ -570,7 +570,7 @@
 					$("#edit_id").val($(this).parent("td").siblings(".data_id").html());
 					$("#edit_name").val($(this).parent("td").siblings(".data_name").html());
 					$("#edit_sex option").each(function(){
-					   if($(this).text() === $(this).parent("td").siblings(".data_sex").html()){
+					   if($(this).text() == $(this).parent("td").siblings(".data_sex").html()){
 					      $(this).attr('selected', 'selected');
 					   }
 					});
