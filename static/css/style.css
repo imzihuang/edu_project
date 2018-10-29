@@ -28,7 +28,9 @@ li {
 .col-sm-3 {
 	width: 25%;
 }
-
+.fl{
+	float: left;
+}
 @media (min-width: 768px) .col-sm-1,
 .col-sm-10,
 .col-sm-11,

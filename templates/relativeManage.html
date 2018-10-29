@@ -29,7 +29,7 @@
 		 display: inline-block;
 		}
 		#prompt3 {
-		 width: 100%;
+		 width: 180px;
 		 height: 180px;
 		 text-align: center;
 		 position: relative;
@@ -190,7 +190,7 @@
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 10px 0;">
-				<span>上传图片：</span><div id="imgPreview">
+				<span class="fl">上传图片：</span><div id="imgPreview">
 				 <div id="prompt3">
 					 <span id="imgSpan">
 					 <span class="clickMain">点击上传</span>
@@ -201,7 +201,7 @@
 				 </div>
 				 <script type="text/javascript">
 	                function changepic() {
-					 $("#prompt3").css("display", "none");
+//					 $("#prompt3").css("display", "none");
 					 var reads = new FileReader();
 					 f = document.getElementById('file').files[0];
 					 reads.readAsDataURL(f);
