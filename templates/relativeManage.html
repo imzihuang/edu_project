@@ -125,8 +125,8 @@
 				</div>
 			</div>
 		</div>
-		</div>
-		</div>
+		
+		<!--添加内容-->
 		<div id="addInfoContent" style="display: none; width: 500px; padding: 20px;">
 			<form id="addInfoContentform" role="form" method="POST">
 				<div style="margin: 10px 0;">
@@ -152,7 +152,7 @@
 				<div class="errorPart"></div>
 			</form>
 		</div>
-
+        <!--编辑内容-->
 		<div id="editAreaContent" style="display: none; width: 500px; padding: 20px;">
 			<form id="editAreaContentform" role="form">
 				<div style="margin: 10px 0;">
@@ -182,6 +182,7 @@
 				<input class="submit" type="submit" value="提交" id="editAreaContentSubmit" style="display: none;">
 			</form>
 		</div>
+		<!--认证内容-->
 		<div id="certifyContent" style="display: none; width: 500px; padding: 20px;">
 			<form id="certifyContentform" role="form">
 				<div style="margin: 10px 0;">
@@ -275,6 +276,7 @@
 						}
 					});
 				}
+				
 				//分页
 				function layPage(paCount, pgSize, pageIndex) {
 					layui.laypage.render({
@@ -456,6 +458,7 @@
 					success: function() {
 					}
 				});
+				
 				//添加弹框
 				$('#addInfo').click(function() {
 					layerIndex = layer.open({
@@ -546,6 +549,7 @@
 					success: function() {
 					}
 				});
+				
 				//编辑弹框
 				$('.areapen').click(function() {
 					$(".errorPart").html("");
@@ -575,6 +579,7 @@
 						}
 					});
 				});
+				
 				//认证弹框
 				$('.certify').click(function() {
 					$(".errorPart").html("");
@@ -616,6 +621,7 @@
 						}
 					});
 				});
+	          	
 	          	//删除
 				$('.fa-close').click(function() {
 					layer.confirm('确定删除选中的学生？', {
@@ -635,5 +641,4 @@
 			});
 		</script>
 	</body>
-
 </html>
