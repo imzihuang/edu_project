@@ -199,7 +199,7 @@
 					 <input type="file" id="file" class="filepath" onchange="changepic(this)" accept="image/jpg,image/jpeg,image/png,image/PNG">
 				 </div>
 				 <script type="text/javascript">
-	                function changepic() {
+	                function changepic() {console.log(1);
 						 var reads = new FileReader();
 						 f = document.getElementById('file').files[0];
 						 reads.readAsDataURL(f);
