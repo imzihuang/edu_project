@@ -138,13 +138,6 @@
 		<script src="js/layui.js" charset="utf-8"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
-				getAjaxData({
-					"id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
-					"name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
-					"cardcode": $("#school-cardcode").val() == '' ? undefined : $("#school-cardcode").val(),
-					"limit": 20,
-					"offset": 1,
-				});
  
                 //列表
 				function getAjaxData(senddata) {
@@ -178,14 +171,13 @@
 							} else {
 								$("#tbody").html('<tr><td colspan="9" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
 							}
-							layPage(msg.count, 20, 1);
 						},
 						error: function() {
 							console.log("error");
 						}
 					});
 				}
-                
+                layPage(msg.count, 20, 1);
                 //分页
 				function layPage(paCount, pgSize, pageIndex) {
 					layui.laypage.render({
@@ -205,6 +197,14 @@
 									"cardcode": $("#school-cardcode").val() == '' ? undefined : $("#school-cardcode").val(),
 									"limit": pgSize,
 									"offset": pageIndex,
+								});
+							}else{
+								getAjaxData({
+									"id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
+									"name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
+									"cardcode": $("#school-cardcode").val() == '' ? undefined : $("#school-cardcode").val(),
+									"limit": 20,
+									"offset": 1,
 								});
 							}
 						}
