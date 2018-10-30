@@ -163,13 +163,13 @@
                           page.render({
 								elem: "layPage",
 								count: msg.count,
-								curr: pageIndex.offset,
-								limit: pgSize.limit,
+								curr: senddata.offset,
+								limit: senddata.limit,
 								layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
 								jump: function(e, first) {
 									if(!first) {
-										pageIndex.offset = e.curr;
-										pgSize.limit = e.limit;
+										senddata.offset = e.curr;
+										senddata.limit = e.limit;
 										var district = "";
 										
 									}
