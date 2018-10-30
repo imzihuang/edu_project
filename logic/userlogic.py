@@ -3,6 +3,7 @@
 
 from random import randint
 import datetime
+from util.encrypt_md5 import encry_md5
 from util.convert import *
 from util.exception import ParamExist
 from db import api as db_api
@@ -14,8 +15,75 @@ class UserLogic(Logic):
     def __init__(self):
         super(UserLogic, self).__init__()
 
-    def intput(self, ):
-        pass
+    def views(self, models):
+        if isinstance(models, list):
+            result = []
+            for model in models:
+                _ = model.to_dict().pop("pwd")
+                result.append(_)
+            return result
+        _ = models.to_dict().pop("pwd")
+        return _
+
+    def intput(self, name="", pwd="", verify_code="", activate="",level=1):
+        if db_api.user_list(name=name):
+            raise ParamExist(key="name", value=name)
+        values = {
+            "name": name,
+            "pwd": encry_md5(pwd),
+            "verify_code": verify_code,
+            "activate": activate,
+            "level": level
+        }
+        user_obj = db_api.user_create(values)
+        return self.views(user_obj)
+
+    def update(self, id="", **kwargs):
+        if not id or not kwargs:
+            return False
+        _ = db_api.user_update(id, kwargs)
+        return _
+
+    def infos(self,  id="", name="", limit=100, offset=1):
+        offset = (offset - 1) * limit if offset > 0 else 0
+        filters = dict()
+        if id:
+            filters.update({"id": id})
+        if name:
+            filters.update({"name": name})
+        user_list = db_api.user_list(offset=offset, limit=limit, **filters)
+        user_count = db_api.user_count(**filters)
+        return {"count": user_count, "state": 0, "message": "query success", "data": self.views(user_list)}
+
+
+    def auth_username(self, name, pwd):
+        filters = {
+            "name": name,
+            "pwd": encry_md5(pwd)
+        }
+        _ = db_api.user_list(**filters)
+        if _:
+            return True
+        return False
+
+    def auth_teacher(self, phone, pwd):
+        teacher_list = db_api.teacher_list(phone=phone)
+        if teacher_list:
+            user_id = teacher_list[0].user_id
+            _ = db_api.user_list(id=user_id, pwd=encry_md5(pwd))
+            if _:
+                return True
+        return False
+
+
+    def auth_relative(self, phone, pwd):
+        relative_list = db_api.relative_list(phone=phone)
+        if relative_list:
+            user_id = relative_list[0].user_id
+            _ = db_api.user_list(id=user_id, pwd=encry_md5(pwd))
+            if _:
+                return True
+        return False
 
 class WXUserLogic(Logic):
     def __init__(self):
@@ -48,7 +116,7 @@ class WXUserLogic(Logic):
         if id:
             filters.update({"id": id})
         if openid:
-            filters.update({"name": openid})
+            filters.update({"openid": openid})
         wx_list = db_api.wxuser_list(offset=offset, limit=limit, **filters)
         wx_count = db_api.wxuser_count(**filters)
         return {"count": wx_count, "state": 0, "message": "query success", "data": self.views(wx_list)}
@@ -65,4 +133,6 @@ class WXUserLogic(Logic):
         wx_infos = db_api.wxuser_list(openid=openid)
         if wx_infos:
             return self.views(wx_infos[0])
+
+
 

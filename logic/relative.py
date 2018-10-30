@@ -72,21 +72,6 @@ class RelativeLogic(Logic):
         if relative_infos:
             return self.views(relative_infos[0])
 
-    def auth_face_feature(self, relative_id, features):
-        try:
-            values = {
-                "relative_id": relative_id,
-                "features": features
-            }
-            db_api.relative_face_auth(values)
-            return True
-        except Exception as ex:
-            LOG.info("update relative %s feature faild:%s"%(relative_id, ex))
-            return
-
-    def get_face_feature(self, relative_id=""):
-        pass
-
     def _get_relations_by_student(self, student_id="", student_name=""):
         if student_id:
             _relation_list = db_api.relation_list(student_id=student_id)
@@ -96,3 +81,4 @@ class RelativeLogic(Logic):
         student_id = [_student.id for _student in _student_list]
         _relation_list = db_api.relation_list(student_id=student_id)
         return _relation_list
+

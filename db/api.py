@@ -235,6 +235,46 @@ def relative_face_auth(values):
 
 #####################relative end################################
 
+
+#####################relative_feature begin################################
+def feature_create(values):
+    if not values.get('id'):
+        values['id'] = str(uuid.uuid4())
+    relation_ref = models.RelativeFeature()
+    relation_ref.update(values)
+    session = get_session()
+    with session.begin():
+        relation_ref.save(session)
+        return relation_ref
+
+def feature_update(id, values):
+    query = model_query(models.RelativeFeature).filter_by(id=id)
+    result = query.update(values)
+    if not result:
+        raise exception.NotFound(code=id)
+    return result
+
+def feature_get(id):
+    query = model_query(models.RelativeFeature)
+    result = query.filter_by(id=id).first()
+    if not result:
+        raise exception.NotFound(code=id)
+    return result
+
+def feature_list(offset=0, limit=1000, **filters):
+    query = model_query(models.RelativeFeature, **filters)
+    if offset:
+        query.offset(offset)
+    if limit:
+        query.limit(limit)
+    return query.all()
+
+def feature_count(**filters):
+    query = model_query(models.RelativeFeature, **filters)
+    return query.count()
+#####################relative_feature end################################
+
+
 #####################relation begin################################
 def relation_create(values):
     if not values.get('id'):
