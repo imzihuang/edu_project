@@ -587,7 +587,10 @@
 					$(".errorPart").html("");
 					$("#certify_id").val($(this).parent("td").siblings(".data_id").html());
 					$(".clickMain").css("display","block");
-					$("#img3").remove();
+					if($("#img3").src != ''){
+						$("#img3").attr("src","");
+					}
+					
 					layerIndex = layer.open({
 						title: '亲属认证',
 						type: 1,
