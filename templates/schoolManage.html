@@ -138,6 +138,13 @@
 		<script src="js/layui.js" charset="utf-8"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
+				getAjaxData({
+					"id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
+					"name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
+					"cardcode": $("#school-cardcode").val() == '' ? undefined : $("#school-cardcode").val(),
+					"limit": 20,
+					"offset": 1,
+				});
  
                 //列表
 				function getAjaxData(senddata) {
@@ -150,9 +157,24 @@
 						timeout: "30000",
 						success: function(msg) {
 							var msg = JSON.parse(msg);
+							//分页
+							layui.laypage.render({
+								elem: "layPage",
+								count: msg.count,
+								curr: pageIndex.offset,
+								limit: pgSize.limit,
+								layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
+								jump: function(e, first) {
+									if(!first) {
+										pageIndex.offset = e.curr;
+										pgSize.limit = e.limit;
+										var district = "";
+										
+									}
+								}
+							})
+							//表格渲染
 							var strs = '';
-							console.log(msg);
-							console.log(msg.count);
 							if(msg.data.length > 0) {
 								for(var i = 0; i < msg.data.length; i++) {
 									strs += '<tr class="gradeX">' +
@@ -177,39 +199,31 @@
 						}
 					});
 				}
-                layPage(msg.count, 20, 1);
+                
                 //分页
-				function layPage(paCount, pgSize, pageIndex) {
-					layui.laypage.render({
-						elem: "layPage",
-						count: paCount,
-						curr: pageIndex,
-						limit: pgSize,
-						layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
-						jump: function(e, first) {
-							if(!first) {
-								pageIndex = e.curr;
-								pgSize = e.limit;
-								var district = "";
-								getAjaxData({
-									"id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
-									"name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
-									"cardcode": $("#school-cardcode").val() == '' ? undefined : $("#school-cardcode").val(),
-									"limit": pgSize,
-									"offset": pageIndex,
-								});
-							}else{
-								getAjaxData({
-									"id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
-									"name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
-									"cardcode": $("#school-cardcode").val() == '' ? undefined : $("#school-cardcode").val(),
-									"limit": 20,
-									"offset": 1,
-								});
-							}
-						}
-					})
-				}
+//				function layPage(paCount, pgSize, pageIndex) {
+//					layui.laypage.render({
+//						elem: "layPage",
+//						count: paCount,
+//						curr: pageIndex,
+//						limit: pgSize,
+//						layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
+//						jump: function(e, first) {
+//							if(!first) {
+//								pageIndex = e.curr;
+//								pgSize = e.limit;
+//								var district = "";
+//								getAjaxData({
+//									"id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
+//									"name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
+//									"cardcode": $("#school-cardcode").val() == '' ? undefined : $("#school-cardcode").val(),
+//									"limit": pgSize,
+//									"offset": pageIndex,
+//								});
+//							}
+//						}
+//					})
+//				}
 				
 				//全选按钮
 				$("#zx_checkedAllBtn").click(function() {
