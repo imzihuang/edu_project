@@ -586,6 +586,8 @@
 				$('.certify').click(function() {
 					$(".errorPart").html("");
 					$("#certify_id").val($(this).parent("td").siblings(".data_id").html());
+					$(".clickMain").css("display","block");
+					$("#img3").remove();
 					layerIndex = layer.open({
 						title: '亲属认证',
 						type: 1,
