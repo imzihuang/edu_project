@@ -1,25 +1,16 @@
 #coding:utf-8
 
 from tornado.web import RequestHandler
-from scipy import misc
-import urllib
 import base64
-from util.face import RecognitionService
 import logging
 import json
 from logic.userlogic import UserLogic
-from logic.relative import RelativeLogic
 from util.ini_client import ini_load
 
 LOG = logging.getLogger(__name__)
 
 _conf = ini_load('config/service.ini')
-_dic_con = _conf.get_fields('face_model')
-try:
-    recognition_service = RecognitionService(_dic_con.get("path"))
-except Exception as ex:
-    LOG.error("init face reconf error:%s"%ex)
-    recognition_service = None
+
 
 
 class ActionHandler(RequestHandler):
@@ -78,22 +69,14 @@ class ActionHandler(RequestHandler):
             self.finish(json.dumps({'state': 1, 'message': 'relative_code is None'}))
             return
         # 获取用户上传的数据
-        #img = self.request.files.get('image', '')
         img = self.get_argument('image', '')
         file_path = self.static_path + self.face_path + relative_id + '.jpg'
         with open(file_path, 'wb') as up:
             up.write(base64.b64decode(img.rpartition(",")[-1]))
-        face_image = misc.imread(file_path, mode='RGB')
-        # 人脸注册服务
-        err_code, feature = recognition_service.register_face(face_image, relative_id)
+
+        # 通过第三方api获取人脸特征
+
         #将特征写入数据库
-        """
-        _op = RelativeLogic()
-        if _op.auth_face_feature(relative_id, feature):
-            self.finish(json.dumps({'state': 0, 'message': 'auth feature success.'}))
-        else:
-            self.finish(json.dumps({'state': 1, 'message': 'auth feature error'}))
-        """
 
     def face_signin(self):
         cardcode = self.get_argument('cardcode', '')
