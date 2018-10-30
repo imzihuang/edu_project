@@ -7303,3 +7303,6 @@ body.skin-3 {
 .sidebar-collapse{
 	width: 70px!important;
 }*/
+.layui-laypage-limits{
+	display: none;
+}
