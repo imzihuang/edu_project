@@ -225,6 +225,17 @@
 											senddata.offset = e.curr;
 											senddata.limit = e.limit;
 											var district = "";
+											getAjaxData({
+												"id": $("#teacher-id").val() == '' ? undefined : $("#teacher-id").val(),
+												"name": $("#teacher-name").val() == '' ? undefined : $("#teacher-name").val(),
+												"school_id": $("#teacher-school-id").val() == '' ? undefined : $("#teacher-school-id").val(),
+												"school_name": $("#teacher-school-name").val() == '' ? undefined : $("#teacher-school-name").val(),
+												"class_id": $("#teacher-class-id").val() == '' ? undefined : $("#teacher-class-id").val(),
+												"class_name": $("#teacher-class-name").val() == '' ? undefined : $("#teacher-class-name").val(),
+												"phone": $("#teacher-phone").val() == '' ? undefined : $("#teacher-phone").val(),
+												"limit": e.limit,
+											    "offset": e.curr,
+											});
 											
 										}
 									}

@@ -263,7 +263,15 @@
 											senddata.offset = e.curr;
 											senddata.limit = e.limit;
 											var district = "";
-											
+											getAjaxData({
+												"id": $("#relative-id").val() == '' ? undefined : $("#relative-id").val(),
+												"name": $("#relative-name").val() == '' ? undefined : $("#relative-name").val(),
+												"student_id": $("#relative-student-id").val() == '' ? undefined : $("#relative-student-id").val(),
+												"student_name": $("#relative-student-name").val() == '' ? undefined : $("#relative-student-name").val(),
+												"phone": $("#family-phone").val() == '' ? undefined : $("#family-phone").val(),
+												"limit": e.limit,
+											    "offset": e.curr,
+											});
 										}
 									}
 								})
@@ -586,6 +594,12 @@
 				$('.certify').click(function() {
 					$(".errorPart").html("");
 					$("#certify_id").val($(this).parent("td").siblings(".data_id").html());
+					$(".clickMain").css("display","block");
+					if($("#img3").src != ''){
+						$("#img3").attr("src","");
+						$("#img3").css("display","none");
+					}
+					
 					layerIndex = layer.open({
 						title: '亲属认证',
 						type: 1,
@@ -612,8 +626,8 @@
 									layer.msg('认证成功', {
 										icon: 1,
 										time: 800 
-									});
-	                                window.location.reload()
+									},window.location.reload());
+	                                
 								},
 								error: function() {
 									layer.msg('认证失败');
