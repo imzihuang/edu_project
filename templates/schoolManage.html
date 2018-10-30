@@ -158,7 +158,7 @@
 						success: function(msg) {
 							var msg = JSON.parse(msg);
 							//分页
-							layui.laypage.render({
+							laypage.render({
 								elem: "layPage",
 								count: msg.count,
 								curr: pageIndex.offset,
