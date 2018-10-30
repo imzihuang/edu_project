@@ -3,6 +3,8 @@ import numpy as np
 import json
 import math
 import cv2
+import time
+import hashlib
 
 
 def rotate_cv2(image, angle, img_size):
@@ -118,3 +120,9 @@ def get_encodings_from_json(encodings_json_file):
     for encoding in encodings:
         known_encodings.append(np.array(encoding))
     return np.array(known_encodings)
+
+
+def create_id():
+    m = hashlib.md5()
+    m.update(bytes(str(time.clock()), encoding='utf-8'))
+    return m.hexdigest()
