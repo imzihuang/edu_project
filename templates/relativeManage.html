@@ -201,6 +201,21 @@
 					 </div>
 					 <img src="#" id="img3" />
 				</div>
+				<script>
+					 //认证
+	                function changepic() {
+						 var reads = new FileReader();
+						 f = document.getElementById('file').files[0];
+						 reads.readAsDataURL(f);
+						 reads.onload = function(e) {
+						 document.getElementById('img3').src = this.result;
+						 $("#img3").css("display", "block");
+						 $(".clickMain").css("display","none");
+						 $("#imgSpan").css("position","absolute");
+						 $("#prompt3").css("position", "absolute");
+	                     };
+					}
+				</script>
 				<input class="submit" type="submit" value="提交" id="certifyContentSubmit" style="display: none;">
 			</form>
 		</div>
@@ -332,19 +347,7 @@
 					}
 				}
                 
-                //认证
-                function changepic() {
-					 var reads = new FileReader();
-					 f = document.getElementById('file').files[0];
-					 reads.readAsDataURL(f);
-					 reads.onload = function(e) {
-					 document.getElementById('img3').src = this.result;
-					 $("#img3").css("display", "block");
-					 $(".clickMain").css("display","none");
-					 $("#imgSpan").css("position","absolute");
-					 $("#prompt3").css("position", "absolute");
-                     };
-				}
+               
 				//删除
 				$('#delInfo').click(function() {
 					var valArr = new Array;
