@@ -7304,5 +7304,8 @@ body.skin-3 {
 	width: 70px!important;
 }*/
 .layui-laypage-limits{
-	display: none;
+	display: none !important;
+}
+#layPage{
+	text-align: right;
 }
