@@ -8,10 +8,11 @@ from db import api as db_api
 from logic import Logic
 
 class ClassLogic(Logic):
-    def __init__(self):
-        pass
 
     def intput(self, name="", grade="", cardcode="", school_id="", student_number=0):
+        # verify school_id
+        _ = db_api.school_get(school_id)
+
         values = {
             "name": name,
             "grade": grade,
@@ -25,6 +26,8 @@ class ClassLogic(Logic):
     def update(self, id="", **kwargs):
         if not id or not kwargs:
             return False
+        if kwargs.get("school_id", ""):
+            _ = db_api.school_get(kwargs.get("school_id", ""))
         _ = db_api.class_update(id, kwargs)
         return _
 

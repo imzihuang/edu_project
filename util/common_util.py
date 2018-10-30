@@ -3,8 +3,7 @@ import numpy as np
 import json
 import math
 import cv2
-import time
-import hashlib
+import uuid
 
 
 def rotate_cv2(image, angle, img_size):
@@ -13,7 +12,6 @@ def rotate_cv2(image, angle, img_size):
     M = cv2.getRotationMatrix2D(center, angle, 1.0)
     rotated_img = cv2.warpAffine(image, M, (width, height))
     return rotated_img
-
 
 def z_rotate(point_left_eye, point_right_eye):
     x1, y1 = point_left_eye
@@ -123,6 +121,4 @@ def get_encodings_from_json(encodings_json_file):
 
 
 def create_id():
-    m = hashlib.md5()
-    m.update(bytes(str(time.clock()), encoding='utf-8'))
-    return m.hexdigest()
+    return uuid.uuid4().get_hex()

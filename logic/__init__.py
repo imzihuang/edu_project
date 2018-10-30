@@ -6,13 +6,16 @@ class Logic(object):
         pass
 
     def intput(self, *args, **kwargs):
-        return
+        return True
 
     def update(self, id="", **kwargs):
         return True
 
     def infos(self, *args, **kwargs):
-        return
+        return {}
+
+    def delete(self, id="", **kwargs):
+        return True
 
     def views(self, models):
         if isinstance(models, list):
