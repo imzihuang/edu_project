@@ -158,7 +158,9 @@
 						success: function(msg) {
 							var msg = JSON.parse(msg);
 							//分页
-							laypage.render({
+						layui.use(['laypage', 'layer'], function () {
+						  var page = layui.laypage;  
+                          page.render({
 								elem: "layPage",
 								count: msg.count,
 								curr: pageIndex.offset,
@@ -173,6 +175,7 @@
 									}
 								}
 							})
+						})
 							//表格渲染
 							var strs = '';
 							if(msg.data.length > 0) {
