@@ -172,6 +172,13 @@
 										senddata.offset = e.curr;
 										senddata.limit = e.limit;
 										var district = "";
+										getAjaxData({
+											"id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
+											"name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
+											"cardcode": $("#school-cardcode").val() == '' ? undefined : $("#school-cardcode").val(),
+											"limit": e.limit,
+											"offset": e.curr,
+										});
 									}
 								}
 							})
