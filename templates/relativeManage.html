@@ -199,21 +199,7 @@
 					 </span>
 					 <input type="file" id="file" class="filepath" onchange="changepic(this)" accept="image/jpg,image/jpeg,image/png,image/PNG">
 				 </div>
-				 <script type="text/javascript">
-	                function changepic() {
-					
-					 var reads = new FileReader();
-					 f = document.getElementById('file').files[0];
-					 reads.readAsDataURL(f);
-					 reads.onload = function(e) {
-					 document.getElementById('img3').src = this.result;
-					 $("#img3").css("display", "block");
-					 $(".clickMain").css("display","none");
-					 $("#imgSpan").css("position","absolute");
-					  $("#prompt3").css("position", "absolute");
-};
-					}
-				 </script>
+				
 				 <img src="#" id="img3" />
 				</div>
 				</div>
@@ -347,7 +333,20 @@
 						$('#delInfo').attr('class', 'btn btn-default btn-myown');
 					}
 				}
-
+                
+                //认证
+                function changepic() {
+					 var reads = new FileReader();
+					 f = document.getElementById('file').files[0];
+					 reads.readAsDataURL(f);
+					 reads.onload = function(e) {
+					 document.getElementById('img3').src = this.result;
+					 $("#img3").css("display", "block");
+					 $(".clickMain").css("display","none");
+					 $("#imgSpan").css("position","absolute");
+					 $("#prompt3").css("position", "absolute");
+                     };
+				}
 				//删除
 				$('#delInfo').click(function() {
 					var valArr = new Array;
