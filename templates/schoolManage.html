@@ -176,26 +176,26 @@
 								}
 							})
 						})
-							//表格渲染
-							var strs = '';
-							if(msg.data.length > 0) {
-								for(var i = 0; i < msg.data.length; i++) {
-									strs += '<tr class="gradeX">' +
-										'<td><input type="checkbox" class="zx_checkedBtn"></td>' +
-										'<td class="centerSort">' + (i + 1) + '</td>' +
-										'<td class="userMessage data_id">' + msg.data[i].id + '</td>' +
-										'<td class="data_name">' + msg.data[i].name + '</td>' +
-										'<td class="center data_cardcode">' + msg.data[i].cardcode + '</td>' +
-										'<td class="center data_describe">' + msg.data[i].describe + '</td>' +
-										'<td class="center">' + msg.data[i].create_time + '</td>' +
-										'<td class="center">' + msg.data[i].updated_time + '</td>' +
-										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除"></i></td>' +
-										'</tr>'
-								}
-								$("#tbody").html(strs);
-							} else {
-								$("#tbody").html('<tr><td colspan="9" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
+						//表格渲染
+						var strs = '';
+						if(msg.data.length > 0) {
+							for(var i = 0; i < msg.data.length; i++) {
+								strs += '<tr class="gradeX">' +
+									'<td><input type="checkbox" class="zx_checkedBtn"></td>' +
+									'<td class="centerSort">' + (i + 1) + '</td>' +
+									'<td class="userMessage data_id">' + msg.data[i].id + '</td>' +
+									'<td class="data_name">' + msg.data[i].name + '</td>' +
+									'<td class="center data_cardcode">' + msg.data[i].cardcode + '</td>' +
+									'<td class="center data_describe">' + msg.data[i].describe + '</td>' +
+									'<td class="center">' + msg.data[i].create_time + '</td>' +
+									'<td class="center">' + msg.data[i].updated_time + '</td>' +
+									'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除"></i></td>' +
+									'</tr>'
 							}
+							$("#tbody").html(strs);
+						} else {
+							$("#tbody").html('<tr><td colspan="9" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
+						}
 						},
 						error: function() {
 							console.log("error");
