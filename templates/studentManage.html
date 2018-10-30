@@ -16,6 +16,7 @@
 		<link href="css/pager.css" rel="stylesheet" type="text/css" />
 		<link href="css/style.css" rel="stylesheet" type="text/css" />
 		<link href="js/plugins/layer/skin/default/layer.css" rel="stylesheet" type="text/css" />
+		<link href="css/layui.css" media="all" rel="stylesheet">
 
 		<script src="js/jquery.min.js"></script>
 
@@ -208,6 +209,8 @@
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/plugins/layer/layer.js"></script>
 		<script src="js/jquery.validate.min.js"></script>
+		<script src="js/jquery.form.js"></script>
+		<script src="js/layui.js" charset="utf-8"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
 				getAjaxData({
@@ -234,6 +237,26 @@
 						timeout: "30000",
 						success: function(msg) {
 							var msg = JSON.parse(msg);
+							//分页
+							layui.use(['laypage', 'layer'], function () {
+							  var page = layui.laypage;  
+	                          page.render({
+									elem: "layPage",
+									count: msg.count,
+									curr: senddata.offset,
+									limit: senddata.limit,
+									layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
+									jump: function(e, first) {
+										if(!first) {
+											senddata.offset = e.curr;
+											senddata.limit = e.limit;
+											var district = "";
+											
+										}
+									}
+								})
+							})
+							//表格渲染
 							var strs = '';
 							console.log(msg);
 							if(msg.data.length > 0) {
@@ -274,7 +297,6 @@
 							} else {
 								$("#tbody").html('<tr><td colspan="13" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
 							}
-							//							layPage(msg.count, msg.result.pageSize, msg.result.pageNo)
 						},
 						error: function() {
 							console.log("error");

@@ -135,6 +135,7 @@
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/plugins/layer/layer.js"></script>
 		<script src="js/jquery.validate.min.js"></script>
+		<script src="js/jquery.form.js"></script>
 		<script src="js/layui.js" charset="utf-8"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
@@ -142,7 +143,7 @@
 					"id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
 					"name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
 					"cardcode": $("#school-cardcode").val() == '' ? undefined : $("#school-cardcode").val(),
-					"limit": 3,
+					"limit": 1,
 					"offset": 1,
 				});
  
@@ -202,31 +203,6 @@
 						}
 					});
 				}
-                
-                //分页
-//				function layPage(paCount, pgSize, pageIndex) {
-//					layui.laypage.render({
-//						elem: "layPage",
-//						count: paCount,
-//						curr: pageIndex,
-//						limit: pgSize,
-//						layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
-//						jump: function(e, first) {
-//							if(!first) {
-//								pageIndex = e.curr;
-//								pgSize = e.limit;
-//								var district = "";
-//								getAjaxData({
-//									"id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
-//									"name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
-//									"cardcode": $("#school-cardcode").val() == '' ? undefined : $("#school-cardcode").val(),
-//									"limit": pgSize,
-//									"offset": pageIndex,
-//								});
-//							}
-//						}
-//					})
-//				}
 				
 				//全选按钮
 				$("#zx_checkedAllBtn").click(function() {
