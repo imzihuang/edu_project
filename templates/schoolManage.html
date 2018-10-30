@@ -156,8 +156,8 @@
 						data: senddata,
 						timeout: "30000",
 						success: function(msg) {
-							var msg = JSON.parse(msg);
-							//分页
+						var msg = JSON.parse(msg);
+						//分页
 						layui.use(['laypage', 'layer'], function () {
 						  var page = layui.laypage;  
                           page.render({
