@@ -3,7 +3,6 @@
 from tornado.web import RequestHandler
 import tornado.httpclient
 from six.moves.urllib import parse
-from util.face import RecognitionService
 from util.exception import ParamExist
 import logging
 import json
@@ -78,9 +77,4 @@ class WXActionHandler(RequestHandler):
             self.finish(json.dumps({'state': 0, 'edu_session': edu_session}))
         else:
             self.finish(json.dumps({'state': 1, 'message': 'wx id not singn'}))
-
-
-
-
-
 
