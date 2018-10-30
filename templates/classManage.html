@@ -202,7 +202,15 @@
 											senddata.offset = e.curr;
 											senddata.limit = e.limit;
 											var district = "";
-											
+											getAjaxData({
+												"id": $("#class-id").val() == '' ? undefined : $("#class-id").val(),
+												"name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
+												"school_id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
+												"school_name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
+												"grade": $("#grade").val() == '' ? undefined : $("#grade").val(),
+												"limit": e.limit,
+											    "offset": e.curr,
+											});
 										}
 									}
 								})

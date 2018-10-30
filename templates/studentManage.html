@@ -251,7 +251,18 @@
 											senddata.offset = e.curr;
 											senddata.limit = e.limit;
 											var district = "";
-											
+											getAjaxData({
+												"id": $("#student-id").val() == '' ? undefined : $("#student-id").val(),
+												"name": $("#student-name").val() == '' ? undefined : $("#student-name").val(),
+												"school_id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
+												"school_name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
+												"class_id": $("#class-id").val() == '' ? undefined : $("#class-id").val(),
+												"class_name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
+												"relative_id": $("#relative-id").val() == '' ? undefined : $("#relative-id").val(),
+												"relative_name": $("#relative-name").val() == '' ? undefined : $("#relative-namee").val(),
+												"limit": e.limit,
+											    "offset": e.curr,
+											});
 										}
 									}
 								})
