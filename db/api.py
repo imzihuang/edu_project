@@ -55,9 +55,9 @@ def school_get(id):
 def school_list(offset=0, limit=1000, **filters):
     query = model_query(models.SchoolInfo, **filters)
     if offset:
-        query.offset(offset)
+        query = query.offset(offset)
     if limit:
-        query.limit(limit)
+        query = query.limit(limit)
     return query.all()
 
 def school_count(**filters):
@@ -94,9 +94,9 @@ def class_get(id):
 def class_list(offset=0, limit=1000, **filters):
     query = model_query(models.ClassInfo, **filters)
     if offset:
-        query.offset(offset)
+        query = query.offset(offset)
     if limit:
-        query.limit(limit)
+        query = query.limit(limit)
     return query.all()
 
 def class_count(**filters):
@@ -133,9 +133,9 @@ def teacher_get(id):
 def teacher_list(offset=0, limit=1000, **filters):
     query = model_query(models.TeacherInfo, **filters)
     if offset:
-        query.offset(offset)
+        query = query.offset(offset)
     if limit:
-        query.limit(limit)
+        query = query.limit(limit)
     return query.all()
 
 def teacher_count(**filters):
@@ -172,9 +172,9 @@ def student_get(id):
 def student_list(offset=0, limit=1000, **filters):
     query = model_query(models.StudentInfo, **filters)
     if offset:
-        query.offset(offset)
+        query = query.offset(offset)
     if limit:
-        query.limit(limit)
+        query = query.limit(limit)
     return query.all()
 
 def student_count(**filters):
@@ -211,9 +211,9 @@ def relative_get(id):
 def relative_list(offset=0, limit=1000, **filters):
     query = model_query(models.RelativeInfo, **filters)
     if offset:
-        query.offset(offset)
+        query = query.offset(offset)
     if limit:
-        query.limit(limit)
+        query = query.limit(limit)
     return query.all()
 
 def relative_count(**filters):
@@ -264,9 +264,9 @@ def feature_get(id):
 def feature_list(offset=0, limit=1000, **filters):
     query = model_query(models.RelativeFeature, **filters)
     if offset:
-        query.offset(offset)
+        query = query.offset(offset)
     if limit:
-        query.limit(limit)
+        query = query.limit(limit)
     return query.all()
 
 def feature_count(**filters):
@@ -303,9 +303,9 @@ def relation_get(id):
 def relation_list(offset=0, limit=1000, **filters):
     query = model_query(models.RelationInfo, **filters)
     if offset:
-        query.offset(offset)
+        query = query.offset(offset)
     if limit:
-        query.limit(limit)
+        query = query.limit(limit)
     return query.all()
 
 def relation_count(**filters):
@@ -341,9 +341,9 @@ def user_get(id):
 def user_list(offset=0, limit=1000, **filters):
     query = model_query(models.UserInfo, **filters)
     if offset:
-        query.offset(offset)
+        query = query.offset(offset)
     if limit:
-        query.limit(limit)
+        query = query.limit(limit)
     return query.all()
 
 def user_count(**filters):
@@ -380,9 +380,9 @@ def wxuser_get(id):
 def wxuser_list(offset=0, limit=1000, **filters):
     query = model_query(models.WXUserInfo, **filters)
     if offset:
-        query.offset(offset)
+        query = query.offset(offset)
     if limit:
-        query.limit(limit)
+        query = query.limit(limit)
     return query.all()
 
 def wxuser_count(**filters):
