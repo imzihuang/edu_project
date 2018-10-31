@@ -8,6 +8,8 @@ from util.exception import ParamExist
 from db import api as db_api
 from logic import Logic
 import logging
+import requests
+
 LOG = logging.getLogger(__name__)
 
 class SchoolLogic(Logic):
@@ -24,11 +26,27 @@ class SchoolLogic(Logic):
             "describe": describe
         }
         school_obj = db_api.school_create(values)
-
         #生成人脸库，获取faceset_token，并更新学校
-
-        self.update(school_obj.id, faceset_token="")
-        return school_obj
+        if school_obj:
+            api_key ='5ohw3BxhITBcWer8_0HY4ezXkX_xvESY'
+            api_secret ='zOp9msYNAeBvjeQGgIygfHih8Jmn9vGM'
+            #人脸库创建
+            faceset_url = 'https://api-cn.faceplusplus.com/facepp/v3/faceset/create'
+            data ={
+            'api_key': api_key,
+            'api_secret': api_secret,
+           'display_name':name,
+            'outer_id':values.get("id"),
+            'tags':values.get("id"),
+            }
+            response = requests.post(faceset_url, data)
+            results = response.json()
+            if results.get('error_message'):
+                pass
+            else:
+                faceset_token = results['faceset_token']  #faceset
+                self.update(values.get("id"), faceset_token=faceset_token)
+        return values
 
     def update(self, id="", **kwargs):
         if not id or not kwargs:
