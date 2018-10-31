@@ -5,6 +5,7 @@ import base64
 import logging
 import json
 from logic.userlogic import UserLogic
+from logic.relative import RelativeLogic
 from util.ini_client import ini_load
 
 LOG = logging.getLogger(__name__)
@@ -77,6 +78,8 @@ class ActionHandler(RequestHandler):
         # 通过第三方api获取人脸特征
 
         #将特征写入数据库
+        _op = RelativeLogic()
+        _op.update(relative_id, face_token = "")
 
     def face_signin(self):
         cardcode = self.get_argument('cardcode', '')

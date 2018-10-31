@@ -15,7 +15,8 @@ class SchoolInfo(Base, ModelBase):
     id = Column(VARCHAR(36), primary_key=True)
     name = Column(VARCHAR(100), nullable=False)
     cardcode = Column(VARCHAR(36), nullable=False)
-    describe = Column(VARCHAR(500), nullable=False)
+    describe = Column(VARCHAR(500))
+    faceset_token = Column(VARCHAR(36))
     create_time = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_time = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -76,6 +77,7 @@ class RelativeInfo(Base, ModelBase):
     user_id = Column(VARCHAR(36))
     wxuser_id = Column(VARCHAR(36))
     phone = Column(VARCHAR(36), nullable=False)
+    face_token = Column(VARCHAR(36))
     create_time = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_time = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 

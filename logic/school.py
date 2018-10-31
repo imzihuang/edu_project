@@ -24,6 +24,10 @@ class SchoolLogic(Logic):
             "describe": describe
         }
         school_obj = db_api.school_create(values)
+
+        #生成人脸库，获取faceset_token，并更新学校
+
+        self.update(school_obj.id, faceset_token="")
         return school_obj
 
     def update(self, id="", **kwargs):
