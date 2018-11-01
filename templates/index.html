@@ -228,13 +228,13 @@
 						ev.returnValue = false;
 					}
 					// 调用刷新函数
-					Refresh();
+					window.location.reload();
 				}
 			});
-			// 刷新当前框架
-			function Refresh() {
-				document.getElementById('iframecontent').contentWindow.location.reload(); //支持IE
-			}
+//			// 刷新当前框架
+//			function Refresh() {
+//				document.getElementById('iframecontent').contentWindow.location.reload(); //支持IE
+//			}
 		</script>
 	</body>
 
