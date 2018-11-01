@@ -28,8 +28,8 @@ class SchoolLogic(Logic):
         school_obj = db_api.school_create(values)
         #生成人脸库，获取faceset_token，并更新学校
         if school_obj:
-            api_key ='5ohw3BxhITBcWer8_0HY4ezXkX_xvESY'
-            api_secret ='zOp9msYNAeBvjeQGgIygfHih8Jmn9vGM'
+            api_key = 'd7KyrJBh3NQeFfsUaQCaVMvkHeYykU0p'
+            api_secret = 't4WbsJTPLo5XOquBlS2q8bNHJEJstzP3'
             #人脸库创建
             faceset_url = 'https://api-cn.faceplusplus.com/facepp/v3/faceset/create'
             data ={

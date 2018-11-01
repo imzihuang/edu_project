@@ -99,9 +99,9 @@ class ActionHandler(RequestHandler):
         # 通过第三方api获取人脸特征
         #img.save(file_path) #保存用户的图片
         self.img_resize(file_path)
-        files = {'image_file':open(file_path,'rb')}
-        api_key ='5ohw3BxhITBcWer8_0HY4ezXkX_xvESY'
-        api_secret ='zOp9msYNAeBvjeQGgIygfHih8Jmn9vGM'
+        files = {'image_file':open(file_path,'rb').read()}
+        api_key = 'd7KyrJBh3NQeFfsUaQCaVMvkHeYykU0p'
+        api_secret = 't4WbsJTPLo5XOquBlS2q8bNHJEJstzP3'
         #人脸检测
         detect_url = 'https://api-cna.faceplusplus.com/facepp/v3/detect'
         data = {
