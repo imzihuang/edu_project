@@ -219,7 +219,7 @@
 			$("body").keydown(function(e) {
 				var ev = window.event || e;
 				var code = ev.keyCode || ev.which;
-				if(code == 116) {
+				if(code == 116) {console.log(1);
 					// 阻止默认的F5事件
 					if(ev.preventDefault) {
 						ev.preventDefault();
@@ -228,13 +228,13 @@
 						ev.returnValue = false;
 					}
 					// 调用刷新函数
-					window.location.reload();
+					Refresh();console.log(2);
 				}
 			});
-//			// 刷新当前框架
-//			function Refresh() {
-//				document.getElementById('iframecontent').contentWindow.location.reload(); //支持IE
-//			}
+			// 刷新当前框架
+			function Refresh() {
+				document.getElementById('iframecontent').contentWindow.location.reload(); //支持IE
+			}
 		</script>
 	</body>
 
