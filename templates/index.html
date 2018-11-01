@@ -214,7 +214,12 @@
 					};
 				};
 			});
-
+			
+            document.addEventListener('DOMContentLoaded', function () {   console.log(3);   
+				var hash = location.hash;     
+				var url = hash.substring(1,hash.length);
+			     $("#iframecontent").attr("src", url);
+			}, false)
 			window.onhashchange = function(){ console.log(1);   
 				var hash = location.hash;
 			    hash = hash.substring(1,hash.length);
@@ -231,11 +236,7 @@
 			  //设置新的锚点
 			  window.location.href = rurl + "#" + url;
 			}
-//			document.addEventListener('DOMContentLoaded', function () {   console.log(3);   
-//				var hash = location.hash;     
-//				var url = hash.substring(1,hash.length);
-//			     $("#iframecontent").attr("src", url);
-//			}, false)
+
 		</script>
 	</body>
 
