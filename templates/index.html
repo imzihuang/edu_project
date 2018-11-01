@@ -83,7 +83,7 @@
 								<span class="fa arrow"></span>
 							</a>
 							<ul class="nav nav-second-level ulOne">
-								<li>
+								<li class="listNav">
 									<a class="J_menuItem" name="school.html" id="school.html" href="javascript:void(0);">学校管理</a>
 								</li>
 
@@ -96,7 +96,7 @@
 								<span class="fa arrow"></span>
 							</a>
 							<ul class="nav nav-second-level ulTwo">
-								<li>
+								<li class="listNav">
 									<a class="J_menuItem" name="class.html" id="class.html" href="javascript:void(0);">年级管理</a>
 								</li>
 
@@ -110,7 +110,7 @@
 								<span class="fa arrow"></span>
 							</a>
 							<ul class="nav nav-second-level ulThree">
-								<li>
+								<li class="listNav">
 									<a class="J_menuItem" name="teacher.html" id="teacher.html" href="javascript:void(0);">教师管理</a>
 								</li>
 
@@ -124,7 +124,7 @@
 								<span class="fa arrow"></span>
 							</a>
 							<ul class="nav nav-second-level ulFour">
-								<li>
+								<li class="listNav">
 									<a class="J_menuItem" name="student.html" id="student.html" href="javascript:void(0);">学生管理</a>
 								</li>
 							</ul>
@@ -137,10 +137,10 @@
 								<span class="fa arrow"></span>
 							</a>
 							<ul class="nav nav-second-level ulFour">
-								<li>
+								<li class="listNav">
 									<a class="J_menuItem" name="relative.html" id="relative.html" href="javascript:void(0);">亲属管理</a>
 								</li>
-								<li>
+								<li class="listNav">
 									<a class="J_menuItem" name="relation.html" id="relation.html" href="javascript:void(0);">亲属关系管理</a>
 								</li>
 							</ul>
@@ -220,7 +220,7 @@
 			    hash = hash.substring(1,hash.length);
 			    $("#iframecontent").attr("src","<%=path%>" + url);
 			}
-			$(".nav li").click(function(){alert(2);
+			$(".listNav").click(function(){alert(2); 
 				var h = $(this).find("a").id;console.log(h);
 				loadIframe(h);
 			});
