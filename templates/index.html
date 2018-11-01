@@ -220,11 +220,7 @@
 				var url = hash.substring(1,hash.length);
 //			     $("#iframecontent").attr("src", url);
 			}, false)
-			window.onhashchange = function(){ console.log(1);   
-				var hash = location.hash;
-			    hash = hash.substring(1,hash.length);
-			    $("#iframecontent").attr("src","<%=path%>" + url);
-			}
+			
 			$(".listNav a").click(function(){alert(2); 
 				var h = $(this).attr('id');console.log(h);
 				loadIframe(h);
@@ -235,6 +231,11 @@
 			  var rurl = u.substring(0,end);
 			  //设置新的锚点
 			  window.location.href = rurl + "#" + url;
+			  window.onhashchange = function(){ console.log(1);   
+					var hash = location.hash;
+				    hash = hash.substring(1,hash.length);
+				    $("#iframecontent").attr("src","<%=path%>" + url);
+				}
 			}
 
 		</script>
