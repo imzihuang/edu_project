@@ -215,7 +215,8 @@
 				};
 			});
 
-			window.onhashchange = function(){    var hash = location.hash;
+			window.onhashchange = function(){ console.log(1);   
+				var hash = location.hash;
 			    hash = hash.substring(1,hash.length);
 			    $("#iframecontent").attr("src","<%=path%>" + url);
 			}
@@ -223,14 +224,14 @@
 				var h = $(this).find("a").id;console.log(h);
 				loadIframe(h);
 			});
-			function loadIframe(url){
+			function loadIframe(url){console.log(2); 
 			  var u = window.location.href;
 			  var end = u.indexOf("#");
 			  var rurl = u.substring(0,end);
 			  //设置新的锚点
 			  window.location.href = rurl + "#" + url;
 			}
-			document.addEventListener('DOMContentLoaded', function () {     
+			document.addEventListener('DOMContentLoaded', function () {   console.log(3);   
 				var hash = location.hash;     
 				var url = hash.substring(1,hash.length);
 			     $("#iframecontent").attr("src", url);
