@@ -5,7 +5,11 @@ import base64
 import logging
 import json
 from logic.userlogic import UserLogic
+from logic.relative import RelativeLogic
 from util.ini_client import ini_load
+import os
+from PIL import Image
+import requests
 
 LOG = logging.getLogger(__name__)
 
@@ -62,6 +66,24 @@ class ActionHandler(RequestHandler):
             return
         self.finish(json.dumps({'state': 2, 'message': 'login fail'}))
 
+    def img_resize(self, path):
+        #对大于2M的图片进行缩放
+        fsize = os.path.getsize(path)
+        if fsize <= 2097152:
+            return
+        ims = Image.open(path)
+        s = 1920
+        w = ims.width / s
+        h = ims.height / s
+        if w > h:
+            width = s
+            height = int(s * (h / w))
+        else:
+            height = s
+            width = int(s * (w / h))
+
+        ims = ims.resize((width, height))
+        ims.save(path)
 
     def face_identy(self):
         relative_id = self.get_argument('relative_id', '')
@@ -72,11 +94,32 @@ class ActionHandler(RequestHandler):
         img = self.get_argument('image', '')
         file_path = self.static_path + self.face_path + relative_id + '.jpg'
         with open(file_path, 'wb') as up:
-            up.write(base64.b64decode(img.rpartition(",")[-1]))
+             up.write(base64.b64decode(img.rpartition(",")[-1]))
 
         # 通过第三方api获取人脸特征
+        #img.save(file_path) #保存用户的图片
+        self.img_resize(file_path)
+        files = {'image_file':open(file_path,'rb').read()}
+        api_key = 'd7KyrJBh3NQeFfsUaQCaVMvkHeYykU0p'
+        api_secret = 't4WbsJTPLo5XOquBlS2q8bNHJEJstzP3'
+        #人脸检测
+        detect_url = 'https://api-cna.faceplusplus.com/facepp/v3/detect'
+        data = {
+            'api_key':api_key,
+            'api_secret':api_secret,
+        }
+        response = requests.post(detect_url,data=data,files=files)
+        results = response.json()
+        if results.get('error_message'):
+            self.finish(json.dumps({'state': 2, 'message': results.get('error_message')}))
+            return
 
+        face_token = results['faces'][-1]['face_token']
         #将特征写入数据库
+        _op = RelativeLogic()
+        _op.update(relative_id, face_token = face_token)
+        self.finish(json.dumps({'state': 0, 'message': 'face identy ok'}))
+
 
     def face_signin(self):
         cardcode = self.get_argument('cardcode', '')

@@ -1,10 +1,10 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import uuid
 from db import models
 from db.base import *
 from util import exception
+from util import common_util
 
 
 def model_query(model, session=None,  *args, **kwargs):
@@ -30,7 +30,7 @@ def model_query(model, session=None,  *args, **kwargs):
 #####################school begin################################
 def school_create(values):
     if not values.get('id'):
-        values['id'] = str(uuid.uuid4())
+        values['id'] = common_util.create_id()#str(uuid.uuid4())
     school_ref = models.SchoolInfo()
     school_ref.update(values)
     session = get_session()
@@ -69,7 +69,7 @@ def school_count(**filters):
 #####################class begin################################
 def class_create(values):
     if not values.get('id'):
-        values['id'] = str(uuid.uuid4())
+        values['id'] = common_util.create_id()
     class_ref = models.ClassInfo()
     class_ref.update(values)
     session = get_session()
@@ -108,7 +108,7 @@ def class_count(**filters):
 #####################teacher begin################################
 def teacher_create(values):
     if not values.get('id'):
-        values['id'] = str(uuid.uuid4())
+        values['id'] = common_util.create_id()
     teacher_ref = models.TeacherInfo()
     teacher_ref.update(values)
     session = get_session()
@@ -147,7 +147,7 @@ def teacher_count(**filters):
 #####################student begin################################
 def student_create(values):
     if not values.get('id'):
-        values['id'] = str(uuid.uuid4())
+        values['id'] = common_util.create_id()
     student_ref = models.StudentInfo()
     student_ref.update(values)
     session = get_session()
@@ -186,7 +186,7 @@ def student_count(**filters):
 #####################relative begin################################
 def relative_create(values):
     if not values.get('id'):
-        values['id'] = str(uuid.uuid4())
+        values['id'] = common_util.create_id()
     relative_ref = models.RelativeInfo()
     relative_ref.update(values)
     session = get_session()
@@ -239,7 +239,7 @@ def relative_face_auth(values):
 #####################relative_feature begin################################
 def feature_create(values):
     if not values.get('id'):
-        values['id'] = str(uuid.uuid4())
+        values['id'] = common_util.create_id()
     relation_ref = models.RelativeFeature()
     relation_ref.update(values)
     session = get_session()
@@ -278,7 +278,7 @@ def feature_count(**filters):
 #####################relation begin################################
 def relation_create(values):
     if not values.get('id'):
-        values['id'] = str(uuid.uuid4())
+        values['id'] = common_util.create_id()
     relation_ref = models.RelationInfo()
     relation_ref.update(values)
     session = get_session()
@@ -316,7 +316,7 @@ def relation_count(**filters):
 #####################user begin################################
 def user_create(values):
     if not values.get('id'):
-        values['id'] = str(uuid.uuid4())
+        values['id'] = common_util.create_id()
     user_ref = models.UserInfo()
     user_ref.update(values)
     session = get_session()
@@ -355,7 +355,7 @@ def user_count(**filters):
 #####################wx user begin################################
 def wxuser_create(values):
     if not values.get('id'):
-        values['id'] = str(uuid.uuid4())
+        values['id'] = common_util.create_id()
     wxuser_ref = models.WXUserInfo()
     wxuser_ref.update(values)
     session = get_session()
