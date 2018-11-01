@@ -35,24 +35,16 @@
 											<div class="ibox-title-Myown1">
 												<div class="zx_searchTit">
 													<div class="sendInquiry2" style="float: left;">
-														<label class="control-label">班级编号：</label>
-														<input type="text" name="" value="" id="class-id" />
+														<label class="control-label">关系编号：</label>
+														<input type="text" name="" value="" id="bind-id" />
 													</div>
 													<div class="sendInquiry2" style="float: left;">
-														<label class="control-label">班级名称：</label>
-														<input type="text" name="" value="" id="class-name" />
+														<label class="control-label">学生编号：</label>
+														<input type="text" name="" value="" id="bind-student-id" />
 													</div>
 													<div class="sendInquiry2" style="float: left;">
-														<label class="control-label">所属学校编号：</label>
-														<input type="text" name="" value="" id="school-id" />
-													</div>
-													<div class="sendInquiry2" style="float: left;">
-														<label class="control-label">学校名称：</label>
-														<input type="text" name="" value="" id="school-name" />
-													</div>
-													<div class="sendInquiry2" style="float: left;">
-														<label class="control-label">年级：</label>
-														<input type="text" name="" value="" id="grade" />
+														<label class="control-label">亲属编号</label>
+														<input type="text" name="" value="" id="bind-relative-id" />
 													</div>
 													<div class="sendInquiry0 col-sm-4" style="position: relative; margin:3.5px 0 0 0;">
 														<button class="btn btn-primary btn-myown" id="searchBtn">查询</button>&nbsp;&nbsp;
@@ -67,22 +59,16 @@
 														<tr class="zx_checkedAll">
 															<th colspan="6" style="text-align: left; background: none;padding: 10px 0px;">
 																<button class="btn btn-default btn-myown" id="delInfo" disabled="disabled"><i class="fa fa-trash"></i>&nbsp;删除选中项</button>
-																<button class="btn btn-primary btn-myown" id="addInfo">+添加班级</button>
+																<button class="btn btn-primary btn-myown" id="addInfo">+添加亲属</button>
 															</th>
 														</tr>
 														<tr class="zx_thTitle">
 															<th><input type="checkbox" class="zx_checkedBtn" id="zx_checkedAllBtn" name="allcheck" value="allCheck"></th>
 															<th>序号</th>
-															<th>班级编号</th>
-															<th>班级名称</th>
-															<th>班级所属年级</th>
-															<th>设备卡号</th>
-															<th>班级所属学校编号</th>
-															<th>班级所属学校名称</th>
-															<th>预计学生总数</th>
-															<th>实际报名学生人数</th>
-															<th>创建时间</th>
-															<th>最后一次更新时间</th>
+															<th>关系编号</th>
+															<th>学生信息</th>
+															<th>亲属信息</th>
+															<th>与学生的关系</th>
 															<th style="width: 120px;">操作</th>
 														</tr>
 													</thead>
@@ -107,23 +93,21 @@
 		<div id="addInfoContent" style="display: none; width: 500px; padding: 20px;">
 			<form id="addInfoContentform" role="form" method="POST">
 				<div style="margin: 20px 0;">
-					<span>班级名称：</span><input type="text" style="width: 350px;" id="add_name" name="add_name" />
+					<span>学生编号：</span><input type="text" style="width: 350px;" id="add_student_id" name="add_student_id" />
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
-					<span>年级：</span><input type="text" style="width: 350px;" id="add_grade" name="add_grade" />
+					<span>亲属编号：</span><input type="text" style="width: 350px;" id="add_relative_id" name="add_relative_id" />
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
-					<span>设备卡号：</span><input type="text" style="width: 350px;" id="add_cardcode" name="add_cardcode" />
-					<div class="errorPart"></div>
-				</div>
-				<div style="margin: 20px 0;">
-					<span>所属学校编号：</span><input type="text" style="width: 350px;" id="add_school_id" name="add_school_id" />
-					<div class="errorPart"></div>
-				</div>
-				<div style="margin: 20px 0;">
-					<span>预计学生总数：</span><input type="text" style="width: 350px;" id="add_study_number" name="add_study_number" />
+					<span>与学生的关系：</span>
+					<select style="width: 350px;" id="add_relation" name="add_relation">
+						<option value="father">父亲 </option>
+						<option value="moter">母亲 </option>
+						<option value="grandfather">爷爷 </option>
+						<option value="grandmother">奶奶</option>
+					</select>
 					<div class="errorPart"></div>
 				</div>
 				<input class="submit" type="submit" value="提交" id="addInfoContentSubmit" style="display: none;">
@@ -133,27 +117,25 @@
 		<div id="editAreaContent" style="display: none; width: 500px; padding: 20px;">
 			<form id="editAreaContentform" role="form">
 				<div style="margin: 20px 0;">
-					<span>学校编号：</span><input type="text" style="width: 350px;" id="edit_id" name="edit_id" />
+					<span>关系编号：</span><input type="text" style="width: 350px;" id="edit_id" name="edit_id" />
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
-					<span>学校名称：</span><input type="text" style="width: 350px;" id="edit_name" name="edit_name" />
+					<span>与学生的关系 ：</span>
+					<select style="width: 350px;" id="edit_relation" name="add_relation">
+						<option value="father">父亲 </option>
+						<option value="moter">母亲 </option>
+						<option value="grandfather">爷爷 </option>
+						<option value="grandmother">奶奶</option>
+					</select>
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
-					<span>年级：</span><input type="text" style="width: 350px;" id="edit_grade" name="edit_grade" />
+					<span>学生编号：</span><input type="text" style="width: 350px;" id="edit_student_id" name="edit_student_id" />
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
-					<span>设备卡号：</span><input type="text" style="width: 350px;" id="edit_cardcode" name="edit_cardcode" />
-					<div class="errorPart"></div>
-				</div>
-				<div style="margin: 20px 0;">
-					<span>所属学校编号：</span><input type="text" style="width: 350px;" id="edit_school_id" name="edit_school_id" />
-					<div class="errorPart"></div>
-				</div>
-				<div style="margin: 20px 0;">
-					<span>预计学生总数：</span><input type="text" style="width: 350px;" id="edit_student_number" name="edit_student_number" />
+					<span>亲属编号：</span><input type="text" style="width: 350px;" id="edit_relative_id" name="edit_relative_id" />
 					<div class="errorPart"></div>
 				</div>
 				<input class="submit" type="submit" value="提交" id="editAreaContentSubmit" style="display: none;">
@@ -168,11 +150,9 @@
 		<script type="text/javascript">
 			$(document).ready(function() {
 				getAjaxData({
-					"id": $("#class-id").val() == '' ? undefined : $("#class-id").val(),
-					"name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
-					"school_id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
-					"school_name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
-					"grade": $("#grade").val() == '' ? undefined : $("#grade").val(),
+					"id": $("#bind-id").val() == '' ? undefined : $("#bind-id").val(),
+					"student_id": $("#bind-student-id").val() == '' ? undefined : $("#bind-student-id").val(),
+					"relative_id": $("#bind-relative-id").val() == '' ? undefined : $("#bind-relative-id").val(),
 					"limit": 20,
 					"offset": 1,
 				});
@@ -202,14 +182,12 @@
 											senddata.offset = e.curr;
 											senddata.limit = e.limit;
 											var district = "";
-											getAjaxData({
-												"id": $("#class-id").val() == '' ? undefined : $("#class-id").val(),
-												"name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
-												"school_id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
-												"school_name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
-												"grade": $("#grade").val() == '' ? undefined : $("#grade").val(),
+										    getAjaxData({
+												"id": $("#bind-id").val() == '' ? undefined : $("#bind-id").val(),
+												"student_id": $("#bind-student-id").val() == '' ? undefined : $("#bind-student-id").val(),
+												"relative_id": $("#bind-relative-id").val() == '' ? undefined : $("#bind-relative-id").val(),
 												"limit": e.limit,
-											    "offset": e.curr,
+										        "offset": e.curr,
 											});
 										}
 									}
@@ -220,25 +198,30 @@
 							console.log(msg);
 							if(msg.data.length > 0) {
 								for(var i = 0; i < msg.data.length; i++) {
+									if(msg.data[i].relation == 'father'){
+										msg.data[i].relation = '父亲';
+									}else if(msg.data[i].relation == 'moter'){
+										msg.data[i].relation = '母亲';
+									}
+									else if(msg.data[i].relation == 'grandfather'){
+										msg.data[i].relation = '爷爷 ';
+									}
+									else if(msg.data[i].relation == 'grandmother'){
+										msg.data[i].relation = '奶奶';
+									}
 									strs += '<tr class="gradeX">' +
 										'<td><input type="checkbox" class="zx_checkedBtn"></td>' +
 										'<td class="centerSort">' + (i + 1) + '</td>' +
 										'<td class="userMessage data_id">' + msg.data[i].id + '</td>' +
-										'<td >' + msg.data[i].name + '</td>' +
-										'<td class="center data_grade">' + msg.data[i].grade + '</td>' +
-										'<td class="center data_cardcode">' + msg.data[i].cardcode + '</td>' +
-										'<td class="center data_school_id">' + msg.data[i].school_id + '</td>' +
-										'<td class="center data_name">' + msg.data[i].school_name + '</td>' +
-										'<td class="center data_study_number">' + msg.data[i].study_number + '</td>' +
-										'<td class="center">' + msg.data[i].reality_number + '</td>' +
-										'<td class="center">' + msg.data[i].create_time + '</td>' +
-										'<td class="center">' + msg.data[i].updated_time + '</td>' +
+										'<td class="center data_student_info">' + msg.data[i].student_info + '</td>' +
+										'<td class="center data_relative_info">' + msg.data[i].relative_info + '</td>' +
+										'<td class="center data_relation">' + msg.data[i].relation + '</td>' +
 										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除"></i></td>' +
 										'</tr>'
 								}
 								$("#tbody").html(strs);
 							} else {
-								$("#tbody").html('<tr><td colspan="13" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
+								$("#tbody").html('<tr><td colspan="7" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
 							}
 						},
 						error: function() {
@@ -246,7 +229,7 @@
 						}
 					});
 				}
-				
+
 				//全选按钮
 				$("#zx_checkedAllBtn").click(function() {
 					if(this.checked) {
@@ -345,11 +328,9 @@
 				//查询
 				$("#searchBtn").click(function(){
 					getAjaxData({
-						"id": $("#class-id").val() == '' ? undefined : $("#class-id").val(),
-						"name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
-						"school_id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
-						"school_name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
-						"grade": $("#grade").val() == '' ? undefined : $("#grade").val(),
+						"id": $("#bind-id").val() == '' ? undefined : $("#bind-id").val(),
+						"student_id": $("#bind-student-id").val() == '' ? undefined : $("#bind-student-id").val(),
+						"relative_id": $("#bind-relative-id").val() == '' ? undefined : $("#bind-relative-id").val(),
 						"limit": 20,
 						"offset": 1,
 					});
@@ -362,46 +343,26 @@
 					focusInvalid: false,
 					debug: true,
 					rules: {
-						add_name: {
+						add_student_id: {
 							required: true,
 						},
-						add_grade: {
-							required: true,
-						},
-						add_cardcode: {
-							required: true,
-						},
-						add_school_id: {
-							required: true,
-						},
-						add_study_number: {
+						add_relative_id: {
 							required: true,
 						},
 					},
 					messages: {
-						add_name: {
+						add_student_id: {
 							required: '必填',
 						},
-						add_grade: {
-							required: '必填',
-						},
-						add_cardcode: {
-							required: '必填',
-						},
-						add_school_id: {
-							required: '必填',
-						},
-						add_study_number: {
+						add_relative_id: {
 							required: '必填',
 						},
 					},
 					submitHandler: function(form) {
 						var data = {
-							'name': $("#add_name").val(),
-							'grade': $("#add_grade").val(),
-							'cardcode': $("#add_cardcode").val(),
-							'school_id': $("#add_school_id").val(),
-							'study_number': $("#add_study_number").val()
+							'student_id': $("#add_student_id").val(),
+							'relative_id': $("#add_relative_id").val(),
+							'relation': $("#add_relation option:selected").val()
 						}
 						$.ajax({
 							type: "POST",
@@ -417,15 +378,6 @@
 									time: 800 //2s后自动关闭
 								});
                                 window.location.reload();
-//getAjaxData({
-//									"id": $("#class-id").val() == '' ? undefined : $("#class-id").val(),
-//									"name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
-//									"school_id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
-//									"school_name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
-//									"grade": $("#grade").val() == '' ? undefined : $("#grade").val(),
-//									"limit": 20,
-//									"offset": 1,
-//								});
 							},
 							error: function() {
 								layer.msg('添加失败');
@@ -468,19 +420,10 @@
 						edit_id: {
 							required: true,
 						},
-						edit_name: {
+						edit_student_id: {
 							required: true,
 						},
-						edit_grade: {
-							required: true,
-						},
-						edit_cardcode: {
-							required: true,
-						},
-						edit_school_id: {
-							required: true,
-						},
-						edit_student_number: {
+						edit_relative_id: {
 							required: true,
 						},
 					},
@@ -488,30 +431,19 @@
 						edit_id: {
 							required:'必填',
 						},
-						edit_name: {
+						edit_student_id: {
 							required:'必填',
 						},
-						edit_grade: {
-							required:'必填',
-						},
-						edit_cardcode: {
-							required:'必填',
-						},
-						edit_school_id: {
-							required:'必填',
-						},
-						edit_student_number: {
+						edit_relative_id: {
 							required:'必填',
 						},
 					},
 					submitHandler: function(form) {
 						var data = {
 							'id': $("#edit_id").val(),
-							'name': $("#edit_name").val(),
-							'grade': $("#edit_grade").val(),
-							'cardcode': $("#edit_cardcode").val(),
-							'school_id': $("#edit_school_id").val(),
-							'student_number': $("#edit_student_number").val(),
+							'student_id': $("#edit_student_id").val(),
+							'relative_id': $("#edit_relative_id").val(),
+							'relation': $("#edit_relation option:selected").val()
 						}
 						$.ajax({
 							type: "POST",
@@ -546,11 +478,19 @@
 				$('.areapen').click(function() {
 					$(".errorPart").html("");
 					$("#edit_id").val($(this).parent("td").siblings(".data_id").html());
-					$("#edit_name").val($(this).parent("td").siblings(".data_name").html());
-					$("#edit_grade").val($(this).parent("td").siblings(".data_grade").html());
-					$("#edit_cardcode").val($(this).parent("td").siblings(".data_cardcode").html());
-					$("#edit_school_id").val($(this).parent("td").siblings(".data_school_id").html());
-					$("#edit_student_number").val($(this).parent("td").siblings(".data_study_number").html());
+					$("#edit_student_id").val($(this).parent("td").siblings(".data_student_info").html());
+					$("#edit_relative_id").val($(this).parent("td").siblings(".data_relative_info").html());
+					
+					if($(this).parent("td").siblings(".data_relation").html() == '父亲'){
+						$("#edit_sex option[value = 'father']").attr('selected', 'selected');
+					}else if($(this).parent("td").siblings(".data_relation").html() == '母亲'){
+						$("#edit_sex option[value = 'moter']").attr('selected', 'selected');
+					}else if($(this).parent("td").siblings(".data_relation").html() == '爷爷'){
+						$("#edit_sex option[value = 'grandfather']").attr('selected', 'selected');
+					}else if($(this).parent("td").siblings(".data_relation").html() == '奶奶'){
+						$("#edit_sex option[value = 'grandmother']").attr('selected', 'selected');
+					}
+					
 					layerIndex = layer.open({
 						title: '修改班级信息',
 						type: 1,
