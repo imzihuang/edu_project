@@ -226,7 +226,7 @@
 			    $("#iframecontent").attr("src","<%=path%>" + url);
 			}
 			$(".listNav a").click(function(){alert(2); 
-				var h = $(this).child("a").attr('id');console.log(h);
+				var h = $(this).attr('id');console.log(h);
 				loadIframe(h);
 			});
 			function loadIframe(url){ console.log(2); 
