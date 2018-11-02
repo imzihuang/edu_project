@@ -35,28 +35,17 @@
 											<div class="ibox-title-Myown1">
 												<div class="zx_searchTit">
 													<div class="sendInquiry2" style="float: left;">
-														<label class="control-label">班级编号：</label>
-														<input type="text" name="" value="" id="class-id" />
+														<label class="control-label">年级名称：</label>
+														<select id="grade-name" >
+															<option></option>
+														</select>
 													</div>
 													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">班级名称：</label>
 														<input type="text" name="" value="" id="class-name" />
 													</div>
-													<div class="sendInquiry2" style="float: left;">
-														<label class="control-label">所属学校编号：</label>
-														<input type="text" name="" value="" id="school-id" />
-													</div>
-													<div class="sendInquiry2" style="float: left;">
-														<label class="control-label">学校名称：</label>
-														<input type="text" name="" value="" id="school-name" />
-													</div>
-													<div class="sendInquiry2" style="float: left;">
-														<label class="control-label">年级：</label>
-														<input type="text" name="" value="" id="grade" />
-													</div>
 													<div class="sendInquiry0 col-sm-4" style="position: relative; margin:3.5px 0 0 0;">
-														<button class="btn btn-primary btn-myown" id="searchBtn">查询</button>&nbsp;&nbsp;
-														<button class="btn btn-primary btn-myown" id="addManage">批量导入</button>
+														<button class="btn btn-primary btn-myown" id="searchBtn">查询</button>
 													</div>
 													<div style="clear: both;"></div>
 												</div>
@@ -67,22 +56,18 @@
 														<tr class="zx_checkedAll">
 															<th colspan="6" style="text-align: left; background: none;padding: 10px 0px;">
 																<button class="btn btn-default btn-myown" id="delInfo" disabled="disabled"><i class="fa fa-trash"></i>&nbsp;删除选中项</button>
-																<button class="btn btn-primary btn-myown" id="addInfo">+添加班级</button>
+																<button class="btn btn-primary btn-myown" id="addInfo">+添加班级</button>&nbsp;&nbsp;
+																<button class="btn btn-primary btn-myown" id="addManage">批量导入</button>
 															</th>
 														</tr>
 														<tr class="zx_thTitle">
 															<th><input type="checkbox" class="zx_checkedBtn" id="zx_checkedAllBtn" name="allcheck" value="allCheck"></th>
 															<th>序号</th>
-															<th>班级编号</th>
 															<th>班级名称</th>
-															<th>班级所属年级</th>
-															<th>设备卡号</th>
-															<th>班级所属学校编号</th>
-															<th>班级所属学校名称</th>
-															<th>预计学生总数</th>
-															<th>实际报名学生人数</th>
+															<th>年级</th>
+															<th>班级ID</th>
+															<th>备注</th>
 															<th>创建时间</th>
-															<th>最后一次更新时间</th>
 															<th style="width: 120px;">操作</th>
 														</tr>
 													</thead>
@@ -111,19 +96,13 @@
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
-					<span>年级：</span><input type="text" style="width: 350px;" id="add_grade" name="add_grade" />
-					<div class="errorPart"></div>
+					<span>请选择年级：</span>
+					<select style="width: 350px;" id="add_grade" name="add_grade">
+						<option></option>
+					</select>
 				</div>
 				<div style="margin: 20px 0;">
-					<span>设备卡号：</span><input type="text" style="width: 350px;" id="add_cardcode" name="add_cardcode" />
-					<div class="errorPart"></div>
-				</div>
-				<div style="margin: 20px 0;">
-					<span>所属学校编号：</span><input type="text" style="width: 350px;" id="add_school_id" name="add_school_id" />
-					<div class="errorPart"></div>
-				</div>
-				<div style="margin: 20px 0;">
-					<span>预计学生总数：</span><input type="text" style="width: 350px;" id="add_study_number" name="add_study_number" />
+					<span>备注：</span><textarea style="width: 350px;" id="add_grade" name="add_grade" />
 					<div class="errorPart"></div>
 				</div>
 				<input class="submit" type="submit" value="提交" id="addInfoContentSubmit" style="display: none;">
@@ -133,27 +112,18 @@
 		<div id="editAreaContent" style="display: none; width: 500px; padding: 20px;">
 			<form id="editAreaContentform" role="form">
 				<div style="margin: 20px 0;">
-					<span>学校编号：</span><input type="text" style="width: 350px;" id="edit_id" name="edit_id" />
+					<span>班级名称：</span><input type="text" style="width: 350px;" id="edit_id" name="edit_id" />
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
-					<span>学校名称：</span><input type="text" style="width: 350px;" id="edit_name" name="edit_name" />
+					<span>请选择年级：</span>
+					<select style="width: 350px;" id="edit_grade" name="edit_grade">
+						<option></option>
+					</select>
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
-					<span>年级：</span><input type="text" style="width: 350px;" id="edit_grade" name="edit_grade" />
-					<div class="errorPart"></div>
-				</div>
-				<div style="margin: 20px 0;">
-					<span>设备卡号：</span><input type="text" style="width: 350px;" id="edit_cardcode" name="edit_cardcode" />
-					<div class="errorPart"></div>
-				</div>
-				<div style="margin: 20px 0;">
-					<span>所属学校编号：</span><input type="text" style="width: 350px;" id="edit_school_id" name="edit_school_id" />
-					<div class="errorPart"></div>
-				</div>
-				<div style="margin: 20px 0;">
-					<span>预计学生总数：</span><input type="text" style="width: 350px;" id="edit_student_number" name="edit_student_number" />
+					<span>备注：</span><textarea style="width: 350px;" id="edit_grade" name="edit_grade" />
 					<div class="errorPart"></div>
 				</div>
 				<input class="submit" type="submit" value="提交" id="editAreaContentSubmit" style="display: none;">
@@ -169,11 +139,8 @@
 		<script type="text/javascript">
 			$(document).ready(function() {
 				getAjaxData({
-					"id": $("#class-id").val() == '' ? undefined : $("#class-id").val(),
 					"name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
-					"school_id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
-					"school_name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
-					"grade": $("#grade").val() == '' ? undefined : $("#grade").val(),
+					"grade": $("#grade-name selected:option").val() == '' ? undefined : $("#grade-name").val(),
 					"limit": 20,
 					"offset": 1,
 				});
@@ -204,11 +171,8 @@
 											senddata.limit = e.limit;
 											var district = "";
 											getAjaxData({
-												"id": $("#class-id").val() == '' ? undefined : $("#class-id").val(),
 												"name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
-												"school_id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
-												"school_name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
-												"grade": $("#grade").val() == '' ? undefined : $("#grade").val(),
+												"grade": $("#grade-name selected:option").val() == '' ? undefined : $("#grade-name").val(),
 												"limit": e.limit,
 											    "offset": e.curr,
 											});
@@ -224,22 +188,17 @@
 									strs += '<tr class="gradeX">' +
 										'<td><input type="checkbox" class="zx_checkedBtn"></td>' +
 										'<td class="centerSort">' + (i + 1) + '</td>' +
-										'<td class="userMessage data_id">' + msg.data[i].id + '</td>' +
 										'<td >' + msg.data[i].name + '</td>' +
 										'<td class="center data_grade">' + msg.data[i].grade + '</td>' +
-										'<td class="center data_cardcode">' + msg.data[i].cardcode + '</td>' +
-										'<td class="center data_school_id">' + msg.data[i].school_id + '</td>' +
+										'<td class="center data_class_id">' + msg.data[i].class_id + '</td>' +
 										'<td class="center data_name">' + msg.data[i].school_name + '</td>' +
-										'<td class="center data_study_number">' + msg.data[i].study_number + '</td>' +
-										'<td class="center">' + msg.data[i].reality_number + '</td>' +
 										'<td class="center">' + msg.data[i].create_time + '</td>' +
-										'<td class="center">' + msg.data[i].updated_time + '</td>' +
 										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除"></i></td>' +
 										'</tr>'
 								}
 								$("#tbody").html(strs);
 							} else {
-								$("#tbody").html('<tr><td colspan="13" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
+								$("#tbody").html('<tr><td colspan="8" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
 							}
 						},
 						error: function() {
@@ -346,11 +305,8 @@
 				//查询
 				$("#searchBtn").click(function(){
 					getAjaxData({
-						"id": $("#class-id").val() == '' ? undefined : $("#class-id").val(),
 						"name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
-						"school_id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
-						"school_name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
-						"grade": $("#grade").val() == '' ? undefined : $("#grade").val(),
+						"grade": $("#grade-name selected:option").val() == '' ? undefined : $("#grade-name").val(),
 						"limit": 20,
 						"offset": 1,
 					});
@@ -366,43 +322,16 @@
 						add_name: {
 							required: true,
 						},
-						add_grade: {
-							required: true,
-						},
-						add_cardcode: {
-							required: true,
-						},
-						add_school_id: {
-							required: true,
-						},
-						add_study_number: {
-							required: true,
-						},
-					},
 					messages: {
 						add_name: {
-							required: '必填',
-						},
-						add_grade: {
-							required: '必填',
-						},
-						add_cardcode: {
-							required: '必填',
-						},
-						add_school_id: {
-							required: '必填',
-						},
-						add_study_number: {
 							required: '必填',
 						},
 					},
 					submitHandler: function(form) {
 						var data = {
 							'name': $("#add_name").val(),
-							'grade': $("#add_grade").val(),
-							'cardcode': $("#add_cardcode").val(),
+							'grade': $("#add_grade selected:option").val(),
 							'school_id': $("#add_school_id").val(),
-							'study_number': $("#add_study_number").val()
 						}
 						$.ajax({
 							type: "POST",
@@ -457,53 +386,26 @@
 					focusInvalid: false,
 					debug: true,
 					rules: {
-						edit_id: {
-							required: true,
-						},
 						edit_name: {
 							required: true,
 						},
-						edit_grade: {
-							required: true,
-						},
-						edit_cardcode: {
-							required: true,
-						},
 						edit_school_id: {
-							required: true,
-						},
-						edit_student_number: {
 							required: true,
 						},
 					},
 					messages: {
-						edit_id: {
-							required:'必填',
-						},
 						edit_name: {
 							required:'必填',
 						},
-						edit_grade: {
-							required:'必填',
-						},
-						edit_cardcode: {
-							required:'必填',
-						},
 						edit_school_id: {
-							required:'必填',
-						},
-						edit_student_number: {
 							required:'必填',
 						},
 					},
 					submitHandler: function(form) {
 						var data = {
-							'id': $("#edit_id").val(),
 							'name': $("#edit_name").val(),
-							'grade': $("#edit_grade").val(),
-							'cardcode': $("#edit_cardcode").val(),
+							'grade': $("#edit_grade selected:option").val(),
 							'school_id': $("#edit_school_id").val(),
-							'student_number': $("#edit_student_number").val(),
 						}
 						$.majax({
 							url: "/class/update",
@@ -515,15 +417,12 @@
 									time: 800 
 								});
 								getAjaxData({
-									"id": $("#class-id").val() == '' ? undefined : $("#class-id").val(),
 									"name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
-									"school_id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
-									"school_name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
-									"grade": $("#grade").val() == '' ? undefined : $("#grade").val(),
+									"grade": $("#class-name selected:option").val() == '' ? undefined : $("#class-name selected:option").val(),
 									"limit": 20,
 									"offset": 1,
 								});
-//                              window.location.reload();
+                                window.location.reload();
 							},
 							errorCallBack: function() {
 								layer.msg('修改失败');
@@ -542,12 +441,9 @@
 				//编辑弹框
 				$('.areapen').click(function() {
 					$(".errorPart").html("");
-					$("#edit_id").val($(this).parent("td").siblings(".data_id").html());
 					$("#edit_name").val($(this).parent("td").siblings(".data_name").html());
 					$("#edit_grade").val($(this).parent("td").siblings(".data_grade").html());
-					$("#edit_cardcode").val($(this).parent("td").siblings(".data_cardcode").html());
 					$("#edit_school_id").val($(this).parent("td").siblings(".data_school_id").html());
-					$("#edit_student_number").val($(this).parent("td").siblings(".data_study_number").html());
 					layerIndex = layer.open({
 						title: '修改班级信息',
 						type: 1,
