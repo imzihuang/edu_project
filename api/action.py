@@ -99,17 +99,23 @@ class ActionHandler(RequestHandler):
         # 通过第三方api获取人脸特征
         #img.save(file_path) #保存用户的图片
         self.img_resize(file_path)
-        files = {'image_file':open(file_path,'rb').read()}
+        _file = open(file_path,'rb').read()
+        LOG.info("1111111111111111111:%s, %s"%(type(_file), len(_file)))
+        #LOG.info(_file)
+        files = {'image_file': _file}
         api_key = 'd7KyrJBh3NQeFfsUaQCaVMvkHeYykU0p'
         api_secret = 't4WbsJTPLo5XOquBlS2q8bNHJEJstzP3'
         #人脸检测
-        detect_url = 'https://api-cna.faceplusplus.com/facepp/v3/detect'
+        detect_url = 'https://api-cn.faceplusplus.com/facepp/v3/detect'
         data = {
             'api_key':api_key,
             'api_secret':api_secret,
         }
+        LOG.info("path:%s"%file_path)
         response = requests.post(detect_url,data=data,files=files)
+        LOG.info("response:%s"%response)
         results = response.json()
+        LOG.info("results:%s"%results)
         if results.get('error_message'):
             self.finish(json.dumps({'state': 2, 'message': results.get('error_message')}))
             return
