@@ -165,6 +165,7 @@
 		<script src="js/jquery.validate.min.js"></script>
 		<script src="js/jquery.form.js"></script>
 		<script src="js/layui.js" charset="utf-8"></script>
+		<script src="js/common.js" charset="utf-8"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
 				getAjaxData({
@@ -417,15 +418,6 @@
 									time: 800 //2s后自动关闭
 								});
                                 window.location.reload();
-//getAjaxData({
-//									"id": $("#class-id").val() == '' ? undefined : $("#class-id").val(),
-//									"name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
-//									"school_id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
-//									"school_name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
-//									"grade": $("#grade").val() == '' ? undefined : $("#grade").val(),
-//									"limit": 20,
-//									"offset": 1,
-//								});
 							},
 							error: function() {
 								layer.msg('添加失败');
@@ -513,22 +505,18 @@
 							'school_id': $("#edit_school_id").val(),
 							'student_number': $("#edit_student_number").val(),
 						}
-						$.ajax({
-							type: "POST",
-							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+						$.majax({
 							url: "/class/update",
-							async: false,
 							data: data,
-							timeout: "30000",
-							success: function(msg) {
+							successCallBack: function(msg) {
 								layer.closeAll();
 								layer.msg('修改成功', {
 									icon: 1,
-									time: 800 //2s后自动关闭
+									time: 800 
 								});
                                 window.location.reload()
 							},
-							error: function() {
+							errorCallBack: function() {
 								layer.msg('修改失败');
 								console.log("error");
 							}
