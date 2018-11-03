@@ -56,6 +56,7 @@ class TeacherInfo(Base, ModelBase):
     sex = Column(Integer, default=0)
     birthday = Column(DateTime)
     school_id = Column(VARCHAR(36), nullable=False)
+    grade_id = Column(VARCHAR(36), nullable=False)
     class_id = Column(VARCHAR(36), nullable=False)
     user_id = Column(VARCHAR(36))
     create_time = Column(DateTime, default=datetime.utcnow, nullable=False)
@@ -73,7 +74,6 @@ class StudentInfo(Base, ModelBase):
     school_id = Column(VARCHAR(36), nullable=False)
     grade_id = Column(VARCHAR(36), nullable=False)
     class_id = Column(VARCHAR(36), nullable=False)
-    #status = Column(VARCHAR(36), default="apply")
     user_id = Column(VARCHAR(36))
     relation_number = Column(Integer, default=3)
     create_time = Column(DateTime, default=datetime.utcnow, nullable=False)
@@ -93,7 +93,6 @@ class StudentHistory(Base, ModelBase):
 
     def to_dict(self):
        return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
-
 
 class RelativeInfo(Base, ModelBase):
     __tablename__ = 'relative_info'
@@ -120,16 +119,6 @@ class RelationInfo(Base, ModelBase):
 
     def to_dict(self):
        return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
-
-
-class RelativeFeature(Base, ModelBase):
-    __tablename__ = 'relative_feature'
-    id = Column(VARCHAR(36), primary_key=True)
-    relative_id = Column(VARCHAR(36), nullable=False)
-    features = Column(LargeBinary(length=65536))
-    def to_dict(self):
-       return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
-
 
 class UserInfo(Base, ModelBase):
     __tablename__ = 'user_info'

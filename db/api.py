@@ -36,7 +36,7 @@ def school_create(values):
     session = get_session()
     with session.begin():
         school_ref.save(session)
-        return school_ref
+        return values
 
 def school_update(id, values):
     query = model_query(models.SchoolInfo).filter_by(id=id)
@@ -66,6 +66,45 @@ def school_count(**filters):
 
 #####################school end################################
 
+#####################school begin################################
+def grade_create(values):
+    if not values.get('id'):
+        values['id'] = common_util.create_id()#str(uuid.uuid4())
+    grade_ref = models.GradeInfo()
+    grade_ref.update(values)
+    session = get_session()
+    with session.begin():
+        grade_ref.save(session)
+        return values
+
+def grade_update(id, values):
+    query = model_query(models.GradeInfo).filter_by(id=id)
+    result = query.update(values)
+    if not result:
+        raise exception.NotFound(code=id)
+    return result
+
+def grade_get(id):
+    query = model_query(models.GradeInfo)
+    result = query.filter_by(id=id).first()
+    if not result:
+        raise exception.NotFound(code=id)
+    return result
+
+def grade_list(offset=0, limit=1000, **filters):
+    query = model_query(models.GradeInfo, **filters)
+    if offset:
+        query = query.offset(offset)
+    if limit:
+        query = query.limit(limit)
+    return query.all()
+
+def grade_count(**filters):
+    query = model_query(models.GradeInfo, **filters)
+    return query.count()
+
+#####################school end################################
+
 #####################class begin################################
 def class_create(values):
     if not values.get('id'):
@@ -75,7 +114,7 @@ def class_create(values):
     session = get_session()
     with session.begin():
         class_ref.save(session)
-        return class_ref
+        return values
 
 def class_update(id, values):
     query = model_query(models.ClassInfo).filter_by(id=id)
@@ -114,7 +153,7 @@ def teacher_create(values):
     session = get_session()
     with session.begin():
         teacher_ref.save(session)
-        return teacher_ref
+        return values
 
 def teacher_update(id, values):
     query = model_query(models.TeacherInfo).filter_by(id=id)
@@ -153,7 +192,7 @@ def student_create(values):
     session = get_session()
     with session.begin():
         student_ref.save(session)
-        return student_ref
+        return values
 
 def student_update(id, values):
     query = model_query(models.StudentInfo).filter_by(id=id)
@@ -192,7 +231,7 @@ def relative_create(values):
     session = get_session()
     with session.begin():
         relative_ref.save(session)
-        return relative_ref
+        return values
 
 def relative_update(id, values):
     query = model_query(models.RelativeInfo).filter_by(id=id)
@@ -220,59 +259,7 @@ def relative_count(**filters):
     query = model_query(models.RelativeInfo, **filters)
     return query.count()
 
-def relative_face_auth(values):
-    session = get_session()
-    query = model_query(models.RelativeFeature, session=session).filter_by(relative_id=values.get("relative_id"))
-    if query:
-        result = query.update(values)
-        return result
-    relative_ref = models.RelativeFeature()
-    relative_ref.update(values)
-    with session.begin():
-        relative_ref.save(session)
-        return relative_ref
-
-
 #####################relative end################################
-
-
-#####################relative_feature begin################################
-def feature_create(values):
-    if not values.get('id'):
-        values['id'] = common_util.create_id()
-    relation_ref = models.RelativeFeature()
-    relation_ref.update(values)
-    session = get_session()
-    with session.begin():
-        relation_ref.save(session)
-        return relation_ref
-
-def feature_update(id, values):
-    query = model_query(models.RelativeFeature).filter_by(id=id)
-    result = query.update(values)
-    if not result:
-        raise exception.NotFound(code=id)
-    return result
-
-def feature_get(id):
-    query = model_query(models.RelativeFeature)
-    result = query.filter_by(id=id).first()
-    if not result:
-        raise exception.NotFound(code=id)
-    return result
-
-def feature_list(offset=0, limit=1000, **filters):
-    query = model_query(models.RelativeFeature, **filters)
-    if offset:
-        query = query.offset(offset)
-    if limit:
-        query = query.limit(limit)
-    return query.all()
-
-def feature_count(**filters):
-    query = model_query(models.RelativeFeature, **filters)
-    return query.count()
-#####################relative_feature end################################
 
 
 #####################relation begin################################
