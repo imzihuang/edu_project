@@ -92,7 +92,7 @@ class UpdateHandler(RequestHandler):
         id = self.get_argument('id', '')
         name = self.get_argument('name', '')
         sex = int(self.get_argument('sex', 0))
-        age = int(self.get_argument('age', 0))
+        birthday = self.get_argument('birthday', "")
         school_id = self.get_argument('school_id', '')
         class_id = self.get_argument('class_id', '')
         phone = self.get_argument('phone', '')
@@ -101,8 +101,8 @@ class UpdateHandler(RequestHandler):
             result.update({"name", name})
         if sex:
             result.update({"sex": sex})
-        if age:
-            result.update({"age": age})
+        if birthday:
+            result.update({"birthday": birthday})
         if school_id:
             result.update({"school_id": school_id})
         if class_id:
@@ -116,7 +116,7 @@ class UpdateHandler(RequestHandler):
         id = self.get_argument('id', '')
         name = self.get_argument('name', '')
         sex = int(self.get_argument('sex', 0))
-        age = int(self.get_argument('age', 0))
+        birthday = self.get_argument('birthday', "")
         class_id = self.get_argument('class_id', '')
         school_id = self.get_argument('school_id', '')
         status = self.get_argument('status', 'apply')
@@ -126,8 +126,8 @@ class UpdateHandler(RequestHandler):
             result.update({"name", name})
         if sex:
             result.update({"sex": sex})
-        if age:
-            result.update({"age": age})
+        if birthday:
+            result.update({"birthday": birthday})
         if school_id:
             result.update({"school_id": school_id})
         if class_id:
@@ -142,15 +142,15 @@ class UpdateHandler(RequestHandler):
         id = self.get_argument('id', '')
         name = self.get_argument('name', '')
         sex = int(self.get_argument('sex', 0))
-        age = int(self.get_argument('age', 0))
+        birthday = self.get_argument('birthday', 0)
         phone = self.get_argument('phone', '')
         result = {}
         if name:
             result.update({"name", name})
         if sex:
             result.update({"sex": sex})
-        if age:
-            result.update({"age": age})
+        if birthday:
+            result.update({"birthday": birthday})
         if phone:
             result.update({"phone": phone})
         return id, result

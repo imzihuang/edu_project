@@ -70,11 +70,13 @@ class InfosHandler(RequestHandler):
     def _get_grade_argument(self):
         id = self.get_argument('id', '')
         name = self.get_argument('name', '')
-        cardcode = self.get_argument('cardcode', '')
+        school_id = self.get_argument('school_id', '')
+        school_name = self.get_argument('school_name', '')
         return {
             "id": id,
             "name": name,
-            "cardcode": cardcode
+            "school_id": school_id,
+            "school_name": school_name,
         }
 
     def _get_class_argument(self):

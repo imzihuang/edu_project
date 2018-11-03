@@ -8,7 +8,6 @@ from db import api as db_api
 from logic import Logic
 
 class GradeLogic(Logic):
-
     def intput(self, name="", school_id=""):
         # verify school_id
         _ = db_api.school_get(school_id)
@@ -35,7 +34,7 @@ class GradeLogic(Logic):
             filters.update({"id": id})
         if name:
             filters.update({"name": name})
-        if school_id or school_id:
+        if school_id:
             if school_name:
                 _school_list = db_api.school_list(name=school_name)
                 if not _school_list:
