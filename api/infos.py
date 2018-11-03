@@ -8,6 +8,7 @@ import logging
 
 from logic import Logic
 from logic.school import SchoolLogic
+from logic.gradelogic import GradeLogic
 from logic.classlogic import ClassLogic
 from logic.teacher import TeacherLogic
 from logic.student import StudentLogic
@@ -25,6 +26,10 @@ class InfosHandler(RequestHandler):
             if infos_obj == "school":
                 _value = self._get_school_argument()
                 _op = SchoolLogic()
+
+            if infos_obj == "grade":
+                _value = self._get_grade_argument()
+                _op = GradeLogic()
 
             if infos_obj == "class":
                 _value = self._get_class_argument()
@@ -53,6 +58,16 @@ class InfosHandler(RequestHandler):
 
 
     def _get_school_argument(self):
+        id = self.get_argument('id', '')
+        name = self.get_argument('name', '')
+        cardcode = self.get_argument('cardcode', '')
+        return {
+            "id": id,
+            "name": name,
+            "cardcode": cardcode
+        }
+
+    def _get_grade_argument(self):
         id = self.get_argument('id', '')
         name = self.get_argument('name', '')
         cardcode = self.get_argument('cardcode', '')
