@@ -11,7 +11,6 @@ import logging
 LOG = logging.getLogger(__name__)
 
 class RelativeLogic(Logic):
-
     def intput(self, name="", sex=0, age=0, phone=""):
         values = {
             "name": name,

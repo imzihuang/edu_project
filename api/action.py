@@ -7,19 +7,20 @@ import json
 from logic.userlogic import UserLogic
 from logic.relative import RelativeLogic
 from util.ini_client import ini_load
+from util import face_util
 import os
 from PIL import Image
-import requests
 
 LOG = logging.getLogger(__name__)
 
 _conf = ini_load('config/service.ini')
-
-
+_dic_con = _conf.get_fields('face++')
+face_api_key = _dic_con.get("api_key", "")
+face_api_secret = _dic_con.get("api_secret", "")
+face_detect_url = _dic_con.get("detect_url", "")
 
 class ActionHandler(RequestHandler):
     def initialize(self, static_path, face_path, **kwds):
-        #model_checkpoint ='./model/20180920-153747'
         self.static_path = static_path
         self.face_path = face_path
 
@@ -67,7 +68,11 @@ class ActionHandler(RequestHandler):
         self.finish(json.dumps({'state': 2, 'message': 'login fail'}))
 
     def img_resize(self, path):
-        #对大于2M的图片进行缩放
+        """
+        对大于2M的图片进行缩放
+        :param path:
+        :return:
+        """
         fsize = os.path.getsize(path)
         if fsize <= 2097152:
             return
@@ -90,40 +95,22 @@ class ActionHandler(RequestHandler):
         if not relative_id:
             self.finish(json.dumps({'state': 1, 'message': 'relative_code is None'}))
             return
-        # 获取用户上传的数据
+        # 将图片存储到本地
         img = self.get_argument('image', '')
         file_path = self.static_path + self.face_path + relative_id + '.jpg'
         with open(file_path, 'wb') as up:
              up.write(base64.b64decode(img.rpartition(",")[-1]))
 
-        # 通过第三方api获取人脸特征
-        #img.save(file_path) #保存用户的图片
         self.img_resize(file_path)
-        _file = open(file_path,'rb').read()
-        LOG.info("1111111111111111111:%s, %s"%(type(_file), len(_file)))
-        #LOG.info(_file)
-        files = {'image_file': _file}
-        api_key = 'd7KyrJBh3NQeFfsUaQCaVMvkHeYykU0p'
-        api_secret = 't4WbsJTPLo5XOquBlS2q8bNHJEJstzP3'
-        #人脸检测
-        detect_url = 'https://api-cn.faceplusplus.com/facepp/v3/detect'
-        data = {
-            'api_key':api_key,
-            'api_secret':api_secret,
-        }
-        LOG.info("path:%s"%file_path)
-        response = requests.post(detect_url,data=data,files=files)
-        LOG.info("response:%s"%response)
-        results = response.json()
-        LOG.info("results:%s"%results)
-        if results.get('error_message'):
-            self.finish(json.dumps({'state': 2, 'message': results.get('error_message')}))
-            return
 
-        face_token = results['faces'][-1]['face_token']
+        # 通过第三方api获取人脸特征
+        identy_code, face_token = face_util.face_identy(file_path)
+        if identy_code!=0:
+            self.finish(json.dumps({'state': 2, 'message': face_token}))
+            return
         #将特征写入数据库
         _op = RelativeLogic()
-        _op.update(relative_id, face_token = face_token)
+        _op.update(relative_id, face_token=face_token)
         self.finish(json.dumps({'state': 0, 'message': 'face identy ok'}))
 
 

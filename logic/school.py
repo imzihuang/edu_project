@@ -5,6 +5,8 @@ from random import randint
 import datetime
 from util.convert import *
 from util.exception import ParamExist
+from util.ini_client import ini_load
+from util import face_util
 from db import api as db_api
 from logic import Logic
 import logging
@@ -12,12 +14,17 @@ import requests
 
 LOG = logging.getLogger(__name__)
 
-class SchoolLogic(Logic):
+_conf = ini_load('config/service.ini')
+_dic_con = _conf.get_fields('face++')
+face_api_key = _dic_con.get("api_key", "")
+face_api_secret = _dic_con.get("api_secret", "")
+face_create_url = _dic_con.get("create_url", "")
 
+class SchoolLogic(Logic):
     def intput(self, name="", cardcode="", describe=""):
         if not name or not cardcode:
             LOG.error("school name or cardcode is None")
-            return False
+            return
         if db_api.school_list(name=name):
             raise ParamExist(key="name", value=name)
         values = {
@@ -27,25 +34,11 @@ class SchoolLogic(Logic):
         }
         school_obj = db_api.school_create(values)
         #生成人脸库，获取faceset_token，并更新学校
-        if school_obj:
-            api_key = 'd7KyrJBh3NQeFfsUaQCaVMvkHeYykU0p'
-            api_secret = 't4WbsJTPLo5XOquBlS2q8bNHJEJstzP3'
-            #人脸库创建
-            faceset_url = 'https://api-cn.faceplusplus.com/facepp/v3/faceset/create'
-            data ={
-            'api_key': api_key,
-            'api_secret': api_secret,
-           'display_name':name,
-            'outer_id':values.get("id"),
-            'tags':values.get("id"),
-            }
-            response = requests.post(faceset_url, data)
-            results = response.json()
-            if results.get('error_message'):
-                pass
-            else:
-                faceset_token = results['faceset_token']  #faceset
-                self.update(values.get("id"), faceset_token=faceset_token)
+        faceset_token = face_util.create_face_tokenset(values)
+        if not faceset_token:
+            LOG.error("create faceset token error")
+            return
+        self.update(school_obj.get("id"), faceset_token=faceset_token)
         return values
 
     def update(self, id="", **kwargs):
