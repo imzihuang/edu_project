@@ -19,29 +19,30 @@ from PIL import Image
 import requests
 
 
-class Face_Recognition(object):
+class Face_Recognition_YYL(object):
 
     def __init__(self, api_key, api_secret, create_url, detect_url, \
-                 add_url, search_url, delete_url, get_url, get_fs_url, remove_url):
+                 add_url, remove_url, search_url, delete_url, get_url, get_fs_url):
         self.api_key = api_key
         self.api_secret = api_secret
         self.create_url = create_url
         self.detect_url = detect_url
         self.add_url = add_url
+        self.remove_url = remove_url
         self.search_url = search_url
         self.delete_url = delete_url
         self.get_url = get_url
         self.get_fs_url = get_fs_url
-        self.remove_url = remove_url
+
 
     # 人脸库创建
-    def FaceSet_Create(self, display_name, outer_id, tags):
+    def FaceSet_Create(self, school_name, school_id):
         data = {
             'api_key': self.api_key,
             'api_secret': self.api_secret,
-            'display_name': display_name,  # 对应学校名称
-            'outer_id': outer_id,  # 对应学校id
-            'tags': tags,  # 对应学校id
+            'display_name': school_name,  # 对应学校名称
+            'outer_id': school_id,  # 对应学校id
+            'tags': school_id,  # 对应学校id
         }
         response = requests.post(self.create_url, data=data)
         if response.status_code == 200:
@@ -49,11 +50,11 @@ class Face_Recognition(object):
         return response.status_code, response.json()['error_message']  # 返回状态码和报错信息
 
     # 删除人脸库
-    def FaceSet_Delete(self, outer_id):
+    def FaceSet_Delete(self, school_id):
         data = {
             'api_key': self.api_key,
             'api_secret': self.api_secret,
-            'outer_id': outer_id,  # 对应学校id
+            'outer_id': school_id,  # 对应学校id
             # 'faceset_token':faceset_token
         }
         response = requests.post(self.delete_url, data=data)
@@ -62,11 +63,11 @@ class Face_Recognition(object):
         return response.status_code, response.json()['error_message']  # 返回状态码和报错信息
 
     # 获取人脸库信息
-    def FaceSet_Get(self, outer_id):
+    def FaceSet_Get(self, school_id):
         data = {
             'api_key': self.api_key,
             'api_secret': self.api_secret,
-            'outer_id': outer_id,  # 对应学校id
+            'outer_id': school_id,  # 对应学校id
             # 'faceset_token':faceset_token
         }
         response = requests.post(self.get_url, data=data)
@@ -122,15 +123,15 @@ class Face_Recognition(object):
                 face_token = results['faces'][0]['face_token']  # 返回人脸的face_token,唯一码
                 return response.status_code, face_token
             else:
-                return response.status_code, None  # 检测不到人脸
+                return 400, None  # 检测不到人脸
         return response.status_code, response.json()['error_message']  # 返回错误码和报错信息
 
     # 添加人脸
-    def Face_Add(self, outer_id, face_tokens):
+    def Face_Add(self, school_id, face_tokens):
         data = {
             'api_key': self.api_key,
             'api_secret': self.api_secret,
-            'outer_id': outer_id,
+            'outer_id': school_id,
             'face_tokens': face_tokens
         }
         response = requests.post(self.add_url, data=data)
@@ -138,15 +139,15 @@ class Face_Recognition(object):
             results = response.json()['failure_detail']
             if results:
                 return response.status_code, results[0]
-            return response.status_code, response.json()['faceset_token']
+            return 400, response.json()['faceset_token']
         return response.status_code, response.json()['error_message']
 
     # 删除人脸
-    def Face_Remove(self, outer_id, face_tokens):
+    def Face_Remove(self, school_id, face_tokens):
         data = {
             'api_key': self.api_key,
             'api_secret': self.api_secret,
-            'outer_id': outer_id,
+            'outer_id': school_id,
             # 'faceset_token':faceset_token,
             'face_tokens': face_tokens
         }
@@ -155,17 +156,17 @@ class Face_Recognition(object):
             results = response.json()
             if results['failure_detail'][0]:
                 return response.status_code, results['failure_detail'][0]
-            return response.status_code, results['faceset_token']
+            return 400, results['faceset_token']
         return response.status_code, response.json()['error_message']
 
     # 人脸检索
-    def Face_Search(self, image_path, outer_id):
+    def Face_Search(self, image_path, school_id):
         self.img_resize(image_path)
         files = {'image_file': open(image_path, 'rb').read()}
         data = {
             'api_key': self.api_key,
             'api_secret': self.api_secret,
-            'outer_id': outer_id,
+            'outer_id': school_id,
         }
         response = requests.post(self.search_url, data=data, files=files)
         if response.status_code == 200:
@@ -173,7 +174,7 @@ class Face_Recognition(object):
             if confidence > 80:
                 return response.status_code, response.json()['results'][0]
             else:
-                return response.status_code, None
+                return 400, None
         return response.status_code, response.json()
 
 
@@ -188,10 +189,10 @@ if __name__ == '__main__':
     get_url = 'https://api-cn.faceplusplus.com/facepp/v3/faceset/getdetail'  # 获取人脸库
     get_fs_url = 'https://api-cn.faceplusplus.com/facepp/v3/faceset/getfacesets'  # 获取API Key下所有人脸库
     remove_url = ' https://api-cn.faceplusplus.com/facepp/v3/faceset/removeface'  # 删除人脸
-    face_recognition = Face_Recognition(api_key, api_secret, create_url, detect_url, \
-                                        add_url, search_url, delete_url, get_url, get_fs_url, remove_url)
+    face_recognition = Face_Recognition_YYL(api_key, api_secret, create_url, detect_url, \
+                                        add_url, remove_url,search_url, delete_url, get_url, get_fs_url  )
     # 创建人脸库
-    # code,faceset_token = face_recognition.FaceSet_Create('白礁小学','12c311511fe94e63b067c0443781599e','12c311511fe94e63b067c0443781599e')
+    # code,faceset_token = face_recognition.FaceSet_Create('白礁小学','12c311511fe94e63b067c0443781599e')
     # print(code,faceset_token) #be856dd1cffa9969bf720e3aab5ac6a4
     # 删除人脸库
     # code,results = face_recognition.FaceSet_Delete(' ')

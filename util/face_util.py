@@ -3,6 +3,7 @@
 import logging
 from util.ini_client import ini_load
 import requests
+from util.face_recognition_api import Face_Recognition_YYL
 
 LOG = logging.getLogger(__name__)
 
@@ -12,6 +13,42 @@ face_api_key = _dic_con.get("api_key", "")
 face_api_secret = _dic_con.get("api_secret", "")
 face_create_url = _dic_con.get("create_url", "")
 face_detect_url = _dic_con.get("detect_url", "")
+face_add_url    = _dic_con.get("add_url","")
+face_remove_url = _dic_con.get("remove_url","")
+
+face_recognition_yyl = Face_Recognition_YYL(face_api_key, face_api_secret, face_create_url, face_detect_url, \
+                                    face_add_url,face_remove_url, '', '', '', '')
+
+'''
+描述：人脸库创建
+参数：school_name：学校名称；school_id：学校id
+返回：返回码和数据信息，正确情况：code=200；错误情况：code=其它数，见错误码类型
+同时将results值更新至表school_info字段faceset_token
+'''
+code , results = face_recognition_yyl.FaceSet_Create(school_name, school_id)
+
+'''
+描述：人脸检测
+参数：file_path：图片路径
+返回：返回码和数据信息，正确情况：code=200；错误情况：code=其它数，见错误码类型
+同时保存results值(对应face_tokens值)
+'''
+code,results = face_recognition_yyl.Face_Detect(file_path)
+'''
+描述：人脸添加
+参数：school_id：学校id,face_tokens：Face_Detect返回得face_tokens
+返回：返回码和数据信息，正确情况：code=200；错误情况：code=其它数，见错误码类型
+将人脸检测获取得face_tokens，写入表relative_info的face_token
+'''
+code,results = face_recognition_yyl.Face_Add(school_id,face_tokens)
+
+'''
+描述：人脸删除
+参数：school_id：学校id,face_tokens：face_tokens
+返回：返回码和数据信息，正确情况：code=200；错误情况：code=其它数，见错误码类型
+获取school_id和face_tokens 删除人脸
+'''
+code,results = face_recognition_yyl.Face_Remove(school_id,face_tokens)
 
 
 def face_identy(file_path):
