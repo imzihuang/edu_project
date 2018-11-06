@@ -140,35 +140,35 @@
 			$(document).ready(function() {console.log(2222);
 				//班级下拉
 				//				gradeInput();
-				function gradeInput() {
-					var data = {
-						'name': $("#edit_name").val(),
-						'grade': $("#edit_grade selected:option").val(),
-						'school_id': $("#edit_school_id").val(),
-					}
-					$.majax({
-						url: "/class/update",
-						data: data,
-						successCallBack: function(msg) {
-							layer.closeAll();
-							layer.msg('修改成功', {
-								icon: 1,
-								time: 800
-							});
-							getAjaxData({
-								"name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
-								"grade": $("#class-name selected:option").val() == '' ? undefined : $("#class-name selected:option").val(),
-								"limit": 20,
-								"offset": 1,
-							});
-							window.location.reload();
-						},
-						errorCallBack: function() {
-							layer.msg('修改失败');
-							console.log("error");
-						}
-					});
-				}
+//				function gradeInput() {
+//					var data = {
+//						'name': $("#edit_name").val(),
+//						'grade': $("#edit_grade selected:option").val(),
+//						'school_id': $("#edit_school_id").val(),
+//					}
+//					$.majax({
+//						url: "/class/update",
+//						data: data,
+//						successCallBack: function(msg) {
+//							layer.closeAll();
+//							layer.msg('修改成功', {
+//								icon: 1,
+//								time: 800
+//							});
+//							getAjaxData({
+//								"name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
+//								"grade": $("#class-name selected:option").val() == '' ? undefined : $("#class-name selected:option").val(),
+//								"limit": 20,
+//								"offset": 1,
+//							});
+//							window.location.reload();
+//						},
+//						errorCallBack: function() {
+//							layer.msg('修改失败');
+//							console.log("error");
+//						}
+//					});
+//				}
 				getAjaxData({
 					"name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
 					"grade": $("#grade-name selected:option").val() == '' ? undefined : $("#grade-name").val(),
