@@ -31,7 +31,7 @@ class ClassLogic(Logic):
         _ = db_api.class_update(id, kwargs)
         return _
 
-    def infos(self, id="", name="", school_id="", school_name="", grade="", cardcode="", limit=100, offset=1):
+    def infos(self, id="", name="", school_id="", school_name="", grade_id="", cardcode="", limit=100, offset=1):
         offset = (offset - 1) * limit if offset > 0 else 0
         filters = dict()
         if id:
@@ -48,8 +48,8 @@ class ClassLogic(Logic):
                 school_id = [school_info.id for school_info in _school_list]
             filters.update({"school_id": school_id})
 
-        if grade:
-            filters.update({"grade": grade})
+        if grade_id:
+            filters.update({"grade_id": grade_id})
 
         class_list = db_api.class_list(offset=offset, limit=limit, **filters)
         #更新学生数和学校名称
