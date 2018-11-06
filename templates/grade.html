@@ -125,11 +125,13 @@
 						success: function(msg) {
 							var msg = JSON.parse(msg);
 							console.log(msg);
+							school = msg.data[0].id;
 						}
 					})
 				}
 				getAjaxData({
 					"name": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
+					"school_id": school,
 					"limit": 20,
 					"offset": 1,
 				});
@@ -291,6 +293,7 @@
 				$("#searchBtn").click(function(){
 					getAjaxData({
 						"name": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
+						"school_id": school,
 						"limit": 20,
 						"offset": 1,
 					});
