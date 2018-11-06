@@ -107,6 +107,26 @@
 		<script src="js/common.js" charset="utf-8"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
+				var school;
+				//获取学校
+				schoolInput();
+				function schoolInput() {
+					var data = {
+						"limit": 20,
+						"offset": 1,
+					}
+					$.ajax({
+						type: "GET",
+						contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+						url: "/school/infos",
+						async: false,
+						data: senddata,
+						timeout: "30000",
+						success: function(msg) {
+							console.log(msg);
+						}
+					})
+				}
 				getAjaxData({
 					"name": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
 					"limit": 20,
