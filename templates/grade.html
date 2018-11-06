@@ -318,6 +318,7 @@
 					submitHandler: function(form) {
 						var data = {
 							'name': $("#add_name").val(),
+							"school_id": school,
 						}
 						$.ajax({
 							type: "POST",
@@ -384,6 +385,7 @@
 					submitHandler: function(form) {
 						var data = {
 							'name': $("#edit_name").val(),
+							"school_id": school,
 						}
 						$.majax({
 							url: "/grade/update",
