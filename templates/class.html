@@ -63,7 +63,10 @@
 														<tr class="zx_thTitle">
 															<th style="max-width: 100px;"><input type="checkbox" class="zx_checkedBtn" id="zx_checkedAllBtn" name="allcheck" value="allCheck"></th>
 															<th>序号</th>
-															<th>年级名称</th>
+															<th>班级名称</th>
+															<th>年级</th>
+															<th>班级ID</th>
+															<th>备注</th>
 															<th>创建时间</th>
 															<th style="width: 120px;">操作</th>
 														</tr>
@@ -89,7 +92,17 @@
 		<div id="addInfoContent" style="display: none; width: 500px; padding: 20px;">
 			<form id="addInfoContentform" role="form" method="POST">
 				<div style="margin: 20px 0;">
-					<span>年级名称：</span><input type="text" style="width: 350px;" id="add_name" name="add_name" />
+					<span>班级名称：</span><input type="text" style="width: 350px;" id="add_name" name="add_name" />
+					<div class="errorPart"></div>
+				</div>
+				<div style="margin: 20px 0;">
+					<span>请选择年级：</span>
+					<select style="width: 350px;" id="add_grade" name="add_grade">
+						<option></option>
+					</select>
+				</div>
+				<div style="margin: 20px 0;">
+					<span>备注：</span><textarea style="width: 350px;" id="add_grade" name="add_grade" />
 					<div class="errorPart"></div>
 				</div>
 				<input class="submit" type="submit" value="提交" id="addInfoContentSubmit" style="display: none;">
@@ -99,7 +112,18 @@
 		<div id="editAreaContent" style="display: none; width: 500px; padding: 20px;">
 			<form id="editAreaContentform" role="form">
 				<div style="margin: 20px 0;">
-					<span>年级名称：</span><input type="text" style="width: 350px;" id="edit_name" name="edit_name" />
+					<span>班级名称：</span><input type="text" style="width: 350px;" id="edit_id" name="edit_id" />
+					<div class="errorPart"></div>
+				</div>
+				<div style="margin: 20px 0;">
+					<span>请选择年级：</span>
+					<select style="width: 350px;" id="edit_grade" name="edit_grade">
+						<option></option>
+					</select>
+					<div class="errorPart"></div>
+				</div>
+				<div style="margin: 20px 0;">
+					<span>备注：</span><textarea style="width: 350px;" id="edit_grade" name="edit_grade" />
 					<div class="errorPart"></div>
 				</div>
 				<input class="submit" type="submit" value="提交" id="editAreaContentSubmit" style="display: none;">
