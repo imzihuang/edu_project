@@ -123,6 +123,7 @@
 						data: data,
 						timeout: "30000",
 						success: function(msg) {
+							var msg = JSON.parse(msg);
 							console.log(msg);
 						}
 					})
