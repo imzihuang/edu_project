@@ -36,7 +36,13 @@
 												<div class="zx_searchTit">
 													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">年级名称：</label>
-														<input type="text" name="" value="" id="grade-name" />
+														<select id="grade-name">
+															<option></option>
+														</select>
+													</div>
+													<div class="sendInquiry2" style="float: left;">
+														<label class="control-label">班级名称：</label>
+														<input type="text" name="" value="" id="class-name" />
 													</div>
 													<div class="sendInquiry0 col-sm-4" style="position: relative; margin:3.5px 0 0 0;">
 														<button class="btn btn-primary btn-myown" id="searchBtn">查询</button>
@@ -50,7 +56,8 @@
 														<tr class="zx_checkedAll">
 															<th colspan="6" style="text-align: left; background: none;padding: 10px 0px;">
 																<button class="btn btn-default btn-myown" id="delInfo" disabled="disabled"><i class="fa fa-trash"></i>&nbsp;删除选中项</button>
-																<button class="btn btn-primary btn-myown" id="addInfo">+添加班级</button>
+																<button class="btn btn-primary btn-myown" id="addInfo">+添加班级</button>&nbsp;&nbsp;
+																<button class="btn btn-primary btn-myown" id="addInfoMore">批量添加</button>
 															</th>
 														</tr>
 														<tr class="zx_thTitle">
