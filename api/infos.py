@@ -13,6 +13,7 @@ from logic.classlogic import ClassLogic
 from logic.teacher import TeacherLogic
 from logic.student import StudentLogic
 from logic.relative import RelativeLogic
+from logic.student_history import Student_HistoryLogic
 
 LOG = logging.getLogger(__name__)
 
@@ -42,6 +43,10 @@ class InfosHandler(RequestHandler):
             if infos_obj == "student":
                 _value = self._get_student_argument()
                 _op = StudentLogic()
+
+            if infos_obj == "student_history":
+                _value = self._get_student_history_argument()
+                _op = Student_HistoryLogic()
 
             if infos_obj == "relative":
                 _value = self._get_relative_argument()
@@ -131,6 +136,18 @@ class InfosHandler(RequestHandler):
             "class_name": class_name,
             "relative_id": relative_id,
             "relative_name": relative_name
+        }
+
+    def _get_student_history_argument(self):
+        id = self.get_argument('id', '')
+        student_id = self.get_argument('student_id', '')
+        student_name = self.get_argument('student_name', '')
+        status = self.get_argument('status', '')
+        return {
+            "id": id,
+            "student_id": student_id,
+            "student_name": student_name,
+            "status": status
         }
 
 
