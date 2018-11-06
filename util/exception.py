@@ -80,3 +80,13 @@ class ParamExist(ExpressException):
     message = "Params Exist."
     code = 408
     safe = True
+
+class FormalError(ExpressException):
+    message = "Formal Error."
+    code = 409
+    safe = True
+
+class ParamNone(ExpressException):
+    message = "Param is none."
+    code = 410
+    safe = True

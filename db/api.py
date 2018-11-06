@@ -220,6 +220,16 @@ def student_count(**filters):
     query = model_query(models.StudentInfo, **filters)
     return query.count()
 
+def student_history_create(values):
+    if not values.get('id'):
+        values['id'] = common_util.create_id()
+    studenthistory_ref = models.StudentHistory()
+    studenthistory_ref.update(values)
+    session = get_session()
+    with session.begin():
+        studenthistory_ref.save(session)
+        return values
+
 #####################student end################################
 
 #####################relative begin################################

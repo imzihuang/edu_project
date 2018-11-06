@@ -40,8 +40,9 @@ class RelativeLogic(Logic):
 
         if student_id or student_name:
             _relation_list = self._get_relations_by_student()
-            _ids = [_relation.relative_id for _relation in _relation_list]
-            filters.update({"id": _ids})
+            if _relation_list:
+                _ids = [_relation.relative_id for _relation in _relation_list]
+                filters.update({"id": _ids})
 
         if phone:
             filters.update({"phone": phone})
