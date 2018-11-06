@@ -8,16 +8,15 @@ from db import api as db_api
 from logic import Logic
 
 class ClassLogic(Logic):
-
-    def intput(self, name="", grade="", cardcode="", school_id="", student_number=0):
+    def intput(self, name="", grade_id="", cardcode="", student_number=0):
         # verify school_id
-        _ = db_api.school_get(school_id)
+        _ = db_api.grade_get(grade_id)
 
         values = {
             "name": name,
-            "grade": grade,
+            "grade_id": grade_id,
             "cardcode": cardcode,
-            "school_id": school_id,
+            "school_id": _.school_id,
             "student_number": student_number
         }
         class_obj = db_api.class_create(values)
@@ -26,8 +25,9 @@ class ClassLogic(Logic):
     def update(self, id="", **kwargs):
         if not id or not kwargs:
             return False
-        if kwargs.get("school_id", ""):
-            _ = db_api.school_get(kwargs.get("school_id", ""))
+        if kwargs.get("grade_id", ""):
+            _ = db_api.grade_get(kwargs.get("grade_id", ""))
+            kwargs.update({"school_id":_.school_id})
         _ = db_api.class_update(id, kwargs)
         return _
 
@@ -40,12 +40,12 @@ class ClassLogic(Logic):
             filters.update({"name": name})
         if cardcode:
             filters.update({"cardcode": cardcode})
-        if school_id or school_id:
+        if school_id:
             if school_name:
                 _school_list = db_api.school_list(name=school_name)
                 if not _school_list:
                     return {"count": 0, "state": 0, "message": "query success", "data": []}
-                school_id = _school_list[0].id
+                school_id = [school_info.id for school_info in _school_list]
             filters.update({"school_id": school_id})
 
         if grade:
@@ -55,9 +55,9 @@ class ClassLogic(Logic):
         #更新学生数和学校名称
         views_list = self.views(class_list)
         for view in views_list:
-            school_list = db_api.school_list(id=view.get("school_id"))
-            if school_list:
-                view.update({"school_name": school_list[0].name})
+            school_info = db_api.school_get(id=view.get("school_id"))
+            if school_info:
+                view.update({"school_name": school_info.name})
             student_count = db_api.student_count(class_id=view.get("id"))
             view.update({"reality_number": student_count})
 

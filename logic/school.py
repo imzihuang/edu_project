@@ -6,11 +6,10 @@ import datetime
 from util.convert import *
 from util.exception import ParamExist
 from util.ini_client import ini_load
-from util import face_util
+from util.face_recognition_api import face_recognition_yyl
 from db import api as db_api
 from logic import Logic
 import logging
-import requests
 
 LOG = logging.getLogger(__name__)
 
@@ -34,8 +33,9 @@ class SchoolLogic(Logic):
         }
         school_obj = db_api.school_create(values)
         #生成人脸库，获取faceset_token，并更新学校
-        faceset_token = face_util.create_face_tokenset(values)
-        if not faceset_token:
+        #faceset_token = face_util.create_face_tokenset(values)
+        code, faceset_token = face_recognition_yyl.FaceSet_Create(name, school_obj.get("id"))
+        if code != 200:
             LOG.error("create faceset token error")
             return
         self.update(school_obj.get("id"), faceset_token=faceset_token)

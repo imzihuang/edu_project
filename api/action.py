@@ -7,7 +7,7 @@ import json
 from logic.userlogic import UserLogic
 from logic.relative import RelativeLogic
 from util.ini_client import ini_load
-from util import face_util
+from util.face_recognition_api import face_recognition_yyl
 import os
 from PIL import Image
 
@@ -104,8 +104,9 @@ class ActionHandler(RequestHandler):
         self.img_resize(file_path)
 
         # 通过第三方api获取人脸特征
-        identy_code, face_token = face_util.face_identy(file_path)
-        if identy_code!=0:
+        #identy_code, face_token = face_util.face_identy(file_path)
+        code, face_token = face_recognition_yyl.Face_Detect(file_path)
+        if code != 200:
             self.finish(json.dumps({'state': 2, 'message': face_token}))
             return
         #将特征写入数据库
