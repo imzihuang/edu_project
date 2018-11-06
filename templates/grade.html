@@ -141,7 +141,7 @@
 					$.ajax({
 						type: "GET",
 						contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-						url: "/class/infos",
+						url: "/grade/infos",
 						async: false,
 						data: senddata,
 						timeout: "30000",
@@ -322,7 +322,7 @@
 						$.ajax({
 							type: "POST",
 							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-							url: "/class/input",
+							url: "/grade/input",
 							async: false,
 							data: data,
 							timeout: "30000",
@@ -386,7 +386,7 @@
 							'name': $("#edit_name").val(),
 						}
 						$.majax({
-							url: "/class/update",
+							url: "/grade/update",
 							data: data,
 							successCallBack: function(msg) {
 								layer.closeAll();
