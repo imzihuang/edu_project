@@ -17,6 +17,7 @@ Face_Search:在一个已有的 FaceSet 中找出与目标人脸最相似的一�
 import os
 from PIL import Image
 import requests
+from util.ini_client import ini_load
 
 
 class Face_Recognition_YYL(object):
@@ -176,6 +177,20 @@ class Face_Recognition_YYL(object):
             else:
                 return 400, None
         return response.status_code, response.json()
+
+
+_conf = ini_load('config/service.ini')
+_dic_con = _conf.get_fields('face++')
+face_api_key = _dic_con.get("api_key", "")
+face_api_secret = _dic_con.get("api_secret", "")
+face_create_url = _dic_con.get("create_url", "")
+face_detect_url = _dic_con.get("detect_url", "")
+face_add_url = _dic_con.get("add_url","")
+face_remove_url = _dic_con.get("remove_url","")
+
+face_recognition_yyl = Face_Recognition_YYL(face_api_key, face_api_secret, face_create_url, face_detect_url, \
+                                    face_add_url,face_remove_url, '', '', '', '')
+
 
 
 if __name__ == '__main__':

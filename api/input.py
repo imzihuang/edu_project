@@ -56,7 +56,7 @@ class RegistryHandler(RequestHandler):
             else:
                 self.finish(json.dumps({'state': 10, 'message': 'action %s error'%registry_obj}))
         except ParamExist as ex:
-            LOG.error("Input %s error:%s" % (registry_obj, ex))
+            LOG.error("Input %s param error:%s" % (registry_obj, ex))
             self.finish(json.dumps({'state': 1, 'message': 'params exit'}))
         except Exception as ex:
             LOG.error("Input %s error:%s"%(registry_obj, ex))
@@ -82,13 +82,11 @@ class RegistryHandler(RequestHandler):
 
     def _get_class_argument(self):
         name = self.get_argument('name', '')
-        grade = self.get_argument('grade', '')
         cardcode = self.get_argument('cardcode', '')
         grade_id = self.get_argument('grade_id', '')
         student_number = int(self.get_argument('study_number', 0))
         return {
             "name": name,
-            "grade": grade,
             "cardcode": cardcode,
             "grade_id": grade_id,
             "student_number": student_number
@@ -98,7 +96,7 @@ class RegistryHandler(RequestHandler):
         name = self.get_argument('name', '')
         sex = int(self.get_argument('sex', 0))
         birthday = self.get_argument('birthday', "")
-        class_id = self.get_argument('school_id', '')
+        class_id = self.get_argument('class_id', '')
         phone = self.get_argument('phone', '')
         return {
             "name": name,
