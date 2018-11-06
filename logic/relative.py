@@ -8,14 +8,22 @@ from db import api as db_api
 from logic import Logic
 
 import logging
+from util import exception
+
 LOG = logging.getLogger(__name__)
 
 class RelativeLogic(Logic):
-    def intput(self, name="", sex=0, age=0, phone=""):
+    def intput(self, name="", sex=0, birthday="", phone=""):
+        if not is_date(birthday):
+            raise exception.FormalError(birthday=birthday)
+        if not is_mobile(phone):
+            raise exception.FormalError(birthday=birthday)
+        if not name:
+            raise exception.ParamNone(name="")
         values = {
             "name": name,
             "sex": sex,
-            "age": age,
+            "birthday": birthday,
             "phone": phone
         }
         relativel_obj = db_api.relative_create(values)
@@ -48,7 +56,6 @@ class RelativeLogic(Logic):
             filters.update({"phone": phone})
 
         relative_list = db_api.relative_list(offset=offset, limit=limit, **filters)
-        # 关联学生
         views_list = self.views(relative_list)
 
         relative_count = db_api.relative_count(**filters)

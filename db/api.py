@@ -230,6 +230,18 @@ def student_history_create(values):
         studenthistory_ref.save(session)
         return values
 
+def student_history_list(offset=0, limit=1000, **filters):
+    query = model_query(models.StudentHistory, **filters)
+    if offset:
+        query = query.offset(offset)
+    if limit:
+        query = query.limit(limit)
+    return query.all()
+
+def student_history_count(**filters):
+    query = model_query(models.StudentHistory, **filters)
+    return query.count()
+
 #####################student end################################
 
 #####################relative begin################################

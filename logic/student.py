@@ -15,8 +15,10 @@ class StudentLogic(Logic):
     def intput(self, name="", sex=0, birthday="", class_id="", status="apply", relation_number=3):
         if not is_date(birthday):
             raise exception.FormalError(birthday=birthday)
-        if not name or not class_id:
-            raise exception.ParamNone(class_id="")
+        if not name:
+            raise exception.ParamNone(name="")
+        if not class_id:
+            raise exception.ParamNone(name="")
         class_info = db_api.class_get(id=class_id)
         values = {
             "name": name,

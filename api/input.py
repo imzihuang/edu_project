@@ -2,7 +2,6 @@
 
 from tornado.web import RequestHandler
 import json
-from util.convert import is_mobile
 from util.exception import ParamExist
 import logging
 
@@ -14,6 +13,7 @@ from logic.teacher import TeacherLogic
 from logic.student import StudentLogic
 from logic.relative import RelativeLogic
 from logic.relation import RelationLogic
+from logic.student_history import Student_HistoryLogic
 
 LOG = logging.getLogger(__name__)
 
@@ -41,6 +41,9 @@ class RegistryHandler(RequestHandler):
             if registry_obj == "student":
                 _infos = self._get_student_argument()
                 _op = StudentLogic()
+            if registry_obj == "student_history":
+                _infos = self._get_student_history_argument()
+                _op = Student_HistoryLogic()
 
             if registry_obj == "relative":
                 _infos = self._get_relative_argument()
@@ -120,6 +123,16 @@ class RegistryHandler(RequestHandler):
             "class_id": class_id,
             "status": status,
             "relation_number": relation_number
+        }
+
+    def _get_student_history_argument(self):
+        student_id = self.get_argument('student_id', '')
+        status = self.get_argument('status', '')
+        describe = self.get_argument('describe', '')
+        return {
+            "student_id": student_id,
+            "status": status,
+            "describe": describe
         }
 
     def _get_relative_argument(self):
