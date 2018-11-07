@@ -388,17 +388,12 @@
 							"school_id": school,
 						}
 						$.ajax({
-							method: 'POST',
-							xhrFields: {
-								"withCredentials": true
-							},
+							type: "POST",
 							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
 							url: "/grade/update",
+							async: false,
 							data: data,
-							dataType: 'json',
-							jsonpCallback: '',
-							cache: false,
-							timeout: "1000000",
+							timeout: "30000",
 							success: function(msg) {
 								layer.closeAll();
 								layer.msg('修改成功', {
@@ -413,8 +408,9 @@
 								});
 								window.location.reload();
 							},
-							complete: function(XMLHttpRequest, status) {
-
+							error: function() {
+								layer.msg('添加失败');
+								console.log("error");
 							}
 						});
 					},
