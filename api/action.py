@@ -5,7 +5,7 @@ import base64
 import logging
 import json
 from logic.userlogic import UserLogic
-from logic.relative import RelativeLogic
+from logic.relative import RelativeLogic, FaceLogic
 from util.ini_client import ini_load
 from util.face_recognition_api import face_recognition_yyl
 import os
@@ -28,8 +28,8 @@ class ActionHandler(RequestHandler):
         if action == "login":
             self.login()
             return
-        if action == "identy":
-            self.face_identy()
+        if action == "auth":
+            self.face_auth()
             return
 
         if action == "face_signin":
@@ -90,8 +90,9 @@ class ActionHandler(RequestHandler):
         ims = ims.resize((width, height))
         ims.save(path)
 
-    def face_identy(self):
+    def face_auth(self):
         relative_id = self.get_argument('relative_id', '')
+        school_id = self.get_argument('school_id', '')
         if not relative_id:
             self.finish(json.dumps({'state': 1, 'message': 'relative_code is None'}))
             return
@@ -107,12 +108,20 @@ class ActionHandler(RequestHandler):
         #identy_code, face_token = face_util.face_identy(file_path)
         code, face_token = face_recognition_yyl.Face_Detect(file_path)
         if code != 200:
+            LOG.error("detect face error:%s"%code)
             self.finish(json.dumps({'state': 2, 'message': face_token}))
             return
-        #将特征写入数据库
-        _op = RelativeLogic()
-        _op.update(relative_id, face_token=face_token)
-        self.finish(json.dumps({'state': 0, 'message': 'face identy ok'}))
+
+        # 将特征写入数据库
+        code, faceset_token = face_recognition_yyl.Face_Add(school_id, face_token)
+        if code != 200:
+            LOG.error("add face error:%s" % code)
+            self.finish(json.dumps({'state': 2, 'message': face_token}))
+            return
+
+        _op = FaceLogic()
+        _op.create_face(school_id, relative_id, face_token, faceset_token)
+        self.finish(json.dumps({'state': 0, 'message': 'face auth ok'}))
 
 
     def face_signin(self):

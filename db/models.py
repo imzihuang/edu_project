@@ -103,12 +103,24 @@ class RelativeInfo(Base, ModelBase):
     user_id = Column(VARCHAR(36))
     wxuser_id = Column(VARCHAR(36))
     phone = Column(VARCHAR(36), nullable=False)
-    face_token = Column(VARCHAR(36))
+    #face_token = Column(VARCHAR(36))
     create_time = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_time = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     def to_dict(self):
        return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
+
+class RelativeFace(Base, ModelBase):
+    __tablename__ = 'relative_face'
+    id = Column(VARCHAR(36), primary_key=True)
+    school_id = Column(VARCHAR(36), nullable=False)
+    relative_id = Column(VARCHAR(36), nullable=False)
+    face_token = Column(VARCHAR(36), nullable=False)
+    faceset_token = Column(VARCHAR(36), nullable=False)
+
+    def to_dict(self):
+       return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
+
 
 class RelationInfo(Base, ModelBase):
     __tablename__ = 'relation_info'
