@@ -283,6 +283,38 @@ def relative_count(**filters):
 
 #####################relative end################################
 
+#####################face begin################################
+def face_create(values):
+    if not values.get('id'):
+        values['id'] = common_util.create_id()
+    face_ref = models.RelativeFace()
+    face_ref.update(values)
+    session = get_session()
+    with session.begin():
+        face_ref.save(session)
+        return values
+
+def face_list(offset=0, limit=1000, **filters):
+    query = model_query(models.RelativeFace, **filters)
+    if offset:
+        query = query.offset(offset)
+    if limit:
+        query = query.limit(limit)
+    return query.all()
+
+def face_count(**filters):
+    query = model_query(models.RelativeFace, **filters)
+    return query.count()
+
+def face_destroy(id):
+    session = get_session()
+    query = model_query(models.RelativeFace, session=session)
+    with session.begin():
+        result = query.filter_by(id=id)
+        result.delete(session=session)
+
+#####################relative end################################
+
 
 #####################relation begin################################
 def relation_create(values):
