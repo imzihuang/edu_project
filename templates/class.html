@@ -37,7 +37,7 @@
 													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">年级名称：</label>
 														<select id="grade-name">
-															<option>无</option>
+															<option>--请选择年级--</option>
 														</select>
 													</div>
 													<div class="sendInquiry2" style="float: left;">
@@ -138,7 +138,8 @@
 		<script src="js/common.js" charset="utf-8"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
-				var school;
+				var school;//学校名称
+				var cardcode;//设备卡号
 				//获取学校
 				schoolInput();
 				//获取年级
@@ -165,10 +166,10 @@
 							var str = '';
 							if(msg.data.length>0){
 								for(var i = 0;i < msg.data.length;i++){
-									str += '<option>' + msg.data[i].name + '</option>';
+									str += '<option value=' + msg.data[i].id + '>' + msg.data[i].name + '</option>';
 								}
-								$("#grade-name").html(str);
-								$("#add_grade").html(str);
+								$("#grade-name").append(str);
+								$("#add_grade").append(str);
 							}else{
 								$("#grade-name").html('<option>---无---</option>');
 								$("#add_grade").html('<option>---无---</option>');
@@ -183,14 +184,12 @@
 					})
 					
 				}
+				//获取列表
 				getAjaxData({
-					"name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
-					"grade": $("#grade-name selected:option").val() == '' ? undefined : $("#grade-name").val(),
+					"school_name": school,
 					"limit": 20,
 					"offset": 1,
 				});
-
-				//列表
 				function getAjaxData(senddata) {
 					$.ajax({
 						type: "GET",
@@ -217,7 +216,7 @@
 												var district = "";
 												getAjaxData({
 													"name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
-													"grade": $("#grade-name selected:option").val() == '' ? undefined : $("#grade-name").val(),
+													"grade_id": $("#grade-name selected:option").val() == '' ? undefined : $("#grade-name").val(),
 													"limit": e.limit,
 													"offset": e.curr,
 												});
@@ -375,8 +374,9 @@
 						submitHandler: function(form) {
 							var data = {
 								'name': $("#add_name").val(),
-								'grade': $("#add_grade selected:option").val(),
+								'grade_id': $("#add_grade selected:option").val(),
 								'school_id': $("#add_school_id").val(),
+								'cardcode':cardcode,
 							}
 							$.ajax({
 								type: "POST",
