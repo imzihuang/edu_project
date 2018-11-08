@@ -164,7 +164,7 @@
 						success: function(msg) {console.log(msg);
 							var str = '';
 							if(msg.data.length>0){
-								for(var i = 0;i <= msg.data.length;i++){console.log(i);
+								for(var i = 0;i <= msg.data.length;i++){console.log(msg.data[0].name);
 									str += '<option>'+ msg.data[i].name +'</option>';
 								}
 								$("#grade-name").html(str);
