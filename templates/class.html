@@ -100,7 +100,7 @@
 					<select style="width: 350px;" id="add_grade" name="add_grade">
 						<option>--请选择年级--</option>
 					</select>
-					<div class="errorPart">请选择年级</div>
+					<div class="errorPartS">请选择年级</div>
 				</div>
 				<div style="margin: 20px 0;">
 					<span>备注：</span><textarea style="width: 350px;" id="add_remarks" name="add_remarks"></textarea>
@@ -360,7 +360,7 @@
 				//添加校验
 				var layerIndex;
 				$("#add_grade").click(function(){
-					$(".selectPart .errorPart").css("display","none");
+					$(".selectPart .errorPartS").css("display","none");
 				});
 				$("#addInfoContentform").validate({
 					focusCleanup: true,
@@ -404,7 +404,7 @@
 									}
 								});
 							}else{
-								$(".selectPart .errorPart").css("display","block");
+								$(".selectPart .errorPartS").css("display","block");
 							}
 							
 
