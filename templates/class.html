@@ -121,7 +121,7 @@
 					<select style="width: 350px;" id="edit_grade" name="edit_grade">
 						<option value="">--请选择年级--</option>
 					</select>
-					<div class="errorPart"></div>
+					<div class="errorPartS" style="display: none;">请选择年级</div>
 				</div>
 				<div style="margin: 20px 0;">
 					<span>备注：</span><textarea style="width: 350px;" id="edit_remarks" name="edit_remarks"></textarea>
@@ -415,7 +415,12 @@
 							error.appendTo(element.parent().find(".errorPart"));
 							console.log(2222);
 						},
-						success: function() {}
+						success: function() {},
+						error: function() {
+							if($("#add_grade").val() = ''){
+								$(".selectPart .errorPartS").css("display", "block");
+							}
+						}
 				});
 
 			//添加弹框
