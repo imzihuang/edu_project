@@ -49,7 +49,7 @@
 													<thead>
 														<tr class="zx_checkedAll">
 															<th colspan="6" style="text-align: left; background: none;padding: 10px 0px;">
-																<button class="btn btn-default btn-myown" id="delInfo" disabled="disabled"><i class="fa fa-trash"></i>&nbsp;删除选中项</button>
+																<button class="btn btn-default btn-myown" id="delInfo" disabled="disabled"><i class="fa fa-trash"></i>&nbsp;批量删除</button>
 																<button class="btn btn-primary btn-myown" id="addInfo">+添加年级</button>
 															</th>
 														</tr>
@@ -110,26 +110,7 @@
 				var school;
 				//获取学校
 				schoolInput();
-
-				function schoolInput() {
-					var data = {
-						"limit": 20,
-						"offset": 1,
-					}
-					$.ajax({
-						type: "GET",
-						contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-						url: "/school/infos",
-						async: false,
-						data: data,
-						timeout: "30000",
-						success: function(msg) {
-							var msg = JSON.parse(msg);
-							console.log(msg);
-							school = msg.data[0].id;
-						}
-					})
-				}
+				//获取列表
 				getAjaxData({
 					"name": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
 					"school_id": school,
@@ -137,7 +118,6 @@
 					"offset": 1,
 				});
 
-				//列表
 				function getAjaxData(senddata) {
 					$.ajax({
 						type: "GET",
@@ -398,7 +378,8 @@
 								layer.closeAll();
 								layer.msg('修改成功', {
 									icon: 1,
-									time: 800
+									time: 80
+									
 								});
 								getAjaxData({
 									"name": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),

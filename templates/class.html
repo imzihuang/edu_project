@@ -55,7 +55,7 @@
 													<thead>
 														<tr class="zx_checkedAll">
 															<th colspan="6" style="text-align: left; background: none;padding: 10px 0px;">
-																<button class="btn btn-default btn-myown" id="delInfo" disabled="disabled"><i class="fa fa-trash"></i>&nbsp;删除选中项</button>
+																<button class="btn btn-default btn-myown" id="delInfo" disabled="disabled"><i class="fa fa-trash"></i>&nbsp;批量删除</button>
 																<button class="btn btn-primary btn-myown" id="addInfo">+添加班级</button>&nbsp;&nbsp;
 																<button class="btn btn-primary btn-myown" id="addInfoMore">批量添加</button>
 															</th>
@@ -138,36 +138,38 @@
 		<script src="js/common.js" charset="utf-8"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
-				//班级下拉
+				var school;
+				//获取学校
+				schoolInput();
+				//获取年级
 				gradeInput();
 				function gradeInput() {
 					var data = {
-						'name': $("#edit_name").val(),
-						'grade': $("#edit_grade selected:option").val(),
-						'school_id': $("#edit_school_id").val(),
+						"limit": 20,
+		                "offset": 1,
+						'school_id': school,
 					}
-					$.majax({
-						url: "/class/update",
-						data: data,
-						successCallBack: function(msg) {
-							layer.closeAll();
-							layer.msg('修改成功', {
-								icon: 1,
-								time: 800
-							});
-							getAjaxData({
-								"name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
-								"grade": $("#class-name selected:option").val() == '' ? undefined : $("#class-name selected:option").val(),
-								"limit": 20,
-								"offset": 1,
-							});
-							window.location.reload();
+					$.ajax({
+						method: 'GET',
+						xhrFields: {
+							"withCredentials": true
 						},
-						errorCallBack: function() {
-							layer.msg('修改失败');
-							console.log("error");
+						contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+						url: "/grade/infos",
+						data: sendData,
+						dataType: 'json',
+						jsonpCallback: '',
+						cache: false,
+						timeout: "1000000",
+						success: function(msg) {
+							var msg = JSON.parse(msg);
+							console.log(msg);
+						},
+						complete: function(XMLHttpRequest, status) {
+
 						}
-					});
+					})
+					
 				}
 				getAjaxData({
 					"name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
