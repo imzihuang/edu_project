@@ -8,7 +8,7 @@ def _handlers():
         (r'/(?P<registry_obj>.+)/input$', input.RegistryHandler),
         (r'/(?P<update_obj>.+)/update$', update.UpdateHandler),
         (r'/(?P<infos_obj>.+)/infos$', infos.InfosHandler),
-        (r'/(?P<delete_obj>.+)/infos$', delete.DeleteHandler),
+        (r'/(?P<delete_obj>.+)/delete', delete.DeleteHandler),
         (r'/(?P<action>.+)/action$', action.ActionHandler, default_settings),
         (r'/(?P<action>.+)/wx_action$', wx_action.WXActionHandler),
     ]
