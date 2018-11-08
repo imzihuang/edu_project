@@ -37,7 +37,7 @@
 													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">年级名称：</label>
 														<select id="grade-name">
-															<option></option>
+															<option>无</option>
 														</select>
 													</div>
 													<div class="sendInquiry2" style="float: left;">
@@ -162,7 +162,16 @@
 						cache: false,
 						timeout: "1000000",
 						success: function(msg) {
-//							var msg = JSON.parse(msg);
+							var str = '';
+							if(msg.data.length>0){
+								for(var i=0;i<=msg.data.length;i++){
+									str += '<option>'+ msg.data[i].name +'</option>'
+								}
+								$("#grade-name").html(str);
+							}else{
+								$("#grade-name").html('<option>---无---</option>');
+							}
+							
 							console.log(msg);
 						},
 						complete: function(XMLHttpRequest, status) {
