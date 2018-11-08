@@ -37,7 +37,7 @@
 													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">年级名称：</label>
 														<select id="grade-name">
-															<option>--请选择年级--</option>
+															<option value="">--请选择年级--</option>
 														</select>
 													</div>
 													<div class="sendInquiry2" style="float: left;">
@@ -95,11 +95,12 @@
 					<span>班级名称：</span><input type="text" style="width: 350px;" id="add_name" name="add_name" />
 					<div class="errorPart"></div>
 				</div>
-				<div style="margin: 20px 0;">
+				<div style="margin: 20px 0;" class="selectPart">
 					<span>请选择年级：</span>
 					<select style="width: 350px;" id="add_grade" name="add_grade">
 						<option>--请选择年级--</option>
 					</select>
+					<div class="errorPart">请选择年级</div>
 				</div>
 				<div style="margin: 20px 0;">
 					<span>备注：</span><textarea style="width: 350px;" id="add_remarks" name="add_remarks"></textarea>
@@ -171,8 +172,8 @@
 								$("#grade-name").append(str);
 								$("#add_grade").append(str);
 							}else{
-								$("#grade-name").html('<option>---无---</option>');
-								$("#add_grade").html('<option>---无---</option>');
+								$("#grade-name").html('<option value=''>---无---</option>');
+								$("#add_grade").html('<option value=''>---无---</option>');
 								
 							}
 							
@@ -216,7 +217,7 @@
 												var district = "";
 												getAjaxData({
 													"name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
-													"grade_id": $("#grade-name selected:option").val() == '' ? undefined : $("#grade-name").val(),
+													"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
 													"limit": e.limit,
 													"offset": e.curr,
 												});
@@ -358,6 +359,9 @@
 
 				//添加校验
 				var layerIndex;
+				$("#add_grade").click(function(){
+					$(".selectPart .errorPart").css("display","none");
+				});
 				$("#addInfoContentform").validate({
 					focusCleanup: true,
 					focusInvalid: false,
@@ -371,33 +375,38 @@
 								required: '必填',
 							},
 						},
-						submitHandler: function(form) {
-							var data = {
-								'name': $("#add_name").val(),
-								'grade_id': $("#add_grade selected:option").val(),
-								'school_id': $("#add_school_id").val(),
-								'cardcode':cardcode,
-							}
-							$.ajax({
-								type: "POST",
-								contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-								url: "/class/input",
-								async: false,
-								data: data,
-								timeout: "30000",
-								success: function(msg) {
-									layer.closeAll();
-									layer.msg('添加成功', {
-										icon: 1,
-										time: 800 //2s后自动关闭
-									});
-									window.location.reload();
-								},
-								error: function() {
-									layer.msg('添加失败');
-									console.log("error");
+						submitHandler: function(form) {console.log(2);
+							if($("#add_grade").val() != ''){
+								var data = {
+									'name': $("#add_name").val(),
+									'grade_id': $("#add_grade").val(),
+									'school_id': $("#add_school_id").val(),
+									'cardcode':cardcode,
 								}
-							});
+								$.ajax({
+									type: "POST",
+									contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+									url: "/class/input",
+									async: false,
+									data: data,
+									timeout: "30000",
+									success: function(msg) {
+										layer.closeAll();
+										layer.msg('添加成功', {
+											icon: 1,
+											time: 800 //2s后自动关闭
+										});
+										window.location.reload();
+									},
+									error: function() {
+										layer.msg('添加失败');
+										console.log("error");
+									}
+								});
+							}else{
+								$(".selectPart .errorPart").css("display","block");
+							}
+							
 
 						},
 						errorPlacement: function(error, element) {
