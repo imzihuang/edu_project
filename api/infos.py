@@ -87,14 +87,16 @@ class InfosHandler(RequestHandler):
     def _get_class_argument(self):
         id = self.get_argument('id', '')
         name = self.get_argument('name', '')
-        grade = self.get_argument('grade', '')
+        grade_id = self.get_argument('grade_id', '')
+        grade_name = self.get_argument('grade_name', '')
         cardcode = self.get_argument('cardcode', '')
         school_id = self.get_argument('school_id', '')
         school_name = self.get_argument('school_name', '')
         return {
             "id": id,
             "name": name,
-            "grade": grade,
+            "grade_id": grade_id,
+            "grade_name": grade_name,
             "cardcode": cardcode,
             "school_id": school_id,
             "school_name": school_name,
@@ -105,7 +107,9 @@ class InfosHandler(RequestHandler):
         name = self.get_argument('name', '')
         school_id = self.get_argument('school_id', '')
         school_name = self.get_argument('school_name', '')
-        class_id = self.get_argument('school_id', '')
+        grade_id = self.get_argument('grade_id', '')
+        grade_name = self.get_argument('grade_name', '')
+        class_id = self.get_argument('class_id', '')
         class_name = self.get_argument('class_name', '')
         phone = self.get_argument('phone', '')
         return {
@@ -113,6 +117,8 @@ class InfosHandler(RequestHandler):
             "name": name,
             "school_id": school_id,
             "school_name": school_name,
+            "grade_id": grade_id,
+            "grade_name": grade_name,
             "class_id": class_id,
             "class_name": class_name,
             "phone": phone
@@ -123,6 +129,8 @@ class InfosHandler(RequestHandler):
         name = self.get_argument('name', '')
         school_id = self.get_argument('school_id', '')
         school_name = self.get_argument('school_name', '')
+        grade_id = self.get_argument('grade_id', '')
+        grade_name = self.get_argument('grade_name', '')
         class_id = self.get_argument('class_id', '')
         class_name = self.get_argument('class_name', '')
         relative_id = self.get_argument('relative_id', '')
@@ -132,6 +140,8 @@ class InfosHandler(RequestHandler):
             "name": name,
             "school_id": school_id,
             "school_name": school_name,
+            "grade_id": grade_id,
+            "grade_name": grade_name,
             "class_id": class_id,
             "class_name": class_name,
             "relative_id": relative_id,
