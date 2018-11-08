@@ -1327,4 +1327,6 @@ select{
 	line-height: normal;
 	position: absolute;
 }
-
+#grade-name{
+	width: 180px;
+}

@@ -161,16 +161,16 @@
 						jsonpCallback: '',
 						cache: false,
 						timeout: "1000000",
-						success: function(msg) {console.log(msg.data[0].name);console.log(msg);
+						success: function(msg) {console.log(msg);
 							var str = '';
-//							if(msg.data.length>0){
-//								for(var i=0;i<=msg.data.length;i++){
-//									str += '<option>'+ msg.data[i].name +'</option>';
-//								}
-//								$("#grade-name").html(str);
-//							}else{
-//								$("#grade-name").html('<option>---无---</option>');
-//							}
+							if(msg.data.length>0){
+								for(var i = 0;i <= msg.data.length;i++){console.log(i);
+									str += '<option>'+ msg.data[i].name +'</option>';
+								}
+								$("#grade-name").html(str);
+							}else{
+								$("#grade-name").html('<option>---无---</option>');
+							}
 							
 							
 						},
