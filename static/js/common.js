@@ -15,7 +15,7 @@ function schoolInput() {
 			var msg = JSON.parse(msg);
 			console.log(msg);
 			school = msg.data[0].id;
-			cardcode = msg.data[0].cardcode;
+			cardcode = msg.data[0].cardcode;console.log(school);console.log(cardcode);
 		}
 	})
 }
