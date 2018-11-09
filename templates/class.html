@@ -379,7 +379,6 @@
 							},
 						},
 						submitHandler: function(form) {
-							console.log(2);
 							if($("#add_grade").val() != '') {
 								var data = {
 									'name': $("#add_name").val(),
@@ -413,14 +412,8 @@
 						},
 						errorPlacement: function(error, element) {
 							error.appendTo(element.parent().find(".errorPart"));
-							console.log(2222);
 						},
-						success: function() {},
-						error: function() {
-							if($("#add_grade").val() = ''){
-								$(".selectPart .errorPartS").css("display", "block");
-							}
-						}
+						success: function() {}
 				});
 
 			//添加弹框
@@ -428,6 +421,7 @@
 				console.log(2);
 				$("input").val("");
 				$(".errorPart").html("");
+				$(".selectPart .errorPartS").css("display", "none");
 				layerIndex = layer.open({
 					title: '添加班级',
 					type: 1,
@@ -438,6 +432,9 @@
 					content: $('#addInfoContent'),
 					yes: function() {
 						$("#addInfoContentSubmit").click();
+						if($("#add_grade").val() = ''){
+							$(".selectPart .errorPartS").css("display", "block");
+						}
 					}
 				});
 			});
