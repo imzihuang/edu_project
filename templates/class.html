@@ -386,6 +386,7 @@
 								'name': $("#add_name").val(),
 								'grade_id': $("#add_grade").val(),
 								'cardcode': cardcode,
+								'describe': $("#add_remarks").val() == '' ? undefined : $("#add_remarks").val(),
 							}
 							$.ajax({
 								type: "POST",
@@ -467,6 +468,7 @@
 								'name': $("#edit_name").val(),
 								'grade_id': $("#edit_grade").val(),
 								'cardcode': cardcode,
+								'describe': $("#edit_remarks").val() == '' ? undefined : $("#edit_remarks").val(),
 							}
 							$.ajax({
 								type: "POST",
