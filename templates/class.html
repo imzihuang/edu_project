@@ -113,7 +113,7 @@
 		<div id="editAreaContent" style="display: none; width: 500px; padding: 20px;">
 			<form id="editAreaContentform" role="form">
 				<div style="margin: 20px 0;">
-					<span>班级名称：</span><input type="text" style="width: 350px;" id="edit_id" name="edit_id" />
+					<span>班级名称：</span><input type="text" style="width: 350px;" id="edit_name" name="edit_name" />
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
@@ -235,7 +235,7 @@
 									strs += '<tr class="gradeX">' +
 										'<td><input type="checkbox" class="zx_checkedBtn"></td>' +
 										'<td class="centerSort">' + (i + 1) + '</td>' +
-										'<td >' + msg.data[i].name + '</td>' +
+										'<td class="data_name">' + msg.data[i].name + '</td>' +
 										'<td class="center data_grade_name">' + msg.data[i].grade_name + '</td>' +
 										'<td class="center data_id">' + msg.data[i].id + '</td>' +
 										'<td class="center data_name">' + msg.data[i].miaoshu + '</td>' +
@@ -354,8 +354,8 @@
 					getAjaxData({
 						"name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
 						"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
-						"limit": e.limit,
-						"offset": e.curr,
+						"limit": 20,
+					    "offset": 1,
 					});
 				});
 
