@@ -1,4 +1,6 @@
 //获取学校id
+var school;
+var cardcode;
 function schoolInput() {
 	var data = {
 		"limit": 20,
