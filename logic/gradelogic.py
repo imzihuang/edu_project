@@ -52,3 +52,8 @@ class GradeLogic(Logic):
 
         grade_count = db_api.grade_count(**filters)
         return {"count": grade_count, "state": 0, "message": "query success", "data": views_list}
+
+    def delete(self, id="", **kwargs):
+        if not id:
+            return
+        db_api.grade_deleted(id=id)

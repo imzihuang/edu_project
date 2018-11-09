@@ -87,16 +87,19 @@ class UpdateHandler(RequestHandler):
     def _get_class_argument(self):
         id = self.get_argument('id', '')
         name = self.get_argument('name', '')
-        grade = self.get_argument('grade_id', '')
+        grade_id = self.get_argument('grade_id', '')
         cardcode = self.get_argument('cardcode', '')
+        describe = self.get_argument('describe', '')
         student_number = int(self.get_argument('study_number', 0))
         result = {}
         if name:
             result.update({"name", name})
-        if grade:
-            result.update({"grade": grade})
+        if grade_id:
+            result.update({"grade_id": grade_id})
         if cardcode:
             result.update({"cardcode": cardcode})
+        if describe:
+            result.update({"describe": describe})
         if student_number:
             result.update({"student_number": student_number})
         return id, result

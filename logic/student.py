@@ -120,3 +120,8 @@ class StudentLogic(Logic):
         relative_id = [_relative.id for _relative in _relative_list]
         _relation_list = db_api.relation_list(relative_id=relative_id)
         return _relation_list
+
+    def delete(self, id="", **kwargs):
+        if not id:
+            return
+        db_api.student_deleted(id=id)
