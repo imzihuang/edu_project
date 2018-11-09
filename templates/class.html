@@ -142,7 +142,8 @@
 				var school; //学校名称
 				var cardcode; //设备卡号
 				//获取学校
-				schoolInput();console.log(cardcode);
+				schoolInput();
+				console.log(cardcode);
 				//获取年级
 				gradeInput();
 
@@ -365,172 +366,172 @@
 					$(".selectPart .errorPartS").css("display", "none");
 				});
 				$("#addInfoContentform").validate({
-						focusCleanup: true,
-						focusInvalid: false,
-						debug: true,
-						rules: {
-							add_name: {
-								required: true,
+					focusCleanup: true,
+					focusInvalid: false,
+					debug: true,
+					rules: {
+						add_name: {
+							required: true,
+						}
+					},
+					messages: {
+						add_name: {
+							required: '必填',
+						},
+					},
+					submitHandler: function(form) {
+						if($("#add_grade").val() != '') {
+							var data = {
+								'name': $("#add_name").val(),
+								'grade_id': $("#add_grade").val(),
+								'cardcode': cardcode,
 							}
-						},
-						messages: {
-							add_name: {
-								required: '必填',
-							},
-						},
-						submitHandler: function(form) {
-							if($("#add_grade").val() != '') {
-								var data = {
-									'name': $("#add_name").val(),
-									'grade_id': $("#add_grade").val(),
-									'cardcode': cardcode,
+							$.ajax({
+								type: "POST",
+								contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+								url: "/class/input",
+								async: false,
+								data: data,
+								timeout: "30000",
+								success: function(msg) {
+									layer.closeAll();
+									layer.msg('添加成功', {
+										icon: 1,
+										time: 800 //2s后自动关闭
+									});
+									window.location.reload();
+								},
+								error: function() {
+									layer.msg('添加失败');
+									console.log("error");
 								}
-								$.ajax({
-									type: "POST",
-									contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-									url: "/class/input",
-									async: false,
-									data: data,
-									timeout: "30000",
-									success: function(msg) {
-										layer.closeAll();
-										layer.msg('添加成功', {
-											icon: 1,
-											time: 800 //2s后自动关闭
-										});
-										window.location.reload();
-									},
-									error: function() {
-										layer.msg('添加失败');
-										console.log("error");
-									}
-								});
-							} else {
-								$(".selectPart .errorPartS").css("display", "block");
-							}
-						},
-						errorPlacement: function(error, element) {
-							error.appendTo(element.parent().find(".errorPart"));
-						},
-						success: function() {}
-				});
-
-			//添加弹框
-			$('#addInfo').click(function() {
-				console.log(2);
-				$("input").val("");
-				$(".errorPart").html("");
-				$(".selectPart .errorPartS").css("display", "none");
-				layerIndex = layer.open({
-					title: '添加班级',
-					type: 1,
-					skin: 'layui-layer-demo',
-					anim: 2,
-					shadeClose: true,
-					btn: ['确定', '取消'],
-					content: $('#addInfoContent'),
-					yes: function() {
-						$("#addInfoContentSubmit").click();
-						if($("#add_grade").val() = ''){
+							});
+						} else {
 							$(".selectPart .errorPartS").css("display", "block");
 						}
-					}
+					},
+					errorPlacement: function(error, element) {
+						error.appendTo(element.parent().find(".errorPart"));
+					},
+					success: function() {}
 				});
-			});
 
-			//编辑校验
-			$("#editAreaContentform").validate({
-				focusCleanup: true,
-				focusInvalid: false,
-				debug: true,
-				rules: {
-					edit_name: {
-						required: true,
-					},
-					edit_school_id: {
-						required: true,
-					},
-				},
-				messages: {
-					edit_name: {
-						required: '必填',
-					},
-					edit_school_id: {
-						required: '必填',
-					},
-				},
-				submitHandler: function(form) {
-					var data = {
-						'name': $("#edit_name").val(),
-						'grade': $("#edit_grade selected:option").val(),
-						'school_id': $("#edit_school_id").val(),
-					}
-					$.majax({
-						url: "/class/update",
-						data: data,
-						successCallBack: function(msg) {
-							layer.closeAll();
-							layer.msg('修改成功', {
-								icon: 1,
-								time: 800
-							});
-							getAjaxData({
-								"name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
-								"grade": $("#class-name selected:option").val() == '' ? undefined : $("#class-name selected:option").val(),
-								"limit": 20,
-								"offset": 1,
-							});
-							window.location.reload();
-						},
-						errorCallBack: function() {
-							layer.msg('修改失败');
-							console.log("error");
+				//添加弹框
+				$('#addInfo').click(function() {
+					console.log(2);
+					$("input").val("");
+					$(".errorPart").html("");
+					$(".selectPart .errorPartS").css("display", "none");
+					layerIndex = layer.open({
+						title: '添加班级',
+						type: 1,
+						skin: 'layui-layer-demo',
+						anim: 2,
+						shadeClose: true,
+						btn: ['确定', '取消'],
+						content: $('#addInfoContent'),
+						yes: function() {
+							$("#addInfoContentSubmit").click();
+							if($("#add_grade").val() == '') {
+								$(".selectPart .errorPartS").css("display", "block");
+							}
 						}
 					});
-				},
-
-				errorPlacement: function(error, element) {
-					error.appendTo(element.parent().find(".errorPart"));
-				},
-				success: function() {}
-			});
-
-			//编辑弹框
-			$('.areapen').click(function() {
-				$(".errorPart").html("");
-				$("#edit_name").val($(this).parent("td").siblings(".data_name").html());
-				$("#edit_grade").val($(this).parent("td").siblings(".data_grade").html());
-				$("#edit_school_id").val($(this).parent("td").siblings(".data_school_id").html());
-				layerIndex = layer.open({
-					title: '修改班级信息',
-					type: 1,
-					skin: 'layui-layer-demo',
-					closeBtn: 0,
-					anim: 2,
-					shadeClose: true,
-					btn: ['确定', '取消'],
-					content: $('#editAreaContent'),
-					yes: function() {
-						$("#editAreaContentSubmit").click();
-					}
 				});
-			});
 
-			$('.fa-close').click(function() {
-				layer.confirm('确定删除选中的班级？', {
-					btn: ['确定', '取消'] //按钮
-				}, function() {
-					layer.msg('已经删除选中的班级', {
-						icon: 1,
-						time: 600
+				//编辑校验
+				$("#editAreaContentform").validate({
+					focusCleanup: true,
+					focusInvalid: false,
+					debug: true,
+					rules: {
+						edit_name: {
+							required: true,
+						},
+						edit_school_id: {
+							required: true,
+						},
+					},
+					messages: {
+						edit_name: {
+							required: '必填',
+						},
+						edit_school_id: {
+							required: '必填',
+						},
+					},
+					submitHandler: function(form) {
+						var data = {
+							'name': $("#edit_name").val(),
+							'grade': $("#edit_grade selected:option").val(),
+							'school_id': $("#edit_school_id").val(),
+						}
+						$.majax({
+							url: "/class/update",
+							data: data,
+							successCallBack: function(msg) {
+								layer.closeAll();
+								layer.msg('修改成功', {
+									icon: 1,
+									time: 800
+								});
+								getAjaxData({
+									"name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
+									"grade": $("#class-name selected:option").val() == '' ? undefined : $("#class-name selected:option").val(),
+									"limit": 20,
+									"offset": 1,
+								});
+								window.location.reload();
+							},
+							errorCallBack: function() {
+								layer.msg('修改失败');
+								console.log("error");
+							}
+						});
+					},
+
+					errorPlacement: function(error, element) {
+						error.appendTo(element.parent().find(".errorPart"));
+					},
+					success: function() {}
+				});
+
+				//编辑弹框
+				$('.areapen').click(function() {
+					$(".errorPart").html("");
+					$("#edit_name").val($(this).parent("td").siblings(".data_name").html());
+					$("#edit_grade").val($(this).parent("td").siblings(".data_grade").html());
+					$("#edit_school_id").val($(this).parent("td").siblings(".data_school_id").html());
+					layerIndex = layer.open({
+						title: '修改班级信息',
+						type: 1,
+						skin: 'layui-layer-demo',
+						closeBtn: 0,
+						anim: 2,
+						shadeClose: true,
+						btn: ['确定', '取消'],
+						content: $('#editAreaContent'),
+						yes: function() {
+							$("#editAreaContentSubmit").click();
+						}
 					});
-				}, function() {
-					/*layer.msg('也可以这样', {
-						time: 20000, //20s后自动关闭
-						btn: ['明白了', '知道了']
-					});*/
 				});
-			});
+
+				$('.fa-close').click(function() {
+					layer.confirm('确定删除选中的班级？', {
+						btn: ['确定', '取消'] //按钮
+					}, function() {
+						layer.msg('已经删除选中的班级', {
+							icon: 1,
+							time: 600
+						});
+					}, function() {
+						/*layer.msg('也可以这样', {
+							time: 20000, //20s后自动关闭
+							btn: ['明白了', '知道了']
+						});*/
+					});
+				});
 			});
 		</script>
 	</body>
