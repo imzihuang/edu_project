@@ -1335,3 +1335,6 @@ select{
 	color: #cc5965;
 	position: absolute;
 }
+textarea{
+	border-color: #dcdcdc;
+}

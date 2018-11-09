@@ -103,7 +103,7 @@
 					<div class="errorPartS" style="display: none;">请选择年级</div>
 				</div>
 				<div style="margin: 20px 0;">
-					<span>备注：</span><textarea style="width: 350px;" id="add_remarks" name="add_remarks"></textarea>
+					<span class="fl">备注：</span><textarea style="width: 350px;" id="add_remarks" name="add_remarks"></textarea>
 					<div class="errorPart"></div>
 				</div>
 				<input class="submit" type="submit" value="提交" id="addInfoContentSubmit" style="display: none;">
@@ -124,7 +124,7 @@
 					<div class="errorPartS" style="display: none;">请选择年级</div>
 				</div>
 				<div style="margin: 20px 0;">
-					<span>备注：</span><textarea style="width: 350px;" id="edit_remarks" name="edit_remarks"></textarea>
+					<span class="fl">备注：</span><textarea style="width: 350px;" id="edit_remarks" name="edit_remarks"></textarea>
 					<div class="errorPart"></div>
 				</div>
 				<input class="submit" type="submit" value="提交" id="editAreaContentSubmit" style="display: none;">
@@ -353,9 +353,9 @@
 				$("#searchBtn").click(function() {
 					getAjaxData({
 						"name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
-						"grade": $("#grade-name selected:option").val() == '' ? undefined : $("#grade-name").val(),
-						"limit": 20,
-						"offset": 1,
+						"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
+						"limit": e.limit,
+						"offset": e.curr,
 					});
 				});
 
@@ -460,33 +460,35 @@
 						},
 					},
 					submitHandler: function(form) {
-						var data = {
-							'name': $("#edit_name").val(),
-							'grade': $("#edit_grade selected:option").val(),
-							'school_id': $("#edit_school_id").val(),
-						}
-						$.majax({
-							url: "/class/update",
-							data: data,
-							successCallBack: function(msg) {
-								layer.closeAll();
-								layer.msg('修改成功', {
-									icon: 1,
-									time: 800
-								});
-								getAjaxData({
-									"name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
-									"grade": $("#class-name selected:option").val() == '' ? undefined : $("#class-name selected:option").val(),
-									"limit": 20,
-									"offset": 1,
-								});
-								window.location.reload();
-							},
-							errorCallBack: function() {
-								layer.msg('修改失败');
-								console.log("error");
+						if($("#add_grade").val() != '') {
+							var data = {
+								'name': $("#edit_name").val(),
+								'grade_id': $("#edit_grade").val(),
+								'cardcode': cardcode,
 							}
-						});
+							$.ajax({
+								type: "POST",
+								contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+								url: "/class/update",
+								async: false,
+								data: data,
+								timeout: "30000",
+								success: function(msg) {
+									layer.closeAll();
+									layer.msg('编辑成功', {
+										icon: 1,
+										time: 800 //2s后自动关闭
+									});
+									window.location.reload();
+								},
+								error: function() {
+									layer.msg('编辑失败');
+									console.log("error");
+								}
+							});
+						} else {
+							$(".selectPart .errorPartS").css("display", "block");
+						}
 					},
 
 					errorPlacement: function(error, element) {
@@ -497,10 +499,12 @@
 
 				//编辑弹框
 				$('.areapen').click(function() {
+					$("input").val("");
 					$(".errorPart").html("");
+					$(".selectPart .errorPartS").css("display", "none");
+					
 					$("#edit_name").val($(this).parent("td").siblings(".data_name").html());
-					$("#edit_grade").val($(this).parent("td").siblings(".data_grade").html());
-					$("#edit_school_id").val($(this).parent("td").siblings(".data_school_id").html());
+					$("#edit_grade").val($(this).parent("td").siblings(".data_grade_name").html());
 					layerIndex = layer.open({
 						title: '修改班级信息',
 						type: 1,
@@ -512,6 +516,9 @@
 						content: $('#editAreaContent'),
 						yes: function() {
 							$("#editAreaContentSubmit").click();
+							if($("#add_grade").val() == '') {
+								$(".selectPart .errorPartS").css("display", "block");
+							}
 						}
 					});
 				});
