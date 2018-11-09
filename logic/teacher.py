@@ -95,3 +95,8 @@ class TeacherLogic(Logic):
                 view.update({"class_name": class_info.name})
         teacher_count = db_api.teacher_count(**filters)
         return {"count": teacher_count, "state": 0, "message": "query success", "data": views_list}
+
+    def delete(self, id="", **kwargs):
+        if not id:
+            return
+        db_api.teacher_deleted(id=id)

@@ -7,13 +7,17 @@ from util import exception
 from util import common_util
 
 
-def model_query(model, session=None,  *args, **kwargs):
+def model_query(model, session=None, deleted=False, *args, **kwargs):
     """
     :param model:
     :param session: if present, the session to use
     """
     session = session or get_session()
     query = session.query(model, *args)
+    read_deleted = kwargs.get("read_deleted", "no")
+    if read_deleted == "no":
+        query = query.filter_by(deleted=False)
+
     filter_dict = {}
     for key, value in kwargs.items():
         if isinstance(value, (list, tuple, set, frozenset)):
@@ -66,7 +70,7 @@ def school_count(**filters):
 
 #####################school end################################
 
-#####################school begin################################
+#####################grade begin################################
 def grade_create(values):
     if not values.get('id'):
         values['id'] = common_util.create_id()#str(uuid.uuid4())
@@ -103,7 +107,16 @@ def grade_count(**filters):
     query = model_query(models.GradeInfo, **filters)
     return query.count()
 
-#####################school end################################
+def grade_deleted(id):
+    session = get_session()
+    with session.begin():
+        model_query(models.GradeInfo, session=session)\
+            .filter_by(id=id).first()\
+            .update({
+            "deleted": True
+        })
+
+#####################grade end################################
 
 #####################class begin################################
 def class_create(values):
@@ -141,6 +154,15 @@ def class_list(offset=0, limit=1000, **filters):
 def class_count(**filters):
     query = model_query(models.ClassInfo, **filters)
     return query.count()
+
+def class_deleted(id):
+    session = get_session()
+    with session.begin():
+        model_query(models.ClassInfo, session=session)\
+            .filter_by(id=id).first()\
+            .update({
+            "deleted": True
+        })
 
 #####################class end################################
 
@@ -181,7 +203,16 @@ def teacher_count(**filters):
     query = model_query(models.TeacherInfo, **filters)
     return query.count()
 
-#####################class end################################
+def teacher_deleted(id):
+    session = get_session()
+    with session.begin():
+        model_query(models.TeacherInfo, session=session)\
+            .filter_by(id=id).first()\
+            .update({
+            "deleted": True
+        })
+
+#####################teacher end################################
 
 #####################student begin################################
 def student_create(values):
@@ -242,6 +273,15 @@ def student_history_count(**filters):
     query = model_query(models.StudentHistory, **filters)
     return query.count()
 
+def student_deleted(id):
+    session = get_session()
+    with session.begin():
+        model_query(models.StudentInfo, session=session)\
+            .filter_by(id=id).first()\
+            .update({
+            "deleted": True
+        })
+
 #####################student end################################
 
 #####################relative begin################################
@@ -281,6 +321,15 @@ def relative_count(**filters):
     query = model_query(models.RelativeInfo, **filters)
     return query.count()
 
+def relative_deleted(id):
+    session = get_session()
+    with session.begin():
+        model_query(models.RelativeInfo, session=session)\
+            .filter_by(id=id).first()\
+            .update({
+            "deleted": True
+        })
+
 #####################relative end################################
 
 #####################face begin################################
@@ -313,7 +362,7 @@ def face_destroy(id):
         result = query.filter_by(id=id)
         result.delete(session=session)
 
-#####################relative end################################
+#####################face end################################
 
 
 #####################relation begin################################
@@ -352,6 +401,15 @@ def relation_list(offset=0, limit=1000, **filters):
 def relation_count(**filters):
     query = model_query(models.RelationInfo, **filters)
     return query.count()
+
+def relation_deleted(id):
+    session = get_session()
+    with session.begin():
+        model_query(models.RelationInfo, session=session)\
+            .filter_by(id=id).first()\
+            .update({
+            "deleted": True
+        })
 #####################relation end################################
 
 #####################user begin################################
@@ -390,6 +448,15 @@ def user_list(offset=0, limit=1000, **filters):
 def user_count(**filters):
     query = model_query(models.UserInfo, **filters)
     return query.count()
+
+def user_deleted(id):
+    session = get_session()
+    with session.begin():
+        model_query(models.UserInfo, session=session)\
+            .filter_by(id=id).first()\
+            .update({
+            "deleted": True
+        })
 
 #####################user end################################
 
@@ -430,4 +497,13 @@ def wxuser_count(**filters):
     query = model_query(models.WXUserInfo, **filters)
     return query.count()
 
-#####################user end################################
+def wxuser_deleted(id):
+    session = get_session()
+    with session.begin():
+        model_query(models.UserInfo, session=session) \
+            .filter_by(id=id).first() \
+            .update({
+            "deleted": True
+        })
+
+#####################wx user end################################

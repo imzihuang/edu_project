@@ -74,3 +74,8 @@ class ClassLogic(Logic):
 
         class_count = db_api.class_count(**filters)
         return {"count": class_count, "state": 0, "message": "query success", "data": views_list}
+
+    def delete(self, id="", **kwargs):
+        if not id:
+            return
+        db_api.class_deleted(id=id)

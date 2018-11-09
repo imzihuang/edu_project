@@ -5,7 +5,7 @@ import base64
 import logging
 import json
 from logic.userlogic import UserLogic
-from logic.relative import RelativeLogic, FaceLogic
+from logic.facelogic import FaceLogic
 from util.ini_client import ini_load
 from util.face_recognition_api import face_recognition_yyl
 import os

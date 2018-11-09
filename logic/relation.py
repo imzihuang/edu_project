@@ -52,3 +52,8 @@ class RelationLogic(Logic):
 
         relation_count = db_api.relation_count(**filters)
         return {"count": relation_count, "state": 0, "message": "query success", "data": self.views(views_list)}
+
+    def delete(self, id="", **kwargs):
+        if not id:
+            return
+        db_api.relation_deleted(id=id)

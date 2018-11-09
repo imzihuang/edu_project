@@ -85,6 +85,9 @@ class UserLogic(Logic):
                 return True
         return False
 
+    def delete(self, id="", **kwargs):
+        db_api.user_deleted(id=id)
+
 class WXUserLogic(Logic):
     def __init__(self):
         super(WXUserLogic, self).__init__()
@@ -133,6 +136,11 @@ class WXUserLogic(Logic):
         wx_infos = db_api.wxuser_list(openid=openid)
         if wx_infos:
             return self.views(wx_infos[0])
+
+    def delete(self, id="", **kwargs):
+        if not id:
+            return
+        db_api.wxuser_deleted(id=id)
 
 
 
