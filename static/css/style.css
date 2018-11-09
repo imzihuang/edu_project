@@ -1333,4 +1333,8 @@ select{
 .errorPartS{
 	padding-left: 105px;
 	color: #cc5965;
+	position: absolute;
+}
+textarea{
+	border-color: #dcdcdc;
 }
