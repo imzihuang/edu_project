@@ -238,7 +238,7 @@
 										'<td><input type="checkbox" class="zx_checkedBtn"></td>' +
 										'<td class="centerSort">' + (i + 1) + '</td>' +
 										'<td class="data_name">' + msg.data[i].name + '</td>' +
-										'<td class="center data_grade_name">' + msg.data[i].grade_name + '</td>' +
+										'<td class="center data_grade_name" name="123">' + msg.data[i].grade_name + '</td>' +
 										'<td class="center data_id">' + msg.data[i].id + '</td>' +
 										'<td class="center data_name">' + msg.data[i].miaoshu + '</td>' +
 										'<td class="center">' + msg.data[i].create_time + '</td>' +
@@ -505,8 +505,8 @@
 					$(".errorPart").html("");
 					$(".selectPart .errorPartS").css("display", "none");
 					
-					$("#edit_name").val($(this).parent("td").siblings(".data_name").html());
-					$("#edit_grade option[value=" + $(this).parent('td').siblings('.data_grade_name').html() +"]").attr("selected","selected");
+					$("#edit_name").val($(this).parent("td").siblings(".data_name").html());console.log($(this).parent("td").siblings(".data_grade_name").attr("name"));
+					$("#edit_grade").val($(this).parent("td").siblings(".data_grade_name").attr("name"));
 					layerIndex = layer.open({
 						title: '修改班级信息',
 						type: 1,
@@ -518,7 +518,7 @@
 						content: $('#editAreaContent'),
 						yes: function() {
 							$("#editAreaContentSubmit").click();
-							if($("#add_grade").val() == '') {
+							if($("#edit_grade").val() == '') {
 								$(".selectPart .errorPartS").css("display", "block");
 							}
 						}
