@@ -142,7 +142,7 @@
 				var school; //学校名称
 				var cardcode; //设备卡号
 				//获取学校
-				schoolInput();
+				schoolInput();console.log(cardcode);
 				//获取年级
 				gradeInput();
 
@@ -383,7 +383,6 @@
 								var data = {
 									'name': $("#add_name").val(),
 									'grade_id': $("#add_grade").val(),
-									'school_id': $("#add_school_id").val(),
 									'cardcode': cardcode,
 								}
 								$.ajax({
