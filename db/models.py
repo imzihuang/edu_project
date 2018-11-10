@@ -71,6 +71,20 @@ class TeacherInfo(Base, ModelBase):
     def to_dict(self):
        return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
 
+class TeacherHistory(Base, ModelBase):
+    __tablename__ = 'teacher_history'
+    id = Column(VARCHAR(36), primary_key=True)
+    teacher_id = Column(VARCHAR(36), nullable=False)
+    status = Column(VARCHAR(36), default="education")
+    describe = Column(VARCHAR(500))
+    deleted = Column(Boolean, default=False)
+    create_time = Column(DateTime, default=datetime.utcnow, nullable=False)
+    updated_time = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    def to_dict(self):
+       return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
+
+
 class StudentInfo(Base, ModelBase):
     __tablename__ = 'student_info'
     id = Column(VARCHAR(36), primary_key=True)
@@ -123,7 +137,8 @@ class RelativeFace(Base, ModelBase):
     __tablename__ = 'relative_face'
     id = Column(VARCHAR(36), primary_key=True)
     school_id = Column(VARCHAR(36), nullable=False)
-    relative_id = Column(VARCHAR(36), nullable=False)
+    relevance_id = Column(VARCHAR(36), nullable=False)
+    relevance_type = Column(Integer, default=1)
     face_token = Column(VARCHAR(36), nullable=False)
     faceset_token = Column(VARCHAR(36), nullable=False)
     deleted = Column(Boolean, default=False)

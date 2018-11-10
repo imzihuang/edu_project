@@ -120,7 +120,7 @@ class ActionHandler(RequestHandler):
             return
 
         _op = FaceLogic()
-        _op.create_face(school_id, relative_id, face_token, faceset_token)
+        _op.create_face(school_id, relative_id, face_token, faceset_token, relevance_type=0)
         self.finish(json.dumps({'state': 0, 'message': 'face auth ok'}))
 
 
