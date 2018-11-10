@@ -13,6 +13,7 @@ from logic.teacher import TeacherLogic
 from logic.student import StudentLogic
 from logic.relative import RelativeLogic
 from logic.relation import RelationLogic
+from logic.teacher_history import Teacher_HistoryLogic
 from logic.student_history import Student_HistoryLogic
 
 LOG = logging.getLogger(__name__)
@@ -37,6 +38,9 @@ class RegistryHandler(RequestHandler):
             if registry_obj == "teacher":
                 _infos = self._get_teacher_argument()
                 _op = TeacherLogic()
+            if registry_obj == "teacher_history":
+                _infos = self._get_teacher_history_argument()
+                _op = Teacher_HistoryLogic()
 
             if registry_obj == "student":
                 _infos = self._get_student_argument()
@@ -107,6 +111,16 @@ class RegistryHandler(RequestHandler):
             "birthday": birthday,
             "class_id": class_id,
             "phone": phone
+        }
+
+    def _get_teacher_history_argument(self):
+        teacher_id = self.get_argument('teacher_id', '')
+        status = self.get_argument('status', '')
+        describe = self.get_argument('describe', '')
+        return {
+            "teacher_id": teacher_id,
+            "status": status,
+            "describe": describe
         }
 
     def _get_student_argument(self):

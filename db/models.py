@@ -64,6 +64,7 @@ class TeacherInfo(Base, ModelBase):
     grade_id = Column(VARCHAR(36), nullable=False)
     class_id = Column(VARCHAR(36), nullable=False)
     user_id = Column(VARCHAR(36))
+    position = Column(Integer, default=2)
     deleted = Column(Boolean, default=False)
     create_time = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_time = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
