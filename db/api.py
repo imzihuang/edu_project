@@ -212,6 +212,28 @@ def teacher_deleted(id):
             "deleted": True
         })
 
+def teacher_history_create(values):
+    if not values.get('id'):
+        values['id'] = common_util.create_id()
+    teacherhistory_ref = models.TeacherHistory()
+    teacherhistory_ref.update(values)
+    session = get_session()
+    with session.begin():
+        teacherhistory_ref.save(session)
+        return values
+
+def teacher_history_list(offset=0, limit=1000, **filters):
+    query = model_query(models.TeacherHistory, **filters)
+    if offset:
+        query = query.offset(offset)
+    if limit:
+        query = query.limit(limit)
+    return query.all()
+
+def teacher_history_count(**filters):
+    query = model_query(models.TeacherHistory, **filters)
+    return query.count()
+
 #####################teacher end################################
 
 #####################student begin################################

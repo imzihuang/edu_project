@@ -12,7 +12,7 @@ class TeacherLogic(Logic):
     def __init__(self):
         super(TeacherLogic, self).__init__()
 
-    def intput(self, name="", sex=0, birthday="", class_id="", phone=""):
+    def intput(self, name="", sex=0, birthday="", class_id="", phone="", position=2, status="education"):
         if not is_date(birthday):
             raise exception.FormalError(birthday=birthday)
         if not name or not class_id:
@@ -25,9 +25,18 @@ class TeacherLogic(Logic):
             "school_id": class_info.school_id,
             "grade_id": class_info.grade_id,
             "class_id": class_id,
-            "phone": phone
+            "phone": phone,
+            "position": position
         }
         teacher_obj = db_api.teacher_create(values)
+
+        if teacher_obj:
+            history_values = {
+                "teacher_id": teacher_obj.id,
+                "staus": status
+            }
+            db_api.teacher_history_create(history_values)
+            teacher_obj.upate({"status": status})
         return teacher_obj
 
     def update(self, id="", **kwargs):
@@ -47,13 +56,16 @@ class TeacherLogic(Logic):
               school_id="", school_name="",
               grade_id="", grade_name="",
               class_id="", class_name="",
-              phone="", limit=100, offset=1):
+              phone="", position=0,
+              limit=100, offset=1):
         offset = (offset - 1) * limit if offset > 0 else 0
         filters = dict()
         if id:
             filters.update({"id": id})
         if name:
             filters.update({"name": name})
+        if position in (1, 2):
+            filters.update({"position": position})
         if school_id or school_name:
             if school_name:
                 _school_list = db_api.school_list(name=school_name)

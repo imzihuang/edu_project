@@ -1,11 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from random import randint
-import datetime
-from util.convert import *
-from util.exception import ParamExist
-from util.face_recognition_api import face_recognition_yyl
 from db import api as db_api
 from logic import Logic
 import logging
@@ -50,4 +45,4 @@ class Student_HistoryLogic(Logic):
             if student_info:
                 view.update({"student_name": student_info.name})
         history_count = db_api.student_history_count(**filters)
-        return {"count": history_count, "state": 0, "message": "query success", "data": self.views(history_list)}
+        return {"count": history_count, "state": 0, "message": "query success", "data": views_list}
