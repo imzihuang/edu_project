@@ -1,5 +1,5 @@
 ﻿/*www.jq22.com*/
-.calendar { POSITION: absolute; WIDTH:190px; HEIGHT: 180px; PADDING:0;DISPLAY: none; FLOAT: left;border:1px solid #819dba;background:#fff;z-index: 9999999999;}
+.calendar { POSITION: absolute; WIDTH:190px; HEIGHT: 180px; PADDING:0;DISPLAY: none; FLOAT: left;border:1px solid #819dba;background:#fff;z-index: 9999999999 !important;}
 .calendar .calMain { WIDTH:100%; HEIGHT:180px; FLOAT: left; OVERFLOW: hidden; POSITION: absolute; }
 .calendar .calMain .calTitle { WIDTH: 100%; FLOAT: left; HEIGHT: 23px; BACKGROUND: #fff; OVERFLOW: hidden; }
 .calendar .calMain .calTitle .t_date { WIDTH: 149px; FLOAT: left; HEIGHT: 23px; COLOR: #51729D; FONT-WEIGHT: bold; LINE-HEIGHT: 23px; TEXT-ALIGN: center; }
