@@ -156,7 +156,7 @@
 							if(msg.data.length > 0) {
 								for(var i = 0; i < msg.data.length; i++) {
 									strs += '<tr class="gradeX">' +
-										'<td><input type="checkbox" class="zx_checkedBtn"></td>' +
+										'<td><input type="checkbox" class="zx_checkedBtn" id='+ msg.data[i].id +'></td>' +
 										'<td class="centerSort">' + (i + 1) + '</td>' +
 										'<td class="data_name" id = ' + msg.data[i].id + '>' + msg.data[i].name + '</td>' +
 										'<td class="center">' + msg.data[i].create_time + '</td>' +
@@ -174,59 +174,50 @@
 					});
 				}
 		
-				//删除
+				//批量删除
 				$('#delInfo').click(function() {
-					var valArr = new Array;
-					getValArr(valArr);
-
-					if(valArr.length > 0) {
+					var trLength = $("#tbody tr").length;
+                    var idArray = '';
+                    var count = 0;
+                    for(var i=0;i<trLength;i++){
+                    	if($("#tbody tr").eq(i).find('input').is(':checked')){
+                    		idArray = idArray + $(this).attr('id');
+                    		count++;
+                    	}
+                    }
+					if(count > 1) {
 						layer.confirm('确定删除选中的年级？', {
 							btn: ['确定', '取消'] //按钮
 						}, function() {
+							var data = {
+								'id': idArray
+							}
 							$.ajax({
-								method: 'POST',
-								xhrFields: {
-									"withCredentials": true
-								},
+								type: "POST",
 								contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-								url: "",
-								data: sendData,
-								dataType: 'json',
-								jsonpCallback: '',
-								cache: false,
-								timeout: "1000000",
-								success: function(data) {
-									console.log(valArr)
-									delData(valArr);
+								url: "/grade/delete",
+								async: false,
+								data: data,
+								timeout: "30000",
+								success: function(msg) {
 									layer.closeAll();
 									layer.msg('删除成功', {
 										icon: 1,
-										time: 600
+										time: 800 //2s后自动关闭
 									});
-									$('#delInfo').attr("disabled", "disabled");
-									$('#delInfo').attr('class', 'btn btn-default btn-myown');
+									window.location.reload();
 								},
-								complete: function(XMLHttpRequest, status) {
-
+								error: function() {
+									layer.msg('删除失败');
+									console.log("error");
 								}
-							})
-
+							});
 						}, function() {});
 					} else {
 						$('#delInfo').attr("disabled", "disabled");
 					}
 
-				});
-
-				function getValArr(valArr) {
-					$("#tbody :checkbox").each(function(index, ele) {
-						if($(ele).prop("checked")) {
-							valArr.push($("#tbody tr").eq(index).find("td").eq(2).attr("id"));
-						}
-					});
-				}
-
-				
+				});				
 
 				//查询
 				$("#searchBtn").click(function() {
