@@ -134,8 +134,8 @@ class RelativeInfo(Base, ModelBase):
     def to_dict(self):
        return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
 
-class RelativeFace(Base, ModelBase):
-    __tablename__ = 'relative_face'
+class RelevanceFace(Base, ModelBase):
+    __tablename__ = 'relevance_face'
     id = Column(VARCHAR(36), primary_key=True)
     school_id = Column(VARCHAR(36), nullable=False)
     relevance_id = Column(VARCHAR(36), nullable=False)
