@@ -181,8 +181,13 @@
                     var count = 0;
                     for(var i=0;i<trLength;i++){
                     	if($("#tbody tr").eq(i).find('input').is(':checked')){
-                    		idArray = idArray + $(this).attr('id');
-                    		count++;
+                    		if(count>0){
+                    			idArray = idArray + ',' + $("#tbody tr").eq(i).find('input').attr('id');
+                    			count++;
+                    		}else{
+	                    		idArray = idArray + $(this).attr('id');
+	                    		count++;
+                    		}
                     	}
                     }
 					if(count > 1) {
