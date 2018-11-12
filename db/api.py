@@ -358,7 +358,7 @@ def relative_deleted(id):
 def face_create(values):
     if not values.get('id'):
         values['id'] = common_util.create_id()
-    face_ref = models.RelativeFace()
+    face_ref = models.RelevanceFace()
     face_ref.update(values)
     session = get_session()
     with session.begin():
@@ -366,7 +366,7 @@ def face_create(values):
         return values
 
 def face_list(offset=0, limit=1000, **filters):
-    query = model_query(models.RelativeFace, **filters)
+    query = model_query(models.RelevanceFace, **filters)
     if offset:
         query = query.offset(offset)
     if limit:
@@ -374,12 +374,12 @@ def face_list(offset=0, limit=1000, **filters):
     return query.all()
 
 def face_count(**filters):
-    query = model_query(models.RelativeFace, **filters)
+    query = model_query(models.RelevanceFace, **filters)
     return query.count()
 
 def face_destroy(id):
     session = get_session()
-    query = model_query(models.RelativeFace, session=session)
+    query = model_query(models.RelevanceFace, session=session)
     with session.begin():
         result = query.filter_by(id=id)
         result.delete(session=session)

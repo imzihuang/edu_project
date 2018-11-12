@@ -91,14 +91,15 @@ class ActionHandler(RequestHandler):
         ims.save(path)
 
     def face_auth(self):
-        relative_id = self.get_argument('relative_id', '')
+        relevance_id = self.get_argument('relevance_id', '')
+        relevance_type = int(self.get_argument('relevance_id', 1))
         school_id = self.get_argument('school_id', '')
-        if not relative_id:
-            self.finish(json.dumps({'state': 1, 'message': 'relative_code is None'}))
+        if not relevance_id:
+            self.finish(json.dumps({'state': 1, 'message': 'relevance_id is None'}))
             return
         # 将图片存储到本地
         img = self.get_argument('image', '')
-        file_path = self.static_path + self.face_path + relative_id + '.jpg'
+        file_path = self.static_path + self.face_path + relevance_id + '.jpg'
         with open(file_path, 'wb') as up:
              up.write(base64.b64decode(img.rpartition(",")[-1]))
 
@@ -120,7 +121,7 @@ class ActionHandler(RequestHandler):
             return
 
         _op = FaceLogic()
-        _op.create_face(school_id, relative_id, face_token, faceset_token, relevance_type=0)
+        _op.create_face(school_id, relevance_id, face_token, faceset_token, relevance_type=relevance_type)
         self.finish(json.dumps({'state': 0, 'message': 'face auth ok'}))
 
 
