@@ -155,7 +155,7 @@
 				//获取年级
 				gradeInput();
 
-				function gradeInput() {alert(111);
+				function gradeInput() {
 					var data = {
 						"limit": 20,
 						"offset": 1,
@@ -173,7 +173,7 @@
 						jsonpCallback: '',
 						cache: false,
 						timeout: "1000000",
-						success: function(msg) {alert(222);
+						success: function(msg) {
 							console.log(msg);
 							var str = '';
 							var layerSrt = '';
@@ -203,7 +203,7 @@
 
 				}
 				$("#grade-name").change(function(){
-					gradeInput();
+					classInput();
 				});
                 //获取班级
                 function classInput() {
