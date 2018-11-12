@@ -67,7 +67,7 @@ class TeacherLogic(Logic):
         if position in (1, 2):
             filters.update({"position": position})
         if school_id or school_name:
-            if school_name:
+            if not school_id:
                 _school_list = db_api.school_list(name=school_name)
                 if not _school_list:
                     return {"count": 0, "state": 0, "message": "query success", "data": []}
@@ -75,7 +75,7 @@ class TeacherLogic(Logic):
             filters.update({"school_id": school_id})
 
         if grade_id or grade_name:
-            if grade_name:
+            if not grade_id:
                 _grade_list = db_api.grade_list(name=grade_name)
                 if not _grade_list:
                     return {"count": 0, "state": 0, "message": "query success", "data": []}
@@ -83,7 +83,7 @@ class TeacherLogic(Logic):
             filters.update({"grade_id": grade_id})
 
         if class_id or class_name:
-            if class_name:
+            if not class_id:
                 _class_list = db_api.class_list(name=class_name)
                 if not _class_list:
                     return {"count": 0, "state": 0, "message": "query success", "data": []}

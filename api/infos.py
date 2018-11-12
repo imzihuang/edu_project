@@ -13,6 +13,7 @@ from logic.classlogic import ClassLogic
 from logic.teacher import TeacherLogic
 from logic.student import StudentLogic
 from logic.relative import RelativeLogic
+from logic.relation import RelationLogic
 from logic.teacher_history import Teacher_HistoryLogic
 from logic.student_history import Student_HistoryLogic
 
@@ -56,6 +57,10 @@ class InfosHandler(RequestHandler):
             if infos_obj == "relative":
                 _value = self._get_relative_argument()
                 _op = RelativeLogic()
+
+            if infos_obj == "relation":
+                _value = self._get_relation_argument()
+                _op = RelationLogic()
 
             _ = _op.infos(limit=limit, offset=offset, **_value)
             if _:
@@ -190,4 +195,28 @@ class InfosHandler(RequestHandler):
             "student_id": student_id,
             "student_name": student_name,
             "phone": phone
+        }
+
+    def _get_relation_argument(self):
+        id = self.get_argument('id', '')
+        student_id = self.get_argument('student_id', '')
+        student_name = self.get_argument('student_name', '')
+        relative_id = self.get_argument('relative_id', '')
+        relative_name = self.get_argument('relative_name', '')
+        phone = self.get_argument('phone', '')
+        class_id = self.get_argument('class_id', '')
+        class_name = self.get_argument('class_name', '')
+        grade_id = self.get_argument('grade_id', '')
+        grade_name = self.get_argument('grade_name', '')
+        return {
+            "id": id,
+            "student_id": student_id,
+            "student_name": student_name,
+            "relative_id": relative_id,
+            "relative_name": relative_name,
+            "phone": phone,
+            "class_id": class_id,
+            "class_name": class_name,
+            "grade_id": grade_id,
+            "grade_name":grade_name
         }
