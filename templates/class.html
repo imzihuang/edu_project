@@ -21,7 +21,11 @@
 		<script src="js/jquery.min.js"></script>
 
 	</head>
-
+    <style>
+    	#addMoreInfoContent span{
+    		width: 200px;
+    	}
+    </style>
 	<body class="gray-bg">
 		<div class="wrapper wrapper-content animated fadeIn">
 			<div class="row">
@@ -135,14 +139,14 @@
 			<form id="addMoreInfoContentform" role="form">
 				<div style="margin: 20px 0;">
 					<span>年级名称：</span>
-					<input type="checkbox" name="1" value="option1" />一年级
-					<input type="checkbox" name="2" value="option2" />二年级
-					<input type="checkbox" name="3" value="option3" />三年级
-					<input type="checkbox" name="4" value="option4" />四年级
-					<input type="checkbox" name="5" value="option5" />五年级
+					<input type="radio" name="1" value="option1" /><span>一年级</span>
+					<input type="radio" name="2" value="option2" /><span>二年级</span>
+					<input type="radio" name="3" value="option3" /><span>三年级</span>
+					<input type="radio" name="4" value="option4" /><span>四年级</span>
+					<input type="radio" name="5" value="option5" /><span>五年级</span>
 				</div>
 				<div style="margin: 20px 0;">
-					<span>班级名称：</span><input type="text" style="width: 350px;" id="addMore_name" name="addMore_name" />
+					<span>班级名称：</span><input type="text" style="width: 350px;" id="addMore_name" name="addMore_name" /><i class="fa fa-close" title="删除"></i>
 					<div class="errorPart"></div>
 				</div>
 				<input class="submit" type="submit" value="提交" id="addMoreInfoContentSubmit" style="display: none;">
