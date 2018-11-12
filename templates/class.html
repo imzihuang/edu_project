@@ -541,12 +541,10 @@
 								}
 							}
 							for(var j = 0; j < className; j++) {
-								if($('.classNamePart').children('div').eq(i).find('input').val() != '') {
-									classNameArray.push($('.classNamePart').children('div').eq(i).find('input').val());
+								if($('.classNamePart').children('div').eq(j).find('input').val() != '') {
+									classNameArray.push($('.classNamePart').children('div').eq(j).find('input').val());
 								}
 							}
-                            console.log(classNameArray);
-                            console.log(gradeNameArray);
 							for(var g = 0; g < gradeName; g++) {
 								for(var c = 0; c < className; c++) {
 									if(g == gradeName - 1 && c == className - 1) {
@@ -561,8 +559,6 @@
 											'grade_id': gradeNameArray[g],
 											'cardcode': cardcode,
 										});
-										console.log(classNameArray[c]);
-										console.log(gradeNameArray[g]);
 									}
 								}
 							}
