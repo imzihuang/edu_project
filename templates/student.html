@@ -21,7 +21,12 @@
 		<script src="js/jquery.min.js"></script>
 
 	</head>
-
+   <style>
+   	#class-name{
+   		width: 180px;
+   		margin-left: 5px;
+   	}
+   </style>
 	<body class="gray-bg">
 		<div class="wrapper wrapper-content animated fadeIn">
 			<div class="row">
@@ -34,7 +39,7 @@
 										<div class="bgBackground">
 											<div class="ibox-title-Myown1">
 												<div class="zx_searchTit">
-													<div class="sendInquiry2" style="float: left;">
+													<div class="sendInquiry2" style="float: left;width: 450px;">
 														<label class="control-label">所在班级：</label>
 														<select id="grade-name">
 															<option value="">--请选择年级--</option>
@@ -246,11 +251,11 @@
 
 				}
 				//获取列表
-				getAjaxData({
-					"school_id": school,
-					"limit": 20,
-					"offset": 1,
-				});
+//				getAjaxData({
+//					"school_id": school,
+//					"limit": 20,
+//					"offset": 1,
+//				});
 
 				function getAjaxData(senddata) {
 					$.ajax({
