@@ -130,7 +130,24 @@
 				<input class="submit" type="submit" value="提交" id="editAreaContentSubmit" style="display: none;">
 			</form>
 		</div>
-
+        <!--批量添加-->
+        <div id="addMoreInfoContent" style="display: none; width: 500px; padding: 20px;">
+			<form id="addMoreInfoContentform" role="form">
+				<div style="margin: 20px 0;">
+					<span>年级名称：</span>
+					<input type="checkbox" name="1" value="option1" />一年级
+					<input type="checkbox" name="2" value="option2" />二年级
+					<input type="checkbox" name="3" value="option3" />三年级
+					<input type="checkbox" name="4" value="option4" />四年级
+					<input type="checkbox" name="5" value="option5" />五年级
+				</div>
+				<div style="margin: 20px 0;">
+					<span>班级名称：</span><input type="text" style="width: 350px;" id="addMore_name" name="addMore_name" />
+					<div class="errorPart"></div>
+				</div>
+				<input class="submit" type="submit" value="提交" id="addMoreInfoContentSubmit" style="display: none;">
+			</form>
+		</div>
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/plugins/layer/layer.js"></script>
 		<script src="js/jquery.validate.min.js"></script>
@@ -489,6 +506,23 @@
 					});
 				});
 
+				//批量添加
+				$('.addInfoMore').click(function() {
+					layerIndex = layer.open({
+						title: '新增班级',
+						type: 1,
+						skin: 'layui-layer-demo',
+						closeBtn: 0,
+						anim: 2,
+						shadeClose: true,
+						btn: ['确定', '取消'],
+						content: $('#addMoreInfoContent'),
+						yes: function() {
+							$("#addMoreInfoContentSubmit").click();
+						}
+					});
+				});
+				
 				$('.fa-close').click(function() {
 					layer.confirm('确定删除选中的班级？', {
 						btn: ['确定', '取消'] //按钮
