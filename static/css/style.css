@@ -28,9 +28,11 @@ li {
 .col-sm-3 {
 	width: 25%;
 }
-.fl{
+
+.fl {
 	float: left;
 }
+
 @media (min-width: 768px) .col-sm-1,
 .col-sm-10,
 .col-sm-11,
@@ -1313,29 +1315,59 @@ body.fixed-sidebar.full-height-layout.gray-bg.pace-done.mini-navbar .nav>li.acti
 	width: 240px;
 	margin-bottom: 5px;
 }
+
 .sendInquiry0 {
 	width: 200px;
 }
-select{
+
+select {
 	height: 30px;
 	margin-left: -3px;
 	border: 1px solid #dcdcdc;
 }
-.errorPart{
+
+.errorPart {
 	padding-left: 100px;
 	clear: both;
 	line-height: normal;
 	position: absolute;
 }
-#grade-name{
+
+#grade-name {
 	width: 180px;
 }
-.errorPartS{
+
+.errorPartS {
 	padding-left: 105px;
 	color: #cc5965;
 	position: absolute;
 }
-textarea{
+
+textarea {
 	border-color: #dcdcdc;
 }
 
+#addMoreInfoContent .gradeName {
+	min-width: 60px;
+	display: inline-block;
+	margin: 0px 10px 10px 5px;
+}
+
+.gradeNamePart,.classNamePart{
+	width: 330px;
+}
+
+.gradeNameList, .classNameList{
+	display: inline-block;
+}
+
+#addMoreInfoContent .fa-close {
+	margin-left: 10px;
+	cursor: pointer;
+}
+
+#addMoreInfoContent .fa-plus-square {
+	margin-left: 10px;
+	color: #293846;
+	cursor: pointer;
+}

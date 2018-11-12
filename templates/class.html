@@ -21,28 +21,7 @@
 		<script src="js/jquery.min.js"></script>
 
 	</head>
-    <style>
-    	#addMoreInfoContent .className{
-    		min-width: 60px;
-    		display: inline-block;
-    		margin: 0px 0px 10px 5px;
-    	}
-    	.classNamePart{
-    		width: 330px;
-    	}
-    	.classNameList{
-    		display: inline-block;
-    	}
-    	#addMoreInfoContent .fa-close{
-    		margin-left: 10px;
-    		cursor: pointer;
-    	}
-    	#addMoreInfoContent .fa-plus-square{
-    		margin-left: 10px;
-            color: #293846;
-            cursor: pointer;
-    	}
-    </style>
+
 	<body class="gray-bg">
 		<div class="wrapper wrapper-content animated fadeIn">
 			<div class="row">
@@ -156,15 +135,21 @@
 			<form id="addMoreInfoContentform" role="form">
 				<div style="margin: 20px 0;">
 					<span class="fl">年级名称：</span>
-					<div class="classNamePart fl">
-						<!--<div class="classNameList"><input type="radio" name="1" value="option1" /><span class="className">一年级</span></div>-->
+					<div class="gradeNamePart fl">
+						<!--<div class="gradeNameList"><input type="radio" name="1" value="option1" /><span class="gradeName">一年级</span></div>-->
 					</div>
 					<div style="clear: both;"></div>
 				</div>
 				<div style="margin: 20px 0; clear: both;">
-					<span>班级名称：</span><input type="text" style="width: 200px;" id="addMore_name" name="addMore_name" /><i class="fa fa-close" title="删除"></i><i class="fa fa-plus-square" title="添加"></i>
-					<div class="errorPart"></div>
+					<span class="fl">班级名称：</span>
+					<div class="classNamePart">
+					  <div class="classNameList">
+						  <input type="text" style="width: 200px;"/>
+						  <i class="fa fa-plus-square" title="添加"></i>
+					  </div>
+					</div>
 				</div>
+				
 				<input class="submit" type="submit" value="提交" id="addMoreInfoContentSubmit" style="display: none;">
 			</form>
 		</div>
@@ -180,7 +165,13 @@
 				schoolInput();
 				//获取年级
 				gradeInput();
-
+                $("#addMoreInfoContent .fa-plus-square").click(function(){
+                	var addClass = '<div class="classNameList">' +
+						  '<input type="text" style="width: 200px;"/>' +
+						  '<i class="fa fa-close" title="删除"></i>'
+					      '</div>'	
+                	$(".classNamePart")append(addClass);
+                });
 				function gradeInput() {
 					var data = {
 						"limit": 20,
@@ -206,14 +197,14 @@
 							if(msg.data.length > 0) {
 								for(var i = 0; i < msg.data.length; i++) {
 									str += '<option value=' + msg.data[i].id + '>' + msg.data[i].name + '</option>';
-									layerSrt += '<div class="classNameList"><input type="radio" name="' + msg.data[i].id + 
-									'" value="' + msg.data[i].id + '" /><span class="className">' +  msg.data[i].name + '</span></div>'
+									layerSrt += '<div class="gradeNameList"><input type="radio" name="' + msg.data[i].id + 
+									'" value="' + msg.data[i].id + '" /><span class="gradeName">' +  msg.data[i].name + '</span></div>'
 								}
 								$("#grade-name").append(str);
 								$("#add_grade").append(str);
 								$("#edit_grade").html(str);
 								
-								$(".classNamePart").append(layerSrt);
+								$(".gradeNamePart").append(layerSrt);
 								
 							} else {
 								$("#grade-name").html('<option value="">---无---</option>');
