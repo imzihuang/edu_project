@@ -160,7 +160,7 @@
 										'<td class="centerSort">' + (i + 1) + '</td>' +
 										'<td class="data_name" id = ' + msg.data[i].id + '>' + msg.data[i].name + '</td>' +
 										'<td class="center">' + msg.data[i].create_time + '</td>' +
-										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除"></i></td>' +
+										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" id='+ msg.data[i].id +' title="删除"></i></td>' +
 										'</tr>'
 								}
 								$("#tbody").html(strs);
@@ -221,16 +221,12 @@
 				function getValArr(valArr) {
 					$("#tbody :checkbox").each(function(index, ele) {
 						if($(ele).prop("checked")) {
-							valArr.push($());
+							valArr.push($("#tbody tr").eq(index).find("td").eq(2).attr("id"));
 						}
 					});
 				}
 
-				function delData(valArr) {
-					for(var i = 0; i < valArr.length; i++) {
-						$('#trId_' + valArr[i]).remove();
-					}
-				}
+				
 
 				//查询
 				$("#searchBtn").click(function() {
@@ -387,15 +383,29 @@
 					layer.confirm('确定删除选中的年级？', {
 						btn: ['确定', '取消']
 					}, function() {
-						layer.msg('已经删除选中的年级', {
-							icon: 1,
-							time: 600
+						var data = {
+							'id': $(this).attr('id')
+						}
+						$.ajax({
+							type: "POST",
+							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+							url: "/grade/delete",
+							async: false,
+							data: data,
+							timeout: "30000",
+							success: function(msg) {
+								layer.closeAll();
+								layer.msg('删除成功', {
+									icon: 1,
+									time: 800 //2s后自动关闭
+								});
+								window.location.reload();
+							},
+							error: function() {
+								layer.msg('删除失败');
+								console.log("error");
+							}
 						});
-					}, function() {
-						/*layer.msg('也可以这样', {
-							time: 20000, //20s后自动关闭
-							btn: ['明白了', '知道了']
-						});*/
 					});
 				});
 			});
