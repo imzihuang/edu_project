@@ -26,9 +26,7 @@ th {
 .pull-right {
   float: right !important;
 }
-.pull-left {
-  float: left !important;
-}
+
 .well {
     /*background-color: #F5F5F5;
     border: 1px solid #E3E3E3;
@@ -91,7 +89,7 @@ b,strong {
   position: absolute !important;
   top: 100%;
   left: 0;
-  z-index: 1000;
+  z-index: 90000000;
   display: none;
   float: left;
   min-width: 160px;
