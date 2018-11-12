@@ -291,10 +291,10 @@
 							if(msg.data.length > 0) {
 								for(var i = 0; i < msg.data.length; i++) {
 									strs += '<tr class="gradeX">' +
-										'<td class="data_name">' + msg.data[i].name + '</td>' +
-										'<td class="center data_id">' + msg.data[i].id + '</td>' +
-										'<td class="center data_name">' + msg.data[i].miaoshu + '</td>' +
-										'<td class="center">' + msg.data[i].create_time + '</td>' +
+										'<td class="data_name">' + msg.data[i].student_name + '</td>' +
+										'<td class="center data_id">' + msg.data[i].relation + '</td>' +
+										'<td class="center data_name">' + msg.data[i].parent_name + '</td>' +
+										'<td class="center">' + msg.data[i].parent_phone + '</td>' +
 										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" id=' + msg.data[i].id + ' title="删除"></i></td>' +
 										'</tr>'
 								}
@@ -308,55 +308,6 @@
 						}
 					});
 				}
-
-				//删除
-				$('#delInfo').click(function() {
-					var trLength = $("#tbody tr").length;
-					var idArray = '';
-					var count = 0;
-					for(var i = 0; i < trLength; i++) {
-						if($("#tbody tr").eq(i).find('input').is(':checked')) {
-							if(count > 0) {
-								idArray = idArray + ',' + $("#tbody tr").eq(i).find('input').attr('id');
-								count++;
-							} else {
-								idArray = idArray + $("#tbody tr").eq(i).find('input').attr('id');
-								count++;
-							}
-						}
-					}
-					if(count > 1) {
-						layer.confirm('确定删除选中的班级？', {
-							btn: ['确定', '取消'] //按钮
-						}, function() {
-							var data = {
-								'id': idArray
-							}
-							$.ajax({
-								type: "POST",
-								contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-								url: "/class/delete",
-								async: false,
-								data: data,
-								timeout: "30000",
-								success: function(msg) {
-									layer.closeAll();
-									layer.msg('删除成功', {
-										icon: 1,
-										time: 800 //2s后自动关闭
-									});
-									window.location.reload();
-								},
-								error: function() {
-									layer.msg('删除失败');
-									console.log("error");
-								}
-							});
-						}, function() {});
-					} else {
-						$('#delInfo').attr("disabled", "disabled");
-					}
-				});
 
 				//查询
 				$("#searchBtn").click(function() {
@@ -535,109 +486,10 @@
 					});
 				});
 
-				//批量添加
-				$('#addInfoMore').click(function() {
-					layerIndex = layer.open({
-						title: '新增班级',
-						type: 1,
-						skin: 'layui-layer-demo',
-						closeBtn: 0,
-						anim: 2,
-						shadeClose: true,
-						btn: ['确定', '取消'],
-						content: $('#addMoreInfoContent'),
-						yes: function() {
-//							$("#addMoreInfoContentSubmit").click();
-							var gradeName = $('.gradeNamePart').children('div').length;
-							var className = $('.classNamePart').children('div').length;
-							var gradeNameArray = new Array();
-							var classNameArray = new Array();
-							for(var i = 0; i < gradeName; i++) {
-								if($('.gradeNamePart').children('div').eq(i).find('input').is(':checked')) {
-									gradeNameArray.push($('.gradeNamePart').children('div').eq(i).find('input').val());
-								}
-							}
-							for(var j = 0; j < className; j++) {
-								if($('.classNamePart').children('div').eq(j).find('input').val() != '') {
-									classNameArray.push($('.classNamePart').children('div').eq(j).find('input').val());
-								}
-							}
-							for(var g = 0; g < gradeName; g++) {
-								for(var c = 0; c < className; c++) {
-									if(g == gradeName - 1 && c == className - 1) {
-										addInfoMoreAjaxLast({
-											'name': classNameArray[c],
-											'grade_id': gradeNameArray[g],
-											'cardcode': cardcode,
-										});
-									} else {
-										addInfoMoreAjax({
-											'name': classNameArray[c],
-											'grade_id': gradeNameArray[g],
-											'cardcode': cardcode,
-										});
-									}
-								}
-							}
-
-							function addInfoMoreAjax(senddata) {
-								$.ajax({
-									type: "POST",
-									contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-									url: "/class/input",
-									async: false,
-									data: senddata,
-									timeout: "30000",
-									success: function(msg) {},
-									error: function() {
-										layer.msg('添加失败');
-										console.log("error");
-									}
-								});
-							}
-
-							function addInfoMoreAjaxLast(senddata) {
-								$.ajax({
-									type: "POST",
-									contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-									url: "/class/input",
-									async: false,
-									data: senddata,
-									timeout: "30000",
-									success: function(msg) {
-										layer.closeAll();
-										layer.msg('添加成功', {
-											icon: 1,
-											time: 800 //2s后自动关闭
-										});
-										window.location.reload();
-									},
-									error: function() {
-										layer.msg('添加失败');
-										console.log("error");
-									}
-								});
-							}
-						}
-					});
-				});
-
-				//批量添加-添加按钮
-				$("#addMoreInfoContent .fa-plus-square").click(function() {
-					var addClass = '<div class="classNameList addClassInput">' +
-						'<input type="text" style="width: 200px;"/>' +
-						'<i class="fa fa-close" title="删除"></i>'
-					'</div>'
-					$(".classNamePart").append(addClass);
-					//批量添加-删除按钮
-					$("#addMoreInfoContent .fa-close").click(function() {
-						$(this).parents(".classNameList").remove();
-					});
-				});
-
+				//删除
 				$('#tbody .fa-close').click(function() {
 					var deleteId = $(this).attr('id');
-					layer.confirm('确定删除选中的班级？', {
+					layer.confirm('确定删除选中的学生？', {
 						btn: ['确定', '取消']
 					}, function() {
 						var data = {
@@ -646,7 +498,7 @@
 						$.ajax({
 							type: "POST",
 							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-							url: "/class/delete",
+							url: "/student/delete",
 							async: false,
 							data: data,
 							timeout: "30000",
