@@ -158,7 +158,7 @@
 									strs += '<tr class="gradeX">' +
 										'<td><input type="checkbox" class="zx_checkedBtn"></td>' +
 										'<td class="centerSort">' + (i + 1) + '</td>' +
-										'<td class="data_name">' + msg.data[i].name + '</td>' +
+										'<td class="data_name" id = ' + msg.data[i].id + '>' + msg.data[i].name + '</td>' +
 										'<td class="center">' + msg.data[i].create_time + '</td>' +
 										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除"></i></td>' +
 										'</tr>'
@@ -221,7 +221,7 @@
 				function getValArr(valArr) {
 					$("#tbody :checkbox").each(function(index, ele) {
 						if($(ele).prop("checked")) {
-							valArr.push(index);
+							valArr.push($());
 						}
 					});
 				}
