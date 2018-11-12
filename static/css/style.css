@@ -1346,7 +1346,12 @@ select {
 textarea {
 	border-color: #dcdcdc;
 }
-
+.J_iframe{
+	height: 100% !important;
+}
+.padLeft100{
+	padding-left: 100px;
+}
 #addMoreInfoContent .gradeName {
 	min-width: 60px;
 	display: inline-block;
