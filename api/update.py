@@ -27,9 +27,7 @@ class UpdateHandler(RequestHandler):
                 _op = SchoolLogic()
 
             if update_obj == "grade":
-                LOG.info("------------111---------")
                 _id, _value = self._get_grade_argument()
-                LOG.info("------------222---------:%r"%_value)
                 _op = GradeLogic()
 
             if update_obj == "class":
@@ -68,7 +66,7 @@ class UpdateHandler(RequestHandler):
         describe = self.get_argument('describe', '')
         result = {}
         if name:
-            result.update({"name", name})
+            result.update({"name": name})
         if cardcode:
             result.update({"cardcode": cardcode})
         if describe:
@@ -81,7 +79,7 @@ class UpdateHandler(RequestHandler):
         school_id = self.get_argument('school_id', '')
         result = {}
         if name:
-            result.update({"name", name})
+            result.update({"name": name})
         if school_id:
             result.update({"school_id": school_id})
         return id, result
@@ -95,7 +93,7 @@ class UpdateHandler(RequestHandler):
         student_number = int(self.get_argument('study_number', 0))
         result = {}
         if name:
-            result.update({"name", name})
+            result.update({"name": name})
         if grade_id:
             result.update({"grade_id": grade_id})
         if cardcode:
@@ -115,7 +113,7 @@ class UpdateHandler(RequestHandler):
         phone = self.get_argument('phone', '')
         result = {}
         if name:
-            result.update({"name", name})
+            result.update({"name": name})
         if sex:
             result.update({"sex": sex})
         if birthday:
@@ -137,7 +135,7 @@ class UpdateHandler(RequestHandler):
         relation_number = int(self.get_argument('relation_number', 3))
         result = {}
         if name:
-            result.update({"name", name})
+            result.update({"name": name})
         if sex:
             result.update({"sex": sex})
         if birthday:
@@ -158,7 +156,7 @@ class UpdateHandler(RequestHandler):
         phone = self.get_argument('phone', '')
         result = {}
         if name:
-            result.update({"name", name})
+            result.update({"name": name})
         if sex:
             result.update({"sex": sex})
         if birthday:
