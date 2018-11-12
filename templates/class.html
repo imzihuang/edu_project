@@ -214,20 +214,6 @@
 
 				}
 				
-				//批量添加-添加按钮
-                $("#addMoreInfoContent .fa-plus-square").click(function(){
-                	var addClass = '<div class="classNameList addClassInput">' +
-						  '<input type="text" style="width: 200px;"/>' +
-						  '<i class="fa fa-close" title="删除"></i>'
-					      '</div>'	
-                	$(".classNamePart").append(addClass);
-                	//批量添加-删除按钮
-	                $("#addMoreInfoContent .fa-close").click(function(){console.log(2222);
-	                	$(this).parents(".classNameList").remove();
-	                });
-                });
-                
-                
 				//获取列表
 				getAjaxData({
 					"school_id": school,
@@ -544,10 +530,95 @@
 						content: $('#addMoreInfoContent'),
 						yes: function() {
 							$("#addMoreInfoContentSubmit").click();
+							var gradeName = $('.gradeNamePart').children('div').length;
+							var className = $('.classNamePart').children('div').length;
+							var gradeNameArray = new Array();
+							var classNameArray = new Array();
+							for(var i=0;i<gradeName;i++){
+								if($('.gradeNamePart').children('div').eq(i).find('input').is(':checked')){
+									gradeNameArray.push($('.gradeNamePart').children('div').eq(i).find('input').val());
+								}
+							}
+							for(var j=0;j<className;j++){
+								if($('.classNamePart').children('div').eq(i).find('input').val() != ''){
+									classNameArray.push($('.classNamePart').children('div').eq(i).find('input').val());
+								}
+							}
+						   
+						    for(var g=0;g<gradeName;g++){
+						    	for(var c=0;c<className;c++){
+						    		if(g == gradeName-1 && c == className-1){
+						    			addInfoMoreAjaxLast({
+											'name': classNameArray[c],
+											'grade_id': gradeNameArray[g],
+											'cardcode': cardcode,
+										});
+						    		}else{
+						    			addInfoMoreAjax({
+											'name': classNameArray[c],
+											'grade_id': gradeNameArray[g],
+											'cardcode': cardcode,
+										});
+						    		}
+						    		
+						    	}
+						    }
+							
+							function addInfoMoreAjax(senddata){
+								$.ajax({
+									type: "POST",
+									contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+									url: "/class/input",
+									async: false,
+									data: data,
+									timeout: "30000",
+									success: function(msg) {
+									},
+									error: function() {
+										layer.msg('添加失败');
+										console.log("error");
+									}
+								});
+							}
+							function addInfoMoreAjaxLast(senddata){
+								$.ajax({
+									type: "POST",
+									contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+									url: "/class/input",
+									async: false,
+									data: data,
+									timeout: "30000",
+									success: function(msg) {
+										layer.closeAll();
+										layer.msg('添加成功', {
+											icon: 1,
+											time: 800 //2s后自动关闭
+										});
+										window.location.reload();
+									},
+									error: function() {
+										layer.msg('添加失败');
+										console.log("error");
+									}
+								});
+							}
 						}
 					});
 				});
 				
+				//批量添加-添加按钮
+                $("#addMoreInfoContent .fa-plus-square").click(function(){
+                	var addClass = '<div class="classNameList addClassInput">' +
+						  '<input type="text" style="width: 200px;"/>' +
+						  '<i class="fa fa-close" title="删除"></i>'
+					      '</div>'	
+                	$(".classNamePart").append(addClass);
+                	//批量添加-删除按钮
+	                $("#addMoreInfoContent .fa-close").click(function(){
+	                	$(this).parents(".classNameList").remove();
+	                });
+                });
+                
 				$('.fa-close').click(function() {
 					layer.confirm('确定删除选中的班级？', {
 						btn: ['确定', '取消'] //按钮
