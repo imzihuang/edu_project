@@ -35,6 +35,12 @@
     	}
     	#addMoreInfoContent .fa-close{
     		margin-left: 10px;
+    		cursor: pointer;
+    	}
+    	#addMoreInfoContent .fa-plus-square{
+    		margin-left: 10px;
+            color: #293846;
+            cursor: pointer;
     	}
     </style>
 	<body class="gray-bg">
@@ -151,11 +157,7 @@
 				<div style="margin: 20px 0;">
 					<span class="fl">年级名称：</span>
 					<div class="classNamePart fl">
-						<div class="classNameList"><input type="radio" name="1" value="option1" /><span class="className">一年级</span></div>
-						<div class="classNameList"><input type="radio" name="2" value="option2" /><span class="className">二年级</span></div>
-						<div class="classNameList"><input type="radio" name="3" value="option3" /><span class="className">三年级</span></div>
-						<div class="classNameList"><input type="radio" name="4" value="option4" /><span class="className">四年级</span></div>
-						<div class="classNameList"><input type="radio" name="5" value="option5" /><span class="className">五年级</span></div>
+						<!--<div class="classNameList"><input type="radio" name="1" value="option1" /><span class="className">一年级</span></div>-->
 					</div>
 					<div style="clear: both;"></div>
 				</div>
@@ -200,13 +202,19 @@
 						success: function(msg) {
 							console.log(msg);
 							var str = '';
+							var layerSrt = '';
 							if(msg.data.length > 0) {
 								for(var i = 0; i < msg.data.length; i++) {
 									str += '<option value=' + msg.data[i].id + '>' + msg.data[i].name + '</option>';
+									layerSrt += '<div class="classNameList"><input type="radio" name="' + msg.data[i].id + 
+									'" value="' + msg.data[i].id + '" /><span class="className">' +  msg.data[i].name + '</span></div>'
 								}
 								$("#grade-name").append(str);
 								$("#add_grade").append(str);
-								$("#edit_grade").append(str);
+								$("#edit_grade").html(str);
+								
+								$(".classNamePart").append(layerSrt);
+								
 							} else {
 								$("#grade-name").html('<option value="">---无---</option>');
 								$("#add_grade").html('<option value="">---无---</option>');
