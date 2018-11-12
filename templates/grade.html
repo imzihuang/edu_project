@@ -185,7 +185,7 @@
                     			idArray = idArray + ',' + $("#tbody tr").eq(i).find('input').attr('id');
                     			count++;
                     		}else{
-	                    		idArray = idArray + $(this).attr('id');
+	                    		idArray = idArray + $("#tbody tr").eq(i).find('input').attr('id');
 	                    		count++;
                     		}
                     	}
