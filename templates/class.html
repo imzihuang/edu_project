@@ -191,7 +191,7 @@
 							if(msg.data.length > 0) {
 								for(var i = 0; i < msg.data.length; i++) {
 									str += '<option value=' + msg.data[i].id + '>' + msg.data[i].name + '</option>';
-									layerSrt += '<div class="gradeNameList"><input type="radio" name="' + msg.data[i].id +
+									layerSrt += '<div class="gradeNameList"><input type="checkbox" name="' + msg.data[i].id +
 										'" value="' + msg.data[i].id + '" /><span class="gradeName">' + msg.data[i].name + '</span></div>'
 								}
 								$("#grade-name").append(str);
@@ -564,13 +564,13 @@
 								}
 							}
 
-							function addInfoMoreAjax(senddata) {console.log(111111111);
+							function addInfoMoreAjax(senddata) {
 								$.ajax({
 									type: "POST",
 									contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
 									url: "/class/input",
 									async: false,
-									data: data,
+									data: senddata,
 									timeout: "30000",
 									success: function(msg) {},
 									error: function() {
@@ -580,13 +580,13 @@
 								});
 							}
 
-							function addInfoMoreAjaxLast(senddata) {console.log(22222222);
+							function addInfoMoreAjaxLast(senddata) {
 								$.ajax({
 									type: "POST",
 									contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
 									url: "/class/input",
 									async: false,
-									data: data,
+									data: senddata,
 									timeout: "30000",
 									success: function(msg) {
 										layer.closeAll();
