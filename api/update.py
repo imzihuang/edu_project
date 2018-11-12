@@ -27,7 +27,9 @@ class UpdateHandler(RequestHandler):
                 _op = SchoolLogic()
 
             if update_obj == "grade":
+                LOG.info("------------111---------")
                 _id, _value = self._get_grade_argument()
+                LOG.info("------------222---------:%r"%_value)
                 _op = GradeLogic()
 
             if update_obj == "class":
@@ -55,7 +57,7 @@ class UpdateHandler(RequestHandler):
             _ = _op.update(_id, **_value)
             self.finish(json.dumps({'state': 0, 'message': 'update info success.'}))
         except Exception as ex:
-            LOG.error("Input %s error:%s" % (update_obj, ex))
+            LOG.error("Update %s error:%s" % (update_obj, ex))
             self.finish(json.dumps({'state': 10, 'message': 'update action error'}))
 
 
