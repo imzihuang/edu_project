@@ -165,13 +165,6 @@
 				schoolInput();
 				//获取年级
 				gradeInput();
-                $("#addMoreInfoContent .fa-plus-square").click(function(){
-                	var addClass = '<div class="classNameList">' +
-						  '<input type="text" style="width: 200px;"/>' +
-						  '<i class="fa fa-close" title="删除"></i>'
-					      '</div>'	
-                	$(".classNamePart").append(addClass);
-                });
 				function gradeInput() {
 					var data = {
 						"limit": 20,
@@ -220,6 +213,20 @@
 					})
 
 				}
+				
+				//批量添加-添加按钮
+                $("#addMoreInfoContent .fa-plus-square").click(function(){
+                	var addClass = '<div class="classNameList addClassInput">' +
+						  '<input type="text" style="width: 200px;"/>' +
+						  '<i class="fa fa-close" title="删除"></i>'
+					      '</div>'	
+                	$(".classNamePart").append(addClass);
+                });
+                //批量添加-删除按钮
+                $("#addMoreInfoContent .fa-close").click(function(){
+                	$(this).parents(".classNameList").remove();
+                });
+                
 				//获取列表
 				getAjaxData({
 					"school_id": school,

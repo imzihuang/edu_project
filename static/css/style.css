@@ -1371,3 +1371,7 @@ textarea {
 	color: #293846;
 	cursor: pointer;
 }
+#addMoreInfoContent .addClassInput{
+	padding-left: 70px;
+	margin-top: 10px;
+}
