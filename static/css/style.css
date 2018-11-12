@@ -1338,3 +1338,6 @@ select{
 textarea{
 	border-color: #dcdcdc;
 }
+.clearfix{
+	clear: both;
+}
