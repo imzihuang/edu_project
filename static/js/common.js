@@ -44,12 +44,12 @@ function allchk() {
 	$('#delInfo').attr("disabled", false);
 	var chknum = $("#tbody :checkbox").size();
 	var chk = 0;
-	$("#tbody :checkbox").each(function(index, ele) {
-		$(this).parents('tr').attr('id', "trId_" + index);
-		if($(this).prop("checked") == true) {
-			chk++;
-		}
-	});
+	var trLength = $("#tbody tr").length;
+    for(var i=0;i<trLength;i++){
+    	if($("#tbody tr").eq(i).find('input').is(':checked')){
+    	    chk++;
+    	}
+    }
 	if(chknum == chk) {
 		$("input[name=allcheck]").prop("checked", true);
 	} else {
