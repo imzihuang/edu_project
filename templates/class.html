@@ -23,8 +23,11 @@
 	</head>
     <style>
     	#addMoreInfoContent .className{
-    		width: 200px;
+    		width: 60px;
     		display: inline-block;
+    	}
+    	.classNamePart{
+    		
     	}
     </style>
 	<body class="gray-bg">
@@ -139,12 +142,14 @@
         <div id="addMoreInfoContent" style="display: none; width: 500px; padding: 20px;">
 			<form id="addMoreInfoContentform" role="form">
 				<div style="margin: 20px 0;">
-					<span>年级名称：</span>
-					<input type="radio" name="1" value="option1" /><span class="className">一年级</span>
-					<input type="radio" name="2" value="option2" /><span class="className">二年级</span>
-					<input type="radio" name="3" value="option3" /><span class="className">三年级</span>
-					<input type="radio" name="4" value="option4" /><span class="className">四年级</span>
-					<input type="radio" name="5" value="option5" /><span class="className">五年级</span>
+					<span class="fl">年级名称：</span>
+					<div class="classNamePart fl">
+						<input type="radio" name="1" value="option1" /><span class="className">一年级</span>
+						<input type="radio" name="2" value="option2" /><span class="className">二年级</span>
+						<input type="radio" name="3" value="option3" /><span class="className">三年级</span>
+						<input type="radio" name="4" value="option4" /><span class="className">四年级</span>
+						<input type="radio" name="5" value="option5" /><span class="className">五年级</span>
+					</div>
 				</div>
 				<div style="margin: 20px 0;">
 					<span>班级名称：</span><input type="text" style="width: 350px;" id="addMore_name" name="addMore_name" /><i class="fa fa-close" title="删除"></i>
