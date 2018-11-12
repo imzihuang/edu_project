@@ -111,8 +111,8 @@
 				</div>
 				<div style="margin: 20px 0;">
 					<span>性别：</span>
-					<input type="radio" name="sex"/><span style="width: 50px;margin-left: 5px;">男</span>
-					<input type="radio" name="sex"/><span style="width: 50px;margin-left: 5px;">女</span>
+					<input type="radio" name="sex"/><span style="width: 40px;margin-left: 5px;">男</span>
+					<input type="radio" name="sex"/><span style="width: 40px;margin-left: 5px;">女</span>
 				</div>
 				<div style="margin: 20px 0;">
 					<span class="fl">备注：</span>
@@ -123,7 +123,7 @@
 					<select style="width: 170px;" id="add_grade" name="add_grade">
 						<option value="">--请选择年级--</option>
 					</select>
-					<select style="width: 170px; margin-left: 10px;" id="add_class" name="add_class">
+					<select style="width: 170px; margin-left: 6px;" id="add_class" name="add_class">
 						<option value="">--请选择班级--</option>
 					</select>
 				</div>
@@ -136,7 +136,7 @@
 						<option>奶奶</option>
 					</select>
 					<input id="relative_name1" type="text" name="relative_name1" placeholder="姓名"/>
-					<input id="relative_phone1" type="text" name="relative_phone1" placeholder="手机号码" class="padLeft100"/>
+					<input id="relative_phone1" type="text" name="relative_phone1" placeholder="手机号码" class="marLeft100 marTop10"/>
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
@@ -148,7 +148,7 @@
 						<option>奶奶</option>
 					</select>
 					<input id="relative_name2" type="text" name="relative_name2" placeholder="姓名"/>
-					<input id="relative_phone2" type="text" name="relative_phone2" placeholder="手机号码" class="padLeft100"/>
+					<input id="relative_phone2" type="text" name="relative_phone2" placeholder="手机号码" class="marLeft100 marTop10"/>
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
@@ -160,7 +160,7 @@
 						<option>奶奶</option>
 					</select>
 					<input id="relative_name3" type="text" name="relative_name3" placeholder="姓名"/>
-					<input id="relative_phone3" type="text" name="relative_phone3" placeholder="手机号码" class="padLeft100"/>
+					<input id="relative_phone3" type="text" name="relative_phone3" placeholder="手机号码" class="marLeft100 marTop10"/>
 					<div class="errorPart"></div>
 				</div>
 				<input class="submit" type="submit" value="提交" id="addInfoContentSubmit" style="display: none;">
@@ -170,18 +170,64 @@
 		<div id="editAreaContent" style="display: none; width: 500px; padding: 20px;">
 			<form id="editAreaContentform" role="form">
 				<div style="margin: 20px 0;">
-					<span>班级名称：</span><input type="text" style="width: 350px;" id="edit_name" name="edit_name" />
+					<span>学生姓名：</span><input type="text" style="width: 350px;" id="edit_name" name="edit_name" />
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
-					<span>请选择年级：</span>
-					<select style="width: 350px;" id="edit_grade" name="edit_grade">
-						<option value="">--请选择年级--</option>
-					</select>
-					<div class="errorPartS" style="display: none;">请选择年级</div>
+					<span>出生日期：</span><input type="text" style="width: 350px;" id="edit_bTime" name="edit_bTime" />
 				</div>
 				<div style="margin: 20px 0;">
-					<span class="fl">备注：</span><textarea style="width: 350px;" id="edit_remarks" name="edit_remarks"></textarea>
+					<span>性别：</span>
+					<input type="radio" name="editsex"/><span style="width: 40px;margin-left: 5px;">男</span>
+					<input type="radio" name="editsex"/><span style="width: 40px;margin-left: 5px;">女</span>
+				</div>
+				<div style="margin: 20px 0;">
+					<span class="fl">备注：</span>
+					<textarea style="width: 350px;" id="edit_remarks" name="edit_remarks"></textarea>
+				</div>
+				<div style="margin: 20px 0;" class="selectPart">
+					<span>所在班级：</span>
+					<select style="width: 170px;" id="edit_grade" name="edit_grade">
+						<option value="">--请选择年级--</option>
+					</select>
+					<select style="width: 170px; margin-left: 6px;" id="edit_class" name="edit_class">
+						<option value="">--请选择班级--</option>
+					</select>
+				</div>
+				<div style="margin: 20px 0;">
+					<span class="fl">第一联系人：</span>
+					<select>
+						<option>父亲</option>
+						<option>母亲</option>
+						<option>爷爷</option>
+						<option>奶奶</option>
+					</select>
+					<input id="edit_relative_name1" type="text" name="edit_relative_name1" placeholder="姓名"/>
+					<input id="edit_relative_phone1" type="text" name="edit_relative_phone1" placeholder="手机号码" class="marLeft100 marTop10"/>
+					<div class="errorPart"></div>
+				</div>
+				<div style="margin: 20px 0;">
+					<span class="fl">第一联系人：</span>
+					<select>
+						<option>父亲</option>
+						<option>母亲</option>
+						<option>爷爷</option>
+						<option>奶奶</option>
+					</select>
+					<input id="edit_relative_name2" type="text" name="edit_relative_name2" placeholder="姓名"/>
+					<input id="edit_relative_phone2" type="text" name="edit_relative_phone2" placeholder="手机号码" class="marLeft100 marTop10"/>
+					<div class="errorPart"></div>
+				</div>
+				<div style="margin: 20px 0;">
+					<span class="fl">第三联系人：</span>
+					<select>
+						<option>父亲</option>
+						<option>母亲</option>
+						<option>爷爷</option>
+						<option>奶奶</option>
+					</select>
+					<input id="edit_relative_name3" type="text" name="edit_relative_name3" placeholder="姓名"/>
+					<input id="edit_relative_phone3" type="text" name="edit_relative_phone3" placeholder="手机号码" class="marLeft100 marTop10"/>
 					<div class="errorPart"></div>
 				</div>
 				<input class="submit" type="submit" value="提交" id="editAreaContentSubmit" style="display: none;">

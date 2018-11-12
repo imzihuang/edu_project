@@ -1349,8 +1349,11 @@ textarea {
 .J_iframe{
 	height: 100% !important;
 }
-.padLeft100{
-	padding-left: 100px;
+.marLeft100{
+	margin-left: 100px;
+}
+.marTop10{
+	margin-top: 10px;
 }
 #addMoreInfoContent .gradeName {
 	min-width: 60px;
