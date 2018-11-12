@@ -325,8 +325,8 @@
 								for(var i = 0; i < msg.data.length; i++) {
 									str += '<option value=' + msg.data[i].id + '>' + msg.data[i].name + '</option>';
 								}
-								$("#class-name").append(str);
-								$("#add_class").append(str);
+								$("#class-name").html(str);
+								$("#add_class").html(str);
 								$("#edit_class").html(str);
 
 							} else {
