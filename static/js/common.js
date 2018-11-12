@@ -40,7 +40,7 @@ $("#tbody :checkbox").click(function() {
 })
 
 //全选
-function allchk() {
+function allchk() {console.log(222222);
 	$('#delInfo').attr("disabled", false);
 	var chknum = $("#tbody :checkbox").size();
 	var chk = 0;
