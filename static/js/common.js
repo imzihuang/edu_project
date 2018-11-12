@@ -49,7 +49,7 @@ function allchk() {
     	if($("#tbody tr").eq(i).find('input').is(':checked')){
     	    chk++;
     	}
-    }
+    }console.log(chk);console.log(chknum);
 	if(chknum == chk) {
 		$("input[name=allcheck]").prop("checked", true);
 	} else {
