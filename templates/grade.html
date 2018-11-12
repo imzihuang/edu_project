@@ -98,7 +98,7 @@
 				<input class="submit" type="submit" value="提交" id="editAreaContentSubmit" style="display: none;">
 			</form>
 		</div>
-       
+
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/plugins/layer/layer.js"></script>
 		<script src="js/jquery.validate.min.js"></script>
@@ -156,11 +156,11 @@
 							if(msg.data.length > 0) {
 								for(var i = 0; i < msg.data.length; i++) {
 									strs += '<tr class="gradeX">' +
-										'<td><input type="checkbox" class="zx_checkedBtn" id='+ msg.data[i].id +'></td>' +
+										'<td><input type="checkbox" class="zx_checkedBtn" id=' + msg.data[i].id + '></td>' +
 										'<td class="centerSort">' + (i + 1) + '</td>' +
 										'<td class="data_name" id = ' + msg.data[i].id + '>' + msg.data[i].name + '</td>' +
 										'<td class="center">' + msg.data[i].create_time + '</td>' +
-										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" id='+ msg.data[i].id +' title="删除"></i></td>' +
+										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" id=' + msg.data[i].id + ' title="删除"></i></td>' +
 										'</tr>'
 								}
 								$("#tbody").html(strs);
@@ -173,23 +173,23 @@
 						}
 					});
 				}
-		
+
 				//批量删除
 				$('#delInfo').click(function() {
 					var trLength = $("#tbody tr").length;
-                    var idArray = '';
-                    var count = 0;
-                    for(var i=0;i<trLength;i++){
-                    	if($("#tbody tr").eq(i).find('input').is(':checked')){
-                    		if(count>0){
-                    			idArray = idArray + ',' + $("#tbody tr").eq(i).find('input').attr('id');
-                    			count++;
-                    		}else{
-	                    		idArray = idArray + $("#tbody tr").eq(i).find('input').attr('id');
-	                    		count++;
-                    		}
-                    	}
-                    }
+					var idArray = '';
+					var count = 0;
+					for(var i = 0; i < trLength; i++) {
+						if($("#tbody tr").eq(i).find('input').is(':checked')) {
+							if(count > 0) {
+								idArray = idArray + ',' + $("#tbody tr").eq(i).find('input').attr('id');
+								count++;
+							} else {
+								idArray = idArray + $("#tbody tr").eq(i).find('input').attr('id');
+								count++;
+							}
+						}
+					}
 					if(count > 1) {
 						layer.confirm('确定删除选中的年级？', {
 							btn: ['确定', '取消'] //按钮
@@ -222,7 +222,7 @@
 						$('#delInfo').attr("disabled", "disabled");
 					}
 
-				});				
+				});
 
 				//查询
 				$("#searchBtn").click(function() {
@@ -333,7 +333,7 @@
 								layer.msg('修改成功', {
 									icon: 1,
 									time: 80
-									
+
 								});
 								getAjaxData({
 									"name": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
@@ -374,7 +374,8 @@
 						}
 					});
 				});
-
+               
+                //单项删除
 				$('.fa-close').click(function() {
 					var deleteId = $(this).attr('id');
 					layer.confirm('确定删除选中的年级？', {
@@ -405,43 +406,43 @@
 						});
 					});
 				});
-			    
-			    //全选按钮
-$("#zx_checkedAllBtn").click(function() {
-	if(this.checked) {
-		$("#tbody :checkbox").prop("checked", true);
-	} else {
-		$("#tbody :checkbox").prop("checked", false);
-	}
-	allchk();
-});
 
-$("#tbody :checkbox").click(function() {
-	allchk();
-})
+				//全选按钮
+				$("#zx_checkedAllBtn").click(function() {
+					if(this.checked) {
+						$("#tbody :checkbox").prop("checked", true);
+					} else {
+						$("#tbody :checkbox").prop("checked", false);
+					}
+					allchk();
+				});
 
-//全选
-function allchk() {console.log(222222);
-	$('#delInfo').attr("disabled", false);
-	var chknum = $("#tbody :checkbox").size();
-	var chk = 0;
-	var trLength = $("#tbody tr").length;
-    for(var i=0;i<trLength;i++){
-    	if($("#tbody tr").eq(i).find('input').is(':checked')){
-    	    chk++;
-    	}
-    }console.log(chk);console.log(chknum);
-	if(chknum == chk) {
-		$("input[name=allcheck]").prop("checked", true);
-	} else {
-		$("input[name=allcheck]").prop("checked", false);
-	}
-	if(chk >= 1) {
-		$('#delInfo').attr('class', 'btn btn-primary btn-myown');
-	} else {
-		$('#delInfo').attr('class', 'btn btn-default btn-myown');
-	}
-}
+				$("#tbody :checkbox").click(function() {
+					allchk();
+				})
+
+				//全选
+				function allchk() {
+					$('#delInfo').attr("disabled", false);
+					var chknum = $("#tbody :checkbox").size();
+					var chk = 0;
+					var trLength = $("#tbody tr").length;
+					for(var i = 0; i < trLength; i++) {
+						if($("#tbody tr").eq(i).find('input').is(':checked')) {
+							chk++;
+						}
+					}
+					if(chknum == chk) {
+						$("input[name=allcheck]").prop("checked", true);
+					} else {
+						$("input[name=allcheck]").prop("checked", false);
+					}
+					if(chk >= 1) {
+						$('#delInfo').attr('class', 'btn btn-primary btn-myown');
+					} else {
+						$('#delInfo').attr('class', 'btn btn-default btn-myown');
+					}
+				}
 			});
 		</script>
 	</body>
