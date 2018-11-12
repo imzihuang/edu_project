@@ -379,12 +379,12 @@
 					});
 				});
 
-				$('.fa-close').click(function() {console.log($(this).attr('id'));
+				$('.fa-close').click(function() {
 					layer.confirm('确定删除选中的年级？', {
 						btn: ['确定', '取消']
 					}, function() {
 						var data = {
-							'id': $(this).attr('id')
+							'id': 123
 						}
 						$.ajax({
 							type: "POST",
