@@ -35,40 +35,28 @@
 											<div class="ibox-title-Myown1">
 												<div class="zx_searchTit">
 													<div class="sendInquiry2" style="float: left;">
-														<label class="control-label">学生编号：</label>
-														<input type="text" name="" value="" id="student-id"/>
+														<label class="control-label">所在班级：</label>
+														<select id="grade-name">
+															<option value="">--请选择年级--</option>
+														</select>
+														<select id="class-name">
+															<option value="">--请选择班级-</option>
+														</select>
 													</div>
 													<div class="sendInquiry2" style="float: left;">
-														<label class="control-label">学生名称：</label>
-														<input type="text" name="" value="" id="student-name"/>
+														<label class="control-label">学生姓名：</label>
+														<input type="text" name="" value="" id="student-name" />
 													</div>
 													<div class="sendInquiry2" style="float: left;">
-														<label class="control-label">所属学校编号：</label>
-														<input type="text" name="" value="" id="school-id"/>
+														<label class="control-label">家长姓名：</label>
+														<input type="text" name="" value="" id="parent-name" />
 													</div>
 													<div class="sendInquiry2" style="float: left;">
-														<label class="control-label">所属学校名称：</label>
-														<input type="text" name="" value="" id="school-name"/>
-													</div>
-													<div class="sendInquiry2" style="float: left;">
-														<label class="control-label">班级编号：</label>
-														<input type="text" name="" value="" id="class-id"/>
-													</div>
-													<div class="sendInquiry2" style="float: left;">
-														<label class="control-label">班级名称：</label>
-														<input type="text" name="" value="" id="class-name"/>
-													</div>
-													<div class="sendInquiry2" style="float: left;">
-														<label class="control-label">亲属编号：</label>
-														<input type="text" name="" value="" id="relative-id"/>
-													</div>
-													<div class="sendInquiry2" style="float: left;">
-														<label class="control-label">亲属姓名：</label>
-														<input type="text" name="" value="" id="relative-name"/>
+														<label class="control-label">家长手机：</label>
+														<input type="text" name="" value="" id="parent-phone" />
 													</div>
 													<div class="sendInquiry0 col-sm-4" style="position: relative; margin:3.5px 0 0 0;">
-														<button class="btn btn-primary btn-myown" id="searchBtn">查询</button>&nbsp;&nbsp;
-														<button class="btn btn-primary btn-myown" id="addManage">批量导入</button>
+														<button class="btn btn-primary btn-myown" id="searchBtn">查询</button>
 													</div>
 													<div style="clear: both;"></div>
 												</div>
@@ -78,29 +66,19 @@
 													<thead>
 														<tr class="zx_checkedAll">
 															<th colspan="6" style="text-align: left; background: none;padding: 10px 0px;">
-																<button class="btn btn-default btn-myown" id="delInfo" disabled="disabled"><i class="fa fa-trash"></i>&nbsp;删除选中项</button>
-																<button class="btn btn-primary btn-myown" id="addInfo">+添加学生</button>
+																<button class="btn btn-primary btn-myown" id="addInfo">+添加</button>&nbsp;&nbsp;
 															</th>
 														</tr>
 														<tr class="zx_thTitle">
-															<th><input type="checkbox" class="zx_checkedBtn" id="zx_checkedAllBtn" name="allcheck" value="allCheck"></th>
-															<th>序号</th>
-															<th>学生编号</th>
-															<th>学生名称</th>
-															<th>性别</th>
-															<th>年龄</th>
-															<th>年级</th>
-															<th>班级编号</th>
-															<th>学校编号</th>
-															<th>学生状态</th>
-															<th>亲属上限</th>
-															<th>创建时间</th>
-															<th>最后一次更新时间</th>
+															<th>学生姓名</th>
+															<th>关系</th>
+															<th>家长姓名</th>
+															<th>手机号码</th>
 															<th style="width: 120px;">操作</th>
 														</tr>
 													</thead>
 													<tbody id="tbody">
-														
+
 													</tbody>
 												</table>
 												<div id="layPage"></div>
@@ -115,198 +93,214 @@
 
 			</div>
 		</div>
-        <!-- 添加内容-->
+
+		<!--添加内容-->
 		<div id="addInfoContent" style="display: none; width: 500px; padding: 20px;">
 			<form id="addInfoContentform" role="form" method="POST">
-			<div style="margin: 20px 0;">
-				<span>学生姓名：</span><input type="text" style="width: 350px;" id="add_name" name="add_name"/>
-				<div class="errorPart"></div>
-			</div>
-			<div style="margin: 20px 0;">
-				<span>性别：</span>
-				<select style="width: 350px;" id="add_sex" name="add_sex">
-					<option value="0">女</option>
-					<option value="1">男</option>
-				</select>
-				<div class="errorPart"></div>
-			</div>
-			<div style="margin: 20px 0;">
-				<span>年龄：</span><input type="text" style="width: 350px;" id="add_age" name="add_age"/>
-				<div class="errorPart"></div>
-			</div>
-			<div style="margin: 20px 0;">
-				<span>所属班级：</span><input type="text" style="width: 350px;" id="add_class_id" name="add_class_id"/>
-				<div class="errorPart"></div>
-			</div>
-			<div style="margin: 20px 0;">
-				<span>所属学校：</span><input type="text" style="width: 350px;" id="add_school_id" name="add_school_id"/>
-				<div class="errorPart"></div>
-			</div>
-			<div style="margin: 20px 0;">
-				<span>学生状态：</span>
-				<select style="width: 350px;"  id="add_status" name="add_status">
-					<option value="apply">报名</option>
-					<option value="dropout">退学</option>
-					<option value="graduate">毕业</option>
-				</select>
-				<div class="errorPart"></div>
-			</div>
-			<div style="margin: 20px 0;">
-				<span>亲属上限：</span><input type="text" style="width: 350px;"  id="add_relation_number" name="add_relation_number"/>
-				<div class="errorPart"></div>
-			</div>
+				<div style="margin: 20px 0;">
+					<span>班级名称：</span><input type="text" style="width: 350px;" id="add_name" name="add_name" />
+					<div class="errorPart"></div>
+				</div>
+				<div style="margin: 20px 0;" class="selectPart">
+					<span>请选择年级：</span>
+					<select style="width: 350px;" id="add_grade" name="add_grade">
+						<option value="">--请选择年级--</option>
+					</select>
+					<div class="errorPartS" style="display: none;">请选择年级</div>
+				</div>
+				<div style="margin: 20px 0;">
+					<span class="fl">备注：</span><textarea style="width: 350px;" id="add_remarks" name="add_remarks"></textarea>
+					<div class="errorPart"></div>
+				</div>
 				<input class="submit" type="submit" value="提交" id="addInfoContentSubmit" style="display: none;">
 			</form>
 		</div>
-        <!--编辑内容-->
+		<!--编辑内容-->
 		<div id="editAreaContent" style="display: none; width: 500px; padding: 20px;">
 			<form id="editAreaContentform" role="form">
-			<div style="margin: 20px 0;">
-				<span>学生编号：</span><input type="text" style="width: 350px;" id="edit_id" name="edit_id"/>
-				<div class="errorPart"></div>
-			</div>
-			<div style="margin: 20px 0;">
-				<span>学生名称：</span><input type="text" style="width: 350px;" id="edit_name" name="edit_name"/>
-				<div class="errorPart"></div>
-			</div>
-			<div style="margin: 20px 0;">
-				<span>性别：</span>
-				<select style="width: 350px;" id="edit_sex" name="edit_sex">
-					<option value="0">女</option>
-					<option value="1">男</option>
-				</select>
-				<div class="errorPart"></div>
-			</div>
-			<div style="margin: 20px 0;">
-				<span>年龄：</span><input type="text" style="width: 350px;" id="edit_age" name="edit_age"/>
-				<div class="errorPart"></div>
-			</div>
-			<div style="margin: 20px 0;">
-				<span>班级编号：</span><input type="text" style="width: 350px;" id="edit_class_id" name="edit_class_id"/>
-				<div class="errorPart"></div>
-			</div>
-			<div style="margin: 20px 0;">
-				<span>学校编号：</span><input type="text" style="width: 350px;" id="edit_school_id" name="edit_school_id"/>
-				<div class="errorPart"></div>
-			</div>
-			<div style="margin: 20px 0;">
-				<span>状态：</span>
-				<select style="width: 350px;" id="edit_status" name="edit_status">
-					<option name="apply">报名</option>
-					<option name="dropout">退学</option>
-					<option name="graduate">毕业</option>
-				</select>
-				<div class="errorPart"></div>
-			</div>
-			<div style="margin: 20px 0;">
-				<span>亲属上限：</span><input type="text" style="width: 350px;" id="edit_relation_number" name="edit_relation_number"/>
-				<div class="errorPart"></div>
-			</div>
-			<input class="submit" type="submit" value="提交" id="editAreaContentSubmit" style="display: none;">
+				<div style="margin: 20px 0;">
+					<span>班级名称：</span><input type="text" style="width: 350px;" id="edit_name" name="edit_name" />
+					<div class="errorPart"></div>
+				</div>
+				<div style="margin: 20px 0;">
+					<span>请选择年级：</span>
+					<select style="width: 350px;" id="edit_grade" name="edit_grade">
+						<option value="">--请选择年级--</option>
+					</select>
+					<div class="errorPartS" style="display: none;">请选择年级</div>
+				</div>
+				<div style="margin: 20px 0;">
+					<span class="fl">备注：</span><textarea style="width: 350px;" id="edit_remarks" name="edit_remarks"></textarea>
+					<div class="errorPart"></div>
+				</div>
+				<input class="submit" type="submit" value="提交" id="editAreaContentSubmit" style="display: none;">
 			</form>
 		</div>
-
+		
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/plugins/layer/layer.js"></script>
 		<script src="js/jquery.validate.min.js"></script>
 		<script src="js/jquery.form.js"></script>
 		<script src="js/layui.js" charset="utf-8"></script>
+		<script src="js/common.js" charset="utf-8"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
+				//获取学校
+				schoolInput();
+				//获取年级
+				gradeInput();
+
+				function gradeInput() {
+					var data = {
+						"limit": 20,
+						"offset": 1,
+						'school_id': school,
+					}
+					$.ajax({
+						method: 'GET',
+						xhrFields: {
+							"withCredentials": true
+						},
+						contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+						url: "/grade/infos",
+						data: data,
+						dataType: 'json',
+						jsonpCallback: '',
+						cache: false,
+						timeout: "1000000",
+						success: function(msg) {
+							console.log(msg);
+							var str = '';
+							var layerSrt = '';
+							if(msg.data.length > 0) {
+								for(var i = 0; i < msg.data.length; i++) {
+									str += '<option value=' + msg.data[i].id + '>' + msg.data[i].name + '</option>';
+									layerSrt += '<div class="gradeNameList"><input type="checkbox" name="' + msg.data[i].id +
+										'" value="' + msg.data[i].id + '" /><span class="gradeName">' + msg.data[i].name + '</span></div>'
+								}
+								$("#grade-name").append(str);
+								$("#add_grade").append(str);
+								$("#edit_grade").html(str);
+
+								$(".gradeNamePart").append(layerSrt);
+
+							} else {
+								$("#grade-name").html('<option value="">---无---</option>');
+								$("#add_grade").html('<option value="">---无---</option>');
+								$("#edit_grade").html('<option value="">---无---</option>');
+
+							}
+						},
+						complete: function(XMLHttpRequest, status) {
+
+						}
+					})
+
+				}
+				$("#grade-name").change(function(){
+					gradeInput();
+				});
+                //获取班级
+                function gradeInput() {
+					var data = {
+						"limit": 20,
+						"offset": 1,
+						'school_id': school,
+						"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
+					}
+					$.ajax({
+						method: 'GET',
+						xhrFields: {
+							"withCredentials": true
+						},
+						contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+						url: "/class/infos",
+						data: data,
+						dataType: 'json',
+						jsonpCallback: '',
+						cache: false,
+						timeout: "1000000",
+						success: function(msg) {
+							console.log(msg);
+							var str = '';
+							var layerSrt = '';
+							if(msg.data.length > 0) {
+								for(var i = 0; i < msg.data.length; i++) {
+									str += '<option value=' + msg.data[i].id + '>' + msg.data[i].name + '</option>';
+								}
+								$("#class-name").append(str);
+								$("#add_class").append(str);
+								$("#edit_class").html(str);
+
+							} else {
+								$("#class-name").html('<option value="">---无---</option>');
+								$("#add_class").html('<option value="">---无---</option>');
+								$("#edit_class").html('<option value="">---无---</option>');
+
+							}
+						},
+						complete: function(XMLHttpRequest, status) {
+
+						}
+					})
+
+				}
+				//获取列表
 				getAjaxData({
-					"id": $("#student-id").val() == '' ? undefined : $("#student-id").val(),
-					"name": $("#student-name").val() == '' ? undefined : $("#student-name").val(),
-					"school_id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
-					"school_name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
-					"class_id": $("#class-id").val() == '' ? undefined : $("#class-id").val(),
-					"class_name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
-					"relative_id": $("#relative-id").val() == '' ? undefined : $("#relative-id").val(),
-					"relative_name": $("#relative-name").val() == '' ? undefined : $("#relative-namee").val(),
+					"school_id": school,
 					"limit": 20,
 					"offset": 1,
 				});
-				
-				//列表
+
 				function getAjaxData(senddata) {
 					$.ajax({
 						type: "GET",
 						contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-						url: "/student/infos",
+						url: "/relation/infos",
 						async: false,
 						data: senddata,
 						timeout: "30000",
-						success: function(msg) {
-							var msg = JSON.parse(msg);
+						success: function(msg) {console.log(msg);
+							var msg = JSON.parse(msg);console.log(msg);
 							//分页
-							layui.use(['laypage', 'layer'], function () {
-							  var page = layui.laypage;  
-	                          page.render({
-									elem: "layPage",
-									count: msg.count,
-									curr: senddata.offset,
-									limit: senddata.limit,
-									layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
-									jump: function(e, first) {
-										if(!first) {
-											senddata.offset = e.curr;
-											senddata.limit = e.limit;
-											var district = "";
-											getAjaxData({
-												"id": $("#student-id").val() == '' ? undefined : $("#student-id").val(),
-												"name": $("#student-name").val() == '' ? undefined : $("#student-name").val(),
-												"school_id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
-												"school_name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
-												"class_id": $("#class-id").val() == '' ? undefined : $("#class-id").val(),
-												"class_name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
-												"relative_id": $("#relative-id").val() == '' ? undefined : $("#relative-id").val(),
-												"relative_name": $("#relative-name").val() == '' ? undefined : $("#relative-namee").val(),
-												"limit": e.limit,
-											    "offset": e.curr,
-											});
+							layui.use(['laypage', 'layer'], function() {
+									var page = layui.laypage;
+									page.render({
+										elem: "layPage",
+										count: msg.count,
+										curr: senddata.offset,
+										limit: senddata.limit,
+										layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
+										jump: function(e, first) {
+											if(!first) {
+												senddata.offset = e.curr;
+												senddata.limit = e.limit;
+												var district = "";
+												getAjaxData({
+													"name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
+													"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
+													"limit": e.limit,
+													"offset": e.curr,
+												});
+											}
 										}
-									}
+									})
 								})
-							})
-							//表格渲染
+								//表格渲染
 							var strs = '';
-							console.log(msg);
 							if(msg.data.length > 0) {
 								for(var i = 0; i < msg.data.length; i++) {
-									if(msg.data[i].status == "apply"){
-										msg.data[i].status = "报名";
-									}else if(msg.data[i].status == "dropout"){
-										msg.data[i].status = "退学";
-									}else{
-										msg.data[i].status = "毕业";
-									}
-									if(msg.data[i].sex == 0){
-										msg.data[i].sex = "女";
-									}else{
-										msg.data[i].sex = "男";
-									}
-									if(msg.data[i].grade == undefined){
-										msg.data[i].grade = "暂无"
-									}
 									strs += '<tr class="gradeX">' +
-										'<td><input type="checkbox" class="zx_checkedBtn"></td>' +
-										'<td class="centerSort">' + (i + 1) + '</td>' +
-										'<td class="userMessage data_id">' + msg.data[i].id + '</td>' +
 										'<td class="data_name">' + msg.data[i].name + '</td>' +
-										'<td class="center data_sex">' + msg.data[i].sex + '</td>' +
-										'<td class="center data_age">' + msg.data[i].age + '</td>' +
-										'<td class="center data_grade">' + msg.data[i].grade + '</td>' +
-										'<td class="center data_class_id">' + msg.data[i].class_id + '</td>' +
-										'<td class="data_school_id">' + msg.data[i].school_id + '</td>' +
-										'<td class="center data_status">' + msg.data[i].status + '</td>' +
-										'<td class="center data_relation_number">' + msg.data[i].relation_number + '</td>' +
+										'<td class="center data_id">' + msg.data[i].id + '</td>' +
+										'<td class="center data_name">' + msg.data[i].miaoshu + '</td>' +
 										'<td class="center">' + msg.data[i].create_time + '</td>' +
-										'<td class="center">' + msg.data[i].updated_time + '</td>' +
-										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除"></i></td>' +
+										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" id=' + msg.data[i].id + ' title="删除"></i></td>' +
 										'</tr>'
 								}
 								$("#tbody").html(strs);
 							} else {
-								$("#tbody").html('<tr><td colspan="13" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
+								$("#tbody").html('<tr><td colspan="5" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
 							}
 						},
 						error: function() {
@@ -314,7 +308,363 @@
 						}
 					});
 				}
-				
+
+				//删除
+				$('#delInfo').click(function() {
+					var trLength = $("#tbody tr").length;
+					var idArray = '';
+					var count = 0;
+					for(var i = 0; i < trLength; i++) {
+						if($("#tbody tr").eq(i).find('input').is(':checked')) {
+							if(count > 0) {
+								idArray = idArray + ',' + $("#tbody tr").eq(i).find('input').attr('id');
+								count++;
+							} else {
+								idArray = idArray + $("#tbody tr").eq(i).find('input').attr('id');
+								count++;
+							}
+						}
+					}
+					if(count > 1) {
+						layer.confirm('确定删除选中的班级？', {
+							btn: ['确定', '取消'] //按钮
+						}, function() {
+							var data = {
+								'id': idArray
+							}
+							$.ajax({
+								type: "POST",
+								contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+								url: "/class/delete",
+								async: false,
+								data: data,
+								timeout: "30000",
+								success: function(msg) {
+									layer.closeAll();
+									layer.msg('删除成功', {
+										icon: 1,
+										time: 800 //2s后自动关闭
+									});
+									window.location.reload();
+								},
+								error: function() {
+									layer.msg('删除失败');
+									console.log("error");
+								}
+							});
+						}, function() {});
+					} else {
+						$('#delInfo').attr("disabled", "disabled");
+					}
+				});
+
+				//查询
+				$("#searchBtn").click(function() {
+					getAjaxData({
+						"name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
+						"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
+						"limit": 20,
+						"offset": 1,
+					});
+				});
+
+				//添加校验
+				var layerIndex;
+				$("#add_grade").click(function() {
+					$(".selectPart .errorPartS").css("display", "none");
+				});
+				$("#addInfoContentform").validate({
+					focusCleanup: true,
+					focusInvalid: false,
+					debug: true,
+					rules: {
+						add_name: {
+							required: true,
+						}
+					},
+					messages: {
+						add_name: {
+							required: '必填',
+						},
+					},
+					submitHandler: function(form) {
+						if($("#add_grade").val() != '') {
+							var data = {
+								'name': $("#add_name").val(),
+								'grade_id': $("#add_grade").val(),
+								'cardcode': cardcode,
+								'describe': $("#add_remarks").val() == '' ? undefined : $("#add_remarks").val(),
+							}
+							$.ajax({
+								type: "POST",
+								contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+								url: "/class/input",
+								async: false,
+								data: data,
+								timeout: "30000",
+								success: function(msg) {
+									layer.closeAll();
+									layer.msg('添加成功', {
+										icon: 1,
+										time: 800 //2s后自动关闭
+									});
+									window.location.reload();
+								},
+								error: function() {
+									layer.msg('添加失败');
+									console.log("error");
+								}
+							});
+						} else {
+							$(".selectPart .errorPartS").css("display", "block");
+						}
+					},
+					errorPlacement: function(error, element) {
+						error.appendTo(element.parent().find(".errorPart"));
+					},
+					success: function() {}
+				});
+
+				//添加弹框
+				$('#addInfo').click(function() {
+					console.log(2);
+					$("input").val("");
+					$(".errorPart").html("");
+					$(".selectPart .errorPartS").css("display", "none");
+					layerIndex = layer.open({
+						title: '添加班级',
+						type: 1,
+						skin: 'layui-layer-demo',
+						anim: 2,
+						shadeClose: true,
+						btn: ['确定', '取消'],
+						content: $('#addInfoContent'),
+						yes: function() {
+							$("#addInfoContentSubmit").click();
+							if($("#add_grade").val() == '') {
+								$(".selectPart .errorPartS").css("display", "block");
+							}
+						}
+					});
+				});
+
+				//编辑校验
+				$("#editAreaContentform").validate({
+					focusCleanup: true,
+					focusInvalid: false,
+					debug: true,
+					rules: {
+						edit_name: {
+							required: true,
+						},
+						edit_school_id: {
+							required: true,
+						},
+					},
+					messages: {
+						edit_name: {
+							required: '必填',
+						},
+						edit_school_id: {
+							required: '必填',
+						},
+					},
+					submitHandler: function(form) {
+						if($("#edit_grade").val() != '') {
+							var data = {
+								'name': $("#edit_name").val(),
+								'grade_id': $("#edit_grade").val(),
+								'cardcode': cardcode,
+								'describe': $("#edit_remarks").val() == '' ? undefined : $("#edit_remarks").val(),
+							}
+							$.ajax({
+								type: "POST",
+								contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+								url: "/class/update",
+								async: false,
+								data: data,
+								timeout: "30000",
+								success: function(msg) {
+									layer.closeAll();
+									layer.msg('编辑成功', {
+										icon: 1,
+										time: 800 //2s后自动关闭
+									});
+									window.location.reload();
+								},
+								error: function() {
+									layer.msg('编辑失败');
+									console.log("error");
+								}
+							});
+						} else {
+							$(".selectPart .errorPartS").css("display", "block");
+						}
+					},
+
+					errorPlacement: function(error, element) {
+						error.appendTo(element.parent().find(".errorPart"));
+					},
+					success: function() {}
+				});
+
+				//编辑弹框
+				$('.areapen').click(function() {
+					$("input").val("");
+					$(".errorPart").html("");
+					$(".selectPart .errorPartS").css("display", "none");
+
+					$("#edit_name").val($(this).parent("td").siblings(".data_name").html());
+					console.log($(this).parent("td").siblings(".data_grade_name").attr("name"));
+					$("#edit_grade").val($(this).parent("td").siblings(".data_grade_name").attr("name"));
+					layerIndex = layer.open({
+						title: '修改班级信息',
+						type: 1,
+						skin: 'layui-layer-demo',
+						closeBtn: 0,
+						anim: 2,
+						shadeClose: true,
+						btn: ['确定', '取消'],
+						content: $('#editAreaContent'),
+						yes: function() {
+							$("#editAreaContentSubmit").click();
+							if($("#edit_grade").val() == '') {
+								$(".selectPart .errorPartS").css("display", "block");
+							}
+						}
+					});
+				});
+
+				//批量添加
+				$('#addInfoMore').click(function() {
+					layerIndex = layer.open({
+						title: '新增班级',
+						type: 1,
+						skin: 'layui-layer-demo',
+						closeBtn: 0,
+						anim: 2,
+						shadeClose: true,
+						btn: ['确定', '取消'],
+						content: $('#addMoreInfoContent'),
+						yes: function() {
+//							$("#addMoreInfoContentSubmit").click();
+							var gradeName = $('.gradeNamePart').children('div').length;
+							var className = $('.classNamePart').children('div').length;
+							var gradeNameArray = new Array();
+							var classNameArray = new Array();
+							for(var i = 0; i < gradeName; i++) {
+								if($('.gradeNamePart').children('div').eq(i).find('input').is(':checked')) {
+									gradeNameArray.push($('.gradeNamePart').children('div').eq(i).find('input').val());
+								}
+							}
+							for(var j = 0; j < className; j++) {
+								if($('.classNamePart').children('div').eq(j).find('input').val() != '') {
+									classNameArray.push($('.classNamePart').children('div').eq(j).find('input').val());
+								}
+							}
+							for(var g = 0; g < gradeName; g++) {
+								for(var c = 0; c < className; c++) {
+									if(g == gradeName - 1 && c == className - 1) {
+										addInfoMoreAjaxLast({
+											'name': classNameArray[c],
+											'grade_id': gradeNameArray[g],
+											'cardcode': cardcode,
+										});
+									} else {
+										addInfoMoreAjax({
+											'name': classNameArray[c],
+											'grade_id': gradeNameArray[g],
+											'cardcode': cardcode,
+										});
+									}
+								}
+							}
+
+							function addInfoMoreAjax(senddata) {
+								$.ajax({
+									type: "POST",
+									contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+									url: "/class/input",
+									async: false,
+									data: senddata,
+									timeout: "30000",
+									success: function(msg) {},
+									error: function() {
+										layer.msg('添加失败');
+										console.log("error");
+									}
+								});
+							}
+
+							function addInfoMoreAjaxLast(senddata) {
+								$.ajax({
+									type: "POST",
+									contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+									url: "/class/input",
+									async: false,
+									data: senddata,
+									timeout: "30000",
+									success: function(msg) {
+										layer.closeAll();
+										layer.msg('添加成功', {
+											icon: 1,
+											time: 800 //2s后自动关闭
+										});
+										window.location.reload();
+									},
+									error: function() {
+										layer.msg('添加失败');
+										console.log("error");
+									}
+								});
+							}
+						}
+					});
+				});
+
+				//批量添加-添加按钮
+				$("#addMoreInfoContent .fa-plus-square").click(function() {
+					var addClass = '<div class="classNameList addClassInput">' +
+						'<input type="text" style="width: 200px;"/>' +
+						'<i class="fa fa-close" title="删除"></i>'
+					'</div>'
+					$(".classNamePart").append(addClass);
+					//批量添加-删除按钮
+					$("#addMoreInfoContent .fa-close").click(function() {
+						$(this).parents(".classNameList").remove();
+					});
+				});
+
+				$('#tbody .fa-close').click(function() {
+					var deleteId = $(this).attr('id');
+					layer.confirm('确定删除选中的班级？', {
+						btn: ['确定', '取消']
+					}, function() {
+						var data = {
+							'id': deleteId
+						}
+						$.ajax({
+							type: "POST",
+							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+							url: "/class/delete",
+							async: false,
+							data: data,
+							timeout: "30000",
+							success: function(msg) {
+								layer.closeAll();
+								layer.msg('删除成功', {
+									icon: 1,
+									time: 800 //2s后自动关闭
+								});
+								window.location.reload();
+							},
+							error: function() {
+								layer.msg('删除失败');
+								console.log("error");
+							}
+						});
+					});
+				});
 				
 				//全选按钮
 				$("#zx_checkedAllBtn").click(function() {
@@ -329,21 +679,21 @@
 				$("#tbody :checkbox").click(function() {
 					allchk();
 				})
-				
+
 				//全选
 				function allchk() {
 					$('#delInfo').attr("disabled", false);
-					var chknum = $("#tbody :checkbox").size();  
+					var chknum = $("#tbody :checkbox").size();
 					var chk = 0;
-					$("#tbody :checkbox").each(function(index, ele) {
-						$(this).parents('tr').attr('id', "trId_" + index);
-						if($(this).prop("checked") == true) {
+					var trLength = $("#tbody tr").length;
+					for(var i = 0; i < trLength; i++) {
+						if($("#tbody tr").eq(i).find('input').is(':checked')) {
 							chk++;
 						}
-					});
-					if(chknum == chk) { 
+					}
+					if(chknum == chk) {
 						$("input[name=allcheck]").prop("checked", true);
-					} else { 
+					} else {
 						$("input[name=allcheck]").prop("checked", false);
 					}
 					if(chk >= 1) {
@@ -352,318 +702,6 @@
 						$('#delInfo').attr('class', 'btn btn-default btn-myown');
 					}
 				}
-
-				
-				//删除
-				$('#delInfo').click(function() {
-					var valArr = new Array;
-					getValArr(valArr);
-
-					if(valArr.length > 0) {
-
-						layer.confirm('确定删除选中的学生？', {
-							btn: ['确定', '取消'] //按钮
-						}, function() {
-							$.ajax({
-								method:'POST',
-								xhrFields:{
-									"withCredentials":true
-								},
-								contentType:"application/x-www-form-urlencoded;chartset=UTF-8",
-								url:"",
-								data:sendData,
-								dataType:'json',
-								jsonpCallback:'',
-								cache:false,
-								timeout:"1000000",
-								success:function(data){
-									console.log(valArr)
-									delData(valArr);
-									layer.closeAll();
-									layer.msg('删除成功', {
-										icon: 1,
-										time: 600
-									});
-									$('#delInfo').attr("disabled", "disabled");
-									$('#delInfo').attr('class', 'btn btn-default btn-myown');
-								},
-								complete:function(XMLHttpRequest,status){
-									
-								}
-							})
-							
-						}, function() {});
-					} else {
-						$('#delInfo').attr("disabled", "disabled");
-					}
-
-				});
-
-				function getValArr(valArr) {
-					$("#tbody :checkbox").each(function(index, ele) {
-						if($(ele).prop("checked")) {
-							valArr.push(index);
-						}
-					});
-				}
-
-				function delData(valArr) {
-					for(var i = 0; i < valArr.length; i++) {
-						$('#trId_' + valArr[i]).remove();
-					}
-				}
-
-				//查询
-				$("#searchBtn").click(function(){
-					getAjaxData({
-						"id": $("#student-id").val() == '' ? undefined : $("#student-id").val(),
-						"name": $("#student-name").val() == '' ? undefined : $("#student-name").val(),
-						"school_id": $("#school-id").val() == '' ? undefined : $("#school-id").val(),
-						"school_name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
-						"class_id": $("#class-id").val() == '' ? undefined : $("#class-id").val(),
-						"class_name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
-						"relative_id": $("#relative-id").val() == '' ? undefined : $("#relative-id").val(),
-						"relative_name": $("#relative-name").val() == '' ? undefined : $("#relative-namee").val(),
-						"limit": 20,
-						"offset": 1,
-					});
-				});
-				
-				//添加校验
-				var layerIndex;
-				$("#addInfoContentform").validate({
-					focusCleanup: true,
-					focusInvalid: false,
-					debug: true,
-					rules: {
-						add_name: {
-							required: true,
-						},
-						add_age: {
-							required: true,
-						},
-						add_class_id: {
-							required: true,
-						},
-						add_school_id: {
-							required: true,
-						},
-						add_status: {
-							required: true,
-						},
-						add_relation_number: {
-							required: true,
-						},
-					},
-					messages: {
-						add_name: {
-							required:  '必填',
-						},
-						add_age: {
-							required: '必填',
-						},
-						add_class_id: {
-							required: '必填',
-						},
-						add_school_id: {
-							required: '必填',
-						},
-						add_status: {
-							required: '必填',
-						},
-						add_relation_number: {
-							required: '必填',
-						},
-					},
-					submitHandler: function(form) {
-						var data = {
-							'name': $("#add_name").val(),
-							'sex': $("#add_sex option:selected").val(),
-							'age': $("#add_age").val(),
-							'class_id': $("#add_class_id").val(),
-							'school_id': $("#add_school_id").val(),
-							'status': $("#add_status option:selected").val(),
-							'relation_number': $("#add_relation_number").val()
-						}
-						$.ajax({
-							type: "POST",
-							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-							url: "/student/input",
-							async: false,
-							data: data,
-							timeout: "30000",
-							success: function(msg) {
-								layer.closeAll();
-								layer.msg('添加成功', {
-									icon: 1,
-									time: 800 //2s后自动关闭
-								});
-                                window.location.reload();
-							},
-							error: function() {
-								layer.msg('添加失败');
-								console.log("error");
-							}
-						});
-
-					},
-					errorPlacement: function(error, element) {
-						error.appendTo(element.parent().find(".errorPart"));
-					},
-					success: function() {
-					}
-				});
-				
-				//添加弹框
-				$('#addInfo').click(function() {
-					$("input").val("");
-					$(".errorPart").html("");
-					layerIndex = layer.open({
-						title: '添加学生',
-						type: 1,
-						skin: 'layui-layer-demo', 
-						anim: 2,
-						shadeClose: true, 
-						btn: ['确定', '取消'],
-						content: $('#addInfoContent'),
-						yes: function() {
-							$("#addInfoContentSubmit").click();
-						}
-					});
-				});
-                
-                //编辑校验
-				$("#editAreaContentform").validate({
-					focusCleanup: true,
-					focusInvalid: false,
-					debug: true,
-					rules: {
-						edit_id: {
-							required: true,
-						},
-						edit_name: {
-							required: true,
-						},
-						edit_age: {
-							required: true,
-						},
-						edit_class_id: {
-							required: true,
-						},
-						edit_school_id: {
-							required: true,
-						},
-						edit_relation_number: {
-							required: true,
-						},
-					},
-					messages: {
-						edit_id: {
-							required:  '必填',
-						},
-						edit_name: {
-							required:  '必填',
-						},
-						edit_age: {
-							required:  '必填',
-						},
-						edit_class_id: {
-							required:  '必填',
-						},
-						edit_school_id: {
-							required:  '必填',
-						},
-						edit_relation_number: {
-							required:  '必填',
-						},
-					},
-					submitHandler: function(form) {
-						var data = {
-							'id': $("#edit_id").val(),
-							'name': $("#edit_name").val(),
-							'sex': $("#edit_sex option:selected").val(),
-							'age': $("#edit_age").val(),
-							'class_id': $("#edit_class_id").val(),
-							'school_id': $("#edit_school_id").val(),
-							'status': $("#edit_status option:selected").val(),
-							'relation_number': $("#edit_relation_number").val(),
-						}
-						$.ajax({
-							type: "POST",
-							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-							url: "/student/update",
-							async: false,
-							data: data,
-							timeout: "30000",
-							success: function(msg) {
-								layer.closeAll();
-								layer.msg('修改成功', {
-									icon: 1,
-									time: 800 //2s后自动关闭
-								});
-                                window.location.reload()
-							},
-							error: function() {
-								layer.msg('修改失败');
-								console.log("error");
-							}
-						});
-					},
-
-					errorPlacement: function(error, element) {
-						error.appendTo(element.parent().find(".errorPart"));
-					},
-					success: function() {
-					}
-				});
-				
-				//编辑弹框
-				$('.areapen').click(function() {
-					$(".errorPart").html("");
-					$("#edit_id").val($(this).parent("td").siblings(".data_id").html());
-					$("#edit_name").val($(this).parent("td").siblings(".data_name").html());
-					if($(this).parent("td").siblings(".data_sex").html() == '男'){
-						$("#edit_sex option[value = 1]").attr('selected', 'selected');
-					}else{
-						$("#edit_sex option[value = 0]").attr('selected', 'selected');
-					}
-					$("#edit_age").val($(this).parent("td").siblings(".data_age").html());
-					$("#edit_grade").val($(this).parent("td").siblings(".data_grade").html());
-					$("#edit_class_id").val($(this).parent("td").siblings(".data_class_id").html());
-					$("#edit_school_id").val($(this).parent("td").siblings(".data_school_id").html());
-					$("#edit_status").val($(this).parent("td").siblings(".data_status").html());
-					$("#edit_relation_number").val($(this).parent("td").siblings(".data_relation_number").html());
-					
-					layerIndex = layer.open({
-						title: '修改学生信息',
-						type: 1,
-						skin: 'layui-layer-demo', 
-						closeBtn: 0,
-						anim: 2,
-						shadeClose: true, 
-						btn: ['确定', '取消'], 
-						content: $('#editAreaContent'),
-						yes: function() {
-							$("#editAreaContentSubmit").click();
-						}
-					});
-				});
-
-				$('.fa-close').click(function() {
-					layer.confirm('确定删除选中的学生？', {
-						btn: ['确定', '取消'] //按钮
-					}, function() {
-						layer.msg('已经删除选中的学生', {
-							icon: 1,
-							time: 600
-						});
-					}, function() {
-						/*layer.msg('也可以这样', {
-							time: 20000, //20s后自动关闭
-							btn: ['明白了', '知道了']
-						});*/
-					});
-				});
 			});
 		</script>
 	</body>
