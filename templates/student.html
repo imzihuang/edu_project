@@ -39,6 +39,9 @@
 			top: auto;
 			cursor: pointer;
 		}
+		.daterangepicker_input{
+			display: none;
+		}
 	</style>
 
 	<body class="gray-bg">
@@ -120,10 +123,10 @@
 					<span>学生姓名：</span><input type="text" style="width: 350px;" id="add_name" name="add_name" />
 					<div class="errorPart"></div>
 				</div>
-				<div style="margin: 20px 0;">
+				<div style="margin: 20px 0;position: relative;">
 					<span>出生日期：</span>
-					 <input type="text" id="config-demo" class="form-control">
-                     <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+					 <input type="text" id="config-demo" class="form-control" style="width: 350px;display: inline-block;">
+                     <i class="glyphicon glyphicon-calendar fa fa-calendar" style="position: absolute;right: 20px;top: 8px;"></i>
 				</div>
 				<div style="margin: 20px 0;">
 					<span>性别：</span>
@@ -662,8 +665,8 @@
 						timePicker24Hour: true,
 						timePicker: true,
 						"locale": {
-							format: 'YYYY-MM-DD HH:mm',
-							applyLabel: "应用",
+							format: 'YYYY-MM-DD',
+							applyLabel: "确定",
 							cancelLabel: "取消",
 							resetLabel: "重置",
 						}
