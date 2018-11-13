@@ -113,7 +113,8 @@ def grade_deleted(id):
         query = model_query(models.GradeInfo, session=session, id=id)
         query.update({
             "deleted": True
-        })
+        },
+        synchronize_session=False)
 
 #####################grade end################################
 
