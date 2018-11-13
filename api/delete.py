@@ -46,6 +46,7 @@ class DeleteHandler(RequestHandler):
 
             if not id:
                 self.finish(json.dumps({'state': 9, 'message': 'params %s is None' % delete_obj}))
+            id = id.split(",")
             _op.delete(id)
             self.finish(json.dumps({'state': 0, 'message': 'update info success.'}))
         except Exception as ex:

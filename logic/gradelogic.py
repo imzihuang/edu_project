@@ -35,7 +35,7 @@ class GradeLogic(Logic):
         if name:
             filters.update({"name": name})
         if school_id or school_name:
-            if school_name:
+            if not school_id:
                 _school_list = db_api.school_list(name=school_name)
                 if not _school_list:
                     return {"count": 0, "state": 0, "message": "query success", "data": []}

@@ -110,9 +110,8 @@ def grade_count(**filters):
 def grade_deleted(id):
     session = get_session()
     with session.begin():
-        model_query(models.GradeInfo, session=session)\
-            .filter_by(id=id).first()\
-            .update({
+        query = model_query(models.GradeInfo, session=session, id=id)
+        query.update({
             "deleted": True
         })
 
@@ -158,9 +157,8 @@ def class_count(**filters):
 def class_deleted(id):
     session = get_session()
     with session.begin():
-        model_query(models.ClassInfo, session=session)\
-            .filter_by(id=id).first()\
-            .update({
+        query = model_query(models.ClassInfo, session=session, id=id)
+        query.update({
             "deleted": True
         })
 
@@ -206,9 +204,8 @@ def teacher_count(**filters):
 def teacher_deleted(id):
     session = get_session()
     with session.begin():
-        model_query(models.TeacherInfo, session=session)\
-            .filter_by(id=id).first()\
-            .update({
+        query = model_query(models.TeacherInfo, session=session, id=id)
+        query.update({
             "deleted": True
         })
 
@@ -298,9 +295,8 @@ def student_history_count(**filters):
 def student_deleted(id):
     session = get_session()
     with session.begin():
-        model_query(models.StudentInfo, session=session)\
-            .filter_by(id=id).first()\
-            .update({
+        query = model_query(models.StudentInfo, session=session, id=id)
+        query.update({
             "deleted": True
         })
 
@@ -346,9 +342,8 @@ def relative_count(**filters):
 def relative_deleted(id):
     session = get_session()
     with session.begin():
-        model_query(models.RelativeInfo, session=session)\
-            .filter_by(id=id).first()\
-            .update({
+        query = model_query(models.RelativeInfo, session=session, id=id)
+        query.update({
             "deleted": True
         })
 
@@ -379,10 +374,9 @@ def face_count(**filters):
 
 def face_destroy(id):
     session = get_session()
-    query = model_query(models.RelevanceFace, session=session)
     with session.begin():
-        result = query.filter_by(id=id)
-        result.delete(session=session)
+        query = model_query(models.RelevanceFace, session=session, id=id)
+        query.delete(session=session)
 
 #####################face end################################
 
@@ -427,9 +421,8 @@ def relation_count(**filters):
 def relation_deleted(id):
     session = get_session()
     with session.begin():
-        model_query(models.RelationInfo, session=session)\
-            .filter_by(id=id).first()\
-            .update({
+        query = model_query(models.RelationInfo, session=session, id=id)
+        query.update({
             "deleted": True
         })
 #####################relation end################################
@@ -474,9 +467,8 @@ def user_count(**filters):
 def user_deleted(id):
     session = get_session()
     with session.begin():
-        model_query(models.UserInfo, session=session)\
-            .filter_by(id=id).first()\
-            .update({
+        query = model_query(models.UserInfo, session=session, id=id)
+        query.update({
             "deleted": True
         })
 
@@ -522,9 +514,8 @@ def wxuser_count(**filters):
 def wxuser_deleted(id):
     session = get_session()
     with session.begin():
-        model_query(models.UserInfo, session=session) \
-            .filter_by(id=id).first() \
-            .update({
+        query = model_query(models.WXUserInfo, session=session, id=id)
+        query.update({
             "deleted": True
         })
 

@@ -30,7 +30,7 @@ class Teacher_HistoryLogic(Logic):
         if id:
             filters.update({"id": id})
         if teacher_id or teacher_name:
-            if teacher_name:
+            if not teacher_id:
                 _teacher_list = db_api.teacher_list(name=teacher_name)
                 if _teacher_list:
                     teacher_id = [teacher_info.id for teacher_info in _teacher_list]
