@@ -265,7 +265,7 @@
 		<script src="js/common.js" charset="utf-8"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
-				TimeSelectOption($('#searchDateRange'), $('#reportrange'));
+				TimeSelectOption($('#config-demo'));
 				//获取学校
 				schoolInput();
 				//获取年级
@@ -653,7 +653,8 @@
 				});
 
 				//添加弹框日期
-				function TimeSelectOption(showDateId, reportrangeId) {
+				var beginTimeTake;
+				function TimeSelectOption(reportrangeId) {
 					reportrangeId.daterangepicker({
 						singleDatePicker: true,
 						showDropdowns: true,
