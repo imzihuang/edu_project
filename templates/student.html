@@ -17,18 +17,17 @@
 		<link href="css/style.css" rel="stylesheet" type="text/css" />
 		<link href="js/plugins/layer/skin/default/layer.css" rel="stylesheet" type="text/css" />
 		<link href="css/layui.css" media="all" rel="stylesheet">
-		<link href="css/lyz.calendar.css" media="all" rel="stylesheet">
+		<link href="css/daterangepicker.css" media="all" rel="stylesheet">
 
 		<script src="js/jquery.min.js"></script>
 
 	</head>
-	<style>
-		#class-name {
-			width: 180px;
-			margin-left: 5px;
-		}
-	</style>
-
+   <style>
+   	#class-name{
+   		width: 180px;
+   		margin-left: 5px;
+   	}
+   </style>
 	<body class="gray-bg">
 		<div class="wrapper wrapper-content animated fadeIn">
 			<div class="row">
@@ -110,12 +109,16 @@
 				</div>
 				<div style="margin: 20px 0;">
 					<span>出生日期：</span>
-					<input id="txtBeginDate" style="width: 350px;" type="text"/>
+					<div id="reportrange" style="width: 350px;" class="pull-left dateRange">
+						<i class="icon icon-calendar"></i>
+						<span id="searchDateRange"></span>
+						<b class="caret"></b>
+					</div>
 				</div>
 				<div style="margin: 20px 0;">
 					<span>性别：</span>
-					<input type="radio" name="sex" /><span style="width: 40px;margin-left: 5px;">男</span>
-					<input type="radio" name="sex" /><span style="width: 40px;margin-left: 5px;">女</span>
+					<input type="radio" name="sex"/><span style="width: 40px;margin-left: 5px;">男</span>
+					<input type="radio" name="sex"/><span style="width: 40px;margin-left: 5px;">女</span>
 				</div>
 				<div style="margin: 20px 0;">
 					<span class="fl">备注：</span>
@@ -138,8 +141,8 @@
 						<option>爷爷</option>
 						<option>奶奶</option>
 					</select>
-					<input id="relative_name1" type="text" name="relative_name1" placeholder="姓名" />
-					<input id="relative_phone1" type="text" name="relative_phone1" placeholder="手机号码" class="marLeft100 marTop10" />
+					<input id="relative_name1" type="text" name="relative_name1" placeholder="姓名"/>
+					<input id="relative_phone1" type="text" name="relative_phone1" placeholder="手机号码" class="marLeft100 marTop10"/>
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
@@ -150,8 +153,8 @@
 						<option>爷爷</option>
 						<option>奶奶</option>
 					</select>
-					<input id="relative_name2" type="text" name="relative_name2" placeholder="姓名" />
-					<input id="relative_phone2" type="text" name="relative_phone2" placeholder="手机号码" class="marLeft100 marTop10" />
+					<input id="relative_name2" type="text" name="relative_name2" placeholder="姓名"/>
+					<input id="relative_phone2" type="text" name="relative_phone2" placeholder="手机号码" class="marLeft100 marTop10"/>
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
@@ -162,8 +165,8 @@
 						<option>爷爷</option>
 						<option>奶奶</option>
 					</select>
-					<input id="relative_name3" type="text" name="relative_name3" placeholder="姓名" />
-					<input id="relative_phone3" type="text" name="relative_phone3" placeholder="手机号码" class="marLeft100 marTop10" />
+					<input id="relative_name3" type="text" name="relative_name3" placeholder="姓名"/>
+					<input id="relative_phone3" type="text" name="relative_phone3" placeholder="手机号码" class="marLeft100 marTop10"/>
 					<div class="errorPart"></div>
 				</div>
 				<input class="submit" type="submit" value="提交" id="addInfoContentSubmit" style="display: none;">
@@ -186,8 +189,8 @@
 				</div>
 				<div style="margin: 20px 0;">
 					<span>性别：</span>
-					<input type="radio" name="editsex" /><span style="width: 40px;margin-left: 5px;">男</span>
-					<input type="radio" name="editsex" /><span style="width: 40px;margin-left: 5px;">女</span>
+					<input type="radio" name="editsex"/><span style="width: 40px;margin-left: 5px;">男</span>
+					<input type="radio" name="editsex"/><span style="width: 40px;margin-left: 5px;">女</span>
 				</div>
 				<div style="margin: 20px 0;">
 					<span class="fl">备注：</span>
@@ -210,8 +213,8 @@
 						<option>爷爷</option>
 						<option>奶奶</option>
 					</select>
-					<input id="edit_relative_name1" type="text" name="edit_relative_name1" placeholder="姓名" />
-					<input id="edit_relative_phone1" type="text" name="edit_relative_phone1" placeholder="手机号码" class="marLeft100 marTop10" />
+					<input id="edit_relative_name1" type="text" name="edit_relative_name1" placeholder="姓名"/>
+					<input id="edit_relative_phone1" type="text" name="edit_relative_phone1" placeholder="手机号码" class="marLeft100 marTop10"/>
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
@@ -222,8 +225,8 @@
 						<option>爷爷</option>
 						<option>奶奶</option>
 					</select>
-					<input id="edit_relative_name2" type="text" name="edit_relative_name2" placeholder="姓名" />
-					<input id="edit_relative_phone2" type="text" name="edit_relative_phone2" placeholder="手机号码" class="marLeft100 marTop10" />
+					<input id="edit_relative_name2" type="text" name="edit_relative_name2" placeholder="姓名"/>
+					<input id="edit_relative_phone2" type="text" name="edit_relative_phone2" placeholder="手机号码" class="marLeft100 marTop10"/>
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
@@ -234,23 +237,25 @@
 						<option>爷爷</option>
 						<option>奶奶</option>
 					</select>
-					<input id="edit_relative_name3" type="text" name="edit_relative_name3" placeholder="姓名" />
-					<input id="edit_relative_phone3" type="text" name="edit_relative_phone3" placeholder="手机号码" class="marLeft100 marTop10" />
+					<input id="edit_relative_name3" type="text" name="edit_relative_name3" placeholder="姓名"/>
+					<input id="edit_relative_phone3" type="text" name="edit_relative_phone3" placeholder="手机号码" class="marLeft100 marTop10"/>
 					<div class="errorPart"></div>
 				</div>
 				<input class="submit" type="submit" value="提交" id="editAreaContentSubmit" style="display: none;">
 			</form>
 		</div>
-
+		
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/plugins/layer/layer.js"></script>
 		<script src="js/jquery.validate.min.js"></script>
 		<script src="js/jquery.form.js"></script>
 		<script src="js/layui.js" charset="utf-8"></script>
-		<script src="js/lyz.calendar.min.js" charset="utf-8"></script>  
+		<script src="js/moment.js" charset="utf-8"></script>
+		<script src="js/daterangepicker.js" charset="utf-8"></script>
 		<script src="js/common.js" charset="utf-8"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
+				TimeSelectOption($('#searchDateRange'), $('#reportrange'));
 				//获取学校
 				schoolInput();
 				//获取年级
@@ -302,13 +307,13 @@
 					})
 
 				}
-
+				
 				//切换年级
-				$("#grade-name").change(function() {
+				$("#grade-name").change(function(){
 					classInput();
 				});
-				//获取班级
-				function classInput() {
+                //获取班级
+                function classInput() {
 					var data = {
 						"limit": 20,
 						"offset": 1,
@@ -352,11 +357,11 @@
 
 				}
 				//获取列表
-				//				getAjaxData({
-				//					"school_id": school,
-				//					"limit": 20,
-				//					"offset": 1,
-				//				});
+//				getAjaxData({
+//					"school_id": school,
+//					"limit": 20,
+//					"offset": 1,
+//				});
 
 				function getAjaxData(senddata) {
 					$.ajax({
@@ -366,10 +371,8 @@
 						async: false,
 						data: senddata,
 						timeout: "30000",
-						success: function(msg) {
-							console.log(msg);
-							var msg = JSON.parse(msg);
-							console.log(msg);
+						success: function(msg) {console.log(msg);
+							var msg = JSON.parse(msg);console.log(msg);
 							//分页
 							layui.use(['laypage', 'layer'], function() {
 									var page = layui.laypage;
@@ -419,11 +422,11 @@
 
 				//查询
 				$("#searchBtn").click(function() {
-					if($("#class-name") == '--请选择班级--' || '---无---') {
-						$("#class-name") = '';
+					if($("#class-name")=='--请选择班级--'||'---无---'){
+						$("#class-name")='';
 					}
-					if($("#grade-name") == '--请选择年级--' || '---无---') {
-						$("#grade-name") = '';
+					if($("#grade-name")=='--请选择年级--'||'---无---'){
+						$("#grade-name")='';
 					}
 					getAjaxData({
 						"class_id": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
@@ -636,19 +639,46 @@
 						});
 					});
 				});
-
-				//时间
-				$("#txtBeginDate").calendar({
-					controlId: "divDate", // 弹出的日期控件ID，默认: $(this).attr("id") + "Calendar"
-					speed: 200, // 三种预定速度之一的字符串("slow", "normal", or "fast")或表示动画时长的毫秒数值(如：1000),默认：200
-					complement: true, // 是否显示日期或年空白处的前后月的补充,默认：true
-					readonly: true, // 目标对象是否设为只读，默认：true
-					upperLimit: new Date(), // 日期上限，默认：NaN(不限制)
-					lowerLimit: new Date(), // 日期下限，默认：NaN(不限制)
-					callback: function() { // 点击选择日期后的回调函数
-
+				
+				//添加弹框日期
+			    function TimeSelectOption(showDateId, reportrangeId) {
+					var dataStatus = "";
+					//showDateId.html(moment().subtract('hours', 1).format('YYYY-MM-DD') + ' 至 ' + moment().format('YYYY-MM-DD'));
+					var oldSelTime = window.sessionStorage.getItem('commonTime'); //获取其他页面设置的选择的日期
+					if(oldSelTime == null || oldSelTime == "") {
+						oldSelTime = moment().format('YYYY-MM-DD') + ' 至 ' + moment().format('YYYY-MM-DD');
+					} else {
+						oldSelTime = oldSelTime;
 					}
-				});
+					showDateId.html(oldSelTime);
+					reportrangeId.daterangepicker({
+						startDate: oldSelTime.split(' 至 ')[0], //空格不能删除，上级返回的日期如：“2016-12-16 至 2016-12-22”‘至’左右有空格
+						endDate: oldSelTime.split(' 至 ')[1],
+						//minDate: '01/01/2012',	//最小时间
+						maxDate: moment(), //最大时间 
+						showDropdowns: true,
+						showWeekNumbers: false, //是否显示第几周
+						timePicker: true, //是否显示小时和分钟
+						opens: 'right', //日期选择框的弹出位置
+						buttonClasses: ['btn btn-default'],
+						applyClass: 'btn-small btn-primary blue',
+						cancelClass: 'btn-small',
+						locale: {
+							applyLabel: '确定',
+							cancelLabel: '取消',
+							fromLabel: '起始时间',
+							toLabel: '结束时间',
+							customRangeLabel: '自定义',
+							daysOfWeek: ['日', '一', '二', '三', '四', '五', '六'],
+							monthNames: ['一月', '二月', '三月', '四月', '五月', '六月',
+								'七月', '八月', '九月', '十月', '十一月', '十二月'
+							],
+							firstDay: 1
+						}
+					}, function(start, end, label) { //格式化日期显示框
+						showDateId.html(start.format('YYYY-MM-DD') + ' 至 ' + end.format('YYYY-MM-DD'));
+					});
+				};
 			});
 		</script>
 	</body>
