@@ -1361,8 +1361,11 @@ textarea {
 	margin: 0px 10px 10px 5px;
 }
 
-.gradeNamePart,.classNamePart,.addClassNamePart{
+.gradeNamePart,.classNamePart{
 	width: 330px;
+}
+.addClassNamePart{
+	width: 350px;
 }
 .gradeNamePart .gradeName,.classNamePart .className,.addClassNamePart .className{
 	width: auto;

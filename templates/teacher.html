@@ -157,10 +157,11 @@
 					<div class="addClassNamePart fl">
 						<!--<div class="classNameList"><input type="radio" name="1" value="option1" /><span class="className">一年级</span></div>-->
 					</div>
+					<div style="clear:both;height: 1px;"></div>
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;clear: both;">
-					<span>备注：</span>
+					<span class="fl">备注：</span>
 					<textarea style="width: 350px;" id="add_remarks" name="add_remarks"></textarea>
 					<div class="errorPart"></div>
 				</div>
@@ -209,6 +210,7 @@
 					<div class="editClassNamePart fl">
 						<!--<div class="classNameList"><input type="radio" name="1" value="option1" /><span class="className">一年级</span></div>-->
 					</div>
+					<div style="clear:both;"></div>
 					<div class="errorPart"></div>
 				</div>
 				<input class="submit" type="submit" value="提交" id="editAreaContentSubmit" style="display: none;">
@@ -315,6 +317,7 @@
 								$("#edit_class").html(str);
 
 								$(".addClassNamePart").html(layerSrt);
+								$(".editClassNamePart").html(layerSrt);
 
 							} else {
 								$("#class-name").html('<option value="">---无---</option>');
