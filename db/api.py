@@ -381,7 +381,7 @@ def face_destroy(id):
     session = get_session()
     with session.begin():
         query = model_query(models.RelevanceFace, session=session, id=id)
-        query.delete(session=session)
+        query.delete(session=session, synchronize_session=False)
 
 #####################face end################################
 
