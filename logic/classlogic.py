@@ -8,7 +8,7 @@ from db import api as db_api
 from logic import Logic
 
 class ClassLogic(Logic):
-    def intput(self, name="", grade_id="", cardcode="", student_number=0):
+    def input(self, name="", grade_id="", cardcode="", student_number=0):
         # verify school_id
         _ = db_api.grade_get(grade_id)
         if not _:

@@ -12,7 +12,7 @@ class StudentLogic(Logic):
     def __init__(self):
         pass
 
-    def intput(self, name="", sex=0, birthday="", class_id="", status="apply", relation_number=3):
+    def input(self, name="", sex=0, birthday="", class_id="", status="apply", relation_number=3):
         if not is_date(birthday):
             raise exception.FormalError(birthday=birthday)
         if not name:

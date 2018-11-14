@@ -58,7 +58,7 @@ class RegistryHandler(RequestHandler):
                 _infos = self._get_relation_argument()
                 _op = RelationLogic()
 
-            _ = _op.intput(**_infos)
+            _ = _op.input(**_infos)
             if _:
                 self.finish(json.dumps({'state': 0, 'message': 'input info success.'}))
             else:

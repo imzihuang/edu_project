@@ -25,7 +25,7 @@ class UserLogic(Logic):
         _ = models.to_dict().pop("pwd")
         return _
 
-    def intput(self, name="", pwd="", verify_code="", activate="",level=1):
+    def input(self, name="", pwd="", verify_code="", activate="",level=1):
         if db_api.user_list(name=name):
             raise ParamExist(key="name", value=name)
         values = {

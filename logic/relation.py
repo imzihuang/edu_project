@@ -12,7 +12,7 @@ LOG = logging.getLogger(__name__)
 
 class RelationLogic(Logic):
 
-    def intput(self, relation="", student_id="", relative_id=""):
+    def input(self, relation="", student_id="", relative_id=""):
         values = {
             "relation": relation,
             "student_id": student_id,

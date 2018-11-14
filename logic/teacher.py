@@ -12,7 +12,7 @@ class TeacherLogic(Logic):
     def __init__(self):
         super(TeacherLogic, self).__init__()
 
-    def intput(self, name="", sex=0, birthday="", class_id="", phone="", position=2, status="education"):
+    def input(self, name="", sex=0, birthday="", class_id="", phone="", position=2, status="education"):
         if not is_date(birthday):
             raise exception.FormalError(birthday=birthday)
         if not name or not class_id:

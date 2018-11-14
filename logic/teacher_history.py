@@ -8,7 +8,7 @@ import logging
 LOG = logging.getLogger(__name__)
 
 class Teacher_HistoryLogic(Logic):
-    def intput(self, teacher_id, status, describe=""):
+    def input(self, teacher_id, status, describe=""):
         if not teacher_id or not status:
             LOG.error("student_id name or status is None")
             return

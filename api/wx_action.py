@@ -57,7 +57,7 @@ class WXActionHandler(RequestHandler):
             _op.update(exit_app.get("id"), session_key=session_key)
             self.finish(json.dumps({'state': 0, 'session_code': exit_app.get("id")}))
         else:
-            _ = _op.intput(openid=openid, session_key=session_key)
+            _ = _op.input(openid=openid, session_key=session_key)
             self.finish(json.dumps({'state': 0, 'session_code': _.get("id")}))
 
     def bind_user(self):
