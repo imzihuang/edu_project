@@ -1361,10 +1361,13 @@ textarea {
 	margin: 0px 10px 10px 5px;
 }
 
-.gradeNamePart,.classNamePart{
+.gradeNamePart,.classNamePart,.addClassNamePart{
 	width: 330px;
 }
-
+.gradeNamePart .gradeName,.classNamePart .className,.addClassNamePart .className{
+	width: auto;
+	min-width: 80px;
+}
 .gradeNameList, .classNameList{
 	display: inline-block;
 }
