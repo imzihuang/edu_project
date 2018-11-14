@@ -255,7 +255,7 @@
 									layerSrt += '<div class="gradeNameList"><input type="checkbox" name="' + msg.data[i].id +
 										'" value="' + msg.data[i].id + '" /><span class="gradeName">' + msg.data[i].name + '</span></div>'
 								}
-								layerSrt = layerSrt + '<div style="clear:both"></div>'
+							
 								$("#grade-name").append(str);
 								$("#add_grade").append(str);
 								$("#edit_grade").html(str);
@@ -309,6 +309,7 @@
 									layerSrt += '<div class="classNameList"><input type="checkbox" name="' + msg.data[i].id +
 										'" value="' + msg.data[i].id + '" /><span class="className">' + msg.data[i].name + '</span></div>'
 								}
+								layerSrt = layerSrt + '<div style="clear:both"></div>'
 								$("#class-name").html(str);
 								$("#add_class").html(str);
 								$("#edit_class").html(str);
