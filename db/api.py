@@ -46,14 +46,14 @@ def school_update(id, values):
     query = model_query(models.SchoolInfo).filter_by(id=id)
     result = query.update(values)
     if not result:
-        raise exception.NotFound(code=id)
+        return None  #raise exception.NotFound(code=id)
     return result
 
 def school_get(id):
     query = model_query(models.SchoolInfo)
     result = query.filter_by(id=id).first()
     if not result:
-        raise exception.NotFound(code=id)
+        return None  #raise exception.NotFound(code=id)
     return result
 
 def school_list(offset=0, limit=1000, **filters):
@@ -85,14 +85,14 @@ def grade_update(id, values):
     query = model_query(models.GradeInfo).filter_by(id=id)
     result = query.update(values)
     if not result:
-        raise exception.NotFound(code=id)
+        return None#raise exception.NotFound(code=id)
     return result
 
 def grade_get(id):
     query = model_query(models.GradeInfo)
     result = query.filter_by(id=id).first()
     if not result:
-        raise exception.NotFound(code=id)
+        return None#raise exception.NotFound(code=id)
     return result
 
 def grade_list(offset=0, limit=1000, **filters):
@@ -133,14 +133,14 @@ def class_update(id, values):
     query = model_query(models.ClassInfo).filter_by(id=id)
     result = query.update(values)
     if not result:
-        raise exception.NotFound(code=id)
+        return None  #raise exception.NotFound(code=id)
     return result
 
 def class_get(id):
     query = model_query(models.ClassInfo)
     result = query.filter_by(id=id).first()
     if not result:
-        raise exception.NotFound(code=id)
+        return None  #raise exception.NotFound(code=id)
     return result
 
 def class_list(offset=0, limit=1000, **filters):
@@ -180,14 +180,14 @@ def teacher_update(id, values):
     query = model_query(models.TeacherInfo).filter_by(id=id)
     result = query.update(values)
     if not result:
-        raise exception.NotFound(code=id)
+        return None  #raise exception.NotFound(code=id)
     return result
 
 def teacher_get(id):
     query = model_query(models.TeacherInfo)
     result = query.filter_by(id=id).first()
     if not result:
-        raise exception.NotFound(code=id)
+        return None  #raise exception.NotFound(code=id)
     return result
 
 def teacher_list(offset=0, limit=1000, **filters):
@@ -249,14 +249,14 @@ def student_update(id, values):
     query = model_query(models.StudentInfo).filter_by(id=id)
     result = query.update(values)
     if not result:
-        raise exception.NotFound(code=id)
+        return None  #raise exception.NotFound(code=id)
     return result
 
 def student_get(id):
     query = model_query(models.StudentInfo)
     result = query.filter_by(id=id).first()
     if not result:
-        raise exception.NotFound(code=id)
+        return None  #raise exception.NotFound(code=id)
     return result
 
 def student_list(offset=0, limit=1000, **filters):
@@ -325,7 +325,7 @@ def relative_get(id):
     query = model_query(models.RelativeInfo)
     result = query.filter_by(id=id).first()
     if not result:
-        raise exception.NotFound(code=id)
+        return None  #raise exception.NotFound(code=id)
     return result
 
 def relative_list(offset=0, limit=1000, **filters):
@@ -397,14 +397,14 @@ def relation_update(id, values):
     query = model_query(models.RelationInfo).filter_by(id=id)
     result = query.update(values)
     if not result:
-        raise exception.NotFound(code=id)
+        return None  #raise exception.NotFound(code=id)
     return result
 
 def relation_get(id):
     query = model_query(models.RelationInfo)
     result = query.filter_by(id=id).first()
     if not result:
-        raise exception.NotFound(code=id)
+        return None  #raise exception.NotFound(code=id)
     return result
 
 def relation_list(offset=0, limit=1000, **filters):
@@ -443,14 +443,14 @@ def user_update(id, values):
     query = model_query(models.UserInfo).filter_by(id=id)
     result = query.update(values)
     if not result:
-        raise exception.NotFound(code=id)
+        return None  #raise exception.NotFound(code=id)
     return result
 
 def user_get(id):
     query = model_query(models.UserInfo)
     result = query.filter_by(id=id).first()
     if not result:
-        raise exception.NotFound(code=id)
+        return None  #raise exception.NotFound(code=id)
     return result
 
 def user_list(offset=0, limit=1000, **filters):
@@ -490,14 +490,14 @@ def wxuser_update(id, values):
     query = model_query(models.WXUserInfo).filter_by(id=id)
     result = query.update(values)
     if not result:
-        raise exception.NotFound(code=id)
+        return None  #raise exception.NotFound(code=id)
     return result
 
 def wxuser_get(id):
     query = model_query(models.WXUserInfo)
     result = query.filter_by(id=id).first()
     if not result:
-        raise exception.NotFound(code=id)
+        return None  #raise exception.NotFound(code=id)
     return result
 
 def wxuser_list(offset=0, limit=1000, **filters):

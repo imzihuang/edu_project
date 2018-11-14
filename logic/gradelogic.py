@@ -10,7 +10,8 @@ from logic import Logic
 class GradeLogic(Logic):
     def intput(self, name="", school_id=""):
         # verify school_id
-        _ = db_api.school_get(school_id)
+        if not db_api.school_get(school_id):
+            return
 
         values = {
             "name": name,

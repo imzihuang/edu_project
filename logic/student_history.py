@@ -12,7 +12,8 @@ class Student_HistoryLogic(Logic):
         if not student_id or not status:
             LOG.error("student_id name or status is None")
             return
-        db_api.student_get(id=student_id)
+        if not db_api.student_get(id=student_id):
+            return
         values = {
             "student_id": student_id,
             "status": status,
