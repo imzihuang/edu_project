@@ -18,9 +18,9 @@ _num_pat = re.compile(r'^-?[a-f\d]+?$', re.I)
 _email_pat = re.compile(r'^(?P<name>[a-zA-Z\d][_\.a-zA-Z\d]*)@(?P<domain>[a-zA-Z\d.]+\.[a-z]{2,4})$')
 _uuid_pat = re.compile(r'^[a-f\d]{32}$')
 _sha1_pat = re.compile(r'^[a-f\d]{40}$')
-# 能用到202x年已经太牛叉了
+# 能用到203x年已经太牛叉了
 _date_pat = re.compile(
-    r'^(?P<year>20[12]\d)-(?P<month>0[1-9]|1[012])-(?P<day>\d{1,2})(?:T(?P<hour>[01][0-9]|2[0-3]):(?P<minute>[0-5][0-9]):(?P<sec>[0-5][0-9]))?$')
+    r'^(?P<year>[12]\d{3})-(?P<month>0[1-9]|1[012])-(?P<day>\d{1,2})(?:T(?P<hour>[01][0-9]|2[0-3]):(?P<minute>[0-5][0-9]):(?P<sec>[0-5][0-9]))?$')
 _time_pat = re.compile(r'^(?P<hour>[01][0-9]|2[0-3]):(?P<minute>[0-5][0-9]):(?P<sec>[0-5][0-9])$')
 _float_pat = re.compile(r'^-?\d+(\.\d+)?$')
 _mac_pat = re.compile(r'^[a-f\d]{2}(?::[a-f\d]{2}){5}$', re.I)

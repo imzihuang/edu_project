@@ -161,7 +161,8 @@ def class_deleted(id):
         query = model_query(models.ClassInfo, session=session, id=id)
         query.update({
             "deleted": True
-        })
+        },
+        synchronize_session=False)
 
 #####################class end################################
 
@@ -208,7 +209,8 @@ def teacher_deleted(id):
         query = model_query(models.TeacherInfo, session=session, id=id)
         query.update({
             "deleted": True
-        })
+        },
+        synchronize_session=False)
 
 def teacher_history_create(values):
     if not values.get('id'):
@@ -299,7 +301,8 @@ def student_deleted(id):
         query = model_query(models.StudentInfo, session=session, id=id)
         query.update({
             "deleted": True
-        })
+        },
+        synchronize_session=False)
 
 #####################student end################################
 
@@ -346,7 +349,8 @@ def relative_deleted(id):
         query = model_query(models.RelativeInfo, session=session, id=id)
         query.update({
             "deleted": True
-        })
+        },
+        synchronize_session=False)
 
 #####################relative end################################
 
@@ -377,7 +381,7 @@ def face_destroy(id):
     session = get_session()
     with session.begin():
         query = model_query(models.RelevanceFace, session=session, id=id)
-        query.delete(session=session)
+        query.delete(session=session, synchronize_session=False)
 
 #####################face end################################
 
@@ -425,7 +429,8 @@ def relation_deleted(id):
         query = model_query(models.RelationInfo, session=session, id=id)
         query.update({
             "deleted": True
-        })
+        },
+        synchronize_session=False)
 #####################relation end################################
 
 #####################user begin################################
@@ -471,7 +476,8 @@ def user_deleted(id):
         query = model_query(models.UserInfo, session=session, id=id)
         query.update({
             "deleted": True
-        })
+        },
+        synchronize_session=False)
 
 #####################user end################################
 
@@ -518,6 +524,7 @@ def wxuser_deleted(id):
         query = model_query(models.WXUserInfo, session=session, id=id)
         query.update({
             "deleted": True
-        })
+        },
+        synchronize_session=False)
 
 #####################wx user end################################

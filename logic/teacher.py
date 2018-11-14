@@ -34,11 +34,11 @@ class TeacherLogic(Logic):
 
         if teacher_obj:
             history_values = {
-                "teacher_id": teacher_obj.id,
+                "teacher_id": teacher_obj.get("id"),
                 "staus": status
             }
             db_api.teacher_history_create(history_values)
-            teacher_obj.upate({"status": status})
+            teacher_obj.update({"status": status})
         return teacher_obj
 
     def update(self, id="", **kwargs):

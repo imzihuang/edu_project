@@ -18,6 +18,10 @@ class RelationLogic(Logic):
             "student_id": student_id,
             "relative_id": relative_id
         }
+        if not db_api.relative_get(relative_id):
+            return
+        if not db_api.student_get(student_id):
+            return
         relation_obj = db_api.relation_create(values)
         return relation_obj
 
