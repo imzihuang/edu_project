@@ -280,16 +280,15 @@
 
 				//切换年级
 				$("#grade-name").change(function() {
-					classInput();
-				});
-				//获取班级
-				function classInput() {
-					var data = {
+					classInput({
 						"limit": 20,
 						"offset": 1,
 						'school_id': school,
 						"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
-					}
+					},'no');
+				});
+				//获取班级
+				function classInput(sendData,ifLayer) {
 					$.ajax({
 						method: 'GET',
 						xhrFields: {
@@ -297,7 +296,7 @@
 						},
 						contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
 						url: "/class/infos",
-						data: data,
+						data: sendData,
 						dataType: 'json',
 						jsonpCallback: '',
 						cache: false,
@@ -312,12 +311,14 @@
 										'" value="' + msg.data[i].id + '" /><span class="className">' + msg.data[i].name + '</span></div>'
 								}
 								layerSrt = layerSrt + '<div style="clear:both"></div>'
-								$("#class-name").html(str);
-								$("#add_class").html(str);
-								$("#edit_class").html(str);
-
-								$(".addClassNamePart").html(layerSrt);
-								$(".editClassNamePart").html(layerSrt);
+								if(ifLayer == "yes"){
+									$(".addClassNamePart").html(layerSrt);
+								    $(".editClassNamePart").html(layerSrt);
+								}else{
+									$("#class-name").html(str);
+									$("#add_class").html(str);
+									$("#edit_class").html(str);
+								}
 
 							} else {
 								$("#class-name").html('<option value="">---无---</option>');
@@ -617,6 +618,11 @@
 				$('#addInfo').click(function() {
 					$("input").val("");
 					$(".errorPart").html("");
+					classInput({
+						"limit": 20,
+						"offset": 1,
+						'school_id': school,
+					},'yes');
 					layerIndex = layer.open({
 						title: '添加老师',
 						type: 1,
