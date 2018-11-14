@@ -120,18 +120,16 @@
 				</div>
 				<div style="margin: 20px 0;">
 					<span>性别：</span>
-					<select style="width: 350px;" id="add_sex" name="add_sex">
-						<option value="0">女</option>
-						<option value="1">男</option>
-					</select>
+					<input type="radio" name="addsex" /><span style="width: 40px;margin-left: 5px;">男</span>
+					<input type="radio" name="addsex" /><span style="width: 40px;margin-left: 5px;">女</span>
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
 					<span>职务：</span>
 					<select id="add_post" name="add_post">
 						<option>--请选择职务--</option>
-						<option>教师</option>
-						<option>园长</option>
+						<option value="2">教师</option>
+						<option value="1">园长</option>
 					</select>
 					<div class="errorPart"></div>
 				</div>
@@ -142,8 +140,9 @@
 				<div style="margin: 20px 0;">
 					<span>状态：</span>
 					<select style="width: 350px;" id="add_sex" name="add_sex">
-						<option value="">在职</option>
-						<option value="">离职</option>
+						<option value="education">在职</option>
+						<option value="dimission">离职</option>
+						<option value="holiday">休假</option>
 					</select>
 					<div class="errorPart"></div>
 				</div>
@@ -176,8 +175,8 @@
 					<span>职务：</span>
 					<select id="edit_post" name="edit_post">
 						<option>--请选择职务--</option>
-						<option>教师</option>
-						<option>园长</option>
+						<option value="2">教师</option>
+						<option value="1">园长</option>
 					</select>
 					<div class="errorPart"></div>
 				</div>
@@ -188,8 +187,9 @@
 				<div style="margin: 20px 0;">
 					<span>状态：</span>
 					<select style="width: 350px;" id="edit_sex" name="edit_sex">
-						<option value="">在职</option>
-						<option value="">离职</option>
+						<option value="education">在职</option>
+						<option value="dimission">离职</option>
+						<option value="holiday">休假</option>
 					</select>
 					<div class="errorPart"></div>
 				</div>
@@ -294,10 +294,14 @@
 							if(msg.data.length > 0) {
 								for(var i = 0; i < msg.data.length; i++) {
 									str += '<option value=' + msg.data[i].id + '>' + msg.data[i].name + '</option>';
+									layerSrt += '<div class="classNameList"><input type="checkbox" name="' + msg.data[i].id +
+										'" value="' + msg.data[i].id + '" /><span class="className">' + msg.data[i].name + '</span></div>'
 								}
 								$("#class-name").html(str);
 								$("#add_class").html(str);
 								$("#edit_class").html(str);
+								
+								$(".classNamePart").append(layerSrt);
 
 							} else {
 								$("#class-name").html('<option value="">---无---</option>');
