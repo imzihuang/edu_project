@@ -28,17 +28,7 @@
 			margin-left: 5px;
 		}
 		
-		.demo {
-			position: relative;
-		}
-		
-		.demo i {
-			position: absolute;
-			bottom: 10px;
-			right: 24px;
-			top: auto;
-			cursor: pointer;
-		}
+	
 		.daterangepicker_input{
 			display: none;
 		}
@@ -125,7 +115,7 @@
 				</div>
 				<div style="margin: 20px 0;position: relative;">
 					<span>出生日期：</span>
-					 <input type="text" id="config-demo" class="form-control" style="width: 350px;display: inline-block;">
+					 <input type="text" id="add_time" class="form-control" style="width: 350px;display: inline-block;">
                      <i class="glyphicon glyphicon-calendar fa fa-calendar" style="position: absolute;right: 20px;top: 8px;"></i>
 				</div>
 				<div style="margin: 20px 0;">
@@ -194,11 +184,8 @@
 				</div>
 				<div style="margin: 20px 0;">
 					<span>出生日期：</span>
-					<div id="reportrange_edit" style="width: 350px;">
-						<i class="icon icon-calendar"></i>
-						<span id="searchDeteRange_edit"></span>
-						<b class="caret"></b>
-					</div>
+					 <input type="text" id="edit_time" class="form-control" style="width: 350px;display: inline-block;">
+                     <i class="glyphicon glyphicon-calendar fa fa-calendar" style="position: absolute;right: 20px;top: 8px;"></i>
 				</div>
 				<div style="margin: 20px 0;">
 					<span>性别：</span>
@@ -268,7 +255,7 @@
 		<script src="js/common.js" charset="utf-8"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
-				TimeSelectOption($('#config-demo'));
+				TimeSelectOption($('#add_time'));
 				//获取学校
 				schoolInput();
 				//获取年级
@@ -370,11 +357,11 @@
 
 				}
 				//获取列表
-				//				getAjaxData({
-				//					"school_id": school,
-				//					"limit": 20,
-				//					"offset": 1,
-				//				});
+				getAjaxData({
+//					"school_id": school,
+					"limit": 20,
+					"offset": 1,
+				});
 
 				function getAjaxData(senddata) {
 					$.ajax({
@@ -389,45 +376,45 @@
 							var msg = JSON.parse(msg);
 							console.log(msg);
 							//分页
-							layui.use(['laypage', 'layer'], function() {
-									var page = layui.laypage;
-									page.render({
-										elem: "layPage",
-										count: msg.count,
-										curr: senddata.offset,
-										limit: senddata.limit,
-										layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
-										jump: function(e, first) {
-											if(!first) {
-												senddata.offset = e.curr;
-												senddata.limit = e.limit;
-												var district = "";
-												getAjaxData({
-													"name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
-													"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
-													"limit": e.limit,
-													"offset": e.curr,
-												});
-											}
-										}
-									})
-								})
+//							layui.use(['laypage', 'layer'], function() {
+//									var page = layui.laypage;
+//									page.render({
+//										elem: "layPage",
+//										count: msg.count,
+//										curr: senddata.offset,
+//										limit: senddata.limit,
+//										layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
+//										jump: function(e, first) {
+//											if(!first) {
+//												senddata.offset = e.curr;
+//												senddata.limit = e.limit;
+//												var district = "";
+//												getAjaxData({
+//													"name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
+//													"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
+//													"limit": e.limit,
+//													"offset": e.curr,
+//												});
+//											}
+//										}
+//									})
+//								})
 								//表格渲染
-							var strs = '';
-							if(msg.data.length > 0) {
-								for(var i = 0; i < msg.data.length; i++) {
-									strs += '<tr class="gradeX">' +
-										'<td class="data_name">' + msg.data[i].student_name + '</td>' +
-										'<td class="center data_id">' + msg.data[i].relation + '</td>' +
-										'<td class="center data_name">' + msg.data[i].parent_name + '</td>' +
-										'<td class="center">' + msg.data[i].parent_phone + '</td>' +
-										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" id=' + msg.data[i].id + ' title="删除"></i></td>' +
-										'</tr>'
-								}
-								$("#tbody").html(strs);
-							} else {
-								$("#tbody").html('<tr><td colspan="5" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
-							}
+//							var strs = '';
+//							if(msg.data.length > 0) {
+//								for(var i = 0; i < msg.data.length; i++) {
+//									strs += '<tr class="gradeX">' +
+//										'<td class="data_name">' + msg.data[i].student_name + '</td>' +
+//										'<td class="center data_id">' + msg.data[i].relation + '</td>' +
+//										'<td class="center data_name">' + msg.data[i].parent_name + '</td>' +
+//										'<td class="center">' + msg.data[i].parent_phone + '</td>' +
+//										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" id=' + msg.data[i].id + ' title="删除"></i></td>' +
+//										'</tr>'
+//								}
+//								$("#tbody").html(strs);
+//							} else {
+//								$("#tbody").html('<tr><td colspan="5" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
+//							}
 						},
 						error: function() {
 							console.log("error");
