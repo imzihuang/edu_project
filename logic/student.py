@@ -39,7 +39,7 @@ class StudentLogic(Logic):
                 "staus": status
             }
             db_api.student_history_create(history_values)
-        student_obj.upate({"status": status})
+        student_obj.update({"status": status})
         return student_obj
 
     def update(self, id="", **kwargs):
