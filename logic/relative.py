@@ -17,7 +17,7 @@ class RelativeLogic(Logic):
         if not is_date(birthday):
             raise exception.FormalError(birthday=birthday)
         if not is_mobile(phone):
-            raise exception.FormalError(birthday=birthday)
+            raise exception.FormalError(phone=phone)
         if not name:
             raise exception.ParamNone(name="")
         values = {
