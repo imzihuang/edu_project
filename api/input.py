@@ -106,12 +106,14 @@ class RegistryHandler(RequestHandler):
         birthday = convert.bs2utf8(self.get_argument('birthday', ""))
         class_id = convert.bs2utf8(self.get_argument('class_id', ''))
         phone = convert.bs2utf8(self.get_argument('phone', ''))
+        position = int(self.get_argument('position', 0))
         return {
             "name": name,
             "sex": sex,
             "birthday": birthday,
             "class_id": class_id,
-            "phone": phone
+            "phone": phone,
+            "position": position
         }
 
     def _get_teacher_history_argument(self):

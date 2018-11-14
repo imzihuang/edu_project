@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from sqlalchemy import Column, Table, MetaData
+from sqlalchemy import Column, Table, MetaData, UniqueConstraint
 
 from sqlalchemy.types import *
 from sqlalchemy.ext.declarative import declarative_base
@@ -159,6 +159,8 @@ class RelationInfo(Base, ModelBase):
     deleted = Column(Boolean, default=False)
     create_time = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_time = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    UniqueConstraint('student_id', 'relative_id')
 
     def to_dict(self):
        return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}

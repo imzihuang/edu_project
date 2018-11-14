@@ -27,9 +27,10 @@ class TeacherLogic(Logic):
             "school_id": class_info.school_id,
             "grade_id": class_info.grade_id,
             "class_id": class_id,
-            "phone": phone,
-            "position": position
+            "phone": phone
         }
+        if position!=0:
+            values.update({"position": position})
         teacher_obj = db_api.teacher_create(values)
 
         if teacher_obj:
