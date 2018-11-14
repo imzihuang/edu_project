@@ -6,7 +6,9 @@ from logic import Logic
 
 class FaceLogic(Logic):
     def create_face(self, school_id, relevance_id, face_token, faceset_token, relevance_type=1):
-        _ = db_api.school_get(id=school_id)
+        if not db_api.school_get(id=school_id):
+            return
+
         if relevance_type == 1:
             _ = db_api.relative_get(id=relevance_id)
         if relevance_type == 2:

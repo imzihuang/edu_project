@@ -18,6 +18,8 @@ class TeacherLogic(Logic):
         if not name or not class_id:
             raise exception.ParamNone(class_id="")
         class_info = db_api.class_get(id=class_id)
+        if not class_info:
+            raise exception.NotFound(code=class_id)
         values = {
             "name": name,
             "sex": sex,

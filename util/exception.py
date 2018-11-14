@@ -72,21 +72,21 @@ class ExpressException(Exception):
         return self.msg
 
 class NotFound(ExpressException):
-    message = "Resource could not be found."
+    message = "Resource could not be found. %(message)"
     code = 404
     safe = True
 
 class ParamExist(ExpressException):
-    message = "Params Exist."
+    message = "Params Exist. %(message)"
     code = 408
     safe = True
 
 class FormalError(ExpressException):
-    message = "Formal Error."
+    message = "Formal Error. %(message)"
     code = 409
     safe = True
 
 class ParamNone(ExpressException):
-    message = "Param is none."
+    message = "Param is none. %(message)"
     code = 410
     safe = True
