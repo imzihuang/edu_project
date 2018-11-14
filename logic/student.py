@@ -35,7 +35,7 @@ class StudentLogic(Logic):
         student_obj = db_api.student_create(values)
         if student_obj:
             history_values={
-                "student_id": student_obj.id,
+                "student_id": student_obj.get("id"),
                 "staus": status
             }
             db_api.student_history_create(history_values)

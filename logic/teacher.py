@@ -34,7 +34,7 @@ class TeacherLogic(Logic):
 
         if teacher_obj:
             history_values = {
-                "teacher_id": teacher_obj.id,
+                "teacher_id": teacher_obj.get("id"),
                 "staus": status
             }
             db_api.teacher_history_create(history_values)
