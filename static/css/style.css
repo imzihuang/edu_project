@@ -1364,9 +1364,17 @@ textarea {
 .gradeNamePart,.classNamePart{
 	width: 330px;
 }
-
+.addClassNamePart{
+	width: 350px;
+}
+.gradeNamePart .gradeName,.classNamePart .className,.addClassNamePart .className{
+	width: auto !important;
+	min-width: 80px;
+	margin-left: 5px;
+}
 .gradeNameList, .classNameList{
 	display: inline-block;
+	margin-bottom: 5px;
 }
 
 #addMoreInfoContent .fa-close {

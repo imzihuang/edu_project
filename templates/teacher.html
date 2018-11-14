@@ -21,6 +21,12 @@
 		<script src="js/jquery.min.js"></script>
 
 	</head>
+	<style>
+		#class-name {
+			width: 180px;
+			margin-left: 5px;
+		}
+	</style>
 
 	<body class="gray-bg">
 		<div class="wrapper wrapper-content animated fadeIn">
@@ -35,36 +41,41 @@
 											<div class="ibox-title-Myown1">
 												<div class="zx_searchTit">
 													<div class="sendInquiry2" style="float: left;">
-														<label class="control-label">教师编号：</label>
-														<input type="text" name="" value="" id="teacher-id" />
-													</div>
-													<div class="sendInquiry2" style="float: left;">
-														<label class="control-label">教师名称：</label>
+														<label class="control-label">教师姓名：</label>
 														<input type="text" name="" value="" id="teacher-name" />
 													</div>
 													<div class="sendInquiry2" style="float: left;">
-														<label class="control-label">所属学校编号：</label>
-														<input type="text" name="" value="" id="teacher-school-id" />
-													</div>
-													<div class="sendInquiry2" style="float: left;">
-														<label class="control-label">所属学校名称：</label>
-														<input type="text" name="" value="" id="teacher-school-name" />
-													</div>
-													<div class="sendInquiry2" style="float: left;">
-														<label class="control-label">班级编号：</label>
-														<input type="text" name="" value="" id="teacher-class-id" />
-													</div>
-													<div class="sendInquiry2" style="float: left;">
-														<label class="control-label">班级名称：</label>
-														<input type="text" name="" value="" id="teacher-class-name" />
-													</div>
-													<div class="sendInquiry2" style="float: left;">
-														<label class="control-label">联系电话：</label>
+														<label class="control-label">联系方式：</label>
 														<input type="text" name="" value="" id="teacher-phone" />
 													</div>
+													<div class="sendInquiry2" style="float: left;width: 450px;">
+														<label class="control-label">任教班级：</label>
+														<select id="grade-name">
+															<option value="">--请选择年级--</option>
+														</select>
+														<select id="class-name">
+															<option value="">--请选择班级--</option>
+														</select>
+													</div>
+													<div class="sendInquiry2" style="float: left;">
+														<label class="control-label">是否园/校长：</label>
+														<select id="teacher-president">
+															<option value="">--请选择--</option>
+															<option>是</option>
+															<option>否</option>
+														</select>
+													</div>
+													<div class="sendInquiry2" style="float: left;">
+														<label class="control-label">状态：</label>
+														<select id="teacher-state">
+															<option value="">--请选择--</option>
+															<option>在职</option>
+															<option>离职</option>
+														</select>
+													</div>
+
 													<div class="sendInquiry0 col-sm-4" style="position: relative; margin:3.5px 0 0 0;">
-														<button class="btn btn-primary btn-myown" id="searchBtn">查询</button>&nbsp;&nbsp;
-														<button class="btn btn-primary btn-myown" id="addManage">批量导入</button>
+														<button class="btn btn-primary btn-myown" id="searchBtn">查询</button>
 													</div>
 													<div style="clear: both;"></div>
 												</div>
@@ -74,22 +85,21 @@
 													<thead>
 														<tr class="zx_checkedAll">
 															<th colspan="6" style="text-align: left; background: none;padding: 10px 0px;">
-																<button class="btn btn-default btn-myown" id="delInfo" disabled="disabled"><i class="fa fa-trash"></i>&nbsp;删除选中项</button>
+																<button class="btn btn-default btn-myown" id="delInfo" disabled="disabled"><i class="fa fa-trash"></i>&nbsp;批量删除</button>
 																<button class="btn btn-primary btn-myown" id="addInfo">+添加老师</button>
+																<button class="btn btn-primary btn-myown" id="addManage">批量导入</button>
+																<button class="btn btn-primary btn-myown" id="addManageDown">下载导入模板</button>
 															</th>
 														</tr>
 														<tr class="zx_thTitle">
 															<th><input type="checkbox" class="zx_checkedBtn" id="zx_checkedAllBtn" name="allcheck" value="allCheck"></th>
 															<th>序号</th>
-															<th>教师编号</th>
-															<th>教师名称</th>
-															<th>性别</th>
-															<th>年龄</th>
-															<th>联系电话</th>
-															<th>学校编号</th>
-															<th>班级编号</th>
+															<th>教师姓名</th>
+															<th>联系方式</th>
+															<th>是否园长</th>
+															<th>任教班级</th>
+															<th>状态</th>
 															<th>创建时间</th>
-															<th>最后一次更新时间</th>
 															<th style="width: 120px;">操作</th>
 														</tr>
 													</thead>
@@ -107,49 +117,62 @@
 				</div>
 			</div>
 		</div>
-        <!--添加弹框内容-->
+		<!--添加弹框内容-->
 		<div id="addInfoContent" style="display: none; width: 500px; padding: 20px;">
 			<form id="addInfoContentform" role="form" method="POST">
 				<div style="margin: 20px 0;">
-					<span>教师名称：</span><input type="text" style="width: 350px;" id="add_name" name="add_name" />
+					<span>教师姓名：</span><input type="text" style="width: 350px;" id="add_name" name="add_name" />
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
 					<span>性别：</span>
-					<select style="width: 350px;" id="add_sex" name="add_sex">
-						<option value="0">女</option>
-						<option value="1">男</option>
+					<input type="radio" name="addsex" /><span style="width: 40px;margin-left: 5px;">男</span>
+					<input type="radio" name="addsex" /><span style="width: 40px;margin-left: 5px;">女</span>
+					<div class="errorPart"></div>
+				</div>
+				<div style="margin: 20px 0;">
+					<span>职务：</span>
+					<select id="add_post" name="add_post" style="width: 350px;">
+						<option>--请选择职务--</option>
+						<option value="2">教师</option>
+						<option value="1">园长</option>
 					</select>
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
-					<span>年龄：</span><input type="text" style="width: 350px;" id="add_age" name="add_age" />
+					<span>手机号码：</span><input type="text" style="width: 350px;" id="add_phone" name="add_phone" />
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
-					<span>所属学校：</span><input type="text" style="width: 350px;" id="add_school_id" name="add_school_id" />
+					<span>状态：</span>
+					<select style="width: 350px;" id="add_sex" name="add_sex">
+						<option value="education">在职</option>
+						<option value="dimission">离职</option>
+						<option value="holiday">休假</option>
+					</select>
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
-					<span>所属班级：</span><input type="text" style="width: 350px;" id="add_class_id" name="add_class_id" />
+					<span class="fl">任教班级：</span>
+					<div class="addClassNamePart fl">
+						<!--<div class="classNameList"><input type="radio" name="1" value="option1" /><span class="className">一年级</span></div>-->
+					</div>
+					<div style="clear:both;height: 1px;"></div>
 					<div class="errorPart"></div>
 				</div>
-				<div style="margin: 20px 0;">
-					<span>联系电话：</span><input type="text" style="width: 350px;" id="add_phone" name="add_phone" />
+				<div style="margin: 20px 0;clear: both;">
+					<span class="fl">备注：</span>
+					<textarea style="width: 350px;" id="add_remarks" name="add_remarks"></textarea>
 					<div class="errorPart"></div>
 				</div>
 				<input class="submit" type="submit" value="提交" id="addInfoContentSubmit" style="display: none;">
 			</form>
 		</div>
-        <!--编辑弹框内容-->
+		<!--编辑弹框内容-->
 		<div id="editAreaContent" style="display: none; width: 500px; padding: 20px;">
 			<form id="editAreaContentform" role="form">
 				<div style="margin: 20px 0;">
-					<span>教师编号：</span><input type="text" style="width: 350px;" id="edit_id" name="edit_id" />
-					<div class="errorPart"></div>
-				</div>
-				<div style="margin: 20px 0;">
-					<span>教师名称：</span><input type="text" style="width: 350px;" id="edit_name" name="edit_name" />
+					<span>教师姓名：</span><input type="text" style="width: 350px;" id="edit_name" name="edit_name" />
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
@@ -161,20 +184,33 @@
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
-					<span>年龄：</span><input type="text" style="width: 350px;" id="edit_age" name="edit_age" />
+					<span>职务：</span>
+					<select id="edit_post" name="edit_post" style="width: 350px;">
+						<option>--请选择职务--</option>
+						<option value="2">教师</option>
+						<option value="1">园长</option>
+					</select>
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
-					<span>所属学校编号：</span><input type="text" style="width: 350px;" id="edit_school_id" name="edit_school_id" />
+					<span>手机号码：</span><input type="text" style="width: 350px;" id="edit_phone" name="edit_phone" />
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
-					<span>班级编号：</span><input type="text" style="width: 350px;" id="edit_class_id" name="edit_class_id" />
+					<span>状态：</span>
+					<select style="width: 350px;" id="edit_sex" name="edit_sex">
+						<option value="education">在职</option>
+						<option value="dimission">离职</option>
+						<option value="holiday">休假</option>
+					</select>
 					<div class="errorPart"></div>
 				</div>
-
 				<div style="margin: 20px 0;">
-					<span>联系电话：</span><input type="text" style="width: 350px;" id="edit_phone" name="edit_phone" />
+					<span class="fl">任教班级：</span>
+					<div class="editClassNamePart fl">
+						<!--<div class="classNameList"><input type="radio" name="1" value="option1" /><span class="className">一年级</span></div>-->
+					</div>
+					<div style="clear:both;"></div>
 					<div class="errorPart"></div>
 				</div>
 				<input class="submit" type="submit" value="提交" id="editAreaContentSubmit" style="display: none;">
@@ -186,8 +222,118 @@
 		<script src="js/jquery.validate.min.js"></script>
 		<script src="js/jquery.form.js"></script>
 		<script src="js/layui.js" charset="utf-8"></script>
+		<script src="js/common.js" charset="utf-8"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
+				//获取学校
+				schoolInput();
+				//获取年级
+				gradeInput();
+
+				function gradeInput() {
+					var data = {
+						"limit": 20,
+						"offset": 1,
+						'school_id': school,
+					}
+					$.ajax({
+						method: 'GET',
+						xhrFields: {
+							"withCredentials": true
+						},
+						contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+						url: "/grade/infos",
+						data: data,
+						dataType: 'json',
+						jsonpCallback: '',
+						cache: false,
+						timeout: "1000000",
+						success: function(msg) {
+							var str = '';
+							var layerSrt = '';
+							if(msg.data.length > 0) {
+								for(var i = 0; i < msg.data.length; i++) {
+									str += '<option value=' + msg.data[i].id + '>' + msg.data[i].name + '</option>';
+									layerSrt += '<div class="gradeNameList"><input type="checkbox" name="' + msg.data[i].id +
+										'" value="' + msg.data[i].id + '" /><span class="gradeName">' + msg.data[i].name + '</span></div>'
+								}
+							
+								$("#grade-name").append(str);
+								$("#add_grade").append(str);
+								$("#edit_grade").html(str);
+
+								$(".gradeNamePart").append(layerSrt);
+
+							} else {
+								$("#grade-name").html('<option value="">---无---</option>');
+								$("#add_grade").html('<option value="">---无---</option>');
+								$("#edit_grade").html('<option value="">---无---</option>');
+
+							}
+						},
+						complete: function(XMLHttpRequest, status) {
+
+						}
+					})
+
+				}
+
+				//切换年级
+				$("#grade-name").change(function() {
+					classInput({
+						"limit": 20,
+						"offset": 1,
+						'school_id': school,
+						"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
+					},'no');
+				});
+				//获取班级
+				function classInput(sendData,ifLayer) {
+					$.ajax({
+						method: 'GET',
+						xhrFields: {
+							"withCredentials": true
+						},
+						contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+						url: "/class/infos",
+						data: sendData,
+						dataType: 'json',
+						jsonpCallback: '',
+						cache: false,
+						timeout: "1000000",
+						success: function(msg) {
+							var str = '';
+							var layerSrt = '';
+							if(msg.data.length > 0) {
+								for(var i = 0; i < msg.data.length; i++) {
+									str += '<option value=' + msg.data[i].id + '>' + msg.data[i].name + '</option>';
+									layerSrt += '<div class="classNameList"><input type="checkbox" name="' + msg.data[i].id +
+										'" value="' + msg.data[i].id + '" /><span class="className">' + msg.data[i].name + '</span></div>'
+								}
+								layerSrt = layerSrt + '<div style="clear:both"></div>'
+								if(ifLayer == "yes"){
+									$(".addClassNamePart").html(layerSrt);
+								    $(".editClassNamePart").html(layerSrt);
+								}else{
+									$("#class-name").html(str);
+									$("#add_class").html(str);
+									$("#edit_class").html(str);
+								}
+
+							} else {
+								$("#class-name").html('<option value="">---无---</option>');
+								$("#add_class").html('<option value="">---无---</option>');
+								$("#edit_class").html('<option value="">---无---</option>');
+
+							}
+						},
+						complete: function(XMLHttpRequest, status) {
+
+						}
+					})
+
+				}
+
 				getAjaxData({
 					"id": $("#teacher-id").val() == '' ? undefined : $("#teacher-id").val(),
 					"name": $("#teacher-name").val() == '' ? undefined : $("#teacher-name").val(),
@@ -199,8 +345,8 @@
 					"limit": 20,
 					"offset": 1,
 				});
-                
-                //列表
+
+				//列表
 				function getAjaxData(senddata) {
 					$.ajax({
 						type: "GET",
@@ -212,36 +358,36 @@
 						success: function(msg) {
 							var msg = JSON.parse(msg);
 							//分页
-							layui.use(['laypage', 'layer'], function () {
-							  var page = layui.laypage;  
-	                          page.render({
-									elem: "layPage",
-									count: msg.count,
-									curr: senddata.offset,
-									limit: senddata.limit,
-									layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
-									jump: function(e, first) {
-										if(!first) {
-											senddata.offset = e.curr;
-											senddata.limit = e.limit;
-											var district = "";
-											getAjaxData({
-												"id": $("#teacher-id").val() == '' ? undefined : $("#teacher-id").val(),
-												"name": $("#teacher-name").val() == '' ? undefined : $("#teacher-name").val(),
-												"school_id": $("#teacher-school-id").val() == '' ? undefined : $("#teacher-school-id").val(),
-												"school_name": $("#teacher-school-name").val() == '' ? undefined : $("#teacher-school-name").val(),
-												"class_id": $("#teacher-class-id").val() == '' ? undefined : $("#teacher-class-id").val(),
-												"class_name": $("#teacher-class-name").val() == '' ? undefined : $("#teacher-class-name").val(),
-												"phone": $("#teacher-phone").val() == '' ? undefined : $("#teacher-phone").val(),
-												"limit": e.limit,
-											    "offset": e.curr,
-											});
-											
+							layui.use(['laypage', 'layer'], function() {
+									var page = layui.laypage;
+									page.render({
+										elem: "layPage",
+										count: msg.count,
+										curr: senddata.offset,
+										limit: senddata.limit,
+										layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
+										jump: function(e, first) {
+											if(!first) {
+												senddata.offset = e.curr;
+												senddata.limit = e.limit;
+												var district = "";
+												getAjaxData({
+													"id": $("#teacher-id").val() == '' ? undefined : $("#teacher-id").val(),
+													"name": $("#teacher-name").val() == '' ? undefined : $("#teacher-name").val(),
+													"school_id": $("#teacher-school-id").val() == '' ? undefined : $("#teacher-school-id").val(),
+													"school_name": $("#teacher-school-name").val() == '' ? undefined : $("#teacher-school-name").val(),
+													"class_id": $("#teacher-class-id").val() == '' ? undefined : $("#teacher-class-id").val(),
+													"class_name": $("#teacher-class-name").val() == '' ? undefined : $("#teacher-class-name").val(),
+													"phone": $("#teacher-phone").val() == '' ? undefined : $("#teacher-phone").val(),
+													"limit": e.limit,
+													"offset": e.curr,
+												});
+
+											}
 										}
-									}
+									})
 								})
-							})
-							//表格渲染
+								//表格渲染
 							var strs = '';
 							console.log(msg);
 							if(msg.data.length > 0) {
@@ -271,7 +417,7 @@
 						}
 					});
 				}
-				
+
 				//全选按钮
 				$("#zx_checkedAllBtn").click(function() {
 					if(this.checked) {
@@ -283,9 +429,9 @@
 				});
 
 				$("#tbody :checkbox").click(function() {
-						allchk();
+					allchk();
 				});
-				
+
 				//全选
 				function allchk() {
 					$('#delInfo').attr("disabled", false);
@@ -379,7 +525,7 @@
 						"offset": 1,
 					});
 				});
-				
+
 				//添加校验
 				var layerIndex;
 				$("#addInfoContentform").validate({
@@ -467,11 +613,16 @@
 					},
 					success: function() {}
 				});
-				
+
 				//添加弹框
 				$('#addInfo').click(function() {
 					$("input").val("");
 					$(".errorPart").html("");
+					classInput({
+						"limit": 20,
+						"offset": 1,
+						'school_id': school,
+					},'yes');
 					layerIndex = layer.open({
 						title: '添加老师',
 						type: 1,
@@ -485,7 +636,7 @@
 						}
 					});
 				});
-				
+
 				//编辑校验
 				$("#editAreaContentform").validate({
 					focusCleanup: true,
@@ -568,7 +719,7 @@
 					},
 					success: function() {}
 				});
-				
+
 				//编辑弹框
 				$('.areapen').click(function() {
 					$(".errorPart").html("");
@@ -586,11 +737,11 @@
 					layerIndex = layer.open({
 						title: '修改老师信息',
 						type: 1,
-						skin: 'layui-layer-demo', 
-						closeBtn: 0, 
+						skin: 'layui-layer-demo',
+						closeBtn: 0,
 						anim: 2,
-						shadeClose: true, 
-						btn: ['确定', '取消'], 
+						shadeClose: true,
+						btn: ['确定', '取消'],
 						content: $('#editAreaContent'),
 						yes: function() {
 							$("#editAreaContentSubmit").click();
@@ -598,7 +749,7 @@
 					});
 				});
 
-                //删除
+				//删除
 				$('.fa-close').click(function() {
 					layer.confirm('确定删除选中的老师？', {
 						btn: ['确定', '取消'] //按钮

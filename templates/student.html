@@ -280,7 +280,7 @@
 						cache: false,
 						timeout: "1000000",
 						success: function(msg) {
-							var str = '';
+							var str = '<option value="">--请选择年级--</option>';
 							var layerSrt = '';
 							if(msg.data.length > 0) {
 								for(var i = 0; i < msg.data.length; i++) {
@@ -288,8 +288,8 @@
 									layerSrt += '<div class="gradeNameList"><input type="checkbox" name="' + msg.data[i].id +
 										'" value="' + msg.data[i].id + '" /><span class="gradeName">' + msg.data[i].name + '</span></div>'
 								}
-								$("#grade-name").append(str);
-								$("#add_grade").append(str);
+								$("#grade-name").html(str);
+								$("#add_grade").html(str);
 								$("#edit_grade").html(str);
 
 								$(".gradeNamePart").append(layerSrt);
@@ -310,6 +310,14 @@
 
 				//切换年级
 				$("#grade-name").change(function() {
+					classInput();
+				});
+				//新增弹框切换年级
+				$("#add_grade").change(function() {
+					classInput();
+				});
+				//编辑弹框切换年级
+				$("#edit_grade").change(function() {
 					classInput();
 				});
 				//获取班级
@@ -507,7 +515,7 @@
 					$(".selectPart .errorPartS").css("display", "none");
 					gradeInput();
 					layerIndex = layer.open({
-						title: '添加班级',
+						title: '添加学生',
 						type: 1,
 						skin: 'layui-layer-demo',
 						anim: 2,
