@@ -288,8 +288,8 @@
 									layerSrt += '<div class="gradeNameList"><input type="checkbox" name="' + msg.data[i].id +
 										'" value="' + msg.data[i].id + '" /><span class="gradeName">' + msg.data[i].name + '</span></div>'
 								}
-								$("#grade-name").append(str);
-								$("#add_grade").append(str);
+								$("#grade-name").html(str);
+								$("#add_grade").html(str);
 								$("#edit_grade").html(str);
 
 								$(".gradeNamePart").append(layerSrt);
