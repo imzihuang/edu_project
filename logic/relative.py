@@ -13,7 +13,7 @@ from util import exception
 LOG = logging.getLogger(__name__)
 
 class RelativeLogic(Logic):
-    def input(self, name="", sex=0, birthday="", phone=""):
+    def input(self, name="", sex=0, birthday="", phone="", describe=""):
         if not is_date(birthday):
             raise exception.FormalError(birthday=birthday)
         if not is_mobile(phone):
@@ -24,7 +24,8 @@ class RelativeLogic(Logic):
             "name": name,
             "sex": sex,
             "birthday": birthday,
-            "phone": phone
+            "phone": phone,
+            "describe": describe
         }
         relativel_obj = db_api.relative_create(values)
         return relativel_obj
