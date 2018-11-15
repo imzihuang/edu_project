@@ -554,7 +554,7 @@
 						} 
 						var data = {
 							'name': $("#add_name").val(),
-							'sex': $('input:radio[name=addsex]:checked').val(),
+							'sex': $("input[name='addsex']:checked").val()
 							'position':$("#add_post option:selected").val(),
 							'phone': $("#add_phone").val(),
 							'class_id': classId,

@@ -14,7 +14,7 @@ function schoolInput() {
 		async: false,
 		data: data,
 		timeout: "30000",
-		success: function(msg) {
+		success: function(msg) {console.log(msg);
 			var msg = JSON.parse(msg);
 			console.log(msg);
 			school = msg.data[0].id;
