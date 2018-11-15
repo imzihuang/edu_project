@@ -103,17 +103,19 @@ class RegistryHandler(RequestHandler):
     def _get_teacher_argument(self):
         name = convert.bs2utf8(self.get_argument('name', ''))
         sex = int(self.get_argument('sex', 0))
-        birthday = convert.bs2utf8(self.get_argument('birthday', ""))
+        birthday = convert.bs2utf8(self.get_argument('birthday', ''))
         class_id = convert.bs2utf8(self.get_argument('class_id', ''))
         phone = convert.bs2utf8(self.get_argument('phone', ''))
         position = int(self.get_argument('position', 0))
+        describe = convert.bs2utf8(self._get_class_argument('describe', ''))
         return {
             "name": name,
             "sex": sex,
             "birthday": birthday,
             "class_id": class_id,
             "phone": phone,
-            "position": position
+            "position": position,
+            "describe": describe,
         }
 
     def _get_teacher_history_argument(self):
@@ -133,13 +135,15 @@ class RegistryHandler(RequestHandler):
         class_id = convert.bs2utf8(self.get_argument('class_id', ''))
         status = convert.bs2utf8(self.get_argument('status', 'apply'))
         relation_number = int(self.get_argument('relation_number', 3))
+        describe = convert.bs2utf8(self._get_class_argument('describe', ''))
         return {
             "name": name,
             "sex": sex,
             "birthday": birthday,
             "class_id": class_id,
             "status": status,
-            "relation_number": relation_number
+            "relation_number": relation_number,
+            "describe": describe,
         }
 
     def _get_student_history_argument(self):
@@ -157,11 +161,13 @@ class RegistryHandler(RequestHandler):
         sex = int(self.get_argument('sex', 0))
         birthday = convert.bs2utf8(self.get_argument('birthday', 0))
         phone = convert.bs2utf8(self.get_argument('phone', ''))
+        describe = convert.bs2utf8(self._get_class_argument('describe', ''))
         return {
             "name": name,
             "sex": sex,
             "birthday": birthday,
-            "phone": phone
+            "phone": phone,
+            "describe": describe,
         }
 
     def _get_relation_argument(self):

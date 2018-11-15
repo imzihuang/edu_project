@@ -29,7 +29,7 @@ def model_query(model, session=None, *args, **kwargs):
 
     if filter_dict:
         query = query.filter_by(**filter_dict)
-    query = query.order_by(model.id.desc())
+    query = query.order_by(model.create_time.desc())
 
     return query
 

@@ -2,7 +2,7 @@
 
 from tornado.web import RequestHandler
 import json
-from util.convert import is_mobile
+from util import convert
 import logging
 
 from logic import Logic
@@ -61,10 +61,10 @@ class UpdateHandler(RequestHandler):
 
 
     def _get_school_argument(self):
-        id = self.get_argument('id', '')
-        name = self.get_argument('name', '')
-        cardcode = self.get_argument('cardcode', '')
-        describe = self.get_argument('describe', '')
+        id = convert.bs2utf8(self.get_argument('id', ''))
+        name = convert.bs2utf8(self.get_argument('name', ''))
+        cardcode = convert.bs2utf8(self.get_argument('cardcode', ''))
+        describe = convert.bs2utf8(self.get_argument('describe', ''))
         result = {}
         if name:
             result.update({"name": name})
@@ -75,9 +75,9 @@ class UpdateHandler(RequestHandler):
         return id, result
 
     def _get_grade_argument(self):
-        id = self.get_argument('id', '')
-        name = self.get_argument('name', '')
-        school_id = self.get_argument('school_id', '')
+        id = convert.bs2utf8(self.get_argument('id', ''))
+        name = convert.bs2utf8(self.get_argument('name', ''))
+        school_id = convert.bs2utf8(self.get_argument('school_id', ''))
         result = {}
         if name:
             result.update({"name": name})
@@ -86,11 +86,11 @@ class UpdateHandler(RequestHandler):
         return id, result
 
     def _get_class_argument(self):
-        id = self.get_argument('id', '')
-        name = self.get_argument('name', '')
-        grade_id = self.get_argument('grade_id', '')
-        cardcode = self.get_argument('cardcode', '')
-        describe = self.get_argument('describe', '')
+        id = convert.bs2utf8(self.get_argument('id', ''))
+        name = convert.bs2utf8(self.get_argument('name', ''))
+        grade_id = convert.bs2utf8(self.get_argument('grade_id', ''))
+        cardcode = convert.bs2utf8(self.get_argument('cardcode', ''))
+        describe = convert.bs2utf8(self.get_argument('describe', ''))
         student_number = int(self.get_argument('study_number', 0))
         result = {}
         if name:
@@ -106,12 +106,13 @@ class UpdateHandler(RequestHandler):
         return id, result
 
     def _get_teacher_argument(self):
-        id = self.get_argument('id', '')
-        name = self.get_argument('name', '')
+        id = convert.bs2utf8(self.get_argument('id', ''))
+        name = convert.bs2utf8(self.get_argument('name', ''))
         sex = int(self.get_argument('sex', 0))
-        birthday = self.get_argument('birthday', "")
-        class_id = self.get_argument('class_id', '')
-        phone = self.get_argument('phone', '')
+        birthday = convert.bs2utf8(self.get_argument('birthday', ""))
+        class_id = convert.bs2utf8(self.get_argument('class_id', ''))
+        phone = convert.bs2utf8(self.get_argument('phone', ''))
+        describe = convert.bs2utf8(self._get_class_argument('describe', ''))
         result = {}
         if name:
             result.update({"name": name})
@@ -123,17 +124,20 @@ class UpdateHandler(RequestHandler):
             result.update({"class_id": class_id})
         if phone:
             result.update({"phone": phone})
+        if describe:
+            result.update({"describe": describe})
         return id, result
 
 
     def _get_student_argument(self):
-        id = self.get_argument('id', '')
-        name = self.get_argument('name', '')
+        id = convert.bs2utf8(self.get_argument('id', ''))
+        name = convert.bs2utf8(self.get_argument('name', ''))
         sex = int(self.get_argument('sex', 0))
-        birthday = self.get_argument('birthday', "")
-        class_id = self.get_argument('class_id', '')
-        status = self.get_argument('status', 'apply')
+        birthday = convert.bs2utf8(self.get_argument('birthday', ""))
+        class_id = convert.bs2utf8(self.get_argument('class_id', ''))
+        status = convert.bs2utf8(self.get_argument('status', 'apply'))
         relation_number = int(self.get_argument('relation_number', 3))
+        describe = convert.bs2utf8(self._get_class_argument('describe', ''))
         result = {}
         if name:
             result.update({"name": name})
@@ -147,14 +151,17 @@ class UpdateHandler(RequestHandler):
             result.update({"status": status})
         if relation_number:
             result.update({"relation_number": relation_number})
+        if describe:
+            result.update({"describe": describe})
         return id, result
 
     def _get_relative_argument(self):
-        id = self.get_argument('id', '')
-        name = self.get_argument('name', '')
+        id = convert.bs2utf8(self.get_argument('id', ''))
+        name = convert.bs2utf8(self.get_argument('name', ''))
         sex = int(self.get_argument('sex', 0))
-        birthday = self.get_argument('birthday', 0)
-        phone = self.get_argument('phone', '')
+        birthday = convert.bs2utf8(self.get_argument('birthday', 0))
+        phone = convert.bs2utf8(self.get_argument('phone', ''))
+        describe = convert.bs2utf8(self._get_class_argument('describe', ''))
         result = {}
         if name:
             result.update({"name": name})
@@ -164,13 +171,15 @@ class UpdateHandler(RequestHandler):
             result.update({"birthday": birthday})
         if phone:
             result.update({"phone": phone})
+        if describe:
+            result.update({"describe": describe})
         return id, result
 
     def _get_relation_argument(self):
-        id = self.get_argument('id', '')
-        relation = self.get_argument('relation', '')
-        student_id = self.get_argument('student_id', '')
-        relative_id = self.get_argument('relative_id', '')
+        id = convert.bs2utf8(self.get_argument('id', ''))
+        relation = convert.bs2utf8(self.get_argument('relation', ''))
+        student_id = convert.bs2utf8(self.get_argument('student_id', ''))
+        relative_id = convert.bs2utf8(self.get_argument('relative_id', ''))
         result = {
             "relation": relation,
             "student_id": student_id,
