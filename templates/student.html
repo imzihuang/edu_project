@@ -310,24 +310,33 @@
 
 				//切换年级
 				$("#grade-name").change(function() {
-					classInput();
-				});
-				//新增弹框切换年级
-				$("#add_grade").change(function() {
-					classInput();
-				});
-				//编辑弹框切换年级
-				$("#edit_grade").change(function() {
-					classInput();
-				});
-				//获取班级
-				function classInput() {
-					var data = {
+					classInput({
 						"limit": 20,
 						"offset": 1,
 						'school_id': school,
 						"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
-					}
+					});
+				},"no");
+				//新增弹框切换年级
+				$("#add_grade").change(function() {
+					classInput({
+						"limit": 20,
+						"offset": 1,
+						'school_id': school,
+						"grade_id": $("#add_grade").val() == '' ? undefined : $("#add_grade").val(),
+					});
+				},"yes");
+				//编辑弹框切换年级
+				$("#edit_grade").change(function() {
+					classInput({
+						"limit": 20,
+						"offset": 1,
+						'school_id': school,
+						"grade_id": $("#edit_grade").val() == '' ? undefined : $("#edit_grade").val(),
+					});
+				},"yes");
+				//获取班级
+				function classInput(data,ifLayer) {
 					$.ajax({
 						method: 'GET',
 						xhrFields: {
@@ -347,10 +356,12 @@
 								for(var i = 0; i < msg.data.length; i++) {
 									str += '<option value=' + msg.data[i].id + '>' + msg.data[i].name + '</option>';
 								}
-								$("#class-name").html(str);
-								$("#add_class").html(str);
-								$("#edit_class").html(str);
-
+								if(ifLayer == "yes"){
+									$("#add_class").html(str);
+								    $("#edit_class").html(str);
+								}else{
+									$("#class-name").html(str);
+								}
 							} else {
 								$("#class-name").html('<option value="">---无---</option>');
 								$("#add_class").html('<option value="">---无---</option>');
