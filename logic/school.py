@@ -20,7 +20,7 @@ face_api_secret = _dic_con.get("api_secret", "")
 face_create_url = _dic_con.get("create_url", "")
 
 class SchoolLogic(Logic):
-    def intput(self, name="", cardcode="", describe=""):
+    def input(self, name="", cardcode="", describe=""):
         if not name or not cardcode:
             LOG.error("school name or cardcode is None")
             return

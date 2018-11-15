@@ -13,7 +13,7 @@ from util import exception
 LOG = logging.getLogger(__name__)
 
 class RelativeLogic(Logic):
-    def intput(self, name="", sex=0, birthday="", phone=""):
+    def input(self, name="", sex=0, birthday="", phone=""):
         if not is_date(birthday):
             raise exception.FormalError(birthday=birthday)
         if not is_mobile(phone):

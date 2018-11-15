@@ -5,7 +5,7 @@ class Logic(object):
     def __init__(self):
         pass
 
-    def intput(self, *args, **kwargs):
+    def input(self, *args, **kwargs):
         return True
 
     def update(self, id="", **kwargs):

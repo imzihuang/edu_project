@@ -12,7 +12,7 @@ class TeacherLogic(Logic):
     def __init__(self):
         super(TeacherLogic, self).__init__()
 
-    def intput(self, name="", sex=0, birthday="", class_id="", phone="", position=2, status="education"):
+    def input(self, name="", sex=0, birthday="", class_id="", phone="", position=2, status="education"):
         if not is_date(birthday):
             raise exception.FormalError(birthday=birthday)
         if not name or not class_id:
@@ -27,9 +27,10 @@ class TeacherLogic(Logic):
             "school_id": class_info.school_id,
             "grade_id": class_info.grade_id,
             "class_id": class_id,
-            "phone": phone,
-            "position": position
+            "phone": phone
         }
+        if position!=0:
+            values.update({"position": position})
         teacher_obj = db_api.teacher_create(values)
 
         if teacher_obj:
