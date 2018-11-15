@@ -7,13 +7,14 @@ from util import exception
 from util import common_util
 
 
-def model_query(model, session=None, deleted=False, *args, **kwargs):
+def model_query(model, session=None, *args, **kwargs):
     """
     :param model:
     :param session: if present, the session to use
     """
     session = session or get_session()
     query = session.query(model, *args)
+
     read_deleted = kwargs.get("read_deleted", "no")
     if read_deleted == "no":
         query = query.filter_by(deleted=False)
@@ -28,6 +29,7 @@ def model_query(model, session=None, deleted=False, *args, **kwargs):
 
     if filter_dict:
         query = query.filter_by(**filter_dict)
+    query = query.order_by(model.id.desc())
 
     return query
 
