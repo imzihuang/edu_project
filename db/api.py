@@ -7,7 +7,7 @@ from util import exception
 from util import common_util
 
 
-def model_query(model, session=None, *args, **kwargs):
+def model_query(model, session=None, order=False, *args, **kwargs):
     """
     :param model:
     :param session: if present, the session to use
@@ -29,7 +29,8 @@ def model_query(model, session=None, *args, **kwargs):
 
     if filter_dict:
         query = query.filter_by(**filter_dict)
-    query = query.order_by(model.create_time.desc())
+    if order:
+        query = query.order_by(model.create_time.desc())
 
     return query
 
@@ -59,7 +60,7 @@ def school_get(id):
     return result
 
 def school_list(offset=0, limit=1000, **filters):
-    query = model_query(models.SchoolInfo, **filters)
+    query = model_query(models.SchoolInfo, order=True, **filters)
     if offset:
         query = query.offset(offset)
     if limit:
@@ -98,7 +99,7 @@ def grade_get(id):
     return result
 
 def grade_list(offset=0, limit=1000, **filters):
-    query = model_query(models.GradeInfo, **filters)
+    query = model_query(models.GradeInfo, order=True, **filters)
     if offset:
         query = query.offset(offset)
     if limit:
@@ -146,7 +147,7 @@ def class_get(id):
     return result
 
 def class_list(offset=0, limit=1000, **filters):
-    query = model_query(models.ClassInfo, **filters)
+    query = model_query(models.ClassInfo, order=True, **filters)
     if offset:
         query = query.offset(offset)
     if limit:
@@ -194,7 +195,7 @@ def teacher_get(id):
     return result
 
 def teacher_list(offset=0, limit=1000, **filters):
-    query = model_query(models.TeacherInfo, **filters)
+    query = model_query(models.TeacherInfo, order=True, **filters)
     if offset:
         query = query.offset(offset)
     if limit:
@@ -264,7 +265,7 @@ def student_get(id):
     return result
 
 def student_list(offset=0, limit=1000, **filters):
-    query = model_query(models.StudentInfo, **filters)
+    query = model_query(models.StudentInfo, order=True, **filters)
     if offset:
         query = query.offset(offset)
     if limit:
@@ -334,7 +335,7 @@ def relative_get(id):
     return result
 
 def relative_list(offset=0, limit=1000, **filters):
-    query = model_query(models.RelativeInfo, **filters)
+    query = model_query(models.RelativeInfo, order=True, **filters)
     if offset:
         query = query.offset(offset)
     if limit:
@@ -368,7 +369,7 @@ def face_create(values):
         return values
 
 def face_list(offset=0, limit=1000, **filters):
-    query = model_query(models.RelevanceFace, **filters)
+    query = model_query(models.RelevanceFace, order=True, **filters)
     if offset:
         query = query.offset(offset)
     if limit:
@@ -414,7 +415,7 @@ def relation_get(id):
     return result
 
 def relation_list(offset=0, limit=1000, **filters):
-    query = model_query(models.RelationInfo, **filters)
+    query = model_query(models.RelationInfo, order=True, **filters)
     if offset:
         query = query.offset(offset)
     if limit:
@@ -461,7 +462,7 @@ def user_get(id):
     return result
 
 def user_list(offset=0, limit=1000, **filters):
-    query = model_query(models.UserInfo, **filters)
+    query = model_query(models.UserInfo, order=True, **filters)
     if offset:
         query = query.offset(offset)
     if limit:
@@ -509,7 +510,7 @@ def wxuser_get(id):
     return result
 
 def wxuser_list(offset=0, limit=1000, **filters):
-    query = model_query(models.WXUserInfo, **filters)
+    query = model_query(models.WXUserInfo, order=True, **filters)
     if offset:
         query = query.offset(offset)
     if limit:
