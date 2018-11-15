@@ -4,12 +4,13 @@ from tornado.web import RequestHandler
 import base64
 import logging
 import json
+import os
+from PIL import Image
 from logic.userlogic import UserLogic
 from logic.facelogic import FaceLogic
 from util.ini_client import ini_load
 from util.face_recognition_api import face_recognition_yyl
-import os
-from PIL import Image
+from util import common_util
 
 LOG = logging.getLogger(__name__)
 
@@ -20,9 +21,10 @@ face_api_secret = _dic_con.get("api_secret", "")
 face_detect_url = _dic_con.get("detect_url", "")
 
 class ActionHandler(RequestHandler):
-    def initialize(self, static_path, face_path, **kwds):
+    def initialize(self, static_path, face_path, tmp_path, **kwds):
         self.static_path = static_path
         self.face_path = face_path
+        self.tmp_path = tmp_path
 
     def post(self, action):
         if action == "login":
@@ -128,10 +130,15 @@ class ActionHandler(RequestHandler):
     def face_signin(self):
         cardcode = self.get_argument('cardcode', '')
         features = self.get_argument('features', '')
-
-        #验证下通过，将签到信息写入数据库
-
-        #验证不通过，提示重新签到
+        tmp_id = common_util.create_id()
+        if not cardcode:
+            self.finish(json.dumps({'state': 1, 'message': 'cardcode is None'}))
+            return
+        # 将图片存储到本地
+        img = self.get_argument('image', '')
+        file_path = self.static_path + self.tmp_path + tmp_id + '.jpg'
+        with open(file_path, 'wb') as up:
+            up.write(base64.b64decode(img.rpartition(",")[-1]))
 
     def face_signout(self):
         cardcode = self.get_argument('cardcode', '')

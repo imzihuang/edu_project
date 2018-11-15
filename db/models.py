@@ -29,10 +29,11 @@ class GradeInfo(Base, ModelBase):
     __tablename__ = 'grade_info'
     id = Column(VARCHAR(36), primary_key=True)
     name = Column(VARCHAR(100), nullable=False)
-    school_id = Column(VARCHAR(36), nullable=False)
+    school_id = Column(VARCHAR(36), ForeignKey("school_info.id"))
     deleted = Column(Boolean, default=False)
     create_time = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_time = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    school_info = relationship("SchoolInfo", backref="grade_of_school")
 
     def to_dict(self):
        return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
@@ -42,9 +43,9 @@ class ClassInfo(Base, ModelBase):
     __tablename__ = 'class_info'
     id = Column(VARCHAR(36), primary_key=True)
     name = Column(VARCHAR(100), nullable=False)
-    grade_id = Column(VARCHAR(36), nullable=False)
+    grade_id = Column(VARCHAR(36), ForeignKey("grade_info.id"))
     cardcode = Column(VARCHAR(36), nullable=False)
-    school_id = Column(VARCHAR(36), nullable=False)
+    school_id = Column(VARCHAR(36), ForeignKey("school_info.id"))
     student_number = Column(Integer, default=0)
     describe = Column(VARCHAR(500))
     deleted = Column(Boolean, default=False)
@@ -60,9 +61,9 @@ class TeacherInfo(Base, ModelBase):
     name = Column(VARCHAR(100), nullable=False)
     sex = Column(Integer, default=0)
     birthday = Column(DateTime)
-    school_id = Column(VARCHAR(36), nullable=False)
-    grade_id = Column(VARCHAR(36), nullable=False)
-    class_id = Column(VARCHAR(36), nullable=False)
+    school_id = Column(VARCHAR(36), ForeignKey("school_info.id"))
+    grade_id = Column(VARCHAR(36), ForeignKey("grade_info.id"))
+    class_id = Column(VARCHAR(36), ForeignKey("class_info.id"))
     user_id = Column(VARCHAR(36))
     position = Column(Integer, default=2)
     describe = Column(VARCHAR(500))
