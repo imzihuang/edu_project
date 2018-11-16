@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from sqlalchemy import Column, Table, MetaData, UniqueConstraint
+from sqlalchemy import Column, Table, MetaData, UniqueConstraint, ForeignKey
 
 from sqlalchemy.types import *
 from sqlalchemy.ext.declarative import declarative_base
