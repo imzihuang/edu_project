@@ -21,7 +21,6 @@ class SchoolInfo(Base, ModelBase):
     create_time = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_time = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-
     def to_dict(self):
        return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
 
@@ -33,7 +32,6 @@ class GradeInfo(Base, ModelBase):
     deleted = Column(Boolean, default=False)
     create_time = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_time = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    school_info = relationship("SchoolInfo", backref="grade_of_school")
 
     def to_dict(self):
        return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
