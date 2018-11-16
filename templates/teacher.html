@@ -295,16 +295,19 @@
 						success: function(msg) {
 							var str = '';
 							var layerSrt = '';
+							var layerEditSrt = '';
 							if(msg.data.length > 0) {
 								for(var i = 0; i < msg.data.length; i++) {
 									str += '<option value=' + msg.data[i].id + '>' + msg.data[i].name + '</option>';
 									layerSrt += '<div class="classNameList"><input type="checkbox" name="checkboxClassName"' +
 										'value="' + msg.data[i].id + '" /><span class="className">' + msg.data[i].name + '</span></div>'
+									layerEditSrt += '<div class="classNameEditList"><input type="checkbox" name="checkboxEditClassName"' +
+									'value="' + msg.data[i].id + '" /><span class="className">' + msg.data[i].name + '</span></div>'
 								}
 								layerSrt = layerSrt + '<div style="clear:both"></div>'
 								if(ifLayer == "yes") {
 									$(".addClassNamePart").html(layerSrt);
-									$(".editClassNamePart").html(layerSrt);
+									$(".editClassNamePart").html(layerEditSrt);
 								} else {
 									$("#class-name").html(str);
 									$("#add_class").html(str);
@@ -560,7 +563,7 @@
 						},
 					},
 					submitHandler: function(form) {
-						var obj = document.getElementById('addClassNamePart').getElementsByName('checkboxClassName');
+						var obj = document.getElementsByName('checkboxClassName');
 						var classId = '';
 						if($("#add_post option:selected").val() == ''||$("#add_post option:selected").val() == undefined) {
 							$(".errorPartAddPost").css("display", "block");
@@ -640,7 +643,7 @@
 						yes: function() {
 							$("#addInfoContentSubmit").click();
 							
-							var obj = document.getElementById('addClassNamePart').getElementsByName('checkboxClassName');
+							var obj = document.getElementsByName('checkboxClassName');
 							if($("#add_post option:selected").val() == ''||$("#add_post option:selected").val() == undefined) {
 								$(".errorPartAddPost").css("display", "block");
 							}
