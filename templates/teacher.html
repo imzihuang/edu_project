@@ -145,8 +145,8 @@
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
-					<label class="control-label">任教年级：</label>
-					<select id="add_grade">
+					<span>任教年级：</span>
+					<select id="add_grade" name="add_grade" style="width: 350px;">
 						<option value="">--请选择年级--</option>
 					</select>
 				</div>
@@ -260,8 +260,8 @@
 								}
 
 								$("#grade-name").append(str);
-								$("#add_grade").html(str);
-								$("#edit_grade").html(str);
+								$("#add_grade").append(str);
+								$("#edit_grade").append(str);
 
 							} else {
 								$("#grade-name").html('<option value="">---无---</option>');
