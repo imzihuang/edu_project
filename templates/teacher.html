@@ -127,8 +127,8 @@
 				</div>
 				<div style="margin: 20px 0;">
 					<span>性别：</span>
-					<input type="radio" value="1" name="addsex" ><span style="width: 40px;margin-left: 5px;">男</span>
-					<input type="radio" value="0" name="addsex" ><span style="width: 40px;margin-left: 5px;">女</span>
+					<input type="radio" value="1" name="addsex"><span style="width: 40px;margin-left: 5px;" checked>男</span>
+					<input type="radio" value="0" name="addsex"><span style="width: 40px;margin-left: 5px;">女</span>
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
@@ -138,7 +138,7 @@
 						<option value="2">教师</option>
 						<option value="1">园长</option>
 					</select>
-					<div class="errorPart"></div>
+					<div class="errorPartAddPost errorPartAddSpt">请选择职务</div>
 				</div>
 				<div style="margin: 20px 0;">
 					<span>手机号码：</span><input type="text" style="width: 350px;" id="add_phone" name="add_phone" />
@@ -146,11 +146,10 @@
 				</div>
 				<div style="margin: 20px 0;">
 					<span class="fl">任教班级：</span>
-					<div class="addClassNamePart fl">
+					<div class="addClassNamePart fl" id="addClassNamePart">
 						<!--<div class="classNameList"><input type="radio" name="1" value="option1" /><span class="className">一年级</span></div>-->
 					</div>
 					<div style="clear:both;height: 1px;"></div>
-					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;clear: both;">
 					<span class="fl">备注：</span>
@@ -169,8 +168,8 @@
 				</div>
 				<div style="margin: 20px 0;">
 					<span>性别：</span>
-					<input type="radio" name="editsex" value="1"/><span style="width: 40px;margin-left: 5px;">男</span>
-					<input type="radio" name="editsex" value="0"/><span style="width: 40px;margin-left: 5px;">女</span>
+					<input type="radio" name="editsex" value="1" /><span style="width: 40px;margin-left: 5px;">男</span>
+					<input type="radio" name="editsex" value="0" /><span style="width: 40px;margin-left: 5px;">女</span>
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
@@ -247,7 +246,7 @@
 									layerSrt += '<div class="gradeNameList"><input type="checkbox" name="' + msg.data[i].id +
 										'" value="' + msg.data[i].id + '" /><span class="gradeName">' + msg.data[i].name + '</span></div>'
 								}
-							
+
 								$("#grade-name").append(str);
 								$("#add_grade").append(str);
 								$("#edit_grade").html(str);
@@ -275,10 +274,11 @@
 						"offset": 1,
 						'school_id': school,
 						"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
-					},'no');
+					}, 'no');
 				});
+				
 				//获取班级
-				function classInput(sendData,ifLayer) {
+				function classInput(sendData, ifLayer) {
 					$.ajax({
 						method: 'GET',
 						xhrFields: {
@@ -294,17 +294,20 @@
 						success: function(msg) {
 							var str = '';
 							var layerSrt = '';
+							var layerEditSrt = '';
 							if(msg.data.length > 0) {
 								for(var i = 0; i < msg.data.length; i++) {
 									str += '<option value=' + msg.data[i].id + '>' + msg.data[i].name + '</option>';
-									layerSrt += '<div class="classNameList"><input type="checkbox" name="checkboxClassName"'+
+									layerSrt += '<div class="classNameList"><input type="checkbox" name="checkboxClassName"' +
 										'value="' + msg.data[i].id + '" /><span class="className">' + msg.data[i].name + '</span></div>'
+									layerEditSrt += '<div class="classNameEditList"><input type="checkbox" name="checkboxEditClassName"' +
+									'value="' + msg.data[i].id + '" /><span class="className">' + msg.data[i].name + '</span></div>'
 								}
 								layerSrt = layerSrt + '<div style="clear:both"></div>'
-								if(ifLayer == "yes"){
+								if(ifLayer == "yes") {
 									$(".addClassNamePart").html(layerSrt);
-								    $(".editClassNamePart").html(layerSrt);
-								}else{
+									$(".editClassNamePart").html(layerEditSrt);
+								} else {
 									$("#class-name").html(str);
 									$("#add_class").html(str);
 									$("#edit_class").html(str);
@@ -380,16 +383,16 @@
 							console.log(msg);
 							if(msg.data.length > 0) {
 								for(var i = 0; i < msg.data.length; i++) {
-									if(msg.data[i].position == 1){
+									if(msg.data[i].position == 1) {
 										msg.data[i].position = '园长';
-									}else{
+									} else {
 										msg.data[i].position = '教师';
 									}
-									if(msg.data[i].status == 'education'){
+									if(msg.data[i].status == 'education') {
 										msg.data[i].status = '在教';
-									}else if(msg.data[i].status == 'holiday'){
+									} else if(msg.data[i].status == 'holiday') {
 										msg.data[i].status = '休假';
-									}else if(msg.data[i].status == 'dimission'){
+									} else if(msg.data[i].status == 'dimission') {
 										msg.data[i].status = '离职';
 									}
 									strs += '<tr class="gradeX">' +
@@ -521,14 +524,17 @@
 						"offset": 1,
 					});
 				});
-
+				//校验隐藏
+                $("#add_post").change(function(){
+                	$(".errorPartAddPost").css("display", "none");
+                });
 				//添加校验
 				var layerIndex;
-				jQuery.validator.addMethod("isPhone", function(value, element) {   
-				    var reg = /^[0-9]{10,20}$/;
+				jQuery.validator.addMethod("isPhone", function(value, element) {
+					var reg = /^[0-9]{10,20}$/;
 					var phoneNum = $("#add_phone").val();
-					var flag=reg.test(phoneNum);
-				    return flag;
+					var flag = reg.test(phoneNum);
+					return flag;
 				}, "请正确填写手机号码");
 				$("#addInfoContentform").validate({
 					focusCleanup: true,
@@ -540,7 +546,7 @@
 						},
 						add_phone: {
 							required: true,
-							isPhone:true,
+							isPhone: true,
 						},
 					},
 					messages: {
@@ -553,43 +559,48 @@
 						},
 					},
 					submitHandler: function(form) {
-						var obj=document.getElementsByName('checkboxClassName');
-						var classId=''; 
-						for(var i=0; i<obj.length; i++){ 
-							if(obj[i].checked) {
-								classId += obj[i].value + ',';
-							} 
-						} 
-						var data = {
-							'name': $("#add_name").val(),
-							'sex': $("input[name='addsex']:checked").val(),
-							'position':$("#add_post option:selected").val(),
-							'phone': $("#add_phone").val(),
-							'class_id': classId,
-							'describe': $("#add_remarks").val(),
+						var obj = document.getElementsByName('checkboxClassName');
+						var classId = '';
+						if($("#add_post option:selected").val() == ''||$("#add_post option:selected").val() == undefined) {
+							$(".errorPartAddPost").css("display", "block");
+							return false;
+						} else {
 							
-						}
-						$.ajax({
-							type: "POST",
-							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-							url: "/teacher/input",
-							async: false,
-							data: data,
-							timeout: "30000",
-							success: function(msg) {
-								layer.closeAll();
-								layer.msg('添加成功', {
-									icon: 1,
-									time: 800 //2s后自动关闭
-								});
-								window.location.reload();
-							},
-							error: function() {
-								layer.msg('添加失败');
-								console.log("error");
-							}
-						});
+								for(var i = 0; i < obj.length; i++) {
+									if(obj[i].checked) {
+										classId += obj[i].value + ',';
+									}
+								}
+								var data = {
+									'name': $("#add_name").val(),
+									'sex': $("input[name='addsex']:checked").val(),
+									'position': $("#add_post option:selected").val(),
+									'phone': $("#add_phone").val(),
+									'class_id': classId,
+									'describe': $("#add_remarks").val(),
 
+								}
+								$.ajax({
+									type: "POST",
+									contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+									url: "/teacher/input",
+									async: false,
+									data: data,
+									timeout: "30000",
+									success: function(msg) {
+										layer.closeAll();
+										layer.msg('添加成功', {
+											icon: 1,
+											time: 800 //2s后自动关闭
+										});
+										window.location.reload();
+									},
+									error: function() {
+										layer.msg('添加失败');
+										console.log("error");
+									}
+								});
+						}
 					},
 					errorPlacement: function(error, element) {
 						error.appendTo(element.parent().find(".errorPart"));
@@ -600,22 +611,29 @@
 				//添加弹框
 				$('#addInfo').click(function() {
 					$("input[type = 'text']").val("");
+					$("input[type = 'checkbox']").attr("checked",false);
+					$("#add_post option:selected").val('');
+					$(".errorPartAddSpt").css("display", "none");
 					$(".errorPart").html("");
 					classInput({
 						"limit": 20,
 						"offset": 1,
 						'school_id': school,
-					},'yes');
+					}, 'yes');
 					layerIndex = layer.open({
 						title: '添加老师',
 						type: 1,
-						skin: 'layui-layer-demo', //样式类名
+						skin: 'layui-layer-demo', 
 						anim: 2,
-						shadeClose: true, //开启遮罩关闭
-						btn: ['确定', '取消'], //按钮
+						shadeClose: true, 
+						btn: ['确定', '取消'], 
 						content: $('#addInfoContent'),
 						yes: function() {
 							$("#addInfoContentSubmit").click();
+							
+							if($("#add_post option:selected").val() == ''||$("#add_post option:selected").val() == undefined) {
+								$(".errorPartAddPost").css("display", "block");
+							}
 						}
 					});
 				});
