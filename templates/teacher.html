@@ -429,7 +429,7 @@
 										'<td><input type="checkbox" class="zx_checkedBtn"></td>' +
 										'<td class="centerSort">' + (i + 1) + '</td>' +
 										'<td class="data_name" id="'+ msg.data[i].describe +'">' + msg.data[i].name + '</td>' +
-										'<td class="center data_phone">' + msg.data[i].phone + '</td>' +
+										'<td class="center data_phone" id="'+ msg.data[i].sex +'">' + msg.data[i].phone + '</td>' +
 										'<td class="center data_position">' + msg.data[i].position + '</td>' +
 										'<td class="center data_grade_name" id ="'+ msg.data[i].grade_id +'">' + msg.data[i].grade_name + '</td>' +
 										'<td class="center data_class_name">' + msg.data[i].class_name + '</td>' +
@@ -759,15 +759,14 @@
 					$("#edit_name").val($(this).parent("td").siblings(".data_name").html());
 					$("#edit_phone").val($(this).parent("td").siblings(".data_phone").html());
 					if($(this).parent("td").siblings(".data_position").html() == '教师'){
-						$("#add_post").val("0");
+						$("#edit_post").val("0");
 					}else{
-						$("#add_post").val("1");
+						$("#edit_post").val("1");
 					}
-					$("#edit_grade").val($(this).parent("td").siblings(".data_grade").attr("id"));
+					$("input:radio[value='"+ $(this).parent("td").siblings(".data_phone").attr("id") +"']").attr("checked","checked");
+					$("#edit_grade").val($(this).parent("td").siblings(".data_grade_name").attr("id"));
+					
 					$("#edit_remarks").val($(this).parent("td").siblings(".data_name").attr("id"));
-					$("#edit_school_id").val($(this).parent("td").siblings(".data_school_id").html());
-					$("#edit_class_id").val($(this).parent("td").siblings(".data_class_id").html());
-					$("#edit_phone").val($(this).parent("td").siblings(".data_phone").html());
 					layerIndex = layer.open({
 						title: '修改老师信息',
 						type: 1,
