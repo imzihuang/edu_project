@@ -785,9 +785,9 @@
 					$("#edit_grade").change();
 					var a = $(this).parent("td").siblings(".data_class_name").html();console.log(a);
 					var a = a.split(",");
-					var obj = document.getElementsByName('checkboxClassName');
+					var obj = document.getElementsByName('checkboxClassName');console.log(obj);
 					for(var i = 0; i < obj.length; i++) {
-						for(var j = 0;j < a.length;j++){
+						for(var j = 0;j < a.length;j++){console.log(obj[i]);
 							if(obj[i] == a[j]) {console.log(obj[i]);
 							    obj[i].checked = true;
 						    }
