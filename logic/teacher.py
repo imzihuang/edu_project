@@ -37,7 +37,7 @@ class TeacherLogic(Logic):
         if class_info:
             #if class_info.school_id != school_id:
             #    raise exception.ParamNone(school_id=school_id)
-            values.update({"school_id": school_id,
+            values.update({"school_id": class_info.school_id if class_info else school_id,
                             "grade_id": class_info.grade_id,
                            })
         if birthday:
@@ -120,7 +120,7 @@ class TeacherLogic(Logic):
             if grade_info:
                 view.update({"grade_name": grade_info.name})
 
-            class_id = view.get("class_id")("class_id").split(",")
+            class_id = view.get("class_id").split(",")
             class_list = db_api.class_list(id=class_id)
             if class_list:
                 view.update({"class_info": self.views(class_list)})
