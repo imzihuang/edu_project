@@ -297,6 +297,14 @@
 						"grade_id": $("#add_grade").val() == '' ? undefined : $("#add_grade").val(),
 					}, 'yes');
 				});
+				$("#edit_grade").change(function() {
+					classInput({
+						"limit": 20,
+						"offset": 1,
+						'school_id': school,
+						"grade_id": $("#edit_grade").val() == '' ? undefined : $("#edit_grade").val(),
+					}, 'yes');
+				});
 				
 				//获取班级
 				function classInput(sendData, ifLayer) {
