@@ -13,7 +13,7 @@ class StudentLogic(Logic):
         pass
 
     def input(self, name="", sex=0, birthday="", class_id="", status="apply", relation_number=3, describe=""):
-        if not is_date(birthday):
+        if birthday and not is_date(birthday):
             raise exception.FormalError(birthday=birthday)
         if not name:
             raise exception.ParamNone(name="")
@@ -25,7 +25,7 @@ class StudentLogic(Logic):
         values = {
             "name": name,
             "sex": sex,
-            "birthday": birthday,
+            #"birthday": birthday,
             "school_id": class_info.school_id,
             "grade_id": class_info.grade_id,
             "class_id": class_id,
@@ -33,6 +33,8 @@ class StudentLogic(Logic):
             #"status": status,
             "relation_number": relation_number
         }
+        if birthday:
+            values.update({"birthday": birthday})
         student_obj = db_api.student_create(values)
         if student_obj:
             history_values={

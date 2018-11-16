@@ -34,7 +34,11 @@ class ExpressException(Exception):
 
         if self._should_format():
             try:
-                message = self.message % kwargs
+                _message = ""
+                for k, v in kwargs.items():
+                    _message += '{v}:{k}；'.format(v=v, k=k)
+                #message = self.message % kwargs
+                message = self.message % {"message": _message}
 
             except Exception:
                 # NOTE(melwitt): This is done in a separate method so it can be
