@@ -1326,11 +1326,12 @@ select {
 	border: 1px solid #dcdcdc;
 }
 
-.errorPart,#errorPartAddPost,#errorPartAddClass{
+.errorPart,.errorPartAddPost,.errorPartAddClass{
 	padding-left: 100px;
 	clear: both;
 	line-height: normal;
 	position: absolute;
+	color: #cc5965;
 }
 
 #grade-name {
