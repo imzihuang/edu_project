@@ -127,7 +127,7 @@
 				</div>
 				<div style="margin: 20px 0;">
 					<span>性别：</span>
-					<input type="radio" value="1" name="addsex"><span style="width: 40px;margin-left: 5px;" checked>男</span>
+					<input type="radio" value="1" name="addsex" checked><span style="width: 40px;margin-left: 5px;">男</span>
 					<input type="radio" value="0" name="addsex"><span style="width: 40px;margin-left: 5px;">女</span>
 					<div class="errorPart"></div>
 				</div>
@@ -143,6 +143,12 @@
 				<div style="margin: 20px 0;">
 					<span>手机号码：</span><input type="text" style="width: 350px;" id="add_phone" name="add_phone" />
 					<div class="errorPart"></div>
+				</div>
+				<div style="margin: 20px 0;">
+					<label class="control-label">任教年级：</label>
+					<select id="add_grade">
+						<option value="">--请选择年级--</option>
+					</select>
 				</div>
 				<div style="margin: 20px 0;">
 					<span class="fl">任教班级：</span>
@@ -193,6 +199,12 @@
 						<option value="holiday">休假</option>
 					</select>
 					<div class="errorPart"></div>
+				</div>
+				<div style="margin: 20px 0;">
+					<label class="control-label">任教年级：</label>
+					<select id="edit_grade">
+						<option value="">--请选择年级--</option>
+					</select>
 				</div>
 				<div style="margin: 20px 0;">
 					<span class="fl">任教班级：</span>
@@ -248,10 +260,8 @@
 								}
 
 								$("#grade-name").append(str);
-								$("#add_grade").append(str);
+								$("#add_grade").html(str);
 								$("#edit_grade").html(str);
-
-								$(".gradeNamePart").append(layerSrt);
 
 							} else {
 								$("#grade-name").html('<option value="">---无---</option>');
@@ -276,6 +286,14 @@
 						"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
 					}, 'no');
 				});
+				$("#add_grade").change(function() {
+					classInput({
+						"limit": 20,
+						"offset": 1,
+						'school_id': school,
+						"grade_id": $("#add_grade").val() == '' ? undefined : $("#add_grade").val(),
+					}, 'yes');
+				});
 				
 				//获取班级
 				function classInput(sendData, ifLayer) {
@@ -294,19 +312,16 @@
 						success: function(msg) {
 							var str = '';
 							var layerSrt = '';
-							var layerEditSrt = '';
 							if(msg.data.length > 0) {
 								for(var i = 0; i < msg.data.length; i++) {
 									str += '<option value=' + msg.data[i].id + '>' + msg.data[i].name + '</option>';
 									layerSrt += '<div class="classNameList"><input type="checkbox" name="checkboxClassName"' +
 										'value="' + msg.data[i].id + '" /><span class="className">' + msg.data[i].name + '</span></div>'
-									layerEditSrt += '<div class="classNameEditList"><input type="checkbox" name="checkboxEditClassName"' +
-									'value="' + msg.data[i].id + '" /><span class="className">' + msg.data[i].name + '</span></div>'
 								}
 								layerSrt = layerSrt + '<div style="clear:both"></div>'
 								if(ifLayer == "yes") {
 									$(".addClassNamePart").html(layerSrt);
-									$(".editClassNamePart").html(layerEditSrt);
+									$(".editClassNamePart").html(layerSrt);
 								} else {
 									$("#class-name").html(str);
 									$("#add_class").html(str);
@@ -615,11 +630,7 @@
 					$("#add_post option:selected").val('');
 					$(".errorPartAddSpt").css("display", "none");
 					$(".errorPart").html("");
-					classInput({
-						"limit": 20,
-						"offset": 1,
-						'school_id': school,
-					}, 'yes');
+					
 					layerIndex = layer.open({
 						title: '添加老师',
 						type: 1,
