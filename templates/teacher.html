@@ -783,12 +783,12 @@
 					$("input:radio[value='"+ $(this).parent("td").siblings(".data_phone").attr("id") +"']").attr("checked","checked");
 					$("#edit_grade").val($(this).parent("td").siblings(".data_grade_name").attr("id"));
 					$("#edit_grade").change();
-					var a = $(this).parent("td").siblings(".data_class_name").html();
+					var a = $(this).parent("td").siblings(".data_class_name").html();console.log(a);
 					var a = a.split(",");
 					var obj = document.getElementsByName('checkboxClassName');
 					for(var i = 0; i < obj.length; i++) {
 						for(var j = 0;j < a.length;j++){
-							if(obj[i] == a[j]) {
+							if(obj[i] == a[j]) {console.log(obj[i]);
 							    obj[i].checked = true;
 						    }
 						}
