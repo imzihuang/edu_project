@@ -146,7 +146,7 @@
 				</div>
 				<div style="margin: 20px 0;">
 					<span class="fl">任教班级：</span>
-					<div class="addClassNamePart fl">
+					<div class="addClassNamePart fl" id="addClassNamePart">
 						<!--<div class="classNameList"><input type="radio" name="1" value="option1" /><span class="className">一年级</span></div>-->
 					</div>
 					<div style="clear:both;height: 1px;"></div>
@@ -560,7 +560,7 @@
 						},
 					},
 					submitHandler: function(form) {
-						var obj = document.getElementsByName('checkboxClassName');
+						var obj = document.getElementById('addClassNamePart').getElementsByName('checkboxClassName');
 						var classId = '';
 						if($("#add_post option:selected").val() == ''||$("#add_post option:selected").val() == undefined) {
 							$(".errorPartAddPost").css("display", "block");
@@ -640,7 +640,7 @@
 						yes: function() {
 							$("#addInfoContentSubmit").click();
 							
-							var obj = document.getElementsByName('checkboxClassName');
+							var obj = document.getElementById('addClassNamePart').getElementsByName('checkboxClassName');
 							if($("#add_post option:selected").val() == ''||$("#add_post option:selected").val() == undefined) {
 								$(".errorPartAddPost").css("display", "block");
 							}
