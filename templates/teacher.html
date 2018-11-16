@@ -98,6 +98,7 @@
 															<th>教师姓名</th>
 															<th>联系方式</th>
 															<th>是否园长</th>
+															<th>任教年级</th>
 															<th>任教班级</th>
 															<th>状态</th>
 															<th>创建时间</th>
@@ -427,18 +428,19 @@
 									strs += '<tr class="gradeX">' +
 										'<td><input type="checkbox" class="zx_checkedBtn"></td>' +
 										'<td class="centerSort">' + (i + 1) + '</td>' +
-										'<td class="data_name">' + msg.data[i].name + '</td>' +
-										'<td class="center data_sex">' + msg.data[i].phone + '</td>' +
-										'<td class="center data_age">' + msg.data[i].position + '</td>' +
-										'<td class="center data_phone">' + msg.data[i].class_name + '</td>' +
-										'<td class="center data_school_id">' + msg.data[i].status + '</td>' +
+										'<td class="data_name" id="'+ msg.data[i].describe +'">' + msg.data[i].name + '</td>' +
+										'<td class="center data_phone">' + msg.data[i].phone + '</td>' +
+										'<td class="center data_position">' + msg.data[i].position + '</td>' +
+										'<td class="center data_grade_name" id ="'+ msg.data[i].grade_id +'">' + msg.data[i].grade_name + '</td>' +
+										'<td class="center data_class_name">' + msg.data[i].class_name + '</td>' +
+										'<td class="center data_status">' + msg.data[i].status + '</td>' +
 										'<td class="center">' + msg.data[i].create_time + '</td>' +
 										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除"></i></td>' +
 										'</tr>'
 								}
 								$("#tbody").html(strs);
 							} else {
-								$("#tbody").html('<tr><td colspan="9" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
+								$("#tbody").html('<tr><td colspan="10" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
 							}
 						},
 						error: function() {
@@ -643,8 +645,9 @@
 				//添加弹框
 				$('#addInfo').click(function() {
 					$("input[type = 'text']").val("");
-					$("input[type = 'checkbox']").attr("checked",false);
-					$("#add_post option:selected").val('');
+					$("#add_post").val('');
+					$("#add_grade").val('');
+					$(".addClassNamePart").html('');
 					$(".errorPartAddSpt").css("display", "none");
 					$(".errorPart").html("");
 					
@@ -752,14 +755,16 @@
 				//编辑弹框
 				$('.areapen').click(function() {
 					$(".errorPart").html("");
-					$("#edit_id").val($(this).parent("td").siblings(".data_code").html());
+					$(".errorPartAddSpt").css("display", "none");
 					$("#edit_name").val($(this).parent("td").siblings(".data_name").html());
-					if($(this).parent("td").siblings(".data_sex").html() == '男') {
-						$("#edit_sex option[value = 1]").attr('selected', 'selected');
-					} else {
-						$("#edit_sex option[value = 0]").attr('selected', 'selected');
+					$("#edit_phone").val($(this).parent("td").siblings(".data_phone").html());
+					if($(this).parent("td").siblings(".data_position").html() == '教师'){
+						$("#add_post").val("0");
+					}else{
+						$("#add_post").val("1");
 					}
-					$("#edit_age").val($(this).parent("td").siblings(".data_age").html());
+					$("#edit_grade").val($(this).parent("td").siblings(".data_grade").attr("id"));
+					$("#edit_remarks").val($(this).parent("td").siblings(".data_name").attr("id"));
 					$("#edit_school_id").val($(this).parent("td").siblings(".data_school_id").html());
 					$("#edit_class_id").val($(this).parent("td").siblings(".data_class_id").html());
 					$("#edit_phone").val($(this).parent("td").siblings(".data_phone").html());
