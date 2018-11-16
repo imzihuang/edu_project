@@ -1326,7 +1326,7 @@ select {
 	border: 1px solid #dcdcdc;
 }
 
-.errorPart {
+.errorPart,#errorPartAddPost,#errorPartAddClass{
 	padding-left: 100px;
 	clear: both;
 	line-height: normal;
