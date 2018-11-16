@@ -107,7 +107,7 @@ class RegistryHandler(RequestHandler):
         class_id = convert.bs2utf8(self.get_argument('class_id', ''))
         phone = convert.bs2utf8(self.get_argument('phone', ''))
         position = int(self.get_argument('position', 0))
-        describe = convert.bs2utf8(self._get_class_argument('describe', ''))
+        describe = convert.bs2utf8(self.get_argument('describe', ''))
         return {
             "name": name,
             "sex": sex,
