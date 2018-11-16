@@ -435,7 +435,7 @@
 										msg.data[i].status = '离职';
 									}
 									for(var j=0;j<msg.data[i].class_info.length;j++){
-										if(j=msg.data[i].class_info.length-1){
+										if(j == msg.data[i].class_info.length-1){
 											className += msg.data[i].class_info[j].name;
 										}else{
 											className += msg.data[i].class_info[j].name + ',';
