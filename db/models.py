@@ -65,6 +65,7 @@ class TeacherInfo(Base, ModelBase):
     grade_id = Column(VARCHAR(36), ForeignKey("grade_info.id"))
     class_id = Column(VARCHAR(500))
     user_id = Column(VARCHAR(36))
+    phone = Column(VARCHAR(36))
     position = Column(Integer, default=2)
     describe = Column(VARCHAR(500))
     deleted = Column(Boolean, default=False)
