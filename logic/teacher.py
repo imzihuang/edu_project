@@ -19,12 +19,6 @@ class TeacherLogic(Logic):
             raise exception.FormalError(birthday=birthday)
         if not name or not class_id:
             raise exception.ParamNone(class_id="")
-        class_info = None
-        if class_id:
-            class_id = class_id.split(",")
-            class_list = db_api.class_list(id=class_id)
-            class_info = class_list[0]
-
         values = {
             "name": name,
             "sex": sex,
@@ -35,9 +29,14 @@ class TeacherLogic(Logic):
             "phone": phone,
             "describe": describe
         }
+        class_info = None
+        if class_id:
+            class_id = class_id.split(",")
+            class_list = db_api.class_list(id=class_id)
+            class_info = class_list[0]
         if class_info:
-            if class_info.school_id != school_id:
-                raise exception.ParamNone(school_id=school_id)
+            #if class_info.school_id != school_id:
+            #    raise exception.ParamNone(school_id=school_id)
             values.update({"school_id": school_id,
                             "grade_id": class_info.grade_id,
                            })

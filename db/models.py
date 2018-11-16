@@ -63,7 +63,7 @@ class TeacherInfo(Base, ModelBase):
     birthday = Column(DateTime)
     school_id = Column(VARCHAR(36), ForeignKey("school_info.id"))
     grade_id = Column(VARCHAR(36), ForeignKey("grade_info.id"))
-    class_id = Column(VARCHAR(36), ForeignKey("class_info.id"))
+    class_id = Column(VARCHAR(500))
     user_id = Column(VARCHAR(36))
     position = Column(Integer, default=2)
     describe = Column(VARCHAR(500))
