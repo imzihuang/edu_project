@@ -14,7 +14,7 @@ LOG = logging.getLogger(__name__)
 
 class RelativeLogic(Logic):
     def input(self, name="", sex=0, birthday="", phone="", describe=""):
-        if not is_date(birthday):
+        if birthday and not is_date(birthday):
             raise exception.FormalError(birthday=birthday)
         if not is_mobile(phone):
             raise exception.FormalError(phone=phone)
@@ -23,10 +23,11 @@ class RelativeLogic(Logic):
         values = {
             "name": name,
             "sex": sex,
-            "birthday": birthday,
             "phone": phone,
             "describe": describe
         }
+        if birthday:
+            values.update({"birthday": birthday})
         relativel_obj = db_api.relative_create(values)
         return relativel_obj
 
