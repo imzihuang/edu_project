@@ -127,8 +127,8 @@
 				</div>
 				<div style="margin: 20px 0;">
 					<span>性别：</span>
-					<input type="radio" name="addsex" value="1"/><span style="width: 40px;margin-left: 5px;">男的</span>
-					<input type="radio" name="addsex" value="0"/><span style="width: 40px;margin-left: 5px;">女</span>
+					<input type="radio" value="1" name="addsex" ><span style="width: 40px;margin-left: 5px;">男</span>
+					<input type="radio" value="0" name="addsex" ><span style="width: 40px;margin-left: 5px;">女</span>
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
@@ -591,7 +591,7 @@
 
 				//添加弹框
 				$('#addInfo').click(function() {
-					$("input").val("");
+					$("input[type = 'text']").val("");
 					$(".errorPart").html("");
 					classInput({
 						"limit": 20,
