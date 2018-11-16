@@ -1365,10 +1365,10 @@ textarea {
 .gradeNamePart,.classNamePart{
 	width: 330px;
 }
-.addClassNamePart{
+.addClassNamePart,.editClassNamePart{
 	width: 350px;
 }
-.gradeNamePart .gradeName,.classNamePart .className,.addClassNamePart .className{
+.gradeNamePart .gradeName,.classNamePart .className,.addClassNamePart .className,.editClassNamePart .className{
 	width: auto !important;
 	min-width: 80px;
 	margin-left: 5px;

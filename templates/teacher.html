@@ -201,17 +201,20 @@
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
-					<label class="control-label">任教年级：</label>
-					<select id="edit_grade">
+					<span>任教年级：</span>
+					<select id="edit_grade" name="edit_grade" style="width: 350px;">
 						<option value="">--请选择年级--</option>
 					</select>
 				</div>
 				<div style="margin: 20px 0;">
 					<span class="fl">任教班级：</span>
-					<div class="editClassNamePart fl">
-						<!--<div class="classNameList"><input type="radio" name="1" value="option1" /><span class="className">一年级</span></div>-->
+					<div class="editClassNamePart fl" id="editClassNamePart">
 					</div>
-					<div style="clear:both;"></div>
+					<div style="clear:both;height: 1px;"></div>
+				</div>
+				<div style="margin: 20px 0;clear: both;">
+					<span class="fl">备注：</span>
+					<textarea style="width: 350px;" id="edit_remarks" name="edit_remarks"></textarea>
 					<div class="errorPart"></div>
 				</div>
 				<input class="submit" type="submit" value="提交" id="editAreaContentSubmit" style="display: none;">
@@ -580,10 +583,13 @@
 							$(".errorPartAddPost").css("display", "block");
 							return false;
 						} else {
-							
 								for(var i = 0; i < obj.length; i++) {
 									if(obj[i].checked) {
-										classId += obj[i].value + ',';
+										if(i == obj.length-1){
+											classId += obj[i].value;
+										}else{
+											classId += obj[i].value + ',';
+										}
 									}
 								}
 								var data = {
