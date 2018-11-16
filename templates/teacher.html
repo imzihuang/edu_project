@@ -295,7 +295,7 @@
 						"offset": 1,
 						'school_id': school,
 						"grade_id": $("#add_grade").val() == '' ? undefined : $("#add_grade").val(),
-					}, 'yes');
+					}, 'yes','yes');
 				});
 				$("#edit_grade").change(function() {
 					classInput({
@@ -303,11 +303,11 @@
 						"offset": 1,
 						'school_id': school,
 						"grade_id": $("#edit_grade").val() == '' ? undefined : $("#edit_grade").val(),
-					}, 'yes');
+					}, 'yes','no');
 				});
 				
 				//获取班级
-				function classInput(sendData, ifLayer) {
+				function classInput(sendData, ifLayer,ifadd) {
 					$.ajax({
 						method: 'GET',
 						xhrFields: {
@@ -331,8 +331,11 @@
 								}
 								layerSrt = layerSrt + '<div style="clear:both"></div>'
 								if(ifLayer == "yes") {
-									$(".addClassNamePart").html(layerSrt);
-									$(".editClassNamePart").html(layerSrt);
+									if(ifadd == "yes"){
+										$(".addClassNamePart").html(layerSrt);
+									}else{
+										$(".editClassNamePart").html(layerSrt);
+									}
 								} else {
 									$("#class-name").html(str);
 									$("#add_class").html(str);
