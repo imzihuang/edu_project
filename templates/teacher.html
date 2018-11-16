@@ -554,7 +554,7 @@
 						} 
 						var data = {
 							'name': $("#add_name").val(),
-							'sex': $("input[name='addsex']:checked").attr("class"),
+							'sex': $("input[name='addsex']:checked").val(),
 							'position':$("#add_post option:selected").val(),
 							'phone': $("#add_phone").val(),
 							'class_id': classId,
@@ -591,7 +591,7 @@
 
 				//添加弹框
 				$('#addInfo').click(function() {
-					$("input").val("");
+					$("input[type = 'text']").val("");
 					$(".errorPart").html("");
 					classInput({
 						"limit": 20,
