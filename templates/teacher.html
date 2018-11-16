@@ -524,6 +524,12 @@
 
 				//添加校验
 				var layerIndex;
+				jQuery.validator.addMethod("isPhone", function(value, element) {   
+				    var reg = /^[0-9]{10,20}$/;
+					var phoneNum = $("#add_phone").val();
+					var flag=reg.test(phoneNum);
+				    return flag;
+				}, "请正确填写手机号码");
 				$("#addInfoContentform").validate({
 					focusCleanup: true,
 					focusInvalid: false,
@@ -534,6 +540,7 @@
 						},
 						add_phone: {
 							required: true,
+							isPhone:true,
 						},
 					},
 					messages: {
@@ -542,6 +549,7 @@
 						},
 						add_phone: {
 							required: '必填',
+							isPhone: '请正确填写手机号码',
 						},
 					},
 					submitHandler: function(form) {
@@ -574,7 +582,7 @@
 									icon: 1,
 									time: 800 //2s后自动关闭
 								});
-//								window.location.reload();
+								window.location.reload();
 							},
 							error: function() {
 								layer.msg('添加失败');
