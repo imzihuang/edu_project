@@ -291,20 +291,28 @@
 					}, 'no');
 				});
 				$("#add_grade").change(function() {
-					classInput({
-						"limit": 20,
-						"offset": 1,
-						'school_id': school,
-						"grade_id": $("#add_grade").val() == '' ? undefined : $("#add_grade").val(),
-					}, 'yes','yes');
+					if($("#add_grade").val() == ''){
+						$(".addClassNamePart").html("");
+					}else{
+						classInput({
+							"limit": 20,
+							"offset": 1,
+							'school_id': school,
+							"grade_id": $("#add_grade").val() == '' ? undefined : $("#add_grade").val(),
+						}, 'yes','yes');
+					}
 				});
 				$("#edit_grade").change(function() {
-					classInput({
-						"limit": 20,
-						"offset": 1,
-						'school_id': school,
-						"grade_id": $("#edit_grade").val() == '' ? undefined : $("#edit_grade").val(),
-					}, 'yes','no');
+					if($("#edit_grade").val() == ''){
+						$(".editClassNamePart").html("");
+					}else{
+						classInput({
+							"limit": 20,
+							"offset": 1,
+							'school_id': school,
+							"grade_id": $("#edit_grade").val() == '' ? undefined : $("#edit_grade").val(),
+						}, 'yes','no');
+					}
 				});
 				
 				//获取班级
@@ -759,7 +767,7 @@
 					$("#edit_name").val($(this).parent("td").siblings(".data_name").html());
 					$("#edit_phone").val($(this).parent("td").siblings(".data_phone").html());
 					if($(this).parent("td").siblings(".data_position").html() == '教师'){
-						$("#edit_post").val("0");
+						$("#edit_post").val("2");
 					}else{
 						$("#edit_post").val("1");
 					}
