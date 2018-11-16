@@ -773,7 +773,7 @@
 					}
 					$("input:radio[value='"+ $(this).parent("td").siblings(".data_phone").attr("id") +"']").attr("checked","checked");
 					$("#edit_grade").val($(this).parent("td").siblings(".data_grade_name").attr("id"));
-					
+					$("#edit_grade").change();
 					$("#edit_remarks").val($(this).parent("td").siblings(".data_name").attr("id"));
 					layerIndex = layer.open({
 						title: '修改老师信息',
