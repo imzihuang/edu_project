@@ -12,24 +12,35 @@ class TeacherLogic(Logic):
     def __init__(self):
         super(TeacherLogic, self).__init__()
 
-    def input(self, name="", sex=0, birthday="", class_id="", phone="", position=2, describe="", status="education"):
+    def input(self, name="", sex=0, birthday="",
+              school_id="", class_id="",
+              phone="", position=2, describe="", status="education"):
         if birthday and not is_date(birthday):
             raise exception.FormalError(birthday=birthday)
         if not name or not class_id:
             raise exception.ParamNone(class_id="")
-        class_info = db_api.class_get(id=class_id)
-        if not class_info:
-            raise exception.NotFound(code=class_id)
+        class_info = None
+        if class_id:
+            class_id = class_id.split(",")
+            class_list = db_api.class_list(id=class_id)
+            class_info = class_list[0]
+
         values = {
             "name": name,
             "sex": sex,
             #"birthday": birthday,
-            "school_id": class_info.school_id,
-            "grade_id": class_info.grade_id,
+            #"school_id": class_info.school_id,
+            #"grade_id": class_info.grade_id,
             "class_id": class_id,
             "phone": phone,
             "describe": describe
         }
+        if class_info:
+            if class_info.school_id != school_id:
+                raise exception.ParamNone(school_id=school_id)
+            values.update({"school_id": school_id,
+                            "grade_id": class_info.grade_id,
+                           })
         if birthday:
             values.update({"birthday": birthday})
         if position != 0:
@@ -49,10 +60,11 @@ class TeacherLogic(Logic):
         if not id or not kwargs:
             return False
         if kwargs.get("class_id"):
-            class_info = db_api.class_get(id=kwargs.get("class_id"))
+            class_id = kwargs.get("class_id").split(",")
+            class_list = db_api.class_list(id=class_id)
             kwargs.update({
-                "school_id": class_info.school_id,
-                "grade_id": class_info.grade_id,
+                "school_id": class_list[0].school_id,
+                "grade_id": class_list[0].grade_id,
             })
 
         _ = db_api.teacher_update(id, kwargs)
@@ -108,9 +120,11 @@ class TeacherLogic(Logic):
             grade_info = db_api.grade_get(id=view.get("grade_id"))
             if grade_info:
                 view.update({"grade_name": grade_info.name})
-            class_info = db_api.class_get(id=view.get("class_id"))
-            if class_info:
-                view.update({"class_name": class_info.name})
+
+            class_id = view.get("class_id")("class_id").split(",")
+            class_list = db_api.class_list(id=class_id)
+            if class_list:
+                view.update({"class_info": self.views(class_list)})
         teacher_count = db_api.teacher_count(**filters)
         return {"count": teacher_count, "state": 0, "message": "query success", "data": views_list}
 

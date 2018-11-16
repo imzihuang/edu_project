@@ -104,6 +104,7 @@ class RegistryHandler(RequestHandler):
         name = convert.bs2utf8(self.get_argument('name', ''))
         sex = int(self.get_argument('sex', 0))
         birthday = convert.bs2utf8(self.get_argument('birthday', ''))
+        school_id = convert.bs2utf8(self.get_argument('school_id', ''))
         class_id = convert.bs2utf8(self.get_argument('class_id', ''))
         phone = convert.bs2utf8(self.get_argument('phone', ''))
         position = int(self.get_argument('position', 0))
@@ -112,6 +113,7 @@ class RegistryHandler(RequestHandler):
             "name": name,
             "sex": sex,
             "birthday": birthday,
+            "school_id": school_id,
             "class_id": class_id,
             "phone": phone,
             "position": position,
