@@ -150,7 +150,6 @@
 						<!--<div class="classNameList"><input type="radio" name="1" value="option1" /><span class="className">一年级</span></div>-->
 					</div>
 					<div style="clear:both;height: 1px;"></div>
-					<div class="errorPartAddClass errorPartAddSpt">请选择任教班级</div>
 				</div>
 				<div style="margin: 20px 0;clear: both;">
 					<span class="fl">备注：</span>
@@ -529,9 +528,6 @@
                 $("#add_post").change(function(){
                 	$(".errorPartAddPost").css("display", "none");
                 });
-                $("#addClassNamePart input[type = 'checkbox']").click(function(){
-                	$(".errorPartAddClass").css("display", "none");
-                });
 				//添加校验
 				var layerIndex;
 				jQuery.validator.addMethod("isPhone", function(value, element) {
@@ -567,16 +563,9 @@
 						var classId = '';
 						if($("#add_post option:selected").val() == ''||$("#add_post option:selected").val() == undefined) {
 							$(".errorPartAddPost").css("display", "block");
-							if(obj.length == 0) {
-								$(".errorPartAddClass").css("display", "block");
-								return false;
-							}
 							return false;
 						} else {
-							if(obj.length == 0) {
-								$(".errorPartAddClass").css("display", "block");
-								return false;
-							} else {
+							
 								for(var i = 0; i < obj.length; i++) {
 									if(obj[i].checked) {
 										classId += obj[i].value + ',';
@@ -611,7 +600,6 @@
 										console.log("error");
 									}
 								});
-							}
 						}
 					},
 					errorPlacement: function(error, element) {
@@ -643,12 +631,8 @@
 						yes: function() {
 							$("#addInfoContentSubmit").click();
 							
-							var obj = document.getElementsByName('checkboxClassName');
 							if($("#add_post option:selected").val() == ''||$("#add_post option:selected").val() == undefined) {
 								$(".errorPartAddPost").css("display", "block");
-							}
-							if(obj.length == 0) {
-								$(".errorPartAddClass").css("display", "block");
 							}
 						}
 					});
