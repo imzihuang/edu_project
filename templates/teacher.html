@@ -770,6 +770,7 @@
 
 				//编辑弹框
 				$('.areapen').click(function() {
+					//初始化赋值
 					$(".errorPart").html("");
 					$(".errorPartAddSpt").css("display", "none");
 					$("#edit_name").val($(this).parent("td").siblings(".data_name").html());
@@ -782,7 +783,20 @@
 					$("input:radio[value='"+ $(this).parent("td").siblings(".data_phone").attr("id") +"']").attr("checked","checked");
 					$("#edit_grade").val($(this).parent("td").siblings(".data_grade_name").attr("id"));
 					$("#edit_grade").change();
+					var a = $(this).parent("td").siblings(".data_data_class_name").html();
+					var a = a.split(",");
+					var obj = document.getElementsByName('checkboxClassName');
+					for(var i = 0; i < obj.length; i++) {
+						for(var j = 0;j < a.length;j++){
+							if(obj[i] == a[j]) {
+							    obj[i].checked = true;
+						    }
+						}
+						
+					}
+					
 					$("#edit_remarks").val($(this).parent("td").siblings(".data_name").attr("id"));
+					
 					layerIndex = layer.open({
 						title: '修改老师信息',
 						type: 1,
