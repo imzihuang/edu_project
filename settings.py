@@ -16,7 +16,8 @@ default_settings = {
     'exclude_namespaces': [],
     'log_info': "./log/edu_info.log",
     'log_error': "./log/edu_error.log",
-    'face_path': '/image/face/'
+    'face_path': '/image/face/',
+    'tmp_path': '/image/tmp/',
 }
 
 models = []
