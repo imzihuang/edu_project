@@ -79,5 +79,11 @@ class ClassLogic(Logic):
 
     def delete(self, id="", **kwargs):
         if not id:
-            return
+            return "id is none"
+        relevance_student_count = db_api.student_count(class_id=id)
+        if relevance_student_count > 0:
+            return "exist student"
+        relevance_teacher_count = db_api.teacher_count(class_id=id)
+        if relevance_teacher_count > 0:
+            return "exist teacher"
         db_api.class_deleted(id=id)
