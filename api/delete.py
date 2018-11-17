@@ -45,11 +45,11 @@ class DeleteHandler(RequestHandler):
                 _op = FaceLogic()
 
             if not id:
-                self.finish(json.dumps({'state': 9, 'message': 'params %s is None' % delete_obj}))
+                self.finish(json.dumps({'state': 1, 'message': 'params %s is None' % delete_obj}))
             id = id.split(",")
             _message = _op.delete(id)
             if _message:
-                self.finish(json.dumps({'state': 8, 'message': _message}))
+                self.finish(json.dumps({'state': 9, 'message': _message}))
                 return
             self.finish(json.dumps({'state': 0, 'message': 'delete info success.'}))
         except Exception as ex:

@@ -204,8 +204,8 @@ if __name__ == '__main__':
     get_url = 'https://api-cn.faceplusplus.com/facepp/v3/faceset/getdetail'  # 获取人脸库
     get_fs_url = 'https://api-cn.faceplusplus.com/facepp/v3/faceset/getfacesets'  # 获取API Key下所有人脸库
     remove_url = ' https://api-cn.faceplusplus.com/facepp/v3/faceset/removeface'  # 删除人脸
-    face_recognition = Face_Recognition_YYL(api_key, api_secret, create_url, detect_url, \
-                                        add_url, remove_url,search_url, delete_url, get_url, get_fs_url  )
+    face_recognition = Face_Recognition_YYL(api_key, api_secret, create_url, detect_url,
+                                            add_url, remove_url,search_url, delete_url, get_url, get_fs_url  )
     # 创建人脸库
     # code,faceset_token = face_recognition.FaceSet_Create('白礁小学','12c311511fe94e63b067c0443781599e')
     # print(code,faceset_token) #be856dd1cffa9969bf720e3aab5ac6a4

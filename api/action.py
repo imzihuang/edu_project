@@ -129,16 +129,42 @@ class ActionHandler(RequestHandler):
 
     def face_signin(self):
         cardcode = self.get_argument('cardcode', '')
-        features = self.get_argument('features', '')
+        face_img = self.request.files.get("image", None)
         tmp_id = common_util.create_id()
-        if not cardcode:
-            self.finish(json.dumps({'state': 1, 'message': 'cardcode is None'}))
+        if not face_img or not cardcode:
+            self.finish(json.dumps({'state': 1, 'message': 'cardcode or img is None'}))
             return
         # 将图片存储到本地
-        img = self.get_argument('image', '')
         file_path = self.static_path + self.tmp_path + tmp_id + '.jpg'
-        with open(file_path, 'wb') as up:
-            up.write(base64.b64decode(img.rpartition(",")[-1]))
+        face_img.save(file_path)
+
+        #获取tonken
+        code, face_token = face_recognition_yyl.Face_Detect(file_path)
+        if code != 200:
+            LOG.error("detect face error:%s" % code)
+            self.finish(json.dumps({'state': 2, 'message': face_token}))
+            return
+        _op = FaceLogic()
+        _faceset_token_data = _op.infos(face_token=face_token)
+        _faceset_token_list = _faceset_token_data.get("data", [])
+        if _faceset_token_list:
+            school_id = _faceset_token_list[0].get("school_id", "")
+            code, faceset_token = face_recognition_yyl.Face_Add(school_id, face_token)
+            for _face_info in _faceset_token_list:
+                if _face_info.get("faceset_token", "") == faceset_token:
+                    # 签到
+                    if _face_info.get("relevance_type", 1) == 1:
+                        # 亲属签到
+                        pass
+                    if _face_info.get("relevance_type", 1) == 1:
+                        # 老师签到
+                        pass
+
+
+
+        #with open(file_path, 'wb') as up:
+            #up.write(base64.b64decode(img.rpartition(",")[-1]))
+
 
     def face_signout(self):
         cardcode = self.get_argument('cardcode', '')
