@@ -531,3 +531,26 @@ def wxuser_deleted(id):
         synchronize_session=False)
 
 #####################wx user end################################
+
+#################sign start#####################################
+def relation_sign_create(values):
+    if not values.get('id'):
+        values['id'] = common_util.create_id()
+    relation_sign_ref = models.RelativeSignInfo()
+    relation_sign_ref.update(values)
+    session = get_session()
+    with session.begin():
+        relation_sign_ref.save(session)
+        return relation_sign_ref
+
+def teacher_sign_create(values):
+    if not values.get('id'):
+        values['id'] = common_util.create_id()
+    teacher_sign_ref = models.TeacherSignInfo()
+    teacher_sign_ref.update(values)
+    session = get_session()
+    with session.begin():
+        teacher_sign_ref.save(session)
+        return teacher_sign_ref
+
+#################sign end#######################################

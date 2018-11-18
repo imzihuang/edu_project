@@ -202,7 +202,6 @@ class RelativeSignInfo(Base, ModelBase):
     __tablename__ = 'relative_sign_info'
     id = Column(VARCHAR(36), primary_key=True)
     relative_id = Column(VARCHAR(36), nullable=False)
-    relative_name = Column(VARCHAR(100), nullable=False)
     create_time = Column(DateTime, default=datetime.now, nullable=False)
     type = Column(Integer, default=0)
     deleted = Column(Boolean, default=False)
@@ -219,7 +218,6 @@ class TeacherSignInfo(Base, ModelBase):
     __tablename__ = 'teacher_sign_info'
     id = Column(VARCHAR(36), primary_key=True)
     teacher_id = Column(VARCHAR(36), nullable=False)
-    relative_name = Column(VARCHAR(100), nullable=False)
     create_time = Column(DateTime, default=datetime.now, nullable=False)
     type = Column(Integer, default=0)
     deleted = Column(Boolean, default=False)
