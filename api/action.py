@@ -154,6 +154,8 @@ class ActionHandler(RequestHandler):
                     sign_info = sign_op.input(_face_info.get("relevance_type", 1), _face_info.get("relevance_id", ""))
                     if sign_info:
                         self.finish(json.dumps({'state': 0, 'message': 'sign ok'}))
+                    else:
+                        self.finish(json.dumps({'state': 3, 'message': 'sign fail'}))
                     break
 
 
