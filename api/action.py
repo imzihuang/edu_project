@@ -151,7 +151,9 @@ class ActionHandler(RequestHandler):
             for _face_info in _faceset_token_list:
                 if _face_info.get("faceset_token", "") == faceset_token:
                     # 签到
-                    sign_op.input(_face_info.get("relevance_type", 1), _face_info.get("relevance_id", ""))
+                    sign_info = sign_op.input(_face_info.get("relevance_type", 1), _face_info.get("relevance_id", ""))
+                    if sign_info:
+                        self.finish(json.dumps({'state': 0, 'message': 'sign ok'}))
                     break
 
 
