@@ -28,7 +28,7 @@
 			margin-left: 5px;
 		}
 		
-		.daterangepicker_input{
+		.daterangepicker_input {
 			display: none;
 		}
 	</style>
@@ -750,49 +750,44 @@
 					submitHandler: function(form) {
 						var obj = document.getElementsByName('checkboxClassName');
 						var classId = '';
-							if($("#edit_time").val() == '') {
-								$(".errorPartEditTime").css("display", "block");
-								return false;
-							} else {
-								for(var i = 0; i < obj.length; i++) {
-									if(obj[i].checked) {
-										if(i == obj.length - 1) {
-											classId += obj[i].value;
-										} else {
-											classId += obj[i].value + ',';
-										}
-									}
+						for(var i = 0; i < obj.length; i++) {
+							if(obj[i].checked) {
+								if(i == obj.length - 1) {
+									classId += obj[i].value;
+								} else {
+									classId += obj[i].value + ',';
 								}
-								var data = {
-									'name': $("#edit_name").val(),
-									'sex': $("input[name='editsex']:checked").val(),
-									'position': $("#edit_post option:selected").val(),
-									'phone': $("#edit_phone").val(),
-									'class_id': classId,
-									'describe': $("#edit_remarks").val(),
-									'birthday': $("#edit_time").val(),
-								}
-								$.ajax({
-									type: "POST",
-									contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-									url: "/teacher/update",
-									async: false,
-									data: data,
-									timeout: "30000",
-									success: function(msg) {
-										layer.closeAll();
-										layer.msg('修改成功', {
-											icon: 1,
-											time: 800 //2s后自动关闭
-										});
-										window.location.reload()
-									},
-									error: function() {
-										layer.msg('修改失败');
-										console.log("error");
-									}
-								});
 							}
+						}
+						var data = {
+							'name': $("#edit_name").val(),
+							'sex': $("input[name='editsex']:checked").val(),
+							'position': $("#edit_post option:selected").val(),
+							'phone': $("#edit_phone").val(),
+							'class_id': classId,
+							'describe': $("#edit_remarks").val(),
+							'birthday': $("#edit_time").val(),
+						}
+						$.ajax({
+							type: "POST",
+							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+							url: "/teacher/update",
+							async: false,
+							data: data,
+							timeout: "30000",
+							success: function(msg) {
+								layer.closeAll();
+								layer.msg('修改成功', {
+									icon: 1,
+									time: 800 //2s后自动关闭
+								});
+								window.location.reload()
+							},
+							error: function() {
+								layer.msg('修改失败');
+								console.log("error");
+							}
+						});
 					},
 
 					errorPlacement: function(error, element) {
@@ -825,7 +820,7 @@
 					for(var i = 0; i < obj; i++) {
 						for(var j = 0; j < a.length; j++) {
 							if($(".editClassNamePart .classNameList").eq(i).attr("id") == a[j]) {
-								$(".editClassNamePart .classNameList").eq(i).attr("checked",true);
+								$(".editClassNamePart .classNameList").eq(i).attr("checked", true);
 							}
 						}
 
