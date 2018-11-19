@@ -17,6 +17,8 @@
 		<link href="css/style.css" rel="stylesheet" type="text/css" />
 		<link href="js/plugins/layer/skin/default/layer.css" rel="stylesheet" type="text/css" />
 		<link href="css/layui.css" media="all" rel="stylesheet">
+		<link href="css/daterangepicker.css" media="all" rel="stylesheet">
+
 
 		<script src="js/jquery.min.js"></script>
 
@@ -132,6 +134,11 @@
 					<input type="radio" value="0" name="addsex"><span style="width: 40px;margin-left: 5px;">女</span>
 					<div class="errorPart"></div>
 				</div>
+				<div style="margin: 20px 0;position: relative;">
+					<span>出生日期：</span>
+					 <input type="text" id="add_time" class="form-control" style="width: 350px;display: inline-block;">
+                     <i class="glyphicon glyphicon-calendar fa fa-calendar" style="position: absolute;right: 20px;top: 8px;"></i>
+				</div>
 				<div style="margin: 20px 0;">
 					<span>职务：</span>
 					<select id="add_post" name="add_post" style="width: 350px;">
@@ -178,6 +185,11 @@
 					<input type="radio" name="editsex" value="1" /><span style="width: 40px;margin-left: 5px;">男</span>
 					<input type="radio" name="editsex" value="0" /><span style="width: 40px;margin-left: 5px;">女</span>
 					<div class="errorPart"></div>
+				</div>
+				<div style="margin: 20px 0;">
+					<span>出生日期：</span>
+					 <input type="text" id="edit_time" class="form-control" style="width: 350px;display: inline-block;">
+                     <i class="glyphicon glyphicon-calendar fa fa-calendar" style="position: absolute;right: 20px;top: 8px;"></i>
 				</div>
 				<div style="margin: 20px 0;">
 					<span>职务：</span>
@@ -227,9 +239,13 @@
 		<script src="js/jquery.validate.min.js"></script>
 		<script src="js/jquery.form.js"></script>
 		<script src="js/layui.js" charset="utf-8"></script>
+		<script src="js/moment.js" charset="utf-8"></script>
+		<script src="js/daterangepicker.js" charset="utf-8"></script>
 		<script src="js/common.js" charset="utf-8"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
+				TimeSelectOption($('#add_time'));
+				TimeSelectOption($('#edit_time'));
 				//获取学校
 				schoolInput();
 				//获取年级
@@ -290,6 +306,7 @@
 						"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
 					}, 'no');
 				});
+				//新增弹框切换年级
 				$("#add_grade").change(function() {
 					if($("#add_grade").val() == ''){
 						$(".addClassNamePart").html("");
@@ -302,6 +319,7 @@
 						}, 'yes','yes');
 					}
 				});
+				//编辑弹框切换年级
 				$("#edit_grade").change(function() {
 					if($("#edit_grade").val() == ''){
 						$(".editClassNamePart").html("");
@@ -829,6 +847,30 @@
 					});
 				});
 
+			    //添加弹框日期
+				var beginTimeTake;
+				function TimeSelectOption(reportrangeId) {
+					reportrangeId.daterangepicker({
+						singleDatePicker: true,
+						showDropdowns: true,
+						autoUpdateInput: false,
+						timePicker24Hour: true,
+						timePicker: true,
+						"locale": {
+							format: 'YYYY-MM-DD',
+							applyLabel: "确定",
+							cancelLabel: "取消",
+							resetLabel: "重置",
+						}
+					}, function(start, end, label) { //格式化日期显示框
+						beginTimeTake = start;
+						if(!this.startDate) {
+							this.element.val('');
+						} else {
+							this.element.val(this.startDate.format(this.locale.format));
+						}
+					});
+				};
 			});
 		</script>
 	</body>
