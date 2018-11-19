@@ -821,14 +821,12 @@
 					$("#edit_grade").change();
 					var a = $(this).parent("td").siblings(".data_class_name").html();
 					var a = a.split(",");
-					var obj = document.getElementsByName('checkboxClassName');
+					var obj = $(".editClassNamePart .classNameList").length;
 					console.log(obj);
-					for(var i = 0; i < obj.length; i++) {
+					for(var i = 0; i < obj; i++) {
 						for(var j = 0; j < a.length; j++) {
-							console.log(obj[i]);
-							if(obj[i] == a[j]) {
-								console.log(obj[i]);
-								obj[i].checked = true;
+							if($(".editClassNamePart .classNameList").eq(i).attr("id") == a[j]) {
+								$(".editClassNamePart .classNameList").eq(i).attr("checked",true);
 							}
 						}
 
@@ -873,7 +871,7 @@
 
 				function TimeSelectOption(reportrangeId, time) {
 					if(time != '' || time != undefined) {
-//						reportrangeId.html(time);
+						reportrangeId.val(time);
 					} else {
 						time = moment().format('YYYY-MM-DD');
 					}
