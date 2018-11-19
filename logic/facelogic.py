@@ -3,6 +3,7 @@
 
 from db import api as db_api
 from logic import Logic
+from util import exception
 
 class FaceLogic(Logic):
     def create_face(self, school_id, relevance_id, face_token, faceset_token, relevance_type=1):
@@ -10,9 +11,13 @@ class FaceLogic(Logic):
             return
 
         if relevance_type == 1:
-            _ = db_api.relative_get(id=relevance_id)
+            if not db_api.relative_get(id=relevance_id):
+                raise exception.NotFound(code=relevance_id)
+
         if relevance_type == 2:
-            _ = db_api.teacher_get(id=relevance_id)
+            if not db_api.teacher_get(id=relevance_id):
+                raise exception.NotFound(code=relevance_id)
+
         values = {
             "school_id": school_id,
             "relevance_id": relevance_id,
@@ -53,5 +58,5 @@ class FaceLogic(Logic):
             _teacher_info = db_api.teacher_get(face_info.get("relevance_id"))
             if _teacher_info:
                 return "exist teacher"
-            
+
         _ = db_api.face_destroy(id)
