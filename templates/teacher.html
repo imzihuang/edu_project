@@ -61,8 +61,8 @@
 														<label class="control-label">是否园/校长：</label>
 														<select id="teacher-president">
 															<option value="">--请选择--</option>
-															<option>是</option>
-															<option>否</option>
+															<option value="1">是</option>
+															<option value="2">否</option>
 														</select>
 													</div>
 													<div class="sendInquiry2" style="float: left;">
@@ -783,7 +783,7 @@
 					$("input:radio[value='"+ $(this).parent("td").siblings(".data_phone").attr("id") +"']").attr("checked","checked");
 					$("#edit_grade").val($(this).parent("td").siblings(".data_grade_name").attr("id"));
 					$("#edit_grade").change();
-					var a = $(this).parent("td").siblings(".data_class_name").html();console.log(a);
+					var a = $(this).parent("td").siblings(".data_class_name").html();
 					var a = a.split(",");
 					var obj = document.getElementsByName('checkboxClassName');console.log(obj);
 					for(var i = 0; i < obj.length; i++) {
