@@ -96,4 +96,4 @@ class RelationLogic(Logic):
     def delete(self, id="", **kwargs):
         if not id:
             return
-        db_api.relation_deleted(id=id)
+        db_api.relation_destroy(id=id)
