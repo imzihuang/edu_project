@@ -467,14 +467,14 @@
 									strs += '<tr class="gradeX">' +
 										'<td><input type="checkbox" class="zx_checkedBtn"></td>' +
 										'<td class="centerSort">' + (i + 1) + '</td>' +
-										'<td class="data_name" id="' + msg.data[i].describe + '">' + msg.data[i].name + '</td>' +
+										'<td class="data_name" name = "'+ msg.data[i].describe +'">' + msg.data[i].name + '</td>' +
 										'<td class="center data_phone" id="' + msg.data[i].sex + '">' + msg.data[i].phone + '</td>' +
 										'<td class="center data_position">' + msg.data[i].position + '</td>' +
 										'<td class="center data_grade_name" id ="' + msg.data[i].grade_id + '">' + msg.data[i].grade_name + '</td>' +
 										'<td class="center data_class_name">' + className + '</td>' +
 										'<td class="center data_status">' + msg.data[i].status + '</td>' +
 										'<td class="center data_time" name ="' + msg.data[i].birthday + '">' + msg.data[i].create_time + '</td>' +
-										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除"></i></td>' +
+										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除" id = "'+ msg.data[i].id +'"></i></td>' +
 										'</tr>'
 								}
 								$("#tbody").html(strs);
@@ -826,7 +826,7 @@
 
 					}
 
-					$("#edit_remarks").val($(this).parent("td").siblings(".data_name").attr("id"));
+					$("#edit_remarks").val($(this).parent("td").siblings(".data_name").attr("name"));
 
 					layerIndex = layer.open({
 						title: '修改老师信息',
@@ -843,20 +843,35 @@
 					});
 				});
 
-				//删除
+				//单项删除
 				$('.fa-close').click(function() {
+					var deleteId = $(this).attr('id');
 					layer.confirm('确定删除选中的老师？', {
-						btn: ['确定', '取消'] //按钮
+						btn: ['确定', '取消']
 					}, function() {
-						layer.msg('已经删除选中的老师', {
-							icon: 1,
-							time: 600
+						var data = {
+							'id': deleteId
+						}
+						$.ajax({
+							type: "POST",
+							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+							url: "/teacher/delete",
+							async: false,
+							data: data,
+							timeout: "30000",
+							success: function(msg) {
+								layer.closeAll();
+								layer.msg('删除成功', {
+									icon: 1,
+									time: 800 //2s后自动关闭
+								});
+								window.location.reload();
+							},
+							error: function() {
+								layer.msg('删除失败');
+								console.log("error");
+							}
 						});
-					}, function() {
-						/*layer.msg('也可以这样', {
-							time: 20000, //20s后自动关闭
-							btn: ['明白了', '知道了']
-						});*/
 					});
 				});
 
