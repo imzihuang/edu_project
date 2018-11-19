@@ -609,6 +609,12 @@
 					var flag = reg.test(phoneNum);
 					return flag;
 				}, "请正确填写手机号码");
+				jQuery.validator.addMethod("isPhoneEdit", function(value, element) {
+					var reg = /^[0-9]{10,20}$/;
+					var phoneNum = $("#edit_phone").val();
+					var flag = reg.test(phoneNum);
+					return flag;
+				}, "请正确填写手机号码");
 				$("#addInfoContentform").validate({
 					focusCleanup: true,
 					focusInvalid: false,
@@ -729,7 +735,7 @@
 						},
 						edit_phone: {
 							required: true,
-							isPhone: true,
+							isPhoneEdit: true,
 						},
 					},
 					messages: {
@@ -738,7 +744,7 @@
 						},
 						edit_phone: {
 							required: '必填',
-							isPhone: '请正确填写手机号码',
+							isPhoneEdit: '请正确填写手机号码',
 						},
 					},
 					submitHandler: function(form) {
