@@ -4,6 +4,7 @@
 from random import randint
 import datetime
 from util.convert import *
+from util.exception import ParamExist
 from db import api as db_api
 from logic import Logic
 
@@ -56,5 +57,8 @@ class GradeLogic(Logic):
 
     def delete(self, id="", **kwargs):
         if not id:
-            return
+            return "id is none"
+        relevance_class_count = db_api.class_count(grade_id=id)
+        if relevance_class_count>0:
+            return "exist class"
         db_api.grade_deleted(id=id)

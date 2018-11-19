@@ -23,7 +23,7 @@ class FaceLogic(Logic):
         face_obj = db_api.face_create(values)
         return face_obj
 
-    def infos(self, id="", relevance_id="", relevance_type=0, school_id="",
+    def infos(self, id="", relevance_id="", relevance_type=0, school_id="", face_token="",
               limit=100, offset=1):
         filters = {}
         if relevance_type!=0:
@@ -32,8 +32,12 @@ class FaceLogic(Logic):
             filters.update({"relevance_id": relevance_id})
         if school_id:
             filters.update({"school_id": school_id})
+        if face_token:
+            filters.update({"face_token": face_token})
         face_list = db_api.face_list(limit=2000, **filters)
-        return self.views(face_list)
+        face_count = db_api.face_count(**filters)
+        result = {"count": face_count, "state": 0, "message": "query success", "data": self.views(face_list)}
+        return result
 
     def delete(self, id="", **kwargs):
         if not id:

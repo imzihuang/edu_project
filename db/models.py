@@ -18,9 +18,8 @@ class SchoolInfo(Base, ModelBase):
     describe = Column(VARCHAR(500))
     faceset_token = Column(VARCHAR(36))
     deleted = Column(Boolean, default=False)
-    create_time = Column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_time = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-
+    create_time = Column(DateTime, default=datetime.now, nullable=False)
+    updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     def to_dict(self):
        return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
@@ -31,9 +30,8 @@ class GradeInfo(Base, ModelBase):
     name = Column(VARCHAR(100), nullable=False)
     school_id = Column(VARCHAR(36), ForeignKey("school_info.id"))
     deleted = Column(Boolean, default=False)
-    create_time = Column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_time = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    school_info = relationship("SchoolInfo", backref="grade_of_school")
+    create_time = Column(DateTime, default=datetime.now, nullable=False)
+    updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     def to_dict(self):
        return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
@@ -49,8 +47,8 @@ class ClassInfo(Base, ModelBase):
     student_number = Column(Integer, default=0)
     describe = Column(VARCHAR(500))
     deleted = Column(Boolean, default=False)
-    create_time = Column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_time = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    create_time = Column(DateTime, default=datetime.now, nullable=False)
+    updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     def to_dict(self):
        return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
@@ -69,8 +67,8 @@ class TeacherInfo(Base, ModelBase):
     position = Column(Integer, default=2)
     describe = Column(VARCHAR(500))
     deleted = Column(Boolean, default=False)
-    create_time = Column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_time = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    create_time = Column(DateTime, default=datetime.now, nullable=False)
+    updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     def to_dict(self):
        return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
@@ -82,8 +80,8 @@ class TeacherHistory(Base, ModelBase):
     status = Column(VARCHAR(36), default="education")
     describe = Column(VARCHAR(500))
     deleted = Column(Boolean, default=False)
-    create_time = Column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_time = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    create_time = Column(DateTime, default=datetime.now, nullable=False)
+    updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     def to_dict(self):
        return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
@@ -102,8 +100,8 @@ class StudentInfo(Base, ModelBase):
     relation_number = Column(Integer, default=3)
     describe = Column(VARCHAR(500))
     deleted = Column(Boolean, default=False)
-    create_time = Column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_time = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    create_time = Column(DateTime, default=datetime.now, nullable=False)
+    updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     def to_dict(self):
        return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
@@ -115,8 +113,8 @@ class StudentHistory(Base, ModelBase):
     status = Column(VARCHAR(36), default="apply")
     describe = Column(VARCHAR(500))
     deleted = Column(Boolean, default=False)
-    create_time = Column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_time = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    create_time = Column(DateTime, default=datetime.now, nullable=False)
+    updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     def to_dict(self):
        return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
@@ -133,8 +131,8 @@ class RelativeInfo(Base, ModelBase):
     describe = Column(VARCHAR(500))
     #face_token = Column(VARCHAR(36))
     deleted = Column(Boolean, default=False)
-    create_time = Column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_time = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    create_time = Column(DateTime, default=datetime.now, nullable=False)
+    updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     def to_dict(self):
        return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
@@ -148,8 +146,8 @@ class RelevanceFace(Base, ModelBase):
     face_token = Column(VARCHAR(36), nullable=False)
     faceset_token = Column(VARCHAR(36), nullable=False)
     deleted = Column(Boolean, default=False)
-    create_time = Column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_time = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    create_time = Column(DateTime, default=datetime.now, nullable=False)
+    updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     def to_dict(self):
        return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
@@ -162,8 +160,8 @@ class RelationInfo(Base, ModelBase):
     student_id = Column(VARCHAR(36), nullable=False)
     relative_id = Column(VARCHAR(36), nullable=False)
     deleted = Column(Boolean, default=False)
-    create_time = Column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_time = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    create_time = Column(DateTime, default=datetime.now, nullable=False)
+    updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     UniqueConstraint('student_id', 'relative_id')
 
@@ -179,8 +177,8 @@ class UserInfo(Base, ModelBase):
     activate = Column(Integer, default=0)
     level = Column(Integer, default=1)
     deleted = Column(Boolean, default=False)
-    create_time = Column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_time = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    create_time = Column(DateTime, default=datetime.now, nullable=False)
+    updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     def to_dict(self):
        return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
@@ -193,8 +191,8 @@ class WXUserInfo(Base, ModelBase):
     session_key = Column(VARCHAR(50), nullable=False)
     phone = Column(VARCHAR(36))
     deleted = Column(Boolean, default=False)
-    create_time = Column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_time = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    create_time = Column(DateTime, default=datetime.now, nullable=False)
+    updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     def to_dict(self):
        return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
@@ -204,8 +202,7 @@ class RelativeSignInfo(Base, ModelBase):
     __tablename__ = 'relative_sign_info'
     id = Column(VARCHAR(36), primary_key=True)
     relative_id = Column(VARCHAR(36), nullable=False)
-    relative_name = Column(VARCHAR(100), nullable=False)
-    create_time = Column(DateTime, default=datetime.utcnow, nullable=False)
+    create_time = Column(DateTime, default=datetime.now, nullable=False)
     type = Column(Integer, default=0)
     deleted = Column(Boolean, default=False)
 
@@ -221,8 +218,7 @@ class TeacherSignInfo(Base, ModelBase):
     __tablename__ = 'teacher_sign_info'
     id = Column(VARCHAR(36), primary_key=True)
     teacher_id = Column(VARCHAR(36), nullable=False)
-    relative_name = Column(VARCHAR(100), nullable=False)
-    create_time = Column(DateTime, default=datetime.utcnow, nullable=False)
+    create_time = Column(DateTime, default=datetime.now, nullable=False)
     type = Column(Integer, default=0)
     deleted = Column(Boolean, default=False)
 
