@@ -17,6 +17,7 @@
 		<link href="css/style.css" rel="stylesheet" type="text/css" />
 		<link href="js/plugins/layer/skin/default/layer.css" rel="stylesheet" type="text/css" />
 		<link href="css/layui.css" media="all" rel="stylesheet">
+		<link href="css/daterangepicker.css" media="all" rel="stylesheet">
 
 		<script src="js/jquery.min.js"></script>
 
@@ -61,8 +62,8 @@
 														<label class="control-label">是否园/校长：</label>
 														<select id="teacher-president">
 															<option value="">--请选择--</option>
-															<option>是</option>
-															<option>否</option>
+															<option value="1">是</option>
+															<option value="2">否</option>
 														</select>
 													</div>
 													<div class="sendInquiry2" style="float: left;">
@@ -132,6 +133,12 @@
 					<input type="radio" value="0" name="addsex"><span style="width: 40px;margin-left: 5px;">女</span>
 					<div class="errorPart"></div>
 				</div>
+				<div style="margin: 20px 0;position: relative;">
+					<span>出生日期：</span>
+					<input type="text" id="add_time" class="form-control" style="width: 350px;display: inline-block;">
+					<i class="glyphicon glyphicon-calendar fa fa-calendar" style="position: absolute;right: 20px;top: 8px;"></i>
+					<div class="errorPartAddTime errorPartAddSpt">请选择日期</div>
+				</div>
 				<div style="margin: 20px 0;">
 					<span>职务：</span>
 					<select id="add_post" name="add_post" style="width: 350px;">
@@ -180,13 +187,19 @@
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
+					<span>出生日期：</span>
+					<input type="text" id="edit_time" class="form-control" style="width: 350px;display: inline-block;">
+					<i class="glyphicon glyphicon-calendar fa fa-calendar" style="position: absolute;right: 20px;top: 8px;"></i>
+					<div class="errorPartEditTime errorPartAddSpt">请选择日期</div>
+				</div>
+				<div style="margin: 20px 0;">
 					<span>职务：</span>
 					<select id="edit_post" name="edit_post" style="width: 350px;">
 						<option>--请选择职务--</option>
 						<option value="2">教师</option>
 						<option value="1">园长</option>
 					</select>
-					<div class="errorPart"></div>
+					<div class="errorPartEditPost errorPartEditSpt">请选择职务</div>
 				</div>
 				<div style="margin: 20px 0;">
 					<span>手机号码：</span><input type="text" style="width: 350px;" id="edit_phone" name="edit_phone" />
@@ -227,9 +240,13 @@
 		<script src="js/jquery.validate.min.js"></script>
 		<script src="js/jquery.form.js"></script>
 		<script src="js/layui.js" charset="utf-8"></script>
+		<script src="js/moment.js" charset="utf-8"></script>
+		<script src="js/daterangepicker.js" charset="utf-8"></script>
 		<script src="js/common.js" charset="utf-8"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
+				TimeSelectOption($('#add_time'));
+
 				//获取学校
 				schoolInput();
 				//获取年级
@@ -290,33 +307,35 @@
 						"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
 					}, 'no');
 				});
+				//新增弹框切换年级
 				$("#add_grade").change(function() {
-					if($("#add_grade").val() == ''){
+					if($("#add_grade").val() == '') {
 						$(".addClassNamePart").html("");
-					}else{
+					} else {
 						classInput({
 							"limit": 20,
 							"offset": 1,
 							'school_id': school,
 							"grade_id": $("#add_grade").val() == '' ? undefined : $("#add_grade").val(),
-						}, 'yes','yes');
+						}, 'yes', 'yes');
 					}
 				});
+				//编辑弹框切换年级
 				$("#edit_grade").change(function() {
-					if($("#edit_grade").val() == ''){
+					if($("#edit_grade").val() == '') {
 						$(".editClassNamePart").html("");
-					}else{
+					} else {
 						classInput({
 							"limit": 20,
 							"offset": 1,
 							'school_id': school,
 							"grade_id": $("#edit_grade").val() == '' ? undefined : $("#edit_grade").val(),
-						}, 'yes','no');
+						}, 'yes', 'no');
 					}
 				});
-				
+
 				//获取班级
-				function classInput(sendData, ifLayer,ifadd) {
+				function classInput(sendData, ifLayer, ifadd) {
 					$.ajax({
 						method: 'GET',
 						xhrFields: {
@@ -340,10 +359,12 @@
 								}
 								layerSrt = layerSrt + '<div style="clear:both"></div>'
 								if(ifLayer == "yes") {
-									if(ifadd == "yes"){
+									if(ifadd == "yes") {
 										$(".addClassNamePart").html(layerSrt);
-									}else{
+										$("#EditInfoContent .classNameList").remove();
+									} else {
 										$(".editClassNamePart").html(layerSrt);
+										$("#AddInfoContent .classNameList").remove();
 									}
 								} else {
 									$("#class-name").html(str);
@@ -434,23 +455,23 @@
 									} else if(msg.data[i].status == 'dimission') {
 										msg.data[i].status = '离职';
 									}
-									for(var j=0;j<msg.data[i].class_info.length;j++){
-										if(j == msg.data[i].class_info.length-1){
+									for(var j = 0; j < msg.data[i].class_info.length; j++) {
+										if(j == msg.data[i].class_info.length - 1) {
 											className += msg.data[i].class_info[j].name;
-										}else{
+										} else {
 											className += msg.data[i].class_info[j].name + ',';
 										}
 									}
 									strs += '<tr class="gradeX">' +
 										'<td><input type="checkbox" class="zx_checkedBtn"></td>' +
 										'<td class="centerSort">' + (i + 1) + '</td>' +
-										'<td class="data_name" id="'+ msg.data[i].describe +'">' + msg.data[i].name + '</td>' +
-										'<td class="center data_phone" id="'+ msg.data[i].sex +'">' + msg.data[i].phone + '</td>' +
+										'<td class="data_name" id="' + msg.data[i].describe + '">' + msg.data[i].name + '</td>' +
+										'<td class="center data_phone" id="' + msg.data[i].sex + '">' + msg.data[i].phone + '</td>' +
 										'<td class="center data_position">' + msg.data[i].position + '</td>' +
-										'<td class="center data_grade_name" id ="'+ msg.data[i].grade_id +'">' + msg.data[i].grade_name + '</td>' +
+										'<td class="center data_grade_name" id ="' + msg.data[i].grade_id + '">' + msg.data[i].grade_name + '</td>' +
 										'<td class="center data_class_name">' + className + '</td>' +
 										'<td class="center data_status">' + msg.data[i].status + '</td>' +
-										'<td class="center">' + msg.data[i].create_time + '</td>' +
+										'<td class="center data_time" name ="' + msg.data[i].birthday + '">' + msg.data[i].create_time + '</td>' +
 										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除"></i></td>' +
 										'</tr>'
 								}
@@ -572,9 +593,12 @@
 					});
 				});
 				//校验隐藏
-                $("#add_post").change(function(){
-                	$(".errorPartAddPost").css("display", "none");
-                });
+				$("#add_post").change(function() {
+					$(".errorPartAddPost").css("display", "none");
+				});
+				$("#add_time").focus(function() {
+					$(".errorPartAddTime").css("display", "none");
+				});
 				//添加校验
 				var layerIndex;
 				jQuery.validator.addMethod("isPhone", function(value, element) {
@@ -608,15 +632,19 @@
 					submitHandler: function(form) {
 						var obj = document.getElementsByName('checkboxClassName');
 						var classId = '';
-						if($("#add_post option:selected").val() == ''||$("#add_post option:selected").val() == undefined) {
+						if($("#add_post option:selected").val() == '' || $("#add_post option:selected").val() == undefined) {
 							$(".errorPartAddPost").css("display", "block");
 							return false;
 						} else {
+							if($("#add_time").val() == '') {
+								$(".errorPartAddTime").css("display", "block");
+								return false;
+							} else {
 								for(var i = 0; i < obj.length; i++) {
 									if(obj[i].checked) {
-										if(i == obj.length-1){
+										if(i == obj.length - 1) {
 											classId += obj[i].value;
-										}else{
+										} else {
 											classId += obj[i].value + ',';
 										}
 									}
@@ -628,7 +656,7 @@
 									'phone': $("#add_phone").val(),
 									'class_id': classId,
 									'describe': $("#add_remarks").val(),
-
+									'birthday': $("#add_time").val(),
 								}
 								$.ajax({
 									type: "POST",
@@ -650,6 +678,7 @@
 										console.log("error");
 									}
 								});
+							}
 						}
 					},
 					errorPlacement: function(error, element) {
@@ -666,100 +695,101 @@
 					$(".addClassNamePart").html('');
 					$(".errorPartAddSpt").css("display", "none");
 					$(".errorPart").html("");
-					
+
 					layerIndex = layer.open({
 						title: '添加老师',
 						type: 1,
-						skin: 'layui-layer-demo', 
+						skin: 'layui-layer-demo',
 						anim: 2,
-						shadeClose: true, 
-						btn: ['确定', '取消'], 
+						shadeClose: true,
+						btn: ['确定', '取消'],
 						content: $('#addInfoContent'),
 						yes: function() {
 							$("#addInfoContentSubmit").click();
-							
-							if($("#add_post option:selected").val() == ''||$("#add_post option:selected").val() == undefined) {
+
+							if($("#add_post option:selected").val() == '' || $("#add_post option:selected").val() == undefined) {
 								$(".errorPartAddPost").css("display", "block");
+							}
+							if($("#add_time").val() == '') {
+								$(".errorPartAddTime").css("display", "block");
 							}
 						}
 					});
 				});
-
 				//编辑校验
 				$("#editAreaContentform").validate({
 					focusCleanup: true,
 					focusInvalid: false,
 					debug: true,
 					rules: {
-						edit_id: {
-							required: true,
-						},
 						edit_name: {
-							required: true,
-						},
-						edit_age: {
-							required: true,
-						},
-						edit_school_id: {
-							required: true,
-						},
-						edit_class_id: {
 							required: true,
 						},
 						edit_phone: {
 							required: true,
+							isPhone: true,
 						},
 					},
 					messages: {
-						edit_id: {
-							required: '必填',
-						},
 						edit_name: {
-							required: '必填',
-						},
-						edit_age: {
-							required: '必填',
-						},
-						edit_school_id: {
-							required: '必填',
-						},
-						edit_class_id: {
 							required: '必填',
 						},
 						edit_phone: {
 							required: '必填',
+							isPhone: '请正确填写手机号码',
 						},
 					},
 					submitHandler: function(form) {
-						var data = {
-							'id': $("#edit_id").val(),
-							'name': $("#edit_name").val(),
-							'school_id': $("#edit_school_id").val(),
-							'class_id': $("#edit_class_id").val(),
-							'sex': $("#edit_sex option:selected").val(),
-							'age': $("#edit_age").val(),
-							'phone': $("#edit_phone").val()
-						}
-						$.ajax({
-							type: "POST",
-							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-							url: "/teacher/update",
-							async: false,
-							data: data,
-							timeout: "30000",
-							success: function(msg) {
-								layer.closeAll();
-								layer.msg('修改成功', {
-									icon: 1,
-									time: 800 //2s后自动关闭
+						var obj = document.getElementsByName('checkboxClassName');
+						var classId = '';
+						if($("#edit_post option:selected").val() == '' || $("#edit_post option:selected").val() == undefined) {
+							$(".errorPartEditPost").css("display", "block");
+							return false;
+						} else {
+							if($("#edit_time").val() == '') {
+								$(".errorPartEditTime").css("display", "block");
+								return false;
+							} else {
+								for(var i = 0; i < obj.length; i++) {
+									if(obj[i].checked) {
+										if(i == obj.length - 1) {
+											classId += obj[i].value;
+										} else {
+											classId += obj[i].value + ',';
+										}
+									}
+								}
+								var data = {
+									'name': $("#edit_name").val(),
+									'sex': $("input[name='editsex']:checked").val(),
+									'position': $("#edit_post option:selected").val(),
+									'phone': $("#edit_phone").val(),
+									'class_id': classId,
+									'describe': $("#edit_remarks").val(),
+									'birthday': $("#edit_time").val(),
+								}
+								$.ajax({
+									type: "POST",
+									contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+									url: "/teacher/update",
+									async: false,
+									data: data,
+									timeout: "30000",
+									success: function(msg) {
+										layer.closeAll();
+										layer.msg('修改成功', {
+											icon: 1,
+											time: 800 //2s后自动关闭
+										});
+										window.location.reload()
+									},
+									error: function() {
+										layer.msg('修改失败');
+										console.log("error");
+									}
 								});
-								window.location.reload()
-							},
-							error: function() {
-								layer.msg('修改失败');
-								console.log("error");
 							}
-						});
+						}
 					},
 
 					errorPlacement: function(error, element) {
@@ -773,30 +803,35 @@
 					//初始化赋值
 					$(".errorPart").html("");
 					$(".errorPartAddSpt").css("display", "none");
+
+					TimeSelectOption($('#edit_time'), $(this).parent("td").siblings(".data_time").attr("name"));
 					$("#edit_name").val($(this).parent("td").siblings(".data_name").html());
 					$("#edit_phone").val($(this).parent("td").siblings(".data_phone").html());
-					if($(this).parent("td").siblings(".data_position").html() == '教师'){
+					if($(this).parent("td").siblings(".data_position").html() == '教师') {
 						$("#edit_post").val("2");
-					}else{
+					} else {
 						$("#edit_post").val("1");
 					}
-					$("input:radio[value='"+ $(this).parent("td").siblings(".data_phone").attr("id") +"']").attr("checked","checked");
+					$("input:radio[value='" + $(this).parent("td").siblings(".data_phone").attr("id") + "']").attr("checked", "checked");
 					$("#edit_grade").val($(this).parent("td").siblings(".data_grade_name").attr("id"));
 					$("#edit_grade").change();
-					var a = $(this).parent("td").siblings(".data_class_name").html();console.log(a);
+					var a = $(this).parent("td").siblings(".data_class_name").html();
 					var a = a.split(",");
-					var obj = document.getElementsByName('checkboxClassName');console.log(obj);
+					var obj = document.getElementsByName('checkboxClassName');
+					console.log(obj);
 					for(var i = 0; i < obj.length; i++) {
-						for(var j = 0;j < a.length;j++){console.log(obj[i]);
-							if(obj[i] == a[j]) {console.log(obj[i]);
-							    obj[i].checked = true;
-						    }
+						for(var j = 0; j < a.length; j++) {
+							console.log(obj[i]);
+							if(obj[i] == a[j]) {
+								console.log(obj[i]);
+								obj[i].checked = true;
+							}
 						}
-						
+
 					}
-					
+
 					$("#edit_remarks").val($(this).parent("td").siblings(".data_name").attr("id"));
-					
+
 					layerIndex = layer.open({
 						title: '修改老师信息',
 						type: 1,
@@ -828,6 +863,38 @@
 						});*/
 					});
 				});
+
+				//添加弹框日期
+				var beginTimeTake;
+
+				function TimeSelectOption(reportrangeId, time) {
+					if(time != '' || time != undefined) {
+						reportrangeId.html(time);
+					} else {
+						time = moment().format('YYYY-MM-DD');
+					}
+					reportrangeId.daterangepicker({
+						startDate: time,
+						singleDatePicker: true,
+						showDropdowns: true,
+						autoUpdateInput: false,
+						timePicker24Hour: true,
+						timePicker: true,
+						"locale": {
+							format: 'YYYY-MM-DD',
+							applyLabel: "确定",
+							cancelLabel: "取消",
+							resetLabel: "重置",
+						}
+					}, function(start, end, label) { //格式化日期显示框
+						beginTimeTake = start;
+						if(!this.startDate) {
+							this.element.val('');
+						} else {
+							this.element.val(this.startDate.format(this.locale.format));
+						}
+					});
+				};
 
 			});
 		</script>
