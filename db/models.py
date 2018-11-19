@@ -14,9 +14,10 @@ def _to_dict(model_obj):
     result = {}
     for c in model_obj.__table__.columns:
         if isinstance(getattr(model_obj, c.name, None), datetime):
-            result.update({c.name: getattr(model_obj, c.name, None).strftime('%Y-%m-%d %H:%M:%S')})
-        elif c.name == "birthday":
-            result.update({c.name: getattr(model_obj, c.name, None).strftime('%Y-%m-%d')})
+            if c.name == "birthday":
+                result.update({c.name: getattr(model_obj, c.name, None).strftime('%Y-%m-%d')})
+            else:
+                result.update({c.name: getattr(model_obj, c.name, None).strftime('%Y-%m-%d %H:%M:%S')})
         else:
             result.update({c.name: getattr(model_obj, c.name, None)})
     return result
