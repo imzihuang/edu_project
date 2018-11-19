@@ -368,6 +368,13 @@ def face_create(values):
         face_ref.save(session)
         return values
 
+def face_get(id):
+    query = model_query(models.RelevanceFace)
+    result = query.filter_by(id=id).first()
+    if not result:
+        return None
+    return result
+
 def face_list(offset=0, limit=1000, **filters):
     query = model_query(models.RelevanceFace, order=True, **filters)
     if offset:
@@ -426,14 +433,11 @@ def relation_count(**filters):
     query = model_query(models.RelationInfo, **filters)
     return query.count()
 
-def relation_deleted(id):
+def relation_destroy(id):
     session = get_session()
     with session.begin():
         query = model_query(models.RelationInfo, session=session, id=id)
-        query.update({
-            "deleted": True
-        },
-        synchronize_session=False)
+        query.delete(session=session, synchronize_session=False)
 #####################relation end################################
 
 #####################user begin################################

@@ -93,7 +93,10 @@ class RelativeLogic(Logic):
 
     def delete(self, id="", **kwargs):
         if not id:
-            return
+            return "id is none"
+        _relation_count = db_api.relation_count(relative_id=id)
+        if _relation_count > 0:
+            return "exist relation"
         db_api.relative_deleted(id=id)
 
 

@@ -128,5 +128,9 @@ class StudentLogic(Logic):
 
     def delete(self, id="", **kwargs):
         if not id:
-            return
+            return "id is none"
+        _relation_count = db_api.relation_count(student_id=id)
+        if _relation_count > 0:
+            return "exist relation"
+
         db_api.student_deleted(id=id)
