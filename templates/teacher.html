@@ -199,11 +199,9 @@
 				<div style="margin: 20px 0;">
 					<span>职务：</span>
 					<select id="edit_post" name="edit_post" style="width: 350px;">
-						<option>--请选择职务--</option>
 						<option value="2">教师</option>
 						<option value="1">园长</option>
 					</select>
-					<div class="errorPartEditPost errorPartEditSpt">请选择职务</div>
 				</div>
 				<div style="margin: 20px 0;">
 					<span>手机号码：</span><input type="text" style="width: 350px;" id="edit_phone" name="edit_phone" />
@@ -746,10 +744,6 @@
 					submitHandler: function(form) {
 						var obj = document.getElementsByName('checkboxClassName');
 						var classId = '';
-						if($("#edit_post option:selected").val() == '' || $("#edit_post option:selected").val() == undefined) {
-							$(".errorPartEditPost").css("display", "block");
-							return false;
-						} else {
 							if($("#edit_time").val() == '') {
 								$(".errorPartEditTime").css("display", "block");
 								return false;
@@ -793,7 +787,6 @@
 									}
 								});
 							}
-						}
 					},
 
 					errorPlacement: function(error, element) {
