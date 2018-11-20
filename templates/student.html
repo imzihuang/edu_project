@@ -317,6 +317,7 @@
 						"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
 					});
 				},"no");
+				
 				//新增弹框切换年级
 				$("#add_grade").change(function() {
 					classInput({
@@ -326,6 +327,7 @@
 						"grade_id": $("#add_grade").val() == '' ? undefined : $("#add_grade").val(),
 					});
 				},"yes");
+				
 				//编辑弹框切换年级
 				$("#edit_grade").change(function() {
 					classInput({
@@ -335,6 +337,7 @@
 						"grade_id": $("#edit_grade").val() == '' ? undefined : $("#edit_grade").val(),
 					});
 				},"yes");
+				
 				//获取班级
 				function classInput(data,ifLayer) {
 					$.ajax({
@@ -375,6 +378,7 @@
 					})
 
 				}
+				
 				//获取列表
 				getAjaxData({
 //					"school_id": school,

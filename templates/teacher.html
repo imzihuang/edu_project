@@ -309,6 +309,7 @@
 						"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
 					}, 'no');
 				});
+				
 				//新增弹框切换年级
 				$("#add_grade").change(function() {
 					if($("#add_grade").val() == '') {
@@ -322,6 +323,7 @@
 						}, 'yes', 'yes');
 					}
 				});
+				
 				//编辑弹框切换年级
 				$("#edit_grade").change(function() {
 					if($("#edit_grade").val() == '') {
@@ -465,16 +467,16 @@
 										}
 									}
 									strs += '<tr class="gradeX">' +
-										'<td><input type="checkbox" class="zx_checkedBtn" name ="'+ msg.data[i].id +'" ></td>' +
+										'<td><input type="checkbox" class="zx_checkedBtn" name ="' + msg.data[i].id + '" ></td>' +
 										'<td class="centerSort">' + (i + 1) + '</td>' +
-										'<td class="data_name" name = "'+ msg.data[i].describe +'">' + msg.data[i].name + '</td>' +
+										'<td class="data_name" name = "' + msg.data[i].describe + '">' + msg.data[i].name + '</td>' +
 										'<td class="center data_phone" id="' + msg.data[i].sex + '">' + msg.data[i].phone + '</td>' +
 										'<td class="center data_position">' + msg.data[i].position + '</td>' +
 										'<td class="center data_grade_name" id ="' + msg.data[i].grade_id + '">' + msg.data[i].grade_name + '</td>' +
 										'<td class="center data_class_name">' + className + '</td>' +
 										'<td class="center data_status">' + msg.data[i].status + '</td>' +
 										'<td class="center data_time" name ="' + msg.data[i].birthday + '">' + msg.data[i].create_time + '</td>' +
-										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除" id = "'+ msg.data[i].id +'"></i></td>' +
+										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除" id = "' + msg.data[i].id + '"></i></td>' +
 										'</tr>'
 								}
 								$("#tbody").html(strs);
@@ -543,7 +545,7 @@
 					}
 					if(count > 1) {
 						layer.confirm('确定删除选中的老师？', {
-							btn: ['确定', '取消'] //按钮
+							btn: ['确定', '取消'] 
 						}, function() {
 							var data = {
 								'id': idArray
@@ -559,7 +561,7 @@
 									layer.closeAll();
 									layer.msg('删除成功', {
 										icon: 1,
-										time: 800 //2s后自动关闭
+										time: 800
 									});
 									window.location.reload();
 								},
@@ -574,20 +576,6 @@
 					}
 				});
 
-				function getValArr(valArr) {
-					$("#tbody :checkbox").each(function(index, ele) {
-						if($(ele).prop("checked")) {
-							valArr.push(index);
-						}
-					});
-				}
-
-				function delData(valArr) {
-					for(var i = 0; i < valArr.length; i++) {
-						$('#trId_' + valArr[i]).remove();
-					}
-				}
-
 				//查询
 				$("#searchBtn").click(function() {
 					getAjaxData({
@@ -601,13 +589,15 @@
 						"offset": 1,
 					});
 				});
-				//校验隐藏
+			    
+			    //校验隐藏
 				$("#add_post").change(function() {
 					$(".errorPartAddPost").css("display", "none");
 				});
 				$("#add_time").focus(function() {
 					$(".errorPartAddTime").css("display", "none");
 				});
+				
 				//添加校验
 				var layerIndex;
 				jQuery.validator.addMethod("isPhone", function(value, element) {
@@ -616,12 +606,14 @@
 					var flag = reg.test(phoneNum);
 					return flag;
 				}, "请正确填写手机号码");
+				
 				jQuery.validator.addMethod("isPhoneEdit", function(value, element) {
 					var reg = /^[0-9]{10,20}$/;
 					var phoneNum = $("#edit_phone").val();
 					var flag = reg.test(phoneNum);
 					return flag;
 				}, "请正确填写手机号码");
+				
 				$("#addInfoContentform").validate({
 					focusCleanup: true,
 					focusInvalid: false,
@@ -731,6 +723,7 @@
 						}
 					});
 				});
+				
 				//编辑校验
 				$("#editAreaContentform").validate({
 					focusCleanup: true,
@@ -830,7 +823,6 @@
 								$(".editClassNamePart .classNameList").eq(i).attr("checked", true);
 							}
 						}
-
 					}
 
 					$("#edit_remarks").val($(this).parent("td").siblings(".data_name").attr("name"));
@@ -870,7 +862,7 @@
 								layer.closeAll();
 								layer.msg('删除成功', {
 									icon: 1,
-									time: 800 //2s后自动关闭
+									time: 800 
 								});
 								window.location.reload();
 							},
