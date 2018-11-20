@@ -124,6 +124,11 @@ class TeacherLogic(Logic):
             class_list = db_api.class_list(id=class_id)
             if class_list:
                 view.update({"class_info": self.views(class_list)})
+
+            #history
+            teacher_history_lilst = db_api.teacher_history_list(teacher_id=view.get("id"))
+            if teacher_history_lilst:
+                view.update({"status": teacher_history_lilst[0].status})
         teacher_count = db_api.teacher_count(**filters)
         return {"count": teacher_count, "state": 0, "message": "query success", "data": views_list}
 

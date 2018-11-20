@@ -10,6 +10,19 @@ from base import get_engine, ModelBase
 
 Base = declarative_base()
 
+def _to_dict(model_obj):
+    result = {}
+    for c in model_obj.__table__.columns:
+        if isinstance(getattr(model_obj, c.name, None), datetime):
+            if c.name == "birthday":
+                result.update({c.name: getattr(model_obj, c.name, None).strftime('%Y-%m-%d')})
+            else:
+                result.update({c.name: getattr(model_obj, c.name, None).strftime('%Y-%m-%d %H:%M:%S')})
+        else:
+            result.update({c.name: getattr(model_obj, c.name, None)})
+    return result
+
+
 class SchoolInfo(Base, ModelBase):
     __tablename__ = 'school_info'
     id = Column(VARCHAR(36), primary_key=True)
@@ -22,7 +35,8 @@ class SchoolInfo(Base, ModelBase):
     updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     def to_dict(self):
-       return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
+        return _to_dict(self)
+       #return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
 
 class GradeInfo(Base, ModelBase):
     __tablename__ = 'grade_info'
@@ -34,7 +48,8 @@ class GradeInfo(Base, ModelBase):
     updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     def to_dict(self):
-       return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
+        return _to_dict(self)
+       #return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
 
 
 class ClassInfo(Base, ModelBase):
@@ -51,7 +66,8 @@ class ClassInfo(Base, ModelBase):
     updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     def to_dict(self):
-       return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
+        return _to_dict(self)
+       #return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
 
 class TeacherInfo(Base, ModelBase):
     __tablename__ = 'teacher_info'
@@ -71,7 +87,8 @@ class TeacherInfo(Base, ModelBase):
     updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     def to_dict(self):
-       return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
+        return _to_dict(self)
+       #return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
 
 class TeacherHistory(Base, ModelBase):
     __tablename__ = 'teacher_history'
@@ -84,7 +101,8 @@ class TeacherHistory(Base, ModelBase):
     updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     def to_dict(self):
-       return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
+        return _to_dict(self)
+       #return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
 
 
 class StudentInfo(Base, ModelBase):
@@ -104,7 +122,8 @@ class StudentInfo(Base, ModelBase):
     updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     def to_dict(self):
-       return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
+        return _to_dict(self)
+       #return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
 
 class StudentHistory(Base, ModelBase):
     __tablename__ = 'student_history'
@@ -117,7 +136,8 @@ class StudentHistory(Base, ModelBase):
     updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     def to_dict(self):
-       return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
+        return _to_dict(self)
+       #return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
 
 class RelativeInfo(Base, ModelBase):
     __tablename__ = 'relative_info'
@@ -135,7 +155,8 @@ class RelativeInfo(Base, ModelBase):
     updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     def to_dict(self):
-       return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
+        return _to_dict(self)
+       #return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
 
 class RelevanceFace(Base, ModelBase):
     __tablename__ = 'relevance_face'
@@ -150,7 +171,8 @@ class RelevanceFace(Base, ModelBase):
     updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     def to_dict(self):
-       return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
+        return _to_dict(self)
+       #return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
 
 
 class RelationInfo(Base, ModelBase):
@@ -166,7 +188,8 @@ class RelationInfo(Base, ModelBase):
     UniqueConstraint('student_id', 'relative_id')
 
     def to_dict(self):
-       return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
+        return _to_dict(self)
+       #return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
 
 class UserInfo(Base, ModelBase):
     __tablename__ = 'user_info'
@@ -181,7 +204,8 @@ class UserInfo(Base, ModelBase):
     updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     def to_dict(self):
-       return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
+        return _to_dict(self)
+       #return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
 
 
 class WXUserInfo(Base, ModelBase):
@@ -195,7 +219,8 @@ class WXUserInfo(Base, ModelBase):
     updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     def to_dict(self):
-       return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
+        return _to_dict(self)
+       #return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
 
 
 class RelativeSignInfo(Base, ModelBase):
@@ -207,11 +232,14 @@ class RelativeSignInfo(Base, ModelBase):
     deleted = Column(Boolean, default=False)
 
     def to_dict(self):
+        return _to_dict(self)
+        """
         return {
         c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S')
         if isinstance(getattr(self, c.name, None),
                       datetime) else getattr(self, c.name, None)
         for c in self.__table__.columns}
+        """
 
 
 class TeacherSignInfo(Base, ModelBase):
@@ -223,11 +251,14 @@ class TeacherSignInfo(Base, ModelBase):
     deleted = Column(Boolean, default=False)
 
     def to_dict(self):
+        return _to_dict(self)
+        """
         return {
         c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S')
         if isinstance(getattr(self, c.name, None),
                       datetime) else getattr(self, c.name, None)
         for c in self.__table__.columns}
+        """
 
 def register_db():
     engine = get_engine()
