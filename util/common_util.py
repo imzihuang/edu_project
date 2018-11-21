@@ -4,7 +4,7 @@ import json
 import math
 import cv2
 import uuid
-import randint
+from random import randint
 
 
 def rotate_cv2(image, angle, img_size):
