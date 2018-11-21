@@ -405,7 +405,7 @@ def relation_create(values):
     session = get_session()
     with session.begin():
         relation_ref.save(session)
-        return relation_ref
+        return values
 
 def relation_update(id, values):
     query = model_query(models.RelationInfo).filter_by(id=id)
@@ -449,7 +449,7 @@ def user_create(values):
     session = get_session()
     with session.begin():
         user_ref.save(session)
-        return user_ref
+        return values
 
 def user_update(id, values):
     query = model_query(models.UserInfo).filter_by(id=id)
@@ -497,7 +497,7 @@ def wxuser_create(values):
     session = get_session()
     with session.begin():
         wxuser_ref.save(session)
-        return wxuser_ref
+        return values
 
 def wxuser_update(id, values):
     query = model_query(models.WXUserInfo).filter_by(id=id)
@@ -545,7 +545,7 @@ def relation_sign_create(values):
     session = get_session()
     with session.begin():
         relation_sign_ref.save(session)
-        return relation_sign_ref
+        return values
 
 def teacher_sign_create(values):
     if not values.get('id'):
@@ -555,6 +555,39 @@ def teacher_sign_create(values):
     session = get_session()
     with session.begin():
         teacher_sign_ref.save(session)
-        return teacher_sign_ref
+        return values
 
 #################sign end#######################################
+
+#################verify manage start#####################################
+def verify_manage_create(values):
+    if not values.get('id'):
+        values['id'] = common_util.create_id()
+    verify_ref = models.VerifyManage()
+    verify_ref.update(values)
+    session = get_session()
+    with session.begin():
+        verify_ref.save(session)
+        return values
+
+def verify_manage_get(id):
+    query = model_query(models.VerifyManage)
+    result = query.filter_by(id=id).first()
+    if not result:
+        return None
+    return result
+
+def verify_manage_get_by_phone(phone):
+    query = model_query(models.VerifyManage)
+    result = query.filter_by(phone=phone).first()
+    if not result:
+        return None
+    return result
+
+def verify_manage_destroy(id):
+    session = get_session()
+    with session.begin():
+        query = model_query(models.VerifyManage, session=session, id=id)
+        query.delete(session=session, synchronize_session=False)
+
+#################verify manage end#######################################

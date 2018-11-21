@@ -260,6 +260,16 @@ class TeacherSignInfo(Base, ModelBase):
         for c in self.__table__.columns}
         """
 
+class VerifyManage(Base, ModelBase):
+    __tablename__ = 'verify_manage'
+    id = Column(VARCHAR(36), primary_key=True)
+    phone = Column(VARCHAR(36))
+    email = Column(VARCHAR(36))
+    verify_code = Column(VARCHAR(36))
+    updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
+    def to_dict(self):
+        return _to_dict(self)
+
 def register_db():
     engine = get_engine()
     Base.metadata.create_all(engine)

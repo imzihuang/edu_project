@@ -16,6 +16,9 @@ class UserLogic(Logic):
         super(UserLogic, self).__init__()
 
     def views(self, models):
+        if isinstance(models, dict):
+            _ = models.pop("pwd")
+            return _
         if isinstance(models, list):
             result = []
             for model in models:
@@ -25,18 +28,17 @@ class UserLogic(Logic):
         _ = models.to_dict().pop("pwd")
         return _
 
-    def input(self, name="", pwd="", verify_code="", activate="",level=1):
+    def input(self, name="", pwd="", activate="",level=1):
         if db_api.user_list(name=name):
             raise ParamExist(key="name", value=name)
         values = {
             "name": name,
             "pwd": encry_md5(pwd),
-            "verify_code": verify_code,
             "activate": activate,
             "level": level
         }
         user_obj = db_api.user_create(values)
-        return self.views(user_obj)
+        return user_obj
 
     def update(self, id="", **kwargs):
         if not id or not kwargs:
@@ -105,7 +107,7 @@ class WXUserLogic(Logic):
             "phone": phone
         }
         wx_obj = db_api.wxuser_create(values)
-        return self.views(wx_obj)
+        return wx_obj
 
     def update(self, id="", **kwargs):
         if not id or not kwargs:
@@ -131,15 +133,15 @@ class WXUserLogic(Logic):
         return self.views(wx_info)
 
     def info_by_openid(self, openid):
-        if not id:
-            return
+        if not openid:
+            return "id is none"
         wx_infos = db_api.wxuser_list(openid=openid)
         if wx_infos:
             return self.views(wx_infos[0])
 
     def delete(self, id="", **kwargs):
         if not id:
-            return
+            return "id is none"
         db_api.wxuser_deleted(id=id)
 
 

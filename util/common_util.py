@@ -4,6 +4,7 @@ import json
 import math
 import cv2
 import uuid
+import randint
 
 
 def rotate_cv2(image, angle, img_size):
@@ -122,3 +123,11 @@ def get_encodings_from_json(encodings_json_file):
 
 def create_id():
     return uuid.uuid4().get_hex()
+
+def create_verifycode():
+    """
+    生成注册验证码
+    :return:
+    """
+    verify_code = ''.join((str(randint(0, 9)) for _ in range(6)))
+    return verify_code
