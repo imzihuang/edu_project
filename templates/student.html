@@ -381,7 +381,12 @@
 				
 				//获取列表
 				getAjaxData({
-//					"school_id": school,
+					"school_id": school,
+					"class_id": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
+					"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
+					"student_name": $("#student-name").val() == '' ? undefined : $("#student-name").val(),
+					"parent_name": $("#parent-name").val() == '' ? undefined : $("#parent-name").val(),
+					"parent_phone": $("#parent-phone").val() == '' ? undefined : $("#parent-phone").val(),
 					"limit": 20,
 					"offset": 1,
 				});
@@ -390,7 +395,7 @@
 					$.ajax({
 						type: "GET",
 						contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-						url: "/relation/infos",
+						url: "/student/infos",
 						async: false,
 						data: senddata,
 						timeout: "30000",
@@ -454,6 +459,7 @@
 						$("#grade-name") = '';
 					}
 					getAjaxData({
+						"school_id": school,
 						"class_id": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
 						"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
 						"student_name": $("#student-name").val() == '' ? undefined : $("#student-name").val(),
