@@ -152,15 +152,15 @@
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;" class="addRelativeList">
-					<span class="fl">第一联系人：</span>
+					<span class="fl">第二联系人：</span>
 					<select name="add_relative">
 						<option value="father">父亲</option>
 						<option value="moter">母亲</option>
 						<option value="grandfather">爷爷</option>
 						<option value="grandmother">奶奶</option>
 					</select>
-					<input class="relative_name" type="text" placeholder="姓名" name="relative_name"/>
-					<input class="relative_phone" type="text" placeholder="手机号码" class="marLeft100 marTop10" name="relative_phone"/>
+					<input class="relative_name" type="text" placeholder="姓名" name="relative_name2"/>
+					<input class="relative_phone" type="text" placeholder="手机号码" class="marLeft100 marTop10" name="relative_phone2"/>
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;" class="addRelativeList">
@@ -171,12 +171,12 @@
 						<option value="grandfather">爷爷</option>
 						<option value="grandmother">奶奶</option>
 					</select>
-					<input class="relative_name" type="text" placeholder="姓名" name="relative_name"/>
-					<input class="relative_phone" type="text" placeholder="手机号码" class="marLeft100 marTop10" name="relative_phone"/>
+					<input class="relative_name" type="text" placeholder="姓名" name="relative_name3"/>
+					<input class="relative_phone" type="text" placeholder="手机号码" class="marLeft100 marTop10" name="relative_phone3"/>
 					<div class="errorPart"></div>
 				</div>
 				</div>
-				<input class="addRelativeBtn" type="button" value="+">
+				<input class="addRelativeBtn" type="button" value="+" name="addRelativeBtn">
 				<input class="submit" type="submit" value="提交" id="addInfoContentSubmit" style="display: none;">
 			</form>
 		</div>
@@ -517,28 +517,28 @@
 					focusInvalid: false,
 					debug: true,
 					rules: {
-						add_name: {
-							required: true,
-						},
-						relative_name: {
-							required: true,
-						},
-						relative_phone: {
-							required: true,
-							isPhone: true,
-						}
+//						add_name: {
+//							required: true,
+//						},
+//						relative_name: {
+//							required: true,
+//						},
+//						relative_phone: {
+//							required: true,
+//							isPhone: true,
+//						}
 					},
 					messages: {
-						add_name: {
-							required: '必填',
-						},
-						relative_name: {
-							required: '必填',
-						},
-						relative_phone: {
-							required: '必填',
-							isPhone: '请正确填写手机号码',
-						}
+//						add_name: {
+//							required: '必填',
+//						},
+//						relative_name: {
+//							required: '必填',
+//						},
+//						relative_phone: {
+//							required: '必填',
+//							isPhone: '请正确填写手机号码',
+//						}
 					},
 					submitHandler: function(form) {
 						if($("#add_class").val() == ''||$("#add_class").val() == undefined){
@@ -546,8 +546,9 @@
 						}
 						
 							var addRelativeLength = $(".addRelative .addRelativeList").length;
-							var relative_list = new array();
+							var relative_list = new Array();
 							for(var i=0;i<addRelativeLength;i++){
+								relative_list[i] = new Object();
 								relative_list[i].name = $(".addRelative .addRelativeList").eq(i).find(".relative_name").val();
 								relative_list[i].phone = $(".addRelative .addRelativeList").eq(i).find(".relative_phone").val();
 								relative_list[i].relation = $(".addRelative .addRelativeList").eq(i).find("select option:selected").val();
@@ -573,7 +574,7 @@
 										icon: 1,
 										time: 800 //2s后自动关闭
 									});
-									window.location.reload();
+//									window.location.reload();
 								},
 								error: function() {
 									layer.msg('添加失败');
