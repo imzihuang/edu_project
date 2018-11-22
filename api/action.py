@@ -9,9 +9,11 @@ from PIL import Image
 from logic.userlogic import UserLogic
 from logic.facelogic import FaceLogic
 from logic.signlogic import SignLogic
+from logic.verify_manage import VerifyManageLogic
 from util.ini_client import ini_load
 from util.face_recognition_api import face_recognition_yyl
 from util import common_util
+from util.convert import is_mobile, bs2utf8
 
 LOG = logging.getLogger(__name__)
 
@@ -37,6 +39,10 @@ class ActionHandler(RequestHandler):
 
         if action == "face_signin":
             self.face_signin()
+            return
+
+        if action == "push_verify":
+            self.push_verify()
             return
 
 
@@ -158,9 +164,19 @@ class ActionHandler(RequestHandler):
                         self.finish(json.dumps({'state': 3, 'message': 'sign fail'}))
                     break
 
-
-
         #with open(file_path, 'wb') as up:
             #up.write(base64.b64decode(img.rpartition(",")[-1]))
 
+    def push_verify(self):
+        phone = bs2utf8(self.get_argument('phone', ''))
+        if not phone or is_mobile(phone):
+            self.finish(json.dumps({'state': 1, 'message': 'Push verify code fail, phone is noe.'}))
+            return
+        verify_code = common_util.create_verifycode()
+        _op = VerifyManageLogic()
+        _ = _op.input(phone=phone, verify_code=verify_code)
+        if _:
+            self.finish(json.dumps({'state': 0, 'message': 'Push verify code ok'}))
+        else:
+            self.finish(json.dumps({'state': 2, 'message': 'Push verify code fail'}))
 

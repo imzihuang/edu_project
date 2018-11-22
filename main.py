@@ -12,7 +12,6 @@ import settings
 import logging
 
 define("port", default=9090, help="run on the given port", type=int)
-print options.port
 setproctitle('edu:server')
 
 if settings.default_settings.get("log_info", ""):
