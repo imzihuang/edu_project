@@ -320,18 +320,18 @@
 						"offset": 1,
 						'school_id': school,
 						"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
-					});
-				},"no");
+					},"no");
+				});
 				
 				//新增弹框切换年级
-				$("#add_grade").change(function() {
+				$("#add_grade").change(function() {console.log(111111);
 					classInput({
 						"limit": 20,
 						"offset": 1,
 						'school_id': school,
 						"grade_id": $("#add_grade").val() == '' ? undefined : $("#add_grade").val(),
-					});
-				},"yes");
+					},"yes");
+				});
 				
 				//编辑弹框切换年级
 				$("#edit_grade").change(function() {
@@ -340,8 +340,8 @@
 						"offset": 1,
 						'school_id': school,
 						"grade_id": $("#edit_grade").val() == '' ? undefined : $("#edit_grade").val(),
-					});
-				},"yes");
+					},"yes");
+				});
 				
 				//获取班级
 				function classInput(data,ifLayer) {console.log(2222222);
