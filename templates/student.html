@@ -548,6 +548,7 @@
 							var addRelativeLength = $(".addRelative .addRelativeList").length;
 							var relative_list = new Array();
 							for(var i=0;i<addRelativeLength;i++){
+								relative_list[i] = new Object();
 								relative_list[i].name = $(".addRelative .addRelativeList").eq(i).find(".relative_name").val();
 								relative_list[i].phone = $(".addRelative .addRelativeList").eq(i).find(".relative_phone").val();
 								relative_list[i].relation = $(".addRelative .addRelativeList").eq(i).find("select option:selected").val();
