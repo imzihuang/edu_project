@@ -566,15 +566,15 @@
 								contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
 								url: "/student_relative/combination_input",
 								async: false,
-								data: data,
+								data: JSON.stringify(data),
 								timeout: "30000",
 								success: function(msg) {
 									layer.closeAll();
 									layer.msg('添加成功', {
 										icon: 1,
-										time: 800 //2s后自动关闭
+										time: 800 
 									});
-//									window.location.reload();
+									window.location.reload();
 								},
 								error: function() {
 									layer.msg('添加失败');
