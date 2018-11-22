@@ -553,13 +553,14 @@
 								relative_list[i].phone = $(".addRelative .addRelativeList").eq(i).find(".relative_phone").val();
 								relative_list[i].relation = $(".addRelative .addRelativeList").eq(i).find("select option:selected").val();
 							}
+							relative_list = relative_list.toString();
 							var data = {
 								'name': $("#add_name").val(),
 								'birthday': $("#add_time").val(),
 								'sex': $("input[name='addsex']:checked").val(),
 								'class_id': $("#add_class").val(),
 								'describe': $("#add_remarks").val(),
-								'relative_list':toString(relative_list),
+								'relative_list':relative_list,
 							}
 							$.ajax({
 								type: "POST",
