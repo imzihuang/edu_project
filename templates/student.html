@@ -559,14 +559,14 @@
 								'sex': $("input[name='addsex']:checked").val(),
 								'class_id': $("#add_class").val(),
 								'describe': $("#add_remarks").val(),
-								'relative_list':relative_list,
+								'relative_list':toString(relative_list),
 							}
 							$.ajax({
 								type: "POST",
 								contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
 								url: "/student_relative/combination_input",
 								async: false,
-								data: JSON.stringify(data),
+								data: data,
 								timeout: "30000",
 								success: function(msg) {
 									layer.closeAll();
