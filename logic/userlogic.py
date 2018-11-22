@@ -94,7 +94,7 @@ class WXUserLogic(Logic):
     def __init__(self):
         super(WXUserLogic, self).__init__()
 
-    def intput(self, openid="", session_key="", phone=""):
+    def input(self, openid="", session_key="", phone=""):
         if db_api.wxuser_list(openid=openid):
             raise ParamExist(key="openid", value=openid)
 
@@ -104,8 +104,10 @@ class WXUserLogic(Logic):
         values = {
             "openid": openid,
             "session_key": session_key,
-            "phone": phone
         }
+        if phone and is_mobile(phone):
+            values.update({"phone": phone})
+
         wx_obj = db_api.wxuser_create(values)
         return wx_obj
 

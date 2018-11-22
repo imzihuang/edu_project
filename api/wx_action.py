@@ -28,7 +28,7 @@ class WXActionHandler(RequestHandler):
                 return
         except ParamExist as ex:
             LOG.error("Wx action %s error:%s" % (action, ex))
-            self.finish(json.dumps({'state': 1, 'message': 'params exit'}))
+            self.finish(json.dumps({'state': 9, 'message': 'params exit'}))
         except Exception as ex:
             LOG.error("Wx action %s error:%s" % (action, ex))
             self.finish(json.dumps({'state': 10, 'message': 'wx action error'}))
