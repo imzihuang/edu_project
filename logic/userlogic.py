@@ -134,7 +134,7 @@ class WXUserLogic(Logic):
 
     def info_by_openid(self, openid):
         if not openid:
-            return "id is none"
+            return
         wx_infos = db_api.wxuser_list(openid=openid)
         if wx_infos:
             return self.views(wx_infos[0])
