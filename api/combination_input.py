@@ -40,6 +40,9 @@ class CombinationHandler(RequestHandler):
         str_relative_list = convert.bs2utf8(self.get_argument('relative_list', '[]'))
         relative_list = json.loads(str_relative_list)
 
+        LOG.info("str_relative_list:%s" % str_relative_list)
+        LOG.info("relative_list:%r"%relative_list)
+
         #check params
         self.check_student_relative()
 
@@ -63,5 +66,6 @@ class CombinationHandler(RequestHandler):
             if not relation_info:
                 self.finish(json.dumps({'state': 3, 'message': '%s: relative info error' % relative.get("name", "")}))
                 return
+        self.finish(json.dumps({'state': 0, 'message': 'success'}))
 
 
