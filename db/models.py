@@ -147,7 +147,7 @@ class RelativeInfo(Base, ModelBase):
     birthday = Column(DateTime)
     user_id = Column(VARCHAR(36))
     wxuser_id = Column(VARCHAR(36))
-    phone = Column(VARCHAR(36), nullable=False)
+    phone = Column(VARCHAR(36))
     describe = Column(VARCHAR(500))
     #face_token = Column(VARCHAR(36))
     deleted = Column(Boolean, default=False)
