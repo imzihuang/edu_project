@@ -31,7 +31,7 @@ class FaceLogic(Logic):
     def infos(self, id="", relevance_id="", relevance_type=0, school_id="", face_token="",
               limit=100, offset=1):
         filters = {}
-        if relevance_type!=0:
+        if relevance_type != 0:
             filters.update({"relevance_type": relevance_type})
         if relevance_id:
             filters.update({"relevance_id": relevance_id})
