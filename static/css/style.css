@@ -1392,3 +1392,7 @@ textarea {
 	padding-left: 70px;
 	margin-top: 10px;
 }
+.relative_name,.relative_phone{
+	margin-left: 100px;
+	margin-top: 5px;
+}
