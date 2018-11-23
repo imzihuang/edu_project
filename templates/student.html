@@ -461,11 +461,11 @@
 
 				//查询
 				$("#searchBtn").click(function() {
-					if($("#class-name") == '--请选择班级--' || '---无---') {
-						$("#class-name") = '';
+					if($("#class-name").val() == '--请选择班级--' || $("#class-name").val() == '---无---') {
+						$("#class-name").val() = '';
 					}
-					if($("#grade-name") == '--请选择年级--' || '---无---') {
-						$("#grade-name") = '';
+					if($("#grade-name").val() == '--请选择年级--' ||$("#grade-name").val() == '---无---') {
+						$("#grade-name").val() = '';
 					}
 					getAjaxData({
 						"school_id": school,
