@@ -442,9 +442,9 @@
 								for(var i = 0; i < msg.data.length; i++) {
 									strs += '<tr class="gradeX">' +
 										'<td class="data_name">' + msg.data[i].name + '</td>' +
-										'<td class="center data_id">' + msg.data[i].relation_list[0].relation + '</td>' +
-										'<td class="center data_name">' + msg.data[i].relation_list[0].relation_info.name + '</td>' +
-										'<td class="center">' + msg.data[i].relation_list[0].relation_info.phone + '</td>' +
+										'<td class="center data_id">' + msg.data[i].relation_list[0].relation == undefined? '暂无': msg.data[i].relation_list[0].relation + '</td>' +
+										'<td class="center data_name">' + msg.data[i].relation_list[0].relation_info.name == undefined? '暂无': msg.data[i].relation_list[0].relation_info.name + '</td>' +
+										'<td class="center">' + msg.data[i].relation_list[0].relation_info.phone == undefined? '暂无': msg.data[i].relation_list[0].relation_info.phone + '</td>' +
 										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" id=' + msg.data[i].id + ' title="删除"></i></td>' +
 										'</tr>'
 								}
@@ -557,7 +557,12 @@
 								relative_list[i].phone = $(".addRelative .addRelativeList").eq(i).find(".relative_phone").val();
 								relative_list[i].relation = $(".addRelative .addRelativeList").eq(i).find("select option:selected").val();
 							}
-							//relative_list = relative_list.toString();
+							for(var i=0;i<addRelativeLength;i++){
+								if(relative_list[i].name == ''||relative_list[i].phone == ''){
+									relative_list[i] = '';
+								}
+							}
+							
 							var data = {
 								'name': $("#add_name").val(),
 								'birthday': $("#add_time").val(),
