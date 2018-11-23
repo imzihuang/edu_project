@@ -400,7 +400,7 @@
 					$.ajax({
 						type: "GET",
 						contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-						url: "/student/infos",
+						url: "/relation/infos",
 						async: false,
 						data: senddata,
 						timeout: "30000",
@@ -442,9 +442,9 @@
 								for(var i = 0; i < msg.data.length; i++) {
 									strs += '<tr class="gradeX">' +
 										'<td class="data_name">' + msg.data[i].name + '</td>' +
-										'<td class="center data_id">' + msg.data[i].relation + '</td>' +
-										'<td class="center data_name">' + msg.data[i].parent_name + '</td>' +
-										'<td class="center">' + msg.data[i].parent_phone + '</td>' +
+										'<td class="center data_id">' + msg.data[i].relation_list[0].relation + '</td>' +
+										'<td class="center data_name">' + msg.data[i].relation_info.name + '</td>' +
+										'<td class="center">' + msg.data[i].relation_info.phone + '</td>' +
 										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" id=' + msg.data[i].id + ' title="删除"></i></td>' +
 										'</tr>'
 								}
