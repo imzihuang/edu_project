@@ -719,7 +719,8 @@
 							data: editData,
 							timeout: "30000",
 							success: function(msg) {
-								console.log(msg);console.log(msg.data[0]);console.log(msg.data);console.log(msg.data[0].name);
+								console.log(msg);
+								var msg = JSON.parse(msg);
 								$("#edit_name").val(msg.data[0].name);
 								TimeSelectOption($('#edit_time'), msg.data[0].birthday);
 								$("input[name='editsex'][value='" + msg.data[0].sex + "']").prop("checked", "checked");
