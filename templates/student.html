@@ -440,15 +440,6 @@
 							var strs = '';
 							if(msg.data.length > 0) {
 								for(var i = 0; i < msg.data.length; i++) {
-									if(msg.data[i].relation_list[0].relation == undefined){
-										msg.data[i].relation_list[0].relation = "暂无";
-									}
-									if(msg.data[i].relation_list[0].relation_info.name == undefined){
-										msg.data[i].relation_list[0].relation_info.name = "暂无";
-									}
-									if(msg.data[i].relation_list[0].relation_info.phone == undefined){
-										msg.data[i].relation_list[0].relation_info.phone = "暂无";
-									}
 									strs += '<tr class="gradeX">' +
 										'<td class="data_name">' + msg.data[i].name + '</td>' +
 										'<td class="center data_id">' + msg.data[i].relation_list[0].relation + '</td>' +
