@@ -112,6 +112,9 @@ class StudentLogic(Logic):
             class_info = db_api.class_get(id=view.get("class_id"))
             if class_info:
                 view.update({"class_name": class_info.name})
+            relation_list = self._get_relations_by_student(view.get("id"))
+            if relation_list:
+                view.update({"relation_list": relation_list})
 
         student_count = db_api.student_count(**filters)
         return {"count": student_count, "state": 0, "message": "query success", "data": views_list}
@@ -125,6 +128,18 @@ class StudentLogic(Logic):
         relative_id = [_relative.id for _relative in _relative_list]
         _relation_list = db_api.relation_list(relative_id=relative_id)
         return _relation_list
+
+    def _get_relations_by_student(self, student_id=""):
+        relation_list = db_api.relation_list(student_id=student_id)
+        relation_list = self.views(relation_list)
+        if not relation_list:
+            return
+        for relavtion in relation_list:
+            relative_info = db_api.relative_get(relavtion.get("relative_id"))
+            relavtion.update({"relation_info": self.views(relative_info)})
+
+        return relation_list
+
 
     def delete(self, id="", **kwargs):
         if not id:
