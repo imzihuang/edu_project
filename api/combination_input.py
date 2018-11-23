@@ -55,10 +55,10 @@ class CombinationHandler(RequestHandler):
             return
         for relative in relative_list:
             relative_info = relative_op.input(
-                name=relative.get("name", ""),
+                name=convert.bs2utf8(relative.get("name", "")),
                 sex=relative.get("sex", 0),
-                birthday=relative.get("birthday", ""),
-                phone=relative.get("phone", ""))
+                birthday=convert.bs2utf8(relative.get("birthday", "")),
+                phone=convert.bs2utf8(relative.get("phone", "")))
             if not relative_info:
                 self.finish(json.dumps({'state': 2, 'message': '%s: relative info error'%relative.get("name", "")}))
                 return

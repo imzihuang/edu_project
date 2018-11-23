@@ -36,7 +36,7 @@ class ExpressException(Exception):
             try:
                 _message = ""
                 for k, v in kwargs.items():
-                    _message += '{v}:{k}；'.format(v=v, k=k)
+                    _message += '{k}:{v};'.format(v=v, k=k)
                 #message = self.message % kwargs
                 message = self.message % {"message": _message}
 
@@ -66,7 +66,7 @@ class ExpressException(Exception):
         pass
 
     def _should_format(self):
-        return self.kwargs['message'] is None or '%(message)' in self.message
+        return self.kwargs['message'] is None and '%(message)' in self.message
 
     # NOTE(tommylikehu): self.msg is already an unicode compatible object
     # as the __init__ method ensures of it, and we should not be modifying
@@ -76,21 +76,21 @@ class ExpressException(Exception):
         return self.msg
 
 class NotFound(ExpressException):
-    message = "Resource could not be found. %(message)"
+    message = "Resource could not be found. %(message)s"
     code = 404
     safe = True
 
 class ParamExist(ExpressException):
-    message = "Params Exist. %(message)"
+    message = "Params Exist. %(message)s"
     code = 408
     safe = True
 
 class FormalError(ExpressException):
-    message = "Formal Error. %(message)"
+    message = "Formal Error. %(message)s"
     code = 409
     safe = True
 
 class ParamNone(ExpressException):
-    message = "Param is none. %(message)"
+    message = "Param is none. %(message)s"
     code = 410
     safe = True
