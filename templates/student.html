@@ -210,41 +210,42 @@
 						<option value="">--请选择班级--</option>
 					</select>
 				</div>
-				<div style="margin: 20px 0;">
-					<span class="fl">第一联系人：</span>
-					<select>
-						<option>父亲</option>
-						<option>母亲</option>
-						<option>爷爷</option>
-						<option>奶奶</option>
+				<div class="editRelative">
+				<div style="margin: 20px 0;" class="editRelativeList">
+					<span class="fl">第一联系人：(必填)</span>
+					<select name="edit_relative">
+						<option value="father">父亲</option>
+						<option value="moter">母亲</option>
+						<option value="grandfather">爷爷</option>
+						<option value="grandmother">奶奶</option>
 					</select>
-					<input id="edit_relative_name1" type="text" name="edit_relative_name1" placeholder="姓名" />
-					<input id="edit_relative_phone1" type="text" name="edit_relative_phone1" placeholder="手机号码" class="marLeft100 marTop10" />
+					<input class="relative_name" type="text" name="edit_relative_name1" placeholder="姓名" />
+					<div class="errorPart"></div>
+					<input class="relative_phone" type="text" name="edit_relative_phone1" placeholder="手机号码" class="marLeft100 marTop10" />
 					<div class="errorPart"></div>
 				</div>
-				<div style="margin: 20px 0;">
+				<div style="margin: 20px 0;" class="editRelativeList">
 					<span class="fl">第一联系人：</span>
-					<select>
-						<option>父亲</option>
-						<option>母亲</option>
-						<option>爷爷</option>
-						<option>奶奶</option>
+					<select name="edit_relative">
+						<option value="father">父亲</option>
+						<option value="moter">母亲</option>
+						<option value="grandfather">爷爷</option>
+						<option value="grandmother">奶奶</option>
 					</select>
-					<input id="edit_relative_name2" type="text" name="edit_relative_name2" placeholder="姓名" />
-					<input id="edit_relative_phone2" type="text" name="edit_relative_phone2" placeholder="手机号码" class="marLeft100 marTop10" />
-					<div class="errorPart"></div>
+					<input class="relative_name" type="text" name="edit_relative_name2" placeholder="姓名" />
+					<input class="relative_phone" type="text" name="edit_relative_phone2" placeholder="手机号码" class="marLeft100 marTop10" />
 				</div>
-				<div style="margin: 20px 0;">
+				<div style="margin: 20px 0;" class="editRelativeList">
 					<span class="fl">第三联系人：</span>
-					<select>
-						<option>父亲</option>
-						<option>母亲</option>
-						<option>爷爷</option>
-						<option>奶奶</option>
+					<select name="edit_relative">
+						<option value="father">父亲</option>
+						<option value="moter">母亲</option>
+						<option value="grandfather">爷爷</option>
+						<option value="grandmother">奶奶</option>
 					</select>
-					<input id="edit_relative_name3" type="text" name="edit_relative_name3" placeholder="姓名" />
-					<input id="edit_relative_phone3" type="text" name="edit_relative_phone3" placeholder="手机号码" class="marLeft100 marTop10" />
-					<div class="errorPart"></div>
+					<input class="relative_name" type="text" name="edit_relative_name3" placeholder="姓名" />
+					<input class="relative_phone" type="text" name="edit_relative_phone3" placeholder="手机号码" class="marLeft100 marTop10" />
+				</div>
 				</div>
 				<input class="submit" type="submit" value="提交" id="editAreaContentSubmit" style="display: none;">
 			</form>
@@ -719,6 +720,20 @@
 							timeout: "30000",
 							success: function(msg) {
 								console.log(msg);
+								$("#edit_name").val(msg.data[0].name);
+								TimeSelectOption($('#edit_time'), msg.data[0].birthday);
+								$("input[name='editsex'][value='" + msg.data[0].sex + "']").prop("checked", "checked");
+								$("#edit_remarks").val(msg.data[0].describe);
+								$("#edit_grade").val(msg.data[0].grade_id);
+								$("#edit_class").val(msg.data[0].class_id);
+								for(var i=0;i<msg.data[0].relation_list.length;i++){
+									if(i<3){
+										$(".editRelative .editRelativeList").eq(i).find(".edit_relative").val(msg.data[0].relation_list[i].relation);
+										$(".editRelative .editRelativeList").eq(i).find(".relative_name").val(msg.data[0].relation_list[i].relation_info.name);
+										$(".editRelative .editRelativeList").eq(i).find(".relative_phone").val(msg.data[0].relation_list[i].relation_info.phone);
+									}
+									
+								}
 							},
 							error: function() {
 							}
@@ -759,8 +774,14 @@
 
 				//添加弹框日期
 				var beginTimeTake;
-				function TimeSelectOption(reportrangeId) {
+				function TimeSelectOption(reportrangeId, time) {
+					if(time != '' || time != undefined) {
+						reportrangeId.val(time);
+					} else {
+						time = moment().format('YYYY-MM-DD');
+					}
 					reportrangeId.daterangepicker({
+						startDate: time,
 						singleDatePicker: true,
 						showDropdowns: true,
 						autoUpdateInput: false,
