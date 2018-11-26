@@ -6,7 +6,9 @@ body.fixed-sidebar .navbar-static-side {
 	height: 100%;
 	top: 70px;
 }
-
+form{
+	position: relative;
+}
 ul,
 li {
 	margin: 0;
@@ -1313,8 +1315,11 @@ select {
 	position: absolute;
 	color: #cc5965;
 }
+.errorPartAddTime,.errorPartAddClass{
+	padding-left: 107px;
+}
 .layui-layer-content{
-	max-height: 500px;
+	max-height: 450px;
 	overflow-x: hidden !important;
     overflow-y: auto !important;
 }
@@ -1380,3 +1385,9 @@ textarea {
 	margin-left: 100px;
 	margin-top: 5px;
 }
+.addRelativeBtn,.editRelativeBtn{
+	position: absolute;
+    right: 30px;
+    bottom: 40px;
+}
+
