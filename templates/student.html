@@ -116,7 +116,7 @@
 					<span>出生日期：</span>
 					<input type="text" id="add_time" class="form-control" name="add_time" style="width: 350px;display: inline-block;">
 					<i class="glyphicon glyphicon-calendar fa fa-calendar" style="position: absolute;right: 20px;top: 8px;"></i>
-				    <div class="errorPartAddTime errorPartAddSpt">请选择出生日期</div>
+				    <div class="errorPartAddTime errorPartSpt">请选择出生日期</div>
 				</div>
 				<div style="margin: 20px 0;">
 					<span>性别：</span>
@@ -135,7 +135,7 @@
 					<select style="width: 170px; margin-left: 6px;" id="add_class" name="add_class">
 						<option value="">--请选择班级--</option>
 					</select>
-					<div class="errorPartAddClass errorPartAddSpt">请选择班级</div>
+					<div class="errorPartAddClass errorPartSpt">请选择班级</div>
 				</div>
 				<div class="addRelative">
 					<div style="margin: 20px 0;" class="addRelativeList">
@@ -195,10 +195,11 @@
 					<span>出生日期：</span>
 					<input type="text" id="edit_time" class="form-control" style="width: 350px;display: inline-block;">
 					<i class="glyphicon glyphicon-calendar fa fa-calendar" style="position: absolute;right: 20px;top: 8px;"></i>
+					<div class="errorPartEditTime errorPartSpt">请选择出生日期</div>
 				</div>
 				<div style="margin: 20px 0;">
 					<span>性别：</span>
-					<input type="radio" name="editsex" value="1"><span style="width: 40px;margin-left: 5px;">男</span>
+					<input type="radio" name="editsex" value="1" checked><span style="width: 40px;margin-left: 5px;">男</span>
 					<input type="radio" name="editsex" value="0"><span style="width: 40px;margin-left: 5px;">女</span>
 				</div>
 				<div style="margin: 20px 0;">
@@ -213,20 +214,25 @@
 					<select style="width: 170px; margin-left: 6px;" id="edit_class" name="edit_class">
 						<option value="">--请选择班级--</option>
 					</select>
+					<div class="errorPartEditClass errorPartSpt">请选择班级</div>
 				</div>
 				<div class="editRelative">
 					<div style="margin: 20px 0;" class="editRelativeList">
 						<span class="fl">第一联系人：(必填)</span>
-						<select name="edit_relative">
-							<option value="father">父亲</option>
-							<option value="moter">母亲</option>
-							<option value="grandfather">爷爷</option>
-							<option value="grandmother">奶奶</option>
-						</select>
-						<input class="relative_name" type="text" name="edit_relative_name" placeholder="姓名" />
-						<div class="errorPart"></div>
-						<input class="relative_phone" type="text" name="edit_relative_phone" placeholder="手机号码" class="marLeft100 marTop10" style="margin-left: 0px;"/>
-						<div class="errorPart"></div>
+						<div class="">
+							<select name="edit_relative">
+								<option value="father">父亲</option>
+								<option value="moter">母亲</option>
+								<option value="grandfather">爷爷</option>
+								<option value="grandmother">奶奶</option>
+							</select>
+							<input class="relative_name" type="text" name="relative_name" placeholder="姓名"/>
+							<div class="errorPart" style="display: inline-block;padding-left: 5px;"></div>
+						</div>
+						<div>
+							<input class="relative_phone" type="text" name="relative_phone" placeholder="手机号码" class="marLeft100 marTop10" style="margin-left: 0px;"/>
+							<div class="errorPart"></div>
+						</div>
 					</div>
 					<div style="margin: 20px 0;" class="editRelativeList">
 						<span class="fl">第一联系人：</span>
@@ -251,6 +257,7 @@
 						<input class="relative_phone" type="text" name="edit_relative_phone3" placeholder="手机号码" class="marLeft100 marTop10" />
 					</div>
 				</div>
+				<input class="editRelativeBtn" type="button" value="+" name="editRelativeBtn">
 				<input class="submit" type="submit" value="提交" id="editAreaContentSubmit" style="display: none;">
 			</form>
 		</div>
@@ -522,13 +529,6 @@
 					return flag;
 				}, "请正确填写手机号码");
 
-				jQuery.validator.addMethod("isPhoneEdit", function(value, element) {
-					var reg = /^[0-9]{10,20}$/;
-					var phoneNum = $("#edit_phone").val();
-					var flag = reg.test(phoneNum);
-					return flag;
-				}, "请正确填写手机号码");
-
 				$("#addInfoContentform").validate({
 					focusCleanup: true,
 					focusInvalid: false,
@@ -623,7 +623,7 @@
 					$(".errorPart").html("");
 					$("#add_grade").html('<option value="">--请选择年级--</option>');
 					$("#add_class").html('<option value="">--请选择班级--</option>');
-					$(".errorPartAddSpt").css("display", "none");
+					$(".errorPartSpt").css("display", "none");
 					gradeInput();
 					layerIndex = layer.open({
 						title: '添加学生',
@@ -654,19 +654,36 @@
 						edit_name: {
 							required: true,
 						},
-						edit_school_id: {
+						relative_name: {
 							required: true,
 						},
+						relative_phone: {
+							required: true,
+							isPhone: true,
+						}
 					},
 					messages: {
-						edit_name: {
+						add_name: {
 							required: '必填',
 						},
-						edit_school_id: {
+						relative_name: {
 							required: '必填',
 						},
+						relative_phone: {
+							required: '必填',
+							isPhone: '请正确填写手机号码',
+						}
 					},
 					submitHandler: function(form) {
+						if($("#edit_class").val() == '' || $("#edit_class").val() == undefined) {
+							$(".errorPartEditClass").css("display", "block");
+							if($("#edit_time").val() == '' || $("#edit_time").val() == undefined) {
+								$(".errorPartEditTime").css("display", "block");
+								return false;
+							}
+							return false;
+						}
+						
 						var data = {
 							'id': $("#edit_name").attr("id"),
 							'sex': $("input[name='editsex']:checked").val(),
@@ -682,6 +699,21 @@
 							data: data,
 							timeout: "30000",
 							success: function(msg) {
+								
+								var editRelativeLength = $(".editRelative .editRelativeList").length;
+								var relative_list = new Array();
+								for(var i = 0; i < editRelativeLength; i++) {
+									relative_list[i] = new Object();
+									relative_list[i].name = $(".editRelative .editRelativeList").eq(i).find(".relative_name").val();
+									relative_list[i].phone = $(".editRelative .editRelativeList").eq(i).find(".relative_phone").val();
+									relative_list[i].relation = $(".editRelative .editRelativeList").eq(i).find("select option:selected").val();
+								}
+								for(var i = 0; i < editRelativeLength; i++) {
+									if(relative_list[i].name == '' || relative_list[i].phone == '') {
+										relative_list[i] = '';
+									}
+								}
+
 								var relativeData = {
 										'id': $("#edit_name").attr("id"),
 										'sex': $("input[name='editsex']:checked").val(),
@@ -738,8 +770,11 @@
 						content: $('#editAreaContent'),
 						yes: function() {
 							$("#editAreaContentSubmit").click();
-							if($("#edit_grade").val() == '') {
-								$(".selectPart .errorPartS").css("display", "block");
+							if($("#edit_class").val() == '' || $("#edit_class").val() == undefined) {
+								$(".errorPartEditClass").css("display", "block");
+							}
+							if($("#edit_time").val() == '' || $("#edit_time").val() == undefined) {
+								$(".errorPartEditTime").css("display", "block");
 							}
 						}
 					});
