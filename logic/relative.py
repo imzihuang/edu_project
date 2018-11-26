@@ -3,7 +3,7 @@
 
 from random import randint
 import datetime
-from util.convert import *
+from util import convert
 from db import api as db_api
 from logic import Logic
 
@@ -14,9 +14,9 @@ LOG = logging.getLogger(__name__)
 
 class RelativeLogic(Logic):
     def input(self, name="", sex=0, birthday="", phone="", describe=""):
-        if birthday and not is_date(birthday):
+        if birthday and not convert.is_date(birthday):
             raise exception.FormalError(birthday=birthday)
-        if phone and not is_mobile(phone):
+        if phone and not convert.is_mobile(phone):
             raise exception.FormalError(phone=phone)
         if not name:
             raise exception.ParamNone(name="")
@@ -35,6 +35,9 @@ class RelativeLogic(Logic):
     def update(self, id="", **kwargs):
         if not id or not kwargs:
             return False
+        phone = convert.bs2utf8(kwargs.get("phone", ""))
+        if phone and not convert.is_mobile(phone):
+            raise exception.FormalError(phone=phone)
         _ = db_api.relative_update(id, kwargs)
         return _
 
