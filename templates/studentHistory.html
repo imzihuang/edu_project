@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>后端管理</title>
+		<meta name="keywords" content="后端管理">
+		<meta name="description" content="后端管理">
+
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link href="css/font-awesome.min.css" rel="stylesheet">
+		<link href="css/animate.min.css" rel="stylesheet">
+		<link href="css/style.min.css" rel="stylesheet">
+		<link href="css/pager.css" rel="stylesheet" type="text/css" />
+		<link href="css/style.css" rel="stylesheet" type="text/css" />
+		<link href="js/plugins/layer/skin/default/layer.css" rel="stylesheet" type="text/css" />
+		<link href="css/layui.css" media="all" rel="stylesheet">
+
+		<script src="js/jquery.min.js"></script>
+
+	</head>
+
+	<body class="gray-bg">
+		<div class="wrapper wrapper-content animated fadeIn">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="tabs-container">
+						<div class="panel-body">
+							<div class="wrapper wrapper-content animated fadeInRight">
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="bgBackground">
+											<div class="ibox-content">
+												<table class="table table-striped table-bordered table-hover dataTables-example">
+													<thead>
+														<tr class="zx_checkedAll">
+															<th colspan="6" style="text-align: left; background: none;padding: 10px 0px;">
+																<button class="btn btn-default btn-myown" id="delInfo" disabled="disabled"><i class="fa fa-trash"></i>&nbsp;批量删除</button>
+																<button class="btn btn-primary btn-myown" id="addInfo">+添加年级</button>
+															</th>
+														</tr>
+														<tr class="zx_thTitle">
+															<th style="max-width: 100px;"><input type="checkbox" class="zx_checkedBtn" id="zx_checkedAllBtn" name="allcheck" value="allCheck"></th>
+															<th>序号</th>
+															<th>老师编号</th>
+															<th>老师名称</th>
+															<th>老师状态</th>
+															<th>创建时间</th>
+														</tr>
+													</thead>
+													<tbody id="tbody">
+
+													</tbody>
+												</table>
+												<div id="layPage"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+	
+
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/plugins/layer/layer.js"></script>
+		<script src="js/jquery.form.js"></script>
+		<script src="js/layui.js" charset="utf-8"></script>
+		<script src="js/common.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				//获取学校
+				schoolInput();
+				//获取列表
+				getAjaxData({
+					"teacher_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
+					"limit": 20,
+					"offset": 1,
+				});
+
+				function getAjaxData(senddata) {
+					$.ajax({
+						type: "GET",
+						contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+						url: "/teacher_history/infos",
+						async: false,
+						data: senddata,
+						timeout: "30000",
+						success: function(msg) {
+							var msg = JSON.parse(msg);
+							//分页
+							layui.use(['laypage', 'layer'], function() {
+									var page = layui.laypage;
+									page.render({
+										elem: "layPage",
+										count: msg.count,
+										curr: senddata.offset,
+										limit: senddata.limit,
+										layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
+										jump: function(e, first) {
+											if(!first) {
+												senddata.offset = e.curr;
+												senddata.limit = e.limit;
+												var district = "";
+												getAjaxData({
+													"name": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
+													"school_id": school,
+													"limit": 20,
+													"offset": 1,
+												});
+											}
+										}
+									})
+								})
+								//表格渲染
+							var strs = '';
+							console.log(msg);
+							if(msg.data.length > 0) {
+								for(var i = 0; i < msg.data.length; i++) {
+									strs += '<tr class="gradeX">' +
+										'<td><input type="checkbox" class="zx_checkedBtn"'></td>' +
+										'<td class="centerSort">' + (i + 1) + '</td>' +
+										'<td class="center">' + msg.data[i].teacher_id + '</td>' +
+										'<td class="center">' + msg.data[i].teacher_name + '</td>' +
+										'<td class="center">' + msg.data[i].status + '</td>' +
+										'<td class="center">' + msg.data[i].create_time + '</td>' +
+										'</tr>'
+								}
+								$("#tbody").html(strs);
+							} else {
+								$("#tbody").html('<tr><td colspan="6" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
+							}
+						},
+						error: function() {
+							console.log("error");
+						}
+					});
+				}
+
+				
+			});
+		</script>
+	</body>
+
+</html>
