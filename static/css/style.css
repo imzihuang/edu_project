@@ -766,7 +766,7 @@ nav.navbar.navbar-static-top {
 }
 
 .logobg {
-	top: 10!important;
+	top: 10px !important;
 }
 
 
@@ -884,7 +884,7 @@ nav.navbar.navbar-static-top {
 }
 
 .nav-header {
-	padding: 20px 25px;
+	padding: 0px 25px;
 }
 
 .navbar-default .nav>li>a:focus,
