@@ -145,8 +145,8 @@
 							<option value="grandfather">爷爷</option>
 							<option value="grandmother">奶奶</option>
 						</select>
-						<input class="relative_name" type="text" name="relative_name" placeholder="姓名" name="relative_name"/>
-						<input class="relative_phone" type="text" name="relative_phone" placeholder="手机号码" class="marLeft100 marTop10" name="relative_phone"  style="margin-left: 0px;"/>
+						<input class="relative_name" type="text" name="relative_name" placeholder="姓名"/>
+						<input class="relative_phone" type="text" name="relative_phone" placeholder="手机号码" class="marLeft100 marTop10" style="margin-left: 0px;"/>
 						<div class="errorPart"></div>
 					</div>
 					<div style="margin: 20px 0;" class="addRelativeList">
@@ -217,9 +217,9 @@
 							<option value="grandfather">爷爷</option>
 							<option value="grandmother">奶奶</option>
 						</select>
-						<input class="relative_name" type="text" name="edit_relative_name1" placeholder="姓名" />
+						<input class="relative_name" type="text" name="edit_relative_name" placeholder="姓名" />
 						<div class="errorPart"></div>
-						<input class="relative_phone" type="text" name="edit_relative_phone1" placeholder="手机号码" class="marLeft100 marTop10" style="margin-left: 0px;"/>
+						<input class="relative_phone" type="text" name="edit_relative_phone" placeholder="手机号码" class="marLeft100 marTop10" style="margin-left: 0px;"/>
 						<div class="errorPart"></div>
 					</div>
 					<div style="margin: 20px 0;" class="editRelativeList">
@@ -324,7 +324,6 @@
 
 				//新增弹框切换年级
 				$("#add_grade").change(function() {
-					console.log(111111);
 					classInput({
 						"limit": 20,
 						"offset": 1,
@@ -345,7 +344,6 @@
 
 				//获取班级
 				function classInput(data, ifLayer, ifadd) {
-					console.log(2222222);
 					$.ajax({
 						method: 'GET',
 						xhrFields: {
@@ -523,32 +521,37 @@
 					focusInvalid: false,
 					debug: true,
 					rules: {
-						//						add_name: {
-						//							required: true,
-						//						},
-						//						relative_name: {
-						//							required: true,
-						//						},
-						//						relative_phone: {
-						//							required: true,
-						//							isPhone: true,
-						//						}
+							add_name: {
+								required: true,
+							},
+							relative_name: {
+								required: true,
+							},
+							relative_phone: {
+								required: true,
+								isPhone: true,
+							}
 					},
 					messages: {
-						//						add_name: {
-						//							required: '必填',
-						//						},
-						//						relative_name: {
-						//							required: '必填',
-						//						},
-						//						relative_phone: {
-						//							required: '必填',
-						//							isPhone: '请正确填写手机号码',
-						//						}
+							add_name: {
+								required: '必填',
+							},
+							relative_name: {
+								required: '必填',
+							},
+							relative_phone: {
+								required: '必填',
+								isPhone: '请正确填写手机号码',
+							}
 					},
 					submitHandler: function(form) {
 						if($("#add_class").val() == '' || $("#add_class").val() == undefined) {
 							$(".errorPartAddClass").css("display", "block");
+							if($("#add_time").val() == '' || $("#add_time").val() == undefined) {
+								$(".errorPartAddTime").css("display", "block");
+								return false;
+							}
+							return false;
 						}
 
 						var addRelativeLength = $(".addRelative .addRelativeList").length;
@@ -648,36 +651,54 @@
 						},
 					},
 					submitHandler: function(form) {
-						if($("#edit_grade").val() != '') {
-							var data = {
-								'name': $("#edit_name").val(),
-								'grade_id': $("#edit_grade").val(),
-								'cardcode': cardcode,
-								'describe': $("#edit_remarks").val() == '' ? undefined : $("#edit_remarks").val(),
-							}
-							$.ajax({
-								type: "POST",
-								contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-								url: "/class/update",
-								async: false,
-								data: data,
-								timeout: "30000",
-								success: function(msg) {
-									layer.closeAll();
-									layer.msg('编辑成功', {
-										icon: 1,
-										time: 800 //2s后自动关闭
-									});
-									window.location.reload();
-								},
-								error: function() {
-									layer.msg('编辑失败');
-									console.log("error");
-								}
-							});
-						} else {
-							$(".selectPart .errorPartS").css("display", "block");
+						var data = {
+							'id': $("#edit_name").attr("id"),
+							'sex': $("input[name='editsex']:checked").val(),
+							'birthday': $("#edit_time").val(),
+							'birthday': $("#edit_time").val(),
+							'describe': $("#edit_remarks").val(),
 						}
+						$.ajax({
+							type: "POST",
+							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+							url: "/student/update",
+							async: false,
+							data: data,
+							timeout: "30000",
+							success: function(msg) {
+								var relativeData = {
+										'id': $("#edit_name").attr("id"),
+										'sex': $("input[name='editsex']:checked").val(),
+										'birthday': $("#edit_time").val(),
+										'birthday': $("#edit_time").val(),
+										'describe': $("#edit_remarks").val(),
+									}
+								$.ajax({
+									type: "POST",
+									contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+									url: "/student/update",
+									async: false,
+									data: relativeData,
+									timeout: "30000",
+									success: function(msg) {
+										layer.closeAll();
+										layer.msg('编辑成功', {
+											icon: 1,
+											time: 800
+										});
+										window.location.reload();
+									},
+									error: function() {
+										layer.msg('编辑失败');
+										console.log("error");
+									}
+								});
+									},
+									error: function() {
+										layer.msg('编辑失败');
+										console.log("error");
+									}
+								});
 					},
 
 					errorPlacement: function(error, element) {
@@ -723,6 +744,7 @@
 							console.log(msg);
 							var msg = JSON.parse(msg);
 							$("#edit_name").val(msg.data[0].name);
+							$("#edit_name").attr("id",msg.data[0].id);
 							TimeSelectOption($('#edit_time'), msg.data[0].birthday);
 							$("input[name='editsex'][value='" + msg.data[0].sex + "']").prop("checked", "checked");
 							$("#edit_remarks").val(msg.data[0].describe);
