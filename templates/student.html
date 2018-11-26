@@ -764,9 +764,10 @@
 				//编辑弹框
 				$('.areapen').click(function() {
 					$(".errorPart").html("");
+					$(".errorPartSpt").css("display","none")
 					$(".selectPart .errorPartS").css("display", "none");
 					layerIndex = layer.open({
-						title: '修改班级信息',
+						title: '修改学生信息',
 						type: 1,
 						skin: 'layui-layer-demo',
 						closeBtn: 0,

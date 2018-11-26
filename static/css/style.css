@@ -1326,7 +1326,7 @@ select {
 	border: 1px solid #dcdcdc;
 }
 
-.errorPart, .errorPartAddPost, .errorPartAddClass,.errorPartAddTime,.errorPartEditTime{
+.errorPart, .errorPartAddPost, .errorPartAddClass,.errorPartAddTime,.errorPartEditTime,.errorPartEditClass{
 	padding-left: 100px;
 	clear: both;
 	line-height: normal;
@@ -1335,7 +1335,8 @@ select {
 }
 .layui-layer-content{
 	max-height: 500px;
-	overflow-y: auto;
+	overflow-x: hidden !important;
+    overflow-y: auto !important;
 }
 #grade-name {
 	width: 180px;
