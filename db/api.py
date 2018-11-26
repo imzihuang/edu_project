@@ -258,7 +258,7 @@ def student_update(id, values):
     return result
 
 def student_get(id):
-    query = model_query(models.StudentInfo)
+    query = model_query(models.StudentInfo, read_deleted="yes")
     result = query.filter_by(id=id).first()
     if not result:
         return None  #raise exception.NotFound(code=id)

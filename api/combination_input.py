@@ -115,3 +115,4 @@ class CombinationHandler(RequestHandler):
     def delete_student_relative(self):
         student_id = convert.bs2utf8(self.get_argument('student_id', ''))
 
+
