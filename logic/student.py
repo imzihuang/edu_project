@@ -156,3 +156,9 @@ class StudentLogic(Logic):
             return "exist relation"
 
         db_api.student_deleted(id=id)
+
+        history_values={
+            "student_id": id,
+            "staus": "deleted"
+        }
+        db_api.student_history_create(history_values)
