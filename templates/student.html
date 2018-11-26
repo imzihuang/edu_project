@@ -220,7 +220,7 @@
 					<div style="margin: 20px 0;" class="editRelativeList">
 						<span class="fl">第一联系人：(必填)</span>
 						<div class="">
-							<select name="edit_relative">
+							<select name="edit_relative" class="edit_relative">
 								<option value="father">父亲</option>
 								<option value="moter">母亲</option>
 								<option value="grandfather">爷爷</option>
@@ -236,7 +236,7 @@
 					</div>
 					<div style="margin: 20px 0;" class="editRelativeList">
 						<span class="fl">第一联系人：</span>
-						<select name="edit_relative">
+						<select name="edit_relative" class="edit_relative">
 							<option value="father">父亲</option>
 							<option value="moter">母亲</option>
 							<option value="grandfather">爷爷</option>
@@ -247,7 +247,7 @@
 					</div>
 					<div style="margin: 20px 0;" class="editRelativeList">
 						<span class="fl">第三联系人：</span>
-						<select name="edit_relative">
+						<select name="edit_relative" class="edit_relative">
 							<option value="father">父亲</option>
 							<option value="moter">母亲</option>
 							<option value="grandfather">爷爷</option>
@@ -728,6 +728,7 @@
 								var relative_list = new Array();
 								for(var i = 0; i < editRelativeLength; i++) {
 									relative_list[i] = new Object();
+									relative_list[i].id = $(".editRelative .editRelativeList").eq(i).find(".edit_relative").attr("id");
 									relative_list[i].name = $(".editRelative .editRelativeList").eq(i).find(".relative_name").val();
 									relative_list[i].phone = $(".editRelative .editRelativeList").eq(i).find(".relative_phone").val();
 									relative_list[i].relation = $(".editRelative .editRelativeList").eq(i).find("select option:selected").val();
@@ -827,6 +828,7 @@
 							for(var i = 0; i < msg.data[0].relation_list.length; i++) {
 								if(i < 3) {
 									$(".editRelative .editRelativeList").eq(i).find(".edit_relative").val(msg.data[0].relation_list[i].relation);
+									$(".editRelative .editRelativeList").eq(i).find(".edit_relative").attr("id",msg.data[0].relation_list[i].id);
 									$(".editRelative .editRelativeList").eq(i).find(".relative_name").val(msg.data[0].relation_list[i].relation_info.name);
 									$(".editRelative .editRelativeList").eq(i).find(".relative_phone").val(msg.data[0].relation_list[i].relation_info.phone);
 								}
