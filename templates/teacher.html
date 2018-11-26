@@ -492,6 +492,15 @@
 							$(".teacher_data_name").click(function(){
 								top.location.href = "index.html#teacherHistory.html";
 								top.location.reload();
+								if(localStorage.getItem("teacherHistory")){
+									var dateHistory = JSON.parse(localStorage.getItem("teacherHistory"));
+									dateHistory.id = $(this).attr("title");
+									window.localStorage.setItem("teacherHistory", JSON.stringify(dateHistory));
+								}else{
+									var dateHistory = new Object();
+									dateHistory.id = $(this).attr("title");
+									window.localStorage.setItem("teacherHistory", JSON.stringify(dateHistory));
+								}
 							});
 						},
 						error: function() {
