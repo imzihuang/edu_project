@@ -54,7 +54,14 @@ class StudentLogic(Logic):
                 "school_id": class_info.school_id,
                 "grade_id": class_info.grade_id,
             })
+        status = kwargs.pop("status", "")
         _ = db_api.student_update(id, kwargs)
+        if status:
+            history_values = {
+                "student_id": id,
+                "staus": status
+            }
+            db_api.student_history_create(history_values)
         return _
 
     def infos(self, id="", name="",
