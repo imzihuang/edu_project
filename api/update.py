@@ -112,7 +112,7 @@ class UpdateHandler(RequestHandler):
         birthday = convert.bs2utf8(self.get_argument('birthday', ""))
         class_id = convert.bs2utf8(self.get_argument('class_id', ''))
         phone = convert.bs2utf8(self.get_argument('phone', ''))
-        describe = convert.bs2utf8(self._get_class_argument('describe', ''))
+        describe = convert.bs2utf8(self.get_argument('describe', ''))
         result = {}
         if name:
             result.update({"name": name})
@@ -137,7 +137,7 @@ class UpdateHandler(RequestHandler):
         class_id = convert.bs2utf8(self.get_argument('class_id', ''))
         status = convert.bs2utf8(self.get_argument('status', 'apply'))
         relation_number = int(self.get_argument('relation_number', 3))
-        describe = convert.bs2utf8(self._get_class_argument('describe', ''))
+        describe = convert.bs2utf8(self.get_argument('describe', ''))
         result = {}
         if name:
             result.update({"name": name})
@@ -161,7 +161,7 @@ class UpdateHandler(RequestHandler):
         sex = int(self.get_argument('sex', 0))
         birthday = convert.bs2utf8(self.get_argument('birthday', 0))
         phone = convert.bs2utf8(self.get_argument('phone', ''))
-        describe = convert.bs2utf8(self._get_class_argument('describe', ''))
+        describe = convert.bs2utf8(self.get_argument('describe', ''))
         result = {}
         if name:
             result.update({"name": name})
