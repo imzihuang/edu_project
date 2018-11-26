@@ -135,7 +135,7 @@ class UpdateHandler(RequestHandler):
         sex = int(self.get_argument('sex', 0))
         birthday = convert.bs2utf8(self.get_argument('birthday', ""))
         class_id = convert.bs2utf8(self.get_argument('class_id', ''))
-        status = convert.bs2utf8(self.get_argument('status', 'apply'))
+        status = convert.bs2utf8(self.get_argument('status', ''))
         relation_number = int(self.get_argument('relation_number', 3))
         describe = convert.bs2utf8(self.get_argument('describe', ''))
         result = {}
