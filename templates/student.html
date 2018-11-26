@@ -501,6 +501,13 @@
 				$(".addRelativeBtn").click(function() {
 					$(".addRelative").append(relativeStr);
 				});
+				//校验隐藏
+				$("#add_grade").change(function() {
+					$(".errorPartAddClass").css("display", "none");
+				});
+				$("#add_time").focus(function() {
+					$(".errorPartAddTime").css("display", "none");
+				});
 				//添加校验
 				var layerIndex;
 
