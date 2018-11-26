@@ -26,8 +26,13 @@ class RelationLogic(Logic):
         return relation_obj
 
     def update(self, id="", **kwargs):
-        if not id or not kwargs:
+        if not kwargs:
             return False
+        relative_id = kwargs.get("relative_id", "")
+        student_id = kwargs.get("student_id", "")
+        if not id and (relative_id and student_id):
+            relation_info = db_api.relation_list(relative_id=relative_id, student_id=student_id)
+            id = relation_info[0].id
         _ = db_api.relation_update(id, kwargs)
         return _
 
