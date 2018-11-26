@@ -390,7 +390,7 @@ def face_destroy(id):
     session = get_session()
     with session.begin():
         query = model_query(models.RelevanceFace, session=session, id=id)
-        query.delete(session=session, synchronize_session=False)
+        query.delete(synchronize_session=False)
 
 #####################face end################################
 
@@ -436,7 +436,7 @@ def relation_destroy(id):
     session = get_session()
     with session.begin():
         query = model_query(models.RelationInfo, session=session, id=id)
-        query.delete(session=session, synchronize_session=False)
+        query.delete(synchronize_session=False)
 #####################relation end################################
 
 #####################user begin################################
@@ -587,6 +587,6 @@ def verify_manage_destroy(id):
     session = get_session()
     with session.begin():
         query = model_query(models.VerifyManage, session=session, id=id)
-        query.delete(session=session, synchronize_session=False)
+        query.delete(synchronize_session=False)
 
 #################verify manage end#######################################

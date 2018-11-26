@@ -160,7 +160,7 @@ class StudentLogic(Logic):
 
         history_values={
             "student_id": id,
-            "staus": "deleted"
+            "status": "deleted"
         }
         db_api.student_history_create(history_values)
 
@@ -170,6 +170,6 @@ class StudentLogic(Logic):
         db_combination.delete_student(student_id=id)
         history_values = {
             "student_id": id,
-            "staus": "deleted"
+            "status": "deleted"
         }
         db_api.student_history_create(history_values)
