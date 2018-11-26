@@ -7,7 +7,7 @@ from util import exception
 from util import common_util
 
 
-def model_query(model, session=None, order=False, *args, **kwargs):
+def model_query(model, session=None, order=False, read_deleted="no", *args, **kwargs):
     """
     :param model:
     :param session: if present, the session to use
@@ -15,7 +15,6 @@ def model_query(model, session=None, order=False, *args, **kwargs):
     session = session or get_session()
     query = session.query(model, *args)
 
-    read_deleted = kwargs.get("read_deleted", "no")
     if read_deleted == "no":
         query = query.filter_by(deleted=False)
 
