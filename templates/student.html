@@ -863,12 +863,12 @@
 						btn: ['确定', '取消']
 					}, function() {
 						var data = {
-							'id': deleteId
+							'student_id': deleteId
 						}
 						$.ajax({
 							type: "POST",
 							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-							url: "/student/delete",
+							url: "/delete_student_relative/combination_input",
 							async: false,
 							data: data,
 							timeout: "30000",
