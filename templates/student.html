@@ -622,7 +622,9 @@
 								relative_list[i] = '';
 							}
 						}
-
+                        
+                        relative_list.splice($.inArray('',relative_list),1);
+                        
 						var data = {
 							'name': $("#add_name").val(),
 							'birthday': $("#add_time").val(),
@@ -756,6 +758,7 @@
 										relative_list[i] = '';
 									}
 								}
+								relative_list.splice($.inArray('',relative_list),1);
 
 								var relativeData = {
 										'student_id': $("#edit_name").attr("title"),
