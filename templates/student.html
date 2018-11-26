@@ -617,14 +617,14 @@
 							relative_list[i].phone = $(".addRelative .addRelativeList").eq(i).find(".relative_phone").val();
 							relative_list[i].relation = $(".addRelative .addRelativeList").eq(i).find("select option:selected").val();
 						}
-						for(var i = 0; i < addRelativeLength; i++) {
-							if(relative_list[i].name == '' || relative_list[i].phone == '') {
-								relative_list[i] = '';
+						for(var j = 0; j < addRelativeLength; j++) {
+							if(relative_list[j].name == '' || relative_list[j].phone == '') {
+								relative_list[j] = '';
 							}
 						}
-                        for(var i = 0; i < addRelativeLength; i++) {
-                        	 relative_list.splice($.inArray('',relative_list),1);
-                        }
+                        for(var h = 0; h < addRelativeLength; h++) {
+							 relative_list.splice($.inArray('',relative_list),1);
+						}
                        
                         
 						var data = {
@@ -760,9 +760,9 @@
 										relative_list[i] = '';
 									}
 								}
-								for(var i = 0; i < addRelativeLength; i++) {
-		                        	 relative_list.splice($.inArray('',relative_list),1);
-		                        }
+								 for(var h = 0; h < addRelativeLength; h++) {
+									 relative_list.splice($.inArray('',relative_list),1);
+								}
 
 								var relativeData = {
 										'student_id': $("#edit_name").attr("title"),
