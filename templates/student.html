@@ -802,7 +802,7 @@
 							console.log(msg);
 							var msg = JSON.parse(msg);
 							$("#edit_name").val(msg.data[0].name);
-							$("#edit_name").attr("id",msg.data[0].id);
+							$("#edit_name").attr("title",msg.data[0].id);
 							TimeSelectOption($('#edit_time'), msg.data[0].birthday);
 							$("input[name='editsex'][value='" + msg.data[0].sex + "']").prop("checked", "checked");
 							$("#edit_remarks").val(msg.data[0].describe);
