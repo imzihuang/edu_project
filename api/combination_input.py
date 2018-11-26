@@ -24,9 +24,13 @@ class CombinationHandler(RequestHandler):
         try:
             if combination == "student_relative":
                 self.student_relative()
+            if combination == "bath_updte_relative":
+                self.bath_updte_relative()
+            if combination == "delete_student_relative":
+                self.delete_student_relative()
         except Exception as ex:
             LOG.error("combination %s error:%s"%(combination, ex))
-            self.finish(json.dumps({'state': 2, 'message': 'combination input error'}))
+            self.finish(json.dumps({'state': 10, 'message': 'combination input error'}))
 
     def check_student_relative(self):
         pass
@@ -68,4 +72,46 @@ class CombinationHandler(RequestHandler):
                 return
         self.finish(json.dumps({'state': 0, 'message': 'success'}))
 
+
+    def bath_updte_relative(self):
+        message = ""
+        student_id = convert.bs2utf8(self.get_argument('student_id', ''))
+        update_relative_list = convert.bs2utf8(self.get_argument('update_relative_list', '[]'))
+        relative_list = json.loads(update_relative_list)
+        relative_op = RelativeLogic()
+        relation_op = RelationLogic()
+        for relative_info in relative_list:
+            try:
+                relative_id = relative_info.pop("id", "")
+                relation = relative_info.pop("id", "relation")
+                if relative_id:
+                    #update relative, relation
+                    _ = relative_op.update(**relative_info)
+                    if not _:
+                        message += "update relative error:%s" % relative_info.get("name", "")
+                        continue
+                    relation_info = relation_op.update(relative_id=relative_id, student_id=student_id, relation=relation)
+                    if not relation_info:
+                        message += "update relation error:%s, %s"%(relative_info.get("name", ""), relation)
+                        continue
+                else:
+                    #add relative, relation
+                    _ = relative_op.input(**relative_info)
+                    if not _:
+                        message += "add relative error:%s" % relative_info.get("name", "")
+                        continue
+                    relation_info = relation_op.input(relation, student_id=student_id, relative_id=_.get("id"))
+                    if not relation_info:
+                        message += "add relation error:%s, %s"%(relative_info.get("name", ""), relation)
+                        continue
+            except Exception as ex:
+                LOG.error("update error: %s, %s"%(relative_info.get("name", ""), ex))
+                message += "update error:%s" %relative_info.get("name", "")
+        if not message:
+            self.finish(json.dumps({'state': 0, 'message': 'success'}))
+        else:
+            self.finish(json.dumps({'state': 1, 'message': message}))
+
+    def delete_student_relative(self):
+        student_id = convert.bs2utf8(self.get_argument('student_id', ''))
 
