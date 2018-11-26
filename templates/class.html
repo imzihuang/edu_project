@@ -185,7 +185,6 @@
 						cache: false,
 						timeout: "1000000",
 						success: function(msg) {
-							console.log(msg);
 							var str = '<option value="">--请选择年级--</option>';
 							var layerSrt = '';
 							if(msg.data.length > 0) {
@@ -259,7 +258,6 @@
 								})
 								//表格渲染
 							var strs = '';
-							console.log(msg);
 							if(msg.data.length > 0) {
 								for(var i = 0; i < msg.data.length; i++) {
 									strs += '<tr class="gradeX">' +
@@ -402,7 +400,6 @@
 
 				//添加弹框
 				$('#addInfo').click(function() {
-					console.log(2);
 					$("input").val("");
 					$(".errorPart").html("");
 					$(".selectPart .errorPartS").css("display", "none");
@@ -490,7 +487,6 @@
 					$(".selectPart .errorPartS").css("display", "none");
 
 					$("#edit_name").val($(this).parent("td").siblings(".data_name").html());
-					console.log($(this).parent("td").siblings(".data_grade_name").attr("name"));
 					$("#edit_grade").val($(this).parent("td").siblings(".data_grade_name").attr("name"));
 					layerIndex = layer.open({
 						title: '修改班级信息',
