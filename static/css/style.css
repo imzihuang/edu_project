@@ -1326,14 +1326,16 @@ select {
 	border: 1px solid #dcdcdc;
 }
 
-.errorPart, .errorPartAddPost, .errorPartAddClass,.errorPartAddTime{
+.errorPart, .errorPartAddPost, .errorPartAddClass,.errorPartAddTime,.errorPartEditTime{
 	padding-left: 100px;
 	clear: both;
 	line-height: normal;
 	position: absolute;
 	color: #cc5965;
 }
-
+.layui-layer{
+	max-height: 500px;
+}
 #grade-name {
 	width: 180px;
 }
