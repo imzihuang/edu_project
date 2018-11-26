@@ -739,20 +739,17 @@
 								}
 
 								var relativeData = {
-										'id': $("#edit_name").attr("title"),
-										'sex': $("input[name='editsex']:checked").val(),
-										'birthday': $("#edit_time").val(),
-										'birthday': $("#edit_time").val(),
-										'describe': $("#edit_remarks").val(),
+										'student_id': $("#edit_name").attr("title"),
+										'relative_list': JSON.stringify(relative_list),,
 									}
 								$.ajax({
 									type: "POST",
 									contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-									url: "/student/update",
+									url: "/student_relative/bath_updte_relative",
 									async: false,
 									data: relativeData,
 									timeout: "30000",
-									success: function(msg) {
+									success: function(msg) {console.log(msg);
 										layer.closeAll();
 										layer.msg('编辑成功', {
 											icon: 1,
