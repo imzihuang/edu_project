@@ -36,7 +36,6 @@
 												<table class="table table-striped table-bordered table-hover dataTables-example">
 													<thead>
 														<tr class="zx_thTitle">
-															<th style="max-width: 100px;"><input type="checkbox" class="zx_checkedBtn" id="zx_checkedAllBtn" name="allcheck" value="allCheck"></th>
 															<th>序号</th>
 															<th>老师名称</th>
 															<th>老师状态</th>
@@ -104,9 +103,11 @@
 												senddata.offset = e.curr;
 												senddata.limit = e.limit;
 												var district = "";
-												"teacher_id": teacherId,
-												"limit": 20,
-												"offset": 1,
+												getAjaxData({
+													"teacher_id": teacherId,
+													"limit": 20,
+													"offset": 1,
+												});
 											}
 										}
 									})
@@ -124,7 +125,6 @@
 										msg.data[i].status = "离职";
 									}
 									strs += '<tr class="gradeX">' +
-										'<td><input type="checkbox" class="zx_checkedBtn"></td>' +
 										'<td class="centerSort">' + (i + 1) + '</td>' +
 										'<td class="center">' + msg.data[i].teacher_name + '</td>' +
 										'<td class="center">' + msg.data[i].status + '</td>' +
@@ -133,7 +133,7 @@
 								}
 								$("#tbody").html(strs);
 							} else {
-								$("#tbody").html('<tr><td colspan="5" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
+								$("#tbody").html('<tr><td colspan="4" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
 							}
 						},
 						error: function() {
