@@ -116,8 +116,15 @@
 							console.log(msg);
 							if(msg.data.length > 0) {
 								for(var i = 0; i < msg.data.length; i++) {
+									if(msg.data[i].status == "education"){
+										msg.data[i].status = "在教";
+									}else if(msg.data[i].status == "holiday"){
+										msg.data[i].status = "休假";
+									}else if(msg.data[i].status == "dimission"){
+										msg.data[i].status = "离职";
+									}
 									strs += '<tr class="gradeX">' +
-										'<td><input type="checkbox" class="zx_checkedBtn"'></td>' +
+										'<td><input type="checkbox" class="zx_checkedBtn"></td>' +
 										'<td class="centerSort">' + (i + 1) + '</td>' +
 										'<td class="center">' + msg.data[i].teacher_name + '</td>' +
 										'<td class="center">' + msg.data[i].status + '</td>' +

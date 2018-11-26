@@ -118,6 +118,13 @@
 							console.log(msg);
 							if(msg.data.length > 0) {
 								for(var i = 0; i < msg.data.length; i++) {
+									if(msg.data[i].status == "apply"){
+										msg.data[i].status = "报名";
+									}else if(msg.data[i].status == "dropout"){
+										msg.data[i].status = "退学";
+									}else if(msg.data[i].status == "graduate"){
+										msg.data[i].status = "毕业";
+									}
 									strs += '<tr class="gradeX">' +
 										'<td><input type="checkbox" class="zx_checkedBtn"></td>' +
 										'<td class="centerSort">' + (i + 1) + '</td>' +
