@@ -193,7 +193,7 @@
 				</div>
 				<div style="margin: 20px 0;position: relative;margin-left: -4px;">
 					<span>出生日期：</span>
-					<input type="text" id="edit_time" class="form-control" style="width: 350px;display: inline-block;">
+					<input type="text" id="edit_time" class="form-control" name= "edit_time" style="width: 350px;display: inline-block;">
 					<i class="glyphicon glyphicon-calendar fa fa-calendar" style="position: absolute;right: 20px;top: 8px;"></i>
 					<div class="errorPartEditTime errorPartSpt">请选择出生日期</div>
 				</div>
@@ -327,32 +327,44 @@
 
 				//切换年级
 				$("#grade-name").change(function() {
-					classInput({
-						"limit": 20,
-						"offset": 1,
-						'school_id': school,
-						"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
-					}, "no");
+                    if($("#grade-name").val() == ''||undefined){
+						$("#class-name").html('<option value="">---请选择班级---</option>');
+					}else{
+						classInput({
+							"limit": 20,
+							"offset": 1,
+							'school_id': school,
+							"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
+						}, "no");
+					}
 				});
 
 				//新增弹框切换年级
 				$("#add_grade").change(function() {
-					classInput({
-						"limit": 20,
-						"offset": 1,
-						'school_id': school,
-						"grade_id": $("#add_grade").val() == '' ? undefined : $("#add_grade").val(),
-					}, "yes", 'yes');
+					if($("#add_grade").val() == ''||undefined){
+						$("#add_class").html('<option value="">---请选择班级---</option>');
+					}else{
+						classInput({
+							"limit": 20,
+							"offset": 1,
+							'school_id': school,
+							"grade_id": $("#add_grade").val() == '' ? undefined : $("#add_grade").val(),
+						}, "yes", 'yes');
+					}
 				});
 
 				//编辑弹框切换年级
-				$("#edit_grade").change(function() {
-					classInput({
-						"limit": 20,
-						"offset": 1,
-						'school_id': school,
-						"grade_id": $("#edit_grade").val() == '' ? undefined : $("#edit_grade").val(),
-					}, "yes", 'no');
+				$("#edit_grade").change(function() {console.log(1111);
+					if($("#edit_grade").val() == ''||undefined){
+						$("#edit_class").html('<option value="">---请选择班级---</option>');
+					}else{
+						classInput({
+							"limit": 20,
+							"offset": 1,
+							'school_id': school,
+							"grade_id": $("#edit_grade").val() == '' ? undefined : $("#edit_grade").val(),
+						}, "yes", 'no');
+					}
 				});
 
 				//获取班级
@@ -378,16 +390,24 @@
 									str += '<option value=' + msg.data[i].id + '>' + msg.data[i].name + '</option>';
 								}
 								if(ifLayer == "yes") {
-									$("#add_class").html(str);
-									$("#edit_class").html(str);
+									if(ifadd == "yes") {
+										$("#add_class").html(str);
+									}else{
+										$("#edit_class").html(str);
+									}
 								} else {
 									$("#class-name").html(str);
 								}
 							} else {
-								$("#class-name").html('<option value="">---无---</option>');
-								$("#add_class").html('<option value="">---无---</option>');
-								$("#edit_class").html('<option value="">---无---</option>');
-
+								if(ifLayer == "yes") {
+									if(ifadd == "yes") {
+										$("#add_class").html('<option value="">---无---</option>');
+									}else{
+										$("#edit_class").html('<option value="">---无---</option>');
+									}
+								} else {
+									$("#class-name").html('<option value="">---无---</option>');
+								}
 							}
 						},
 						complete: function(XMLHttpRequest, status) {
@@ -418,9 +438,7 @@
 						data: senddata,
 						timeout: "30000",
 						success: function(msg) {
-							console.log(msg);
 							var msg = JSON.parse(msg);
-							console.log(msg);
 							//分页
 							layui.use(['laypage', 'layer'], function() {
 									var page = layui.laypage;
@@ -523,14 +541,14 @@
 				});
 
 				jQuery.validator.addMethod("isPhone", function(value, element) {
-					var reg = /^[0-9]{10,20}$/;
+					var reg = /^[1][3,4,5,7,8][0-9]{9}$/;
 					var phoneNum = $("#relative_phone_add").val();
 					var flag = reg.test(phoneNum);
 					return flag;
 				}, "请正确填写手机号码");
                 
                 jQuery.validator.addMethod("isPhoneEdit", function(value, element) {
-					var reg = /^[0-9]{10,20}$/;
+					var reg = /^[1][3,4,5,7,8][0-9]{9}$/;
 					var phoneNum = $("#relative_phone_edit").val();
 					var flag = reg.test(phoneNum);
 					return flag;
@@ -669,7 +687,7 @@
 						}
 					},
 					messages: {
-						add_name: {
+						edit_name: {
 							required: '必填',
 						},
 						relative_name: {
@@ -691,7 +709,7 @@
 						}
 						
 						var data = {
-							'id': $("#edit_name").attr("id"),
+							'id': $("#edit_name").attr("title"),
 							'sex': $("input[name='editsex']:checked").val(),
 							'birthday': $("#edit_time").val(),
 							'birthday': $("#edit_time").val(),
@@ -721,20 +739,17 @@
 								}
 
 								var relativeData = {
-										'id': $("#edit_name").attr("id"),
-										'sex': $("input[name='editsex']:checked").val(),
-										'birthday': $("#edit_time").val(),
-										'birthday': $("#edit_time").val(),
-										'describe': $("#edit_remarks").val(),
+										'student_id': $("#edit_name").attr("title"),
+										'relative_list': JSON.stringify(relative_list),
 									}
 								$.ajax({
 									type: "POST",
 									contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-									url: "/student/update",
+									url: "/bath_updte_relative/combination_input",
 									async: false,
 									data: relativeData,
 									timeout: "30000",
-									success: function(msg) {
+									success: function(msg) {console.log(msg);
 										layer.closeAll();
 										layer.msg('编辑成功', {
 											icon: 1,
