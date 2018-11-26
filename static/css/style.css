@@ -4,7 +4,7 @@ body.fixed-sidebar .navbar-static-side {
 	width: 210px;
 	z-index: 2001;
 	height: 100%;
-	top: 50px;
+	top: 70px;
 }
 
 ul,
@@ -665,9 +665,6 @@ body.mini-navbar .logo-element {
 	cursor: pointer;
 }
 
-.navbar-top-links li a {
-	padding: 17px 10px;
-}
 
 .dropdown {
 	margin-right: 20px;
@@ -765,22 +762,18 @@ li {
 }
 
 nav.navbar.navbar-static-top {
-	height: 40px;
+	height: 70px;
 }
 
 .logobg {
-	top: 0!important;
+	top: 10px !important;
 }
 
 
 /*==========================风格二开始============================*/
 
 #page-wrapper {
-	margin-top: 50px !important;
-}
-
-.navbar-top-links li a {
-	padding: 14px 20px;
+	margin-top: 70px !important;
 }
 
 .ibox-title {
@@ -806,9 +799,6 @@ nav.navbar.navbar-static-top {
 }
 
 
-/*.table-striped>tbody>tr:nth-of-type(even){
-	background:none;
-}*/
 
 .alert {
 	padding: 0 10px!important;
@@ -828,11 +818,6 @@ nav.navbar.navbar-static-top {
 .content-tabs button {
 	background: #c2cdd3;
 }
-
-
-/*.navbar-static-top{
- 	background: url(../img/headBg.png) ;
- }*/
 
 .content-tabs {
 	background: #c2cdd3;
@@ -899,7 +884,7 @@ nav.navbar.navbar-static-top {
 }
 
 .nav-header {
-	padding: 20px 25px;
+	padding: 0px 25px;
 }
 
 .navbar-default .nav>li>a:focus,
@@ -1207,18 +1192,13 @@ i.fa.fa-cog {
 }
 
 .navbar-top-links li a {
-	padding: 15px 10px;
+	padding: 25px 10px;
 	min-height: 10px!important;
 }
 
 body.fixed-sidebar.full-height-layout.gray-bg.pace-done.mini-navbar .slimScrollDiv {
 	width: 70px!important;
 }
-
-
-/*body.fixed-sidebar.full-height-layout.gray-bg.pace-done.mini-navbar .Lilist{
-		position: relative!important;
-	}	*/
 
 body.fixed-sidebar.full-height-layout.gray-bg.pace-done.mini-navbar .nav-second-level {
 	width: 150px;
