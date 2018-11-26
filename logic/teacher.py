@@ -136,3 +136,8 @@ class TeacherLogic(Logic):
         if not id:
             return
         db_api.teacher_deleted(id=id)
+        history_values = {
+            "teacher_id": id,
+            "staus": "deleted"
+        }
+        db_api.teacher_history_create(history_values)

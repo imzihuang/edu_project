@@ -187,7 +187,7 @@ def teacher_update(id, values):
     return result
 
 def teacher_get(id):
-    query = model_query(models.TeacherInfo)
+    query = model_query(models.TeacherInfo, read_deleted="yes")
     result = query.filter_by(id=id).first()
     if not result:
         return None  #raise exception.NotFound(code=id)
