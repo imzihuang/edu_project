@@ -108,11 +108,19 @@ class CombinationHandler(RequestHandler):
                 LOG.error("update error: %s, %s"%(relative_info.get("name", ""), ex))
                 message += "update error:%s" %relative_info.get("name", "")
         if not message:
-            self.finish(json.dumps({'state': 0, 'message': 'success'}))
+            self.finish(json.dumps({'state': 0, 'message': 'update relative success'}))
         else:
             self.finish(json.dumps({'state': 1, 'message': message}))
 
     def delete_student_relative(self):
         student_id = convert.bs2utf8(self.get_argument('student_id', ''))
+        stu_op = StudentLogic()
+        stu_op.combination_delete(id=student_id)
+        message = self.finish(json.dumps({'state': 0, 'message': 'success'}))
+        if not message:
+            self.finish(json.dumps({'state': 0, 'message': 'delete student success'}))
+        else:
+            self.finish(json.dumps({'state': 1, 'message': message}))
+
 
 
