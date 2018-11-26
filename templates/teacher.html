@@ -474,7 +474,7 @@
 									strs += '<tr class="gradeX">' +
 										'<td><input type="checkbox" class="zx_checkedBtn" name ="' + msg.data[i].id + '" ></td>' +
 										'<td class="centerSort">' + (i + 1) + '</td>' +
-										'<td class="data_name" name = "' + msg.data[i].describe + '" title = "' + msg.data[i].id + '">' + msg.data[i].name + '</td>' +
+										'<td class="teacher_data_name" name = "' + msg.data[i].describe + '" title = "' + msg.data[i].id + '">' + msg.data[i].name + '</td>' +
 										'<td class="center data_phone" id="' + msg.data[i].sex + '">' + msg.data[i].phone + '</td>' +
 										'<td class="center data_position">' + msg.data[i].position + '</td>' +
 										'<td class="center data_grade_name" id ="' + msg.data[i].grade_id + '">' + msg.data[i].grade_name + '</td>' +
@@ -488,10 +488,9 @@
 							} else {
 								$("#tbody").html('<tr><td colspan="10" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
 							}
-							
 							//教师历史
-							$(".data_name").click(function(){
-								$("#iframecontent").attr("src", "teacherHistory.html");
+							$(".teacher_data_name").click(function(){
+								$("#iframecontent").attr("src", "class.html");
 							});
 						},
 						error: function() {

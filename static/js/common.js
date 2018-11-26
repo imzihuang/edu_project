@@ -25,3 +25,7 @@ function schoolInput() {
 	})
 }
 
+//教师历史
+$(".teacher_data_name").click(function(){console.log(2);
+	$("#iframecontent").attr("src", "class.html");
+});
