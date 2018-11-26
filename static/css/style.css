@@ -1335,7 +1335,7 @@ select {
 }
 .layui-layer-content{
 	max-height: 500px;
-	overflow: auto;
+	overflow-y: auto;
 }
 #grade-name {
 	width: 180px;
