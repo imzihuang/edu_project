@@ -83,7 +83,7 @@ class CombinationHandler(RequestHandler):
                 relation = relative_info.pop("relation", "")
                 if relative_id:
                     #update relative, relation
-                    _ = relative_op.update(**relative_info)
+                    _ = relative_op.update(id=relative_id, **relative_info)
                     if not _:
                         message += "update relative error:%s" % relative_info.get("name", "")
                         continue
