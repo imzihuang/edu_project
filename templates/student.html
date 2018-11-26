@@ -622,8 +622,10 @@
 								relative_list[i] = '';
 							}
 						}
-                        
-                        relative_list.splice($.inArray('',relative_list),1);
+                        for(var i = 0; i < addRelativeLength; i++) {
+                        	 relative_list.splice($.inArray('',relative_list),1);
+                        }
+                       
                         
 						var data = {
 							'name': $("#add_name").val(),
@@ -758,7 +760,9 @@
 										relative_list[i] = '';
 									}
 								}
-								relative_list.splice($.inArray('',relative_list),1);
+								for(var i = 0; i < addRelativeLength; i++) {
+		                        	 relative_list.splice($.inArray('',relative_list),1);
+		                        }
 
 								var relativeData = {
 										'student_id': $("#edit_name").attr("title"),
