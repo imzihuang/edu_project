@@ -517,7 +517,7 @@
 
 				jQuery.validator.addMethod("isPhone", function(value, element) {
 					var reg = /^[0-9]{10,20}$/;
-					var phoneNum = $("#add_phone").val();
+					var phoneNum = $(".relative_phone").val();
 					var flag = reg.test(phoneNum);
 					return flag;
 				}, "请正确填写手机号码");
