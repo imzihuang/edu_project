@@ -623,7 +623,10 @@
 							}
 						}
                         for(var h = 0; h < addRelativeLength; h++) {
-							 relative_list.splice($.inArray('',relative_list),1);
+                        	if(relative_list[h] = '') {
+                        		relative_list.splice($.inArray('',relative_list),1);
+                        		h--;
+							}
 						}
                        
                         
@@ -761,7 +764,10 @@
 									}
 								}
 								 for(var h = 0; h < editRelativeLength; h++) {
-									 relative_list.splice($.inArray('',relative_list),1);
+									if(relative_list[h] = '') {
+		                        		relative_list.splice($.inArray('',relative_list),1);
+		                        		h--;
+									}
 								}
 
 								var relativeData = {
