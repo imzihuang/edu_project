@@ -49,7 +49,7 @@ class TeacherLogic(Logic):
         if teacher_obj:
             history_values = {
                 "teacher_id": teacher_obj.get("id"),
-                "staus": status
+                "status": status
             }
             db_api.teacher_history_create(history_values)
             teacher_obj.update({"status": status})
@@ -138,6 +138,6 @@ class TeacherLogic(Logic):
         db_api.teacher_deleted(id=id)
         history_values = {
             "teacher_id": id,
-            "staus": "deleted"
+            "status": "deleted"
         }
         db_api.teacher_history_create(history_values)
