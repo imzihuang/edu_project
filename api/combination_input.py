@@ -24,8 +24,8 @@ class CombinationHandler(RequestHandler):
         try:
             if combination == "student_relative":
                 self.student_relative()
-            if combination == "bath_updte_relative":
-                self.bath_updte_relative()
+            if combination == "bath_update_relative":
+                self.bath_update_relative()
             if combination == "delete_student_relative":
                 self.delete_student_relative()
         except Exception as ex:
@@ -43,9 +43,6 @@ class CombinationHandler(RequestHandler):
         relation_number = int(self.get_argument('relation_number', 3))
         str_relative_list = convert.bs2utf8(self.get_argument('relative_list', '[]'))
         relative_list = json.loads(str_relative_list)
-
-        LOG.info("str_relative_list:%s" % str_relative_list)
-        LOG.info("relative_list:%r"%relative_list)
 
         #check params
         self.check_student_relative()
@@ -73,11 +70,11 @@ class CombinationHandler(RequestHandler):
         self.finish(json.dumps({'state': 0, 'message': 'success'}))
 
 
-    def bath_updte_relative(self):
+    def bath_update_relative(self):
         message = ""
         student_id = convert.bs2utf8(self.get_argument('student_id', ''))
-        update_relative_list = convert.bs2utf8(self.get_argument('update_relative_list', '[]'))
-        relative_list = json.loads(update_relative_list)
+        relative_list = convert.bs2utf8(self.get_argument('relative_list', '[]'))
+        relative_list = json.loads(relative_list)
         relative_op = RelativeLogic()
         relation_op = RelationLogic()
         for relative_info in relative_list:
