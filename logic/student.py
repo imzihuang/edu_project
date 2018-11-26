@@ -5,6 +5,7 @@ from random import randint
 import datetime
 from util.convert import *
 from db import api as db_api
+from db import combination as db_combination
 from logic import Logic
 from util import exception
 
@@ -158,6 +159,16 @@ class StudentLogic(Logic):
         db_api.student_deleted(id=id)
 
         history_values={
+            "student_id": id,
+            "staus": "deleted"
+        }
+        db_api.student_history_create(history_values)
+
+    def combination_delete(self, id=""):
+        if not id:
+            return "id is none"
+        db_combination.delete_student(student_id=id)
+        history_values = {
             "student_id": id,
             "staus": "deleted"
         }
