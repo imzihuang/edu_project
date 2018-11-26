@@ -627,8 +627,11 @@
 						content: $('#addInfoContent'),
 						yes: function() {
 							$("#addInfoContentSubmit").click();
-							if($("#add_grade").val() == '') {
-								$(".selectPart .errorPartS").css("display", "block");
+							if($("#add_class").val() == '' || $("#add_class").val() == undefined) {
+								$(".errorPartAddClass").css("display", "block");
+							}
+							if($("#add_time").val() == '' || $("#add_time").val() == undefined) {
+								$(".errorPartAddTime").css("display", "block");
 							}
 						}
 					});
