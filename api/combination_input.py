@@ -80,7 +80,7 @@ class CombinationHandler(RequestHandler):
         for relative_info in relative_list:
             try:
                 relative_id = relative_info.pop("id", "")
-                relation = relative_info.pop("id", "relation")
+                relation = relative_info.pop("relation", "")
                 if relative_id:
                     #update relative, relation
                     _ = relative_op.update(**relative_info)
