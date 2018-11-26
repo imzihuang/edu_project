@@ -378,16 +378,24 @@
 									str += '<option value=' + msg.data[i].id + '>' + msg.data[i].name + '</option>';
 								}
 								if(ifLayer == "yes") {
-									$("#add_class").html(str);
-									$("#edit_class").html(str);
+									if(ifadd == "yes") {
+										$("#add_class").html(str);
+									}else{
+										$("#edit_class").html(str);
+									}
 								} else {
 									$("#class-name").html(str);
 								}
 							} else {
-								$("#class-name").html('<option value="">---无---</option>');
-								$("#add_class").html('<option value="">---无---</option>');
-								$("#edit_class").html('<option value="">---无---</option>');
-
+								if(ifLayer == "yes") {
+									if(ifadd == "yes") {
+										$("#add_class").html('<option value="">---无---</option>');
+									}else{
+										$("#edit_class").html('<option value="">---无---</option>');
+									}
+								} else {
+									$("#class-name").html('<option value="">---无---</option>');
+								}
 							}
 						},
 						complete: function(XMLHttpRequest, status) {
@@ -669,7 +677,7 @@
 						}
 					},
 					messages: {
-						add_name: {
+						edit_name: {
 							required: '必填',
 						},
 						relative_name: {
@@ -802,7 +810,7 @@
 							console.log(msg);
 							var msg = JSON.parse(msg);
 							$("#edit_name").val(msg.data[0].name);
-//							$("#edit_name").attr("title",msg.data[0].id);
+							$("#edit_name").attr("title",msg.data[0].id);
 							TimeSelectOption($('#edit_time'), msg.data[0].birthday);
 							$("input[name='editsex'][value='" + msg.data[0].sex + "']").prop("checked", "checked");
 							$("#edit_remarks").val(msg.data[0].describe);
