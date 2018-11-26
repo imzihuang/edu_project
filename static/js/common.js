@@ -14,13 +14,10 @@ function schoolInput() {
 		async: false,
 		data: data,
 		timeout: "30000",
-		success: function(msg) {console.log(msg);
+		success: function(msg) {
 			var msg = JSON.parse(msg);
-			console.log(msg);
 			school = msg.data[0].id;
 			cardcode = msg.data[0].cardcode;
-			console.log(school);
-			console.log(cardcode);
 		}
 	})
 }

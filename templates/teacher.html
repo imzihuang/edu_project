@@ -448,7 +448,6 @@
 								})
 								//表格渲染
 							var strs = '';
-							console.log(msg);
 							if(msg.data.length > 0) {
 								for(var i = 0; i < msg.data.length; i++) {
 									var className = '';
@@ -835,7 +834,6 @@
 					var a = $(this).parent("td").siblings(".data_class_name").html();
 					var a = a.split(",");
 					var obj = $(".editClassNamePart .classNameList").length;
-					console.log(obj);
 					for(var i = 0; i < obj; i++) {
 						for(var j = 0; j < a.length; j++) {
 							if($(".editClassNamePart .classNameList").eq(i).attr("id") == a[j]) {
