@@ -6,6 +6,7 @@ import logging
 import json
 import os
 from PIL import Image
+from logic.school import SchoolLogic
 from logic.userlogic import UserLogic
 from logic.facelogic import FaceLogic
 from logic.signlogic import SignLogic
@@ -33,7 +34,7 @@ class ActionHandler(RequestHandler):
         if action == "login":
             self.login()
             return
-        if action == "auth":
+        if action == "face_auth":
             self.face_auth()
             return
 
@@ -97,11 +98,24 @@ class ActionHandler(RequestHandler):
         if not relevance_id:
             self.finish(json.dumps({'state': 1, 'message': 'relevance_id is None'}))
             return
+
+        if not school_id:
+            school_op = SchoolLogic()
+            school_list = school_op.infos()
+            school_id = school_list.get("data")[0].get("id")
+
         # 将图片存储到本地
-        img = self.get_argument('image', '')
+        #img = self.get_argument('image', '')
+        imgs = self.request.files.get('image', '')
+        if not imgs:
+            LOG.error("image is none")
+            self.finish(json.dumps({'state': 2, 'message': 'image is none'}))
+            return
+        img = imgs[0]
         file_path = self.static_path + self.face_path + relevance_id + '.jpg'
         with open(file_path, 'wb') as up:
-             up.write(base64.b64decode(img.rpartition(",")[-1]))
+            up.write(img['body'])
+             #up.write(base64.b64decode(img.rpartition(",")[-1]))
 
         self.img_resize(file_path)
 
@@ -110,14 +124,14 @@ class ActionHandler(RequestHandler):
         code, face_token = face_recognition_yyl.Face_Detect(file_path)
         if code != 200:
             LOG.error("detect face error:%s"%code)
-            self.finish(json.dumps({'state': 2, 'message': face_token}))
+            self.finish(json.dumps({'state': 3, 'message': face_token}))
             return
 
         # 将特征写入数据库
         code, faceset_token = face_recognition_yyl.Face_Add(school_id, face_token)
         if code != 200:
             LOG.error("add face error:%s" % code)
-            self.finish(json.dumps({'state': 2, 'message': face_token}))
+            self.finish(json.dumps({'state': 3, 'message': face_token}))
             return
 
         _op = FaceLogic()
