@@ -622,12 +622,9 @@
 								relative_list[j] = '';
 							}
 						}
-                        for(var h = 0; h < addRelativeLength; h++) {
-                        	if(relative_list[h] = '') {
-                        		relative_list.splice($.inArray('',relative_list),1);
-                        		h--;
-							}
-						}
+                        
+                        relative_list.splice($.inArray('',relative_list),1);
+                        		
                        
                         
 						var data = {
@@ -763,12 +760,8 @@
 										relative_list[i] = '';
 									}
 								}
-								 for(var h = 0; h < editRelativeLength; h++) {
-									if(relative_list[h] = '') {
-		                        		relative_list.splice($.inArray('',relative_list),1);
-		                        		h--;
-									}
-								}
+								
+		                        relative_list.splice($.inArray('',relative_list),1);
 
 								var relativeData = {
 										'student_id': $("#edit_name").attr("title"),
