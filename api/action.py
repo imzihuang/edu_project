@@ -169,7 +169,7 @@ class ActionHandler(RequestHandler):
 
     def push_verify(self):
         phone = bs2utf8(self.get_argument('phone', ''))
-        if not phone or is_mobile(phone):
+        if not phone or not is_mobile(phone):
             self.finish(json.dumps({'state': 1, 'message': 'Push verify code fail, phone is noe.'}))
             return
         verify_code = common_util.create_verifycode()
