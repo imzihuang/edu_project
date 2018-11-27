@@ -58,18 +58,13 @@ class ActionHandler(RequestHandler):
             else:
                 self.finish(json.dumps({'state': 1, 'message': 'user login error'}))
             return
-        if level == 2 and phone:
-            if _op.auth_teacher(phone, pwd):
-                self.finish(json.dumps({'state': 0, 'message': 'teacher login success.'}))
+        if level in (2, 3) and phone:
+            if _op.auth_phone(phone, pwd):
+                self.finish(json.dumps({'state': 0, 'message': 'phone login success.'}))
             else:
-                self.finish(json.dumps({'state': 1, 'message': 'teacher login error'}))
+                self.finish(json.dumps({'state': 1, 'message': 'phone login error'}))
             return
-        if level == 3 and phone:
-            if _op.auth_relative(phone, pwd):
-                self.finish(json.dumps({'state': 0, 'message': 'relative login success.'}))
-            else:
-                self.finish(json.dumps({'state': 1, 'message': 'relative login error'}))
-            return
+
         self.finish(json.dumps({'state': 2, 'message': 'login fail'}))
 
     def img_resize(self, path):
