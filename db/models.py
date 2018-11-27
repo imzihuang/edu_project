@@ -281,6 +281,7 @@ class VerifyManage(Base, ModelBase):
     email = Column(VARCHAR(36))
     verify_code = Column(VARCHAR(36))
     updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
+    deleted = Column(Boolean, default=False)
     def to_dict(self):
         return _to_dict(self)
 
