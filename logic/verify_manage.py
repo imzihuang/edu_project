@@ -16,14 +16,23 @@ class VerifyManageLogic(Logic):
         super(VerifyManageLogic, self).__init__()
 
     def input(self, phone="", email="", verify_code="",):
-        if db_api.verify_manage_get_by_phone(phone=phone):
-            raise ParamExist(key="phone", value=phone)
+        #15 minute
+        verify_info = db_api.verify_manage_get_by_phone(phone)
+        _now = datetime.now()
+        if verify_info and verify_info.get("update_time", ""):
+            _update_time = datetime.strptime(verify_info.get("update_time"), "%Y-%m-%d %H:%M:%S")
+            if (_now - _update_time).seconds < 15 * 60:
+                #push message
+                return True
+
         values = {
             "verify_code": verify_code,
         }
         if phone:
+            #push message
             values.update({"phone": phone})
         if email:
+            # push message
             values.update({"email": email})
         verify_obj = db_api.verify_manage_create(values)
         return verify_obj

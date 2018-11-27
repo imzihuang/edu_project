@@ -8,6 +8,7 @@ import logging
 import json
 from logic.userlogic import WXUserLogic
 from logic.relative import RelativeLogic
+from logic.verify_manage import VerifyManageLogic
 from util.ini_client import ini_load
 
 _conf = ini_load('config/service.ini')
@@ -65,9 +66,18 @@ class WXActionHandler(RequestHandler):
         verify_code = self.get_argument('verify_code', '')
         edu_session = self.get_argument('edu_session', '')
         relative_op = RelativeLogic()
-        relative_info = relative_op.info_by_phone(phone=phone, verify_code=verify_code)
+        verify_op = VerifyManageLogic()
+
+        #verify code
+        _ = verify_op.verify_code_phone(phone=phone, code=verify_code)
+        if _:
+            self.finish(json.dumps({'state': 1, 'message': 'verify code error'}))
+            return
+
+        #verify relative
+        relative_info = relative_op.info_by_phone(phone=phone)
         if not relative_info:
-            self.finish(json.dumps({'state': 1, 'message': 'phone not singn'}))
+            self.finish(json.dumps({'state': 2, 'message': 'phone not singn'}))
             return
 
         wx_op = WXUserLogic()
@@ -76,5 +86,5 @@ class WXActionHandler(RequestHandler):
             relative_op.update(relative_info.get("id"), wxuser_id=wx_info.get("id"))
             self.finish(json.dumps({'state': 0, 'edu_session': edu_session}))
         else:
-            self.finish(json.dumps({'state': 1, 'message': 'wx id not singn'}))
+            self.finish(json.dumps({'state': 3, 'message': 'wx id not singn'}))
 
