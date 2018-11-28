@@ -1,10 +1,10 @@
 #coding:utf-8
 
 from tornado.web import RequestHandler
-import base64
 import logging
 import json
 import os
+import time
 from PIL import Image
 from logic.school import SchoolLogic
 from logic.userlogic import UserLogic
@@ -13,8 +13,7 @@ from logic.signlogic import SignLogic
 from logic.verify_manage import VerifyManageLogic
 from util.ini_client import ini_load
 from util.face_recognition_api import face_recognition_yyl
-from util import common_util
-from util.convert import is_mobile, bs2utf8
+from util import common_util, convert
 
 LOG = logging.getLogger(__name__)
 
@@ -92,9 +91,10 @@ class ActionHandler(RequestHandler):
         ims.save(path)
 
     def face_auth(self):
-        relevance_id = self.get_argument('relevance_id', '')
+        relevance_id = convert.bs2utf8(self.get_argument('relevance_id', ''))
         relevance_type = int(self.get_argument('relevance_id', 1))
-        school_id = self.get_argument('school_id', '')
+        school_id = convert.bs2utf8(self.get_argument('school_id', ''))
+        alias = convert.bs2utf8(self.get_argument('alias', ''))
         if not relevance_id:
             self.finish(json.dumps({'state': 1, 'message': 'relevance_id is None'}))
             return
@@ -104,15 +104,28 @@ class ActionHandler(RequestHandler):
             school_list = school_op.infos()
             school_id = school_list.get("data")[0].get("id")
 
+        LOG.info("11111111111111111111111111111111111")
+        LOG.info("file:%r"%self.request.files)
+
+        face_op = FaceLogic()
+        _verify = face_op.verify_authd(relevance_id, relevance_type)
+        if _verify:
+            LOG.error("The face token data has been stored.")
+            self.finish(json.dumps({'state': 2, 'message': 'The face token has been stored.'}))
+            return
+
         # 将图片存储到本地
         #img = self.get_argument('image', '')
         imgs = self.request.files.get('image', '')
         if not imgs:
             LOG.error("image is none")
-            self.finish(json.dumps({'state': 2, 'message': 'image is none'}))
+            self.finish(json.dumps({'state': 3, 'message': 'image is none'}))
             return
         img = imgs[0]
-        file_path = self.static_path + self.face_path + relevance_id + '.jpg'
+        filename = img['filename']
+        filename = relevance_id + "_" + str(int(time.time())) + "." + filename.rpartition(".")[-1]
+        #file_path = self.static_path + self.face_path + relevance_id + '.jpg'
+        file_path = self.static_path + self.face_path + filename
         with open(file_path, 'wb') as up:
             up.write(img['body'])
              #up.write(base64.b64decode(img.rpartition(",")[-1]))
@@ -124,18 +137,17 @@ class ActionHandler(RequestHandler):
         code, face_token = face_recognition_yyl.Face_Detect(file_path)
         if code != 200:
             LOG.error("detect face error:%s"%code)
-            self.finish(json.dumps({'state': 3, 'message': face_token}))
+            self.finish(json.dumps({'state': 4, 'message': face_token}))
             return
 
         # 将特征写入数据库
         code, faceset_token = face_recognition_yyl.Face_Add(school_id, face_token)
         if code != 200:
             LOG.error("add face error:%s" % code)
-            self.finish(json.dumps({'state': 3, 'message': face_token}))
+            self.finish(json.dumps({'state': 4, 'message': face_token}))
             return
 
-        _op = FaceLogic()
-        _op.create_face(school_id, relevance_id, face_token, faceset_token, relevance_type=relevance_type)
+        face_op.input(school_id, relevance_id, face_token, faceset_token, relevance_type=relevance_type, alias=alias)
         self.finish(json.dumps({'state': 0, 'message': 'face auth ok'}))
 
 

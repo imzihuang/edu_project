@@ -6,39 +6,40 @@ from logic import Logic
 from util import exception
 
 class FaceLogic(Logic):
-    def create_face(self, school_id, relevance_id, face_token, faceset_token, relevance_type=1):
+    #def create_face(self, school_id, relevance_id, face_token, faceset_token, relevance_type=1):
+    def input(self, school_id, relevance_id, face_token, faceset_token, filename="", relevance_type=1):
         if not db_api.school_get(id=school_id):
             return
-
-        if relevance_type == 1:
-            if not db_api.relative_get(id=relevance_id):
-                raise exception.NotFound(code=relevance_id)
-
-        if relevance_type == 2:
-            if not db_api.teacher_get(id=relevance_id):
-                raise exception.NotFound(code=relevance_id)
 
         values = {
             "school_id": school_id,
             "relevance_id": relevance_id,
             "relevance_type": relevance_type,
             "face_token": face_token,
-            "faceset_token": faceset_token
+            "faceset_token": faceset_token,
+            "img_path": filename,
         }
+
+        if relevance_type in (1, 3):
+            relation_list = db_api.relation_list(relative_id=relevance_id)
+            if not db_api.relative_get(id=relevance_id) or not relation_list:
+                raise exception.NotFound(code=relevance_id)
+
+            values.update({"student_id": relation_list[0].student_id})
+
+        if relevance_type == 2:
+            if not db_api.teacher_get(id=relevance_id):
+                raise exception.NotFound(code=relevance_id)
+
         face_obj = db_api.face_create(values)
         return face_obj
 
-    def infos(self, id="", relevance_id="", relevance_type=0, school_id="", face_token="",
-              limit=100, offset=1):
+    def infos(self, id="", relevance_id="", relevance_type=0, limit=100, offset=1):
         filters = {}
         if relevance_type != 0:
             filters.update({"relevance_type": relevance_type})
         if relevance_id:
             filters.update({"relevance_id": relevance_id})
-        if school_id:
-            filters.update({"school_id": school_id})
-        if face_token:
-            filters.update({"face_token": face_token})
         face_list = db_api.face_list(limit=2000, **filters)
         face_count = db_api.face_count(**filters)
         result = {"count": face_count, "state": 0, "message": "query success", "data": self.views(face_list)}
@@ -60,3 +61,15 @@ class FaceLogic(Logic):
                 return "exist teacher"
 
         _ = db_api.face_destroy(id)
+
+    def verify_authd(self, relevance_id="", relevance_type=1):
+        if relevance_type not in (1, 2):
+            return True
+        count = db_api.face_count(relevance_id=relevance_id, relevance_type=relevance_type)
+        if not count>0:
+            return True
+        return False
+
+    def get_extra_face_count(self, relevance_id=""):
+        count = db_api.face_count(relevance_id=relevance_id, relevance_type=3)
+        return count

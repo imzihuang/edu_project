@@ -16,6 +16,7 @@ from logic.relative import RelativeLogic
 from logic.relation import RelationLogic
 from logic.teacher_history import Teacher_HistoryLogic
 from logic.student_history import Student_HistoryLogic
+from logic.facelogic import FaceLogic
 
 LOG = logging.getLogger(__name__)
 
@@ -61,6 +62,10 @@ class InfosHandler(RequestHandler):
             if infos_obj == "relation":
                 _value = self._get_relation_argument()
                 _op = RelationLogic()
+
+            if infos_obj == "face":
+                _value = self._get_face_argument()
+                _op = FaceLogic()
 
             _ = _op.infos(limit=limit, offset=offset, **_value)
             if _:
@@ -219,4 +224,14 @@ class InfosHandler(RequestHandler):
             "class_name": class_name,
             "grade_id": grade_id,
             "grade_name":grade_name
+        }
+
+    def _get_face_argument(self):
+        id = self.get_argument('id', '')
+        relevance_id = self.get_argument('relevance_id', '')
+        relevance_type = int(self.get_argument('relevance_type', 1))
+        return {
+            "id": id,
+            "relevance_id": relevance_id,
+            "relevance_type": relevance_type,
         }

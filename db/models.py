@@ -161,11 +161,14 @@ class RelativeInfo(Base, ModelBase):
 class RelevanceFace(Base, ModelBase):
     __tablename__ = 'relevance_face'
     id = Column(VARCHAR(36), primary_key=True)
-    school_id = Column(VARCHAR(36), nullable=False)
+    school_id = Column(VARCHAR(36))
     relevance_id = Column(VARCHAR(36), nullable=False)
     relevance_type = Column(Integer, default=1)
+    student_id = Column(VARCHAR(36))
     face_token = Column(VARCHAR(36), nullable=False)
     faceset_token = Column(VARCHAR(36), nullable=False)
+    img_path = Column(VARCHAR(200), nullable=False)
+    alias = Column(VARCHAR(50), nullable=False)
     deleted = Column(Boolean, default=False)
     create_time = Column(DateTime, default=datetime.now, nullable=False)
     updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
@@ -174,20 +177,6 @@ class RelevanceFace(Base, ModelBase):
         return _to_dict(self)
        #return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
 
-
-class ExtraRelativeFace(Base, ModelBase):
-    __tablename__ = 'extra_relative_face'
-    id = Column(VARCHAR(36), primary_key=True)
-    relative_id = Column(VARCHAR(36), nullable=False)
-    student_id = Column(VARCHAR(36), nullable=False)
-    face_token = Column(VARCHAR(36), nullable=False)
-    faceset_token = Column(VARCHAR(36), nullable=False)
-    deleted = Column(Boolean, default=False)
-    create_time = Column(DateTime, default=datetime.now, nullable=False)
-    updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
-
-    def to_dict(self):
-        return _to_dict(self)
 
 class RelationInfo(Base, ModelBase):
     __tablename__ = 'relation_info'
