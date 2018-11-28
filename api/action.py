@@ -92,7 +92,7 @@ class ActionHandler(RequestHandler):
 
     def face_auth(self):
         relevance_id = convert.bs2utf8(self.get_argument('relevance_id', ''))
-        relevance_type = int(self.get_argument('relevance_id', 1))
+        relevance_type = int(self.get_argument('relevance_type', 1))
         school_id = convert.bs2utf8(self.get_argument('school_id', ''))
         alias = convert.bs2utf8(self.get_argument('alias', ''))
         if not relevance_id:

@@ -63,8 +63,8 @@ class FaceLogic(Logic):
         _ = db_api.face_destroy(id)
 
     def verify_authd(self, relevance_id="", relevance_type=1):
-        if relevance_type not in (1, 2):
-            return True
+        if relevance_type == 3:
+            return False
         count = db_api.face_count(relevance_id=relevance_id, relevance_type=relevance_type)
         if not count>0:
             return True
