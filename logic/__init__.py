@@ -23,6 +23,6 @@ class Logic(object):
         if isinstance(models, list):
             result = []
             for model in models:
-                result.append(model.to_dict())
+                result.append(model if isinstance(model, dict) else model.to_dict())
             return result
         return models.to_dict()

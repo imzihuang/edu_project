@@ -96,7 +96,7 @@ class RelationLogic(Logic):
             view.update({"relative_info": self.views(relative_info)})
 
         relation_count = db_api.relation_count(**filters)
-        return {"count": relation_count, "state": 0, "message": "query success", "data": self.views(views_list)}
+        return {"count": relation_count, "state": 0, "message": "query success", "data": views_list}
 
     def delete(self, id="", **kwargs):
         if not id:
