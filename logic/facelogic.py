@@ -66,7 +66,7 @@ class FaceLogic(Logic):
         if relevance_type == 3:
             return False
         count = db_api.face_count(relevance_id=relevance_id, relevance_type=relevance_type)
-        if not count>0:
+        if count>0:
             return True
         return False
 
