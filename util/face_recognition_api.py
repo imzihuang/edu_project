@@ -141,8 +141,8 @@ class Face_Recognition_YYL(object):
         if response.status_code == 200:
             results = response.json()['failure_detail']
             if not results:
-                return response.status_code, results[0]
-            return 400, response.json()['faceset_token']
+                return response.status_code, response.json()['faceset_token'] 
+            return 400, results[0]
         return response.status_code, response.json()['error_message']
 
     # 删除人脸
