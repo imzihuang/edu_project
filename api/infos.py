@@ -229,7 +229,7 @@ class InfosHandler(RequestHandler):
     def _get_face_argument(self):
         id = self.get_argument('id', '')
         relevance_id = self.get_argument('relevance_id', '')
-        relevance_type = int(self.get_argument('relevance_type', 1))
+        relevance_type = int(self.get_argument('relevance_type', 0))
         return {
             "id": id,
             "relevance_id": relevance_id,
