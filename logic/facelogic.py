@@ -45,7 +45,7 @@ class FaceLogic(Logic):
         face_count = db_api.face_count(**filters)
         view_list = self.views(face_list)
         for view in view_list:
-            view.update({"img_path": "image/face/"+view.get("image_path", "")})
+            view.update({"img_path": "image/face/"+view.get("img_path", "")})
         result = {"count": face_count, "state": 0, "message": "query success", "data": view_list}
         return result
 
