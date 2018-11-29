@@ -140,7 +140,7 @@ class Face_Recognition_YYL(object):
         response = requests.post(self.add_url, data=data)
         if response.status_code == 200:
             results = response.json()['failure_detail']
-            if results:
+            if not results:
                 return response.status_code, results[0]
             return 400, response.json()['faceset_token']
         return response.status_code, response.json()['error_message']
