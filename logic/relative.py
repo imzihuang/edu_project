@@ -20,6 +20,9 @@ class RelativeLogic(Logic):
             raise exception.FormalError(phone=phone)
         if not name:
             raise exception.ParamNone(name="")
+        if phone and name:
+            if db_api.relative_count(name=name, phone=phone)>0:
+                raise exception.ParamExist(name=name, phone=phone)
         values = {
             "name": name,
             "sex": sex,
