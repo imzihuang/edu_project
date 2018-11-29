@@ -105,7 +105,6 @@ class ActionHandler(RequestHandler):
             school_id = school_list.get("data")[0].get("id")
 
         LOG.info("11111111111111111111111111111111111")
-        LOG.info("file:%r"%self.request.files)
 
         face_op = FaceLogic()
         _verify = face_op.verify_authd(relevance_id, relevance_type)
@@ -126,6 +125,7 @@ class ActionHandler(RequestHandler):
         filename = relevance_id + "_" + str(int(time.time())) + "." + filename.rpartition(".")[-1]
         #file_path = self.static_path + self.face_path + relevance_id + '.jpg'
         file_path = self.static_path + self.face_path + filename
+        LOG.info("file path:%s" % file_path)
         with open(file_path, 'wb') as up:
             up.write(img['body'])
              #up.write(base64.b64decode(img.rpartition(",")[-1]))
@@ -137,14 +137,14 @@ class ActionHandler(RequestHandler):
         code, face_token = face_recognition_yyl.Face_Detect(file_path)
         if code != 200:
             LOG.error("detect face error:%s"%code)
-            self.finish(json.dumps({'state': 4, 'message': face_token}))
+            self.finish(json.dumps({'state': 4, 'message': face_token, 'code': code}))
             return
 
         # 将特征写入数据库
         code, faceset_token = face_recognition_yyl.Face_Add(school_id, face_token)
         if code != 200:
             LOG.error("add face error:%s" % code)
-            self.finish(json.dumps({'state': 4, 'message': face_token}))
+            self.finish(json.dumps({'state': 4, 'message': face_token, 'code': code}))
             return
 
         face_op.input(school_id, relevance_id, face_token, faceset_token, relevance_type=relevance_type, alias=alias)
