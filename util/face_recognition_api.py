@@ -18,7 +18,8 @@ import os
 from PIL import Image
 import requests
 from util.ini_client import ini_load
-
+import logging
+LOG = logging.getLogger(__name__)
 
 class Face_Recognition_YYL(object):
 
@@ -118,6 +119,7 @@ class Face_Recognition_YYL(object):
             'api_secret': self.api_secret,
         }
         response = requests.post(self.detect_url, data=data, files=files)
+        LOG.info("detect: %r"%response)
         if response.status_code == 200:
             results = response.json()
             if results['faces']:
