@@ -7,7 +7,7 @@ from util import exception
 
 class FaceLogic(Logic):
     #def create_face(self, school_id, relevance_id, face_token, faceset_token, relevance_type=1):
-    def input(self, school_id, relevance_id, face_token, faceset_token, filename="", relevance_type=1):
+    def input(self, school_id, relevance_id, face_token, faceset_token, filename="", relevance_type=1, alias=""):
         if not db_api.school_get(id=school_id):
             return
 
@@ -18,6 +18,7 @@ class FaceLogic(Logic):
             "face_token": face_token,
             "faceset_token": faceset_token,
             "img_path": filename,
+            "alias": alias,
         }
 
         if relevance_type in (1, 3):

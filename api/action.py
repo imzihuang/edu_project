@@ -147,7 +147,7 @@ class ActionHandler(RequestHandler):
             self.finish(json.dumps({'state': 4, 'message': face_token, 'code': code}))
             return
 
-        face_op.input(school_id, relevance_id, face_token, faceset_token, relevance_type=relevance_type, alias=alias)
+        face_op.input(school_id, relevance_id, face_token, faceset_token, filename, relevance_type=relevance_type, alias=alias)
         self.finish(json.dumps({'state': 0, 'message': 'face auth ok'}))
 
 
