@@ -43,7 +43,10 @@ class FaceLogic(Logic):
             filters.update({"relevance_id": relevance_id})
         face_list = db_api.face_list(limit=2000, **filters)
         face_count = db_api.face_count(**filters)
-        result = {"count": face_count, "state": 0, "message": "query success", "data": self.views(face_list)}
+        view_list = self.views(face_list)
+        for view in view_list:
+            view.update({"img_path": "image/face/"+view.get("image_path", "")})
+        result = {"count": face_count, "state": 0, "message": "query success", "data": view_list}
         return result
 
     def delete(self, id="", **kwargs):
