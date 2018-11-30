@@ -37,8 +37,8 @@ class ActionHandler(RequestHandler):
             self.face_auth()
             return
 
-        if action == "face_active":
-            self.face_active()
+        if action == "face_activate":
+            self.face_activate()
             return
 
         if action == "face_signin":
@@ -156,10 +156,10 @@ class ActionHandler(RequestHandler):
         else:
             self.finish(json.dumps({'state': 5, 'message': 'face auth faild'}))
 
-    def face_active(self):
+    def face_activate(self):
         id = self.get_argument('id', '')
         face_op = FaceLogic()
-        _ = face_op.active(id)
+        _ = face_op.activate(id)
         if _:
             self.finish(json.dumps({'state': 1, 'message': _}))
         else:

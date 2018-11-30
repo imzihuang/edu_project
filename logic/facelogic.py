@@ -5,6 +5,8 @@ from db import api as db_api
 from datetime import datetime
 from logic import Logic
 from util import exception
+import logging
+LOG = logging.getLogger(__name__)
 
 class FaceLogic(Logic):
     #def create_face(self, school_id, relevance_id, face_token, faceset_token, relevance_type=1):
@@ -38,6 +40,9 @@ class FaceLogic(Logic):
 
     def infos(self, id="", relevance_id="", relevance_type=0, limit=100, offset=1):
         filters = {}
+        if id:
+            filters.update({"id": id})
+
         if relevance_type != 0:
             filters.update({"relevance_type": relevance_type})
         if relevance_id:
@@ -50,6 +55,7 @@ class FaceLogic(Logic):
             _updated_time = datetime.strptime(view.get("updated_time"), "%Y-%m-%d %H:%M:%S")
             _now = datetime.now()
             if view.get("relevance_type", 1)==3 and (_now - _updated_time).seconds > 60:#60*60*24:
+                LOG.info("activate time%d"%(_now - _updated_time).seconds)
                 view.update({"activate": False})
             else:
                 view.update({"activate": True})
@@ -73,7 +79,8 @@ class FaceLogic(Logic):
 
         _ = db_api.face_destroy(id)
 
-    def active(self, id=""):
+    def activate(self, id=""):
+        LOG.log("activate id:%s"%id)
         if not id:
             return "id is none"
         face_info = db_api.face_get(id=id)
