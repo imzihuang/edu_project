@@ -37,6 +37,10 @@ class ActionHandler(RequestHandler):
             self.face_auth()
             return
 
+        if action == "face_active":
+            self.face_active()
+            return
+
         if action == "face_signin":
             self.face_signin()
             return
@@ -104,7 +108,6 @@ class ActionHandler(RequestHandler):
             school_list = school_op.infos()
             school_id = school_list.get("data")[0].get("id")
 
-        LOG.info("11111111111111111111111111111111111")
 
         face_op = FaceLogic()
         _verify = face_op.verify_authd(relevance_id, relevance_type)
@@ -152,6 +155,15 @@ class ActionHandler(RequestHandler):
             self.finish(json.dumps({'state': 0, 'message': 'face auth ok'}))
         else:
             self.finish(json.dumps({'state': 5, 'message': 'face auth faild'}))
+
+    def face_active(self):
+        id = self.get_argument('id', '')
+        face_op = FaceLogic()
+        _ = face_op.active(id)
+        if _:
+            self.finish(json.dumps({'state': 1, 'message': _}))
+        else:
+            self.finish(json.dumps({'state': 0, 'message': 'face active ok'}))
 
 
     def face_signin(self):

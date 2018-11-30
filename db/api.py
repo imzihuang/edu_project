@@ -389,6 +389,13 @@ def face_count(**filters):
     query = model_query(models.RelevanceFace, **filters)
     return query.count()
 
+def face_update(id, values):
+    query = model_query(models.RelevanceFace).filter_by(id=id)
+    result = query.update(values)
+    if not result:
+        raise exception.NotFound(id=id)
+    return result
+
 def face_destroy(id):
     session = get_session()
     with session.begin():

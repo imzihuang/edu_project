@@ -49,7 +49,7 @@ class FaceLogic(Logic):
             view.update({"img_path": "image/face/"+view.get("img_path", "")})
             _updated_time = datetime.strptime(view.get("updated_time"), "%Y-%m-%d %H:%M:%S")
             _now = datetime.now()
-            if view.get("relevance_type", 1)==3 and (_now - _updated_time).seconds > 60*60*24:
+            if view.get("relevance_type", 1)==3 and (_now - _updated_time).seconds > 60:#60*60*24:
                 view.update({"activate": False})
             else:
                 view.update({"activate": True})
@@ -62,16 +62,26 @@ class FaceLogic(Logic):
         face_info = db_api.face_get(id=id)
         if not face_info:
             return "id not exit"
-        if face_info.get("relevance_type") == 1:
+        if face_info.relevance_type == 1:
             _relatve_info = db_api.relative_get(face_info.get("relevance_id"))
             if _relatve_info:
                 return "exist relative"
-        if face_info.get("relevance_type") == 2:
+        if face_info.relevance_type == 2:
             _teacher_info = db_api.teacher_get(face_info.get("relevance_id"))
             if _teacher_info:
                 return "exist teacher"
 
         _ = db_api.face_destroy(id)
+
+    def active(self, id=""):
+        if not id:
+            return "id is none"
+        face_info = db_api.face_get(id=id)
+        if not face_info:
+            return "id not exit"
+        if face_info.relevance_type != 3:
+            return "releance type error"
+        db_api.face_update(id, {"deleted": False})
 
     def verify_authd(self, relevance_id="", relevance_type=1):
         if relevance_type == 3:
