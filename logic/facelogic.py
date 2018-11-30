@@ -80,7 +80,7 @@ class FaceLogic(Logic):
         _ = db_api.face_destroy(id)
 
     def activate(self, id=""):
-        LOG.log("activate id:%s"%id)
+        LOG.info("activate id:%s"%id)
         if not id:
             return "id is none"
         face_info = db_api.face_get(id=id)
