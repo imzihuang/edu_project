@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from db import api as db_api
+from datetime import datetime
 from logic import Logic
 from util import exception
 
@@ -46,6 +47,12 @@ class FaceLogic(Logic):
         view_list = self.views(face_list)
         for view in view_list:
             view.update({"img_path": "image/face/"+view.get("img_path", "")})
+            _updated_time = datetime.strptime(view.get("updated_time"), "%Y-%m-%d %H:%M:%S")
+            _now = datetime.now()
+            if view.get("relevance_type", 1)==3 and (_now - _updated_time).seconds > 60*60*24:
+                view.update({"activate": False})
+            else:
+                view.update({"activate": True})
         result = {"count": face_count, "state": 0, "message": "query success", "data": view_list}
         return result
 

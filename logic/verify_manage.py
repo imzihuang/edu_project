@@ -19,9 +19,8 @@ class VerifyManageLogic(Logic):
         #15 minute
         verify_info = db_api.verify_manage_get_by_phone(phone)
         _now = datetime.now()
-        if verify_info and verify_info.get("update_time", ""):
-            _update_time = datetime.strptime(verify_info.get("update_time"), "%Y-%m-%d %H:%M:%S")
-            if (_now - _update_time).seconds < 15 * 60:
+        if verify_info and verify_info.update_time:
+            if (_now - verify_info.update_time).seconds < 15 * 60:
                 #push message
                 return True
 
@@ -42,9 +41,8 @@ class VerifyManageLogic(Logic):
         if verify_info:
             _now = datetime.now()
             if verify_info.get("verify_code", "") == code \
-                    and verify_info.get("update_time", ""):
-                _update_time = datetime.strptime(verify_info.get("update_time"), "%Y-%m-%d %H:%M:%S")
-                _ = (_now - _update_time).seconds
+                    and verify_info.update_time:
+                _ = (_now - verify_info.update_time).seconds
                 if _ < 15*60:
                     return True
         return False
