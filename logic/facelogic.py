@@ -68,14 +68,6 @@ class FaceLogic(Logic):
         face_info = db_api.face_get(id=id)
         if not face_info:
             return "id not exit"
-        if face_info.relevance_type == 1:
-            _relatve_info = db_api.relative_get(face_info.get("relevance_id"))
-            if _relatve_info:
-                return "exist relative"
-        if face_info.relevance_type == 2:
-            _teacher_info = db_api.teacher_get(face_info.get("relevance_id"))
-            if _teacher_info:
-                return "exist teacher"
 
         _ = db_api.face_destroy(id)
 
