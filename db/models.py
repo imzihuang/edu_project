@@ -234,7 +234,7 @@ class RelativeSignInfo(Base, ModelBase):
     relative_id = Column(VARCHAR(36), nullable=False)
     create_time = Column(DateTime, default=datetime.now, nullable=False)
     type = Column(Integer, default=0)
-    alias = Column(VARCHAR(50), nullable=False)
+    alias = Column(VARCHAR(50))
     deleted = Column(Boolean, default=False)
 
     def to_dict(self):
@@ -254,7 +254,7 @@ class TeacherSignInfo(Base, ModelBase):
     teacher_id = Column(VARCHAR(36), nullable=False)
     create_time = Column(DateTime, default=datetime.now, nullable=False)
     type = Column(Integer, default=0)
-    alias = Column(VARCHAR(50), nullable=False)
+    alias = Column(VARCHAR(50))
     deleted = Column(Boolean, default=False)
 
     def to_dict(self):

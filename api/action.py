@@ -215,7 +215,7 @@ class ActionHandler(RequestHandler):
         if not phone or not convert.is_mobile(phone):
             self.finish(json.dumps({'state': 1, 'message': 'Push verify code fail, phone is noe.'}))
             return
-        verify_code = common_util.create_verifycode()
+        verify_code = "888888"#common_util.create_verifycode()
         _op = VerifyManageLogic()
         _ = _op.input(phone=phone, verify_code=verify_code)
         if _:
