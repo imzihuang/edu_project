@@ -442,7 +442,7 @@
 						data: senddata,
 						timeout: "30000",
 						success: function(msg) {
-							var msg = JSON.parse(msg);
+							var msg = JSON.parse(msg);console.log(msg)
 							//分页
 							layui.use(['laypage', 'layer'], function() {
 									var page = layui.laypage;
