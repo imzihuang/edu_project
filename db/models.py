@@ -169,6 +169,7 @@ class RelevanceFace(Base, ModelBase):
     faceset_token = Column(VARCHAR(36), nullable=False)
     img_path = Column(VARCHAR(200), nullable=False)
     alias = Column(VARCHAR(50), nullable=False)
+    activate = Column(Boolean, default=True)
     deleted = Column(Boolean, default=False)
     create_time = Column(DateTime, default=datetime.now, nullable=False)
     updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)

@@ -41,6 +41,10 @@ class ActionHandler(RequestHandler):
             self.face_activate()
             return
 
+        if action == "face_disable":
+            self.face_disable()
+            return
+
         if action == "face_signin":
             self.face_signin()
             return
@@ -165,6 +169,14 @@ class ActionHandler(RequestHandler):
         else:
             self.finish(json.dumps({'state': 0, 'message': 'face active ok'}))
 
+    def face_disable(self):
+        id = self.get_argument('id', '')
+        face_op = FaceLogic()
+        _ = face_op.disable(id)
+        if _:
+            self.finish(json.dumps({'state': 1, 'message': _}))
+        else:
+            self.finish(json.dumps({'state': 0, 'message': 'face disable ok'}))
 
     def face_signin(self):
         cardcode = self.get_argument('cardcode', '')
