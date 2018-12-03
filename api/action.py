@@ -10,6 +10,8 @@ from logic.school import SchoolLogic
 from logic.userlogic import UserLogic
 from logic.facelogic import FaceLogic
 from logic.signlogic import SignLogic
+from logic.teacher import TeacherLogic
+from logic.relative import RelativeLogic
 from logic.verify_manage import VerifyManageLogic
 from util.ini_client import ini_load
 from util.face_recognition_api import face_recognition_yyl
@@ -108,9 +110,16 @@ class ActionHandler(RequestHandler):
             return
 
         if not school_id:
-            school_op = SchoolLogic()
-            school_list = school_op.infos()
-            school_id = school_list.get("data")[0].get("id")
+            if relevance_type == 2:
+                #teacher
+                teacher_op = TeacherLogic()
+                teacher_info = teacher_op.info(relevance_id)
+                school_id = teacher_info.get("school_id", "")
+            if relevance_type in (1, 3):
+                #relative
+                relative_op = RelativeLogic()
+                relative_info = relative_op.info(relevance_id)
+                school_id = relative_info.get("school_id", "")
 
 
         face_op = FaceLogic()
