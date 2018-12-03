@@ -60,7 +60,7 @@ class CombinationHandler(RequestHandler):
             if phone:
                 relative_info = relative_op.info_by_phone(phone=phone)
                 if relative_info and convert.bs2utf8(relative_info.get("name", "")) != name:
-                    LOG.info("relative info, phone and name error")
+                    LOG.info("relative info, phone:%s and name:%s error"%(phone, name))
                     return 2
 
 
@@ -80,6 +80,7 @@ class CombinationHandler(RequestHandler):
             return
         if _check == 2:
             self.finish(json.dumps({'state': 2, 'message': 'relative info error'}))
+            return
 
         stu_op = StudentLogic()
         relative_op = RelativeLogic()
