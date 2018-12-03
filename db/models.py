@@ -145,8 +145,8 @@ class RelativeInfo(Base, ModelBase):
     name = Column(VARCHAR(100), nullable=False)
     sex = Column(Integer, default=0)
     birthday = Column(DateTime)
-    user_id = Column(VARCHAR(36))
-    wxuser_id = Column(VARCHAR(36))
+    #user_id = Column(VARCHAR(36))
+    #wxuser_id = Column(VARCHAR(36))
     phone = Column(VARCHAR(36))
     describe = Column(VARCHAR(500))
     #face_token = Column(VARCHAR(36))
@@ -161,11 +161,15 @@ class RelativeInfo(Base, ModelBase):
 class RelevanceFace(Base, ModelBase):
     __tablename__ = 'relevance_face'
     id = Column(VARCHAR(36), primary_key=True)
-    school_id = Column(VARCHAR(36), nullable=False)
+    school_id = Column(VARCHAR(36))
     relevance_id = Column(VARCHAR(36), nullable=False)
     relevance_type = Column(Integer, default=1)
+    student_id = Column(VARCHAR(36))
     face_token = Column(VARCHAR(36), nullable=False)
     faceset_token = Column(VARCHAR(36), nullable=False)
+    img_path = Column(VARCHAR(200), nullable=False)
+    alias = Column(VARCHAR(50), nullable=False)
+    activate = Column(Boolean, default=True)
     deleted = Column(Boolean, default=False)
     create_time = Column(DateTime, default=datetime.now, nullable=False)
     updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
@@ -196,6 +200,7 @@ class UserInfo(Base, ModelBase):
     id = Column(VARCHAR(36), primary_key=True)
     name = Column(VARCHAR(100), nullable=False)
     pwd = Column(VARCHAR(100), nullable=False)
+    phone = Column(VARCHAR(36))
     verify_code = Column(VARCHAR(100))
     activate = Column(Integer, default=0)
     level = Column(Integer, default=1)
@@ -229,6 +234,7 @@ class RelativeSignInfo(Base, ModelBase):
     relative_id = Column(VARCHAR(36), nullable=False)
     create_time = Column(DateTime, default=datetime.now, nullable=False)
     type = Column(Integer, default=0)
+    alias = Column(VARCHAR(50))
     deleted = Column(Boolean, default=False)
 
     def to_dict(self):
@@ -248,6 +254,7 @@ class TeacherSignInfo(Base, ModelBase):
     teacher_id = Column(VARCHAR(36), nullable=False)
     create_time = Column(DateTime, default=datetime.now, nullable=False)
     type = Column(Integer, default=0)
+    alias = Column(VARCHAR(50))
     deleted = Column(Boolean, default=False)
 
     def to_dict(self):
@@ -266,7 +273,8 @@ class VerifyManage(Base, ModelBase):
     phone = Column(VARCHAR(36))
     email = Column(VARCHAR(36))
     verify_code = Column(VARCHAR(36))
-    updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
+    update_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
+    deleted = Column(Boolean, default=False)
     def to_dict(self):
         return _to_dict(self)
 

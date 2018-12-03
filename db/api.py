@@ -7,7 +7,7 @@ from util import exception
 from util import common_util
 
 
-def model_query(model, session=None, order=False, read_deleted="no", *args, **kwargs):
+def model_query(model, session=None, order=False, read_deleted="no", desc=True, *args, **kwargs):
     """
     :param model:
     :param session: if present, the session to use
@@ -29,7 +29,10 @@ def model_query(model, session=None, order=False, read_deleted="no", *args, **kw
     if filter_dict:
         query = query.filter_by(**filter_dict)
     if order:
-        query = query.order_by(model.create_time.desc())
+        if desc:
+            query = query.order_by(model.create_time.desc())
+        else:
+            query = query.order_by(model.create_time)
 
     return query
 
@@ -375,7 +378,7 @@ def face_get(id):
     return result
 
 def face_list(offset=0, limit=1000, **filters):
-    query = model_query(models.RelevanceFace, order=True, **filters)
+    query = model_query(models.RelevanceFace, order=True, desc=False, **filters)
     if offset:
         query = query.offset(offset)
     if limit:
@@ -385,6 +388,13 @@ def face_list(offset=0, limit=1000, **filters):
 def face_count(**filters):
     query = model_query(models.RelevanceFace, **filters)
     return query.count()
+
+def face_update(id, values):
+    query = model_query(models.RelevanceFace).filter_by(id=id)
+    result = query.update(values)
+    if not result:
+        raise exception.NotFound(id=id)
+    return result
 
 def face_destroy(id):
     session = get_session()

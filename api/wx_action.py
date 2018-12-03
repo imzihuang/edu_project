@@ -8,7 +8,9 @@ import logging
 import json
 from logic.userlogic import WXUserLogic
 from logic.relative import RelativeLogic
+from logic.verify_manage import VerifyManageLogic
 from util.ini_client import ini_load
+from util import convert
 
 _conf = ini_load('config/service.ini')
 _dic_con = _conf.get_fields('wx')
@@ -55,26 +57,33 @@ class WXActionHandler(RequestHandler):
         exit_app = _op.info_by_openid(openid=openid)
         if exit_app:
             _op.update(exit_app.get("id"), session_key=session_key)
-            self.finish(json.dumps({'state': 0, 'session_code': exit_app.get("id")}))
+            self.finish(json.dumps({'state': 0, 'session_code': exit_app.get("id"), 'phone': exit_app.get("phone","")}))
         else:
             _ = _op.input(openid=openid, session_key=session_key)
             self.finish(json.dumps({'state': 0, 'session_code': _.get("id")}))
 
     def bind_user(self):
-        phone = self.get_argument('phone', '')
-        verify_code = self.get_argument('verify_code', '')
-        edu_session = self.get_argument('edu_session', '')
+        phone = convert.bs2utf8(self.get_argument('phone', ''))
+        verify_code = convert.bs2utf8(self.get_argument('verify_code', ''))
+        edu_session = convert.bs2utf8(self.get_argument('edu_session', ''))
         relative_op = RelativeLogic()
-        relative_info = relative_op.info_by_phone(phone=phone, verify_code=verify_code)
-        if not relative_info:
-            self.finish(json.dumps({'state': 1, 'message': 'phone not singn'}))
+        verify_op = VerifyManageLogic()
+        wx_op = WXUserLogic()
+
+        #verify code
+        _ = verify_op.verify_code_phone(phone=phone, code=verify_code)
+        if not _:
+            self.finish(json.dumps({'state': 1, 'message': 'verify code error'}))
             return
 
-        wx_op = WXUserLogic()
+        #verify relative
+        relative_info = relative_op.info_by_phone(phone=phone)
+        if not relative_info:
+            self.finish(json.dumps({'state': 2, 'message': 'phone not singn'}))
+            return
         wx_info = wx_op.update(edu_session, phone=phone)
         if wx_info:
-            relative_op.update(relative_info.get("id"), wxuser_id=wx_info.get("id"))
             self.finish(json.dumps({'state': 0, 'edu_session': edu_session}))
         else:
-            self.finish(json.dumps({'state': 1, 'message': 'wx id not singn'}))
+            self.finish(json.dumps({'state': 3, 'message': 'wx id not singn'}))
 

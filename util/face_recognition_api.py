@@ -18,7 +18,8 @@ import os
 from PIL import Image
 import requests
 from util.ini_client import ini_load
-
+import logging
+LOG = logging.getLogger(__name__)
 
 class Face_Recognition_YYL(object):
 
@@ -118,6 +119,7 @@ class Face_Recognition_YYL(object):
             'api_secret': self.api_secret,
         }
         response = requests.post(self.detect_url, data=data, files=files)
+        LOG.info("detect: %r"%response)
         if response.status_code == 200:
             results = response.json()
             if results['faces']:
@@ -138,9 +140,9 @@ class Face_Recognition_YYL(object):
         response = requests.post(self.add_url, data=data)
         if response.status_code == 200:
             results = response.json()['failure_detail']
-            if results:
-                return response.status_code, results[0]
-            return 400, response.json()['faceset_token']
+            if not results:
+                return response.status_code, response.json()['faceset_token'] 
+            return 400, results[0]
         return response.status_code, response.json()['error_message']
 
     # 删除人脸

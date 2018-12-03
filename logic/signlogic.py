@@ -20,7 +20,7 @@ class SignLogic(Logic):
             return 2
         return 1
 
-    def input(self, relevance_type=1, relevance_id=""):
+    def input(self, relevance_type=1, relevance_id="", alias=""):
         if relevance_type not in (1, 2):
             return
         values = dict()
@@ -28,14 +28,16 @@ class SignLogic(Logic):
             #家属签到
             values = {
                 "relative_id": relevance_id,
-                "sign_type": self.sign_type()
+                "sign_type": self.sign_type(),
+                "alias": alias
             }
             db_api.relation_sign_create(values)
         if relevance_type == 2:
             # 老师签到
             values = {
                 "teacher_id": relevance_id,
-                "sign_type": self.sign_type()
+                "sign_type": self.sign_type(),
+                "alias": alias
             }
             db_api.teacher_sign_create(values)
 

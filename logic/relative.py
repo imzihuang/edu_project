@@ -20,6 +20,10 @@ class RelativeLogic(Logic):
             raise exception.FormalError(phone=phone)
         if not name:
             raise exception.ParamNone(name="")
+        if phone:
+            relative_list = db_api.relative_list(phone=phone)
+            if relative_list and relative_list[0].name != name:
+                raise exception.ParamExist(name=name, phone=phone)
         values = {
             "name": name,
             "sex": sex,
@@ -73,14 +77,13 @@ class RelativeLogic(Logic):
         relative_info = db_api.relative_get(id)
         return self.views(relative_info)
 
-    def info_by_phone(self, phone="", verify_code=""):
+    def info_by_phone(self, phone=""):
         if not phone:
             return
         filters = dict()
         if phone:
             filters.update({"phone": phone})
-        if verify_code:
-            filters.update({"verify_code": verify_code})
+
         relative_infos = db_api.relative_list(**filters)
         if relative_infos:
             return self.views(relative_infos[0])

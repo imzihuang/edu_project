@@ -68,23 +68,10 @@ class UserLogic(Logic):
             return True
         return False
 
-    def auth_teacher(self, phone, pwd):
-        teacher_list = db_api.teacher_list(phone=phone)
-        if teacher_list:
-            user_id = teacher_list[0].user_id
-            _ = db_api.user_list(id=user_id, pwd=encry_md5(pwd))
-            if _:
-                return True
-        return False
-
-
-    def auth_relative(self, phone, pwd):
-        relative_list = db_api.relative_list(phone=phone)
-        if relative_list:
-            user_id = relative_list[0].user_id
-            _ = db_api.user_list(id=user_id, pwd=encry_md5(pwd))
-            if _:
-                return True
+    def auth_phone(self, phone, pwd):
+        user_list = db_api.user_list(phone=phone, pwd=encry_md5(pwd))
+        if user_list:
+            return True
         return False
 
     def delete(self, id="", **kwargs):
