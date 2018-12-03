@@ -17,6 +17,7 @@ from logic.relation import RelationLogic
 from logic.teacher_history import Teacher_HistoryLogic
 from logic.student_history import Student_HistoryLogic
 from logic.facelogic import FaceLogic
+from logic.signlogic import SignLogic
 
 LOG = logging.getLogger(__name__)
 
@@ -66,6 +67,10 @@ class InfosHandler(RequestHandler):
             if infos_obj == "face":
                 _value = self._get_face_argument()
                 _op = FaceLogic()
+
+            if infos_obj == "relative_sign":
+                _value = self._get_relative_sign_argument()
+                _op = SignLogic()
 
             _ = _op.infos(limit=limit, offset=offset, **_value)
             if _:
@@ -234,4 +239,15 @@ class InfosHandler(RequestHandler):
             "id": id,
             "relevance_id": relevance_id,
             "relevance_type": relevance_type,
+        }
+
+    def _get_relative_sign_argument(self):
+        relative_id = self.get_argument('relative_id', '')
+        start_time = self.get_argument('start_time', '')
+        end_time = self.get_argument('end_time', '')
+        return {
+            "relevance_type": 1,
+            "relevance_id": relative_id,
+            "start_time": start_time,
+            "end_time": end_time,
         }

@@ -546,7 +546,7 @@ def wxuser_deleted(id):
 #####################wx user end################################
 
 #################sign start#####################################
-def relation_sign_create(values):
+def relative_sign_create(values):
     if not values.get('id'):
         values['id'] = common_util.create_id()
     relation_sign_ref = models.RelativeSignInfo()
@@ -555,6 +555,22 @@ def relation_sign_create(values):
     with session.begin():
         relation_sign_ref.save(session)
         return values
+
+def relative_sign_list(start_time, end_time, offset=0, limit=1000, **filters):
+    query = model_query(models.RelativeSignInfo, order=True, **filters)
+    query = query.filter(models.RelativeSignInfo.create_time<end_time).\
+        filter(models.RelativeSignInfo.create_time>start_time)
+    if offset:
+        query = query.offset(offset)
+    if limit:
+        query = query.limit(limit)
+    return query.all()
+
+def relative_sign_count(start_time, end_time, **filters):
+    query = model_query(models.RelativeSignInfo, **filters)
+    query = query.filter(models.RelativeSignInfo.create_time < end_time). \
+        filter(models.RelativeSignInfo.create_time > start_time)
+    return query.count()
 
 def teacher_sign_create(values):
     if not values.get('id'):
