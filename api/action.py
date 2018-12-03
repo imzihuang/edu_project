@@ -216,8 +216,8 @@ class ActionHandler(RequestHandler):
             #up.write(base64.b64decode(img.rpartition(",")[-1]))
 
     def push_verify(self):
-        phone = bs2utf8(self.get_argument('phone', ''))
-        if not phone or not is_mobile(phone):
+        phone = convert.bs2utf8(self.get_argument('phone', ''))
+        if not phone or not convert.is_mobile(phone):
             self.finish(json.dumps({'state': 1, 'message': 'Push verify code fail, phone is noe.'}))
             return
         verify_code = common_util.create_verifycode()
