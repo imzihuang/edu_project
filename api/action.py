@@ -180,40 +180,35 @@ class ActionHandler(RequestHandler):
 
     def face_signin(self):
         cardcode = self.get_argument('cardcode', '')
+        school_id = self.get_argument('school_id', '')
         face_img = self.request.files.get("image", None)
         tmp_id = common_util.create_id()
-        if not face_img or not cardcode:
-            self.finish(json.dumps({'state': 1, 'message': 'cardcode or img is None'}))
+        if not face_img or not school_id:
+            self.finish(json.dumps({'state': 1, 'message': 'school_id or img is None'}))
             return
         # 将图片存储到本地
         file_path = self.static_path + self.tmp_path + tmp_id + '.jpg'
-        face_img.save(file_path)
+        img = face_img[0]
+        LOG.info("file path:%s" % file_path)
+        with open(file_path, 'wb') as up:
+            up.write(img['body'])
 
         #获取tonken
-        code, face_token = face_recognition_yyl.Face_Detect(file_path)
+        code, faceset_token = face_recognition_yyl.Face_Search(file_path, school_id)
         if code != 200:
-            LOG.error("detect face error:%s" % code)
-            self.finish(json.dumps({'state': 2, 'message': face_token}))
+            LOG.error("Search face error:%s" % code)
+            self.finish(json.dumps({'state': 2, 'message': faceset_token, 'code': code}))
             return
         face_op = FaceLogic()
         sign_op = SignLogic()
-        _faceset_token_data = face_op.infos(face_token=face_token)
-        _faceset_token_list = _faceset_token_data.get("data", [])
-        if _faceset_token_list:
-            school_id = _faceset_token_list[0].get("school_id", "")
-            code, faceset_token = face_recognition_yyl.Face_Add(school_id, face_token)
-            for _face_info in _faceset_token_list:
-                if _face_info.get("faceset_token", "") == faceset_token:
-                    # 签到
-                    sign_info = sign_op.input(_face_info.get("relevance_type", 1), _face_info.get("relevance_id", ""))
-                    if sign_info:
-                        self.finish(json.dumps({'state': 0, 'message': 'sign ok'}))
-                    else:
-                        self.finish(json.dumps({'state': 3, 'message': 'sign fail'}))
-                    break
 
-        #with open(file_path, 'wb') as up:
-            #up.write(base64.b64decode(img.rpartition(",")[-1]))
+        face_info = face_op.verify_face_set(faceset_token, school_id, cardcode)
+        if face_info:
+            self.finish(json.dumps({'state': 3, 'message': 'sign fail, face no exit'}))
+        else:
+            sign_op.input(face_info.get("relevance_type", 1), face_info.get("relevance_id", ""), face_info.get("alias", ""))
+            self.finish(json.dumps({'state': 0, 'message': 'sign ok'}))
+
 
     def push_verify(self):
         phone = convert.bs2utf8(self.get_argument('phone', ''))
