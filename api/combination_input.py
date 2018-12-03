@@ -33,7 +33,36 @@ class CombinationHandler(RequestHandler):
             self.finish(json.dumps({'state': 10, 'message': 'combination input error'}))
 
     def check_student_relative(self):
-        pass
+        name = convert.bs2utf8(self.get_argument('name', ''))
+        birthday = convert.bs2utf8(self.get_argument('birthday', ''))
+        class_id = convert.bs2utf8(self.get_argument('class_id', ''))
+        str_relative_list = convert.bs2utf8(self.get_argument('relative_list', '[]'))
+        relative_list = json.loads(str_relative_list)
+
+        if birthday and not convert.is_date(birthday):
+            return 1
+        if not name:
+            return 1
+        if not class_id:
+            raise 1
+
+        relative_op = RelativeLogic()
+        for relative_info in relative_list:
+            relative_birthday = relative_info.get("birthday", "")
+            if relative_birthday and not convert.is_date(convert.bs2utf8(relative_birthday)):
+                return 2
+            phone = convert.bs2utf8(relative_info.get("phone", ""))
+            if phone and not convert.is_mobile(phone):
+                return 2
+            name = convert.bs2utf8(relative_info.get("name", ""))
+            if not name:
+                return 2
+            if phone:
+                relative_info = relative_op.info_by_phone(phone=phone)
+                if relative_info and convert.bs2utf8(relative_info.get("name", "")) != name:
+                    LOG.info("relative info, phone and name error")
+                    return 2
+
 
     def student_relative(self):
         name = convert.bs2utf8(self.get_argument('name', ''))
@@ -45,7 +74,12 @@ class CombinationHandler(RequestHandler):
         relative_list = json.loads(str_relative_list)
 
         #check params
-        self.check_student_relative()
+        _check = self.check_student_relative()
+        if _check == 1:
+            self.finish(json.dumps({'state': 1, 'message': 'student info error'}))
+            return
+        if _check == 2:
+            self.finish(json.dumps({'state': 2, 'message': 'relative info error'}))
 
         stu_op = StudentLogic()
         relative_op = RelativeLogic()
@@ -63,10 +97,7 @@ class CombinationHandler(RequestHandler):
             if not relative_info:
                 self.finish(json.dumps({'state': 2, 'message': '%s: relative info error'%relative.get("name", "")}))
                 return
-            relation_info = relation_op.input(relative.get("relation", ""), student_id=student_info.get("id"), relative_id=relative_info.get("id"))
-            if not relation_info:
-                self.finish(json.dumps({'state': 3, 'message': '%s: relative info error' % relative.get("name", "")}))
-                return
+            relation_op.input(relative.get("relation", ""), student_id=student_info.get("id"), relative_id=relative_info.get("id"))
         self.finish(json.dumps({'state': 0, 'message': 'success'}))
 
 
