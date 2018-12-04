@@ -21,6 +21,8 @@ _sha1_pat = re.compile(r'^[a-f\d]{40}$')
 # 能用到203x年已经太牛叉了
 _date_pat = re.compile(
     r'^(?P<year>[12]\d{3})-(?P<month>0[1-9]|1[012])-(?P<day>\d{1,2})(?:T(?P<hour>[01][0-9]|2[0-3]):(?P<minute>[0-5][0-9]):(?P<sec>[0-5][0-9]))?$')
+_date_pat_s = re.compile(
+    r'^(?P<year>[12]\d{3})-(?P<month>0[1-9]|1[012])-(?P<day>\d{1,2})(?:\s+(?P<hour>[01][0-9]|2[0-3]):(?P<minute>[0-5][0-9]):(?P<sec>[0-5][0-9]))?$')
 _time_pat = re.compile(r'^(?P<hour>[01][0-9]|2[0-3]):(?P<minute>[0-5][0-9]):(?P<sec>[0-5][0-9])$')
 _float_pat = re.compile(r'^-?\d+(\.\d+)?$')
 _mac_pat = re.compile(r'^[a-f\d]{2}(?::[a-f\d]{2}){5}$', re.I)
@@ -211,7 +213,7 @@ def is_date(v):
     """
     if not v or not isinstance(v, str):
         return False
-    m = _date_pat.search(v)
+    m = _date_pat_s.search(v)
     if not m:
         return False
 
