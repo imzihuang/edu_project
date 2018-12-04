@@ -73,6 +73,15 @@ def school_count(**filters):
     query = model_query(models.SchoolInfo, **filters)
     return query.count()
 
+def school_deleted(id):
+    session = get_session()
+    with session.begin():
+        query = model_query(models.SchoolInfo, session=session, id=id)
+        query.update({
+            "deleted": True
+        },
+        synchronize_session=False)
+
 #####################school end################################
 
 #####################grade begin################################

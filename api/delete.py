@@ -7,6 +7,7 @@ from util.exception import ParamExist
 import logging
 
 from logic import Logic
+from logic.school import SchoolLogic
 from logic.gradelogic import GradeLogic
 from logic.classlogic import ClassLogic
 from logic.teacher import TeacherLogic
@@ -22,6 +23,9 @@ class DeleteHandler(RequestHandler):
         try:
             id = self.get_argument('id', '')
             _op = Logic()
+
+            if delete_obj == "school":
+                _op = SchoolLogic()
 
             if delete_obj == "grade":
                 _op = GradeLogic()
