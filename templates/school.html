@@ -204,7 +204,7 @@
 							}
 						}
 					}
-					if(count <= 1) {
+					if(count > 1) {
 						layer.confirm('确定删除选中的学校？', {
 							btn: ['确定', '取消'] //按钮
 						}, function() {
@@ -448,7 +448,7 @@
 
 				//全选
 				function allchk() {
-					$('#delInfo').attr("disabled", false);
+					
 					var chknum = $("#tbody :checkbox").size();
 					var chk = 0;
 					var trLength = $("#tbody tr").length;
@@ -466,6 +466,7 @@
 						$('#delInfo').attr('class', 'btn btn-primary btn-myown');
 					} else {
 						$('#delInfo').attr('class', 'btn btn-default btn-myown');
+						$('#delInfo').attr("disabled", false);
 					}
 				}
 			});
