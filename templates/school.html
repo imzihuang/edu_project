@@ -58,7 +58,6 @@
 															<th>序号</th>
 															<th>学校名称</th>
 															<th>设备卡号</th>
-															<th>创建时间</th>
 															<th style="width: 120px;">操作</th>
 														</tr>
 													</thead>
@@ -90,6 +89,10 @@
 					<span>设备卡号：</span><input type="text" style="width: 350px;" id="add_cardcode" name="add_cardcode" />
 					<div class="errorPart"></div>
 				</div>
+				<div style="margin: 20px 0;">
+					<span class="fl">备注：</span><textarea style="width: 350px;" id="add_describe" name="add_describe"></textarea>
+					<div class="errorPart"></div>
+				</div>
 				<input class="submit" type="submit" value="提交" id="addInfoContentSubmit" style="display: none;">
 			</form>
 		</div>
@@ -101,7 +104,11 @@
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
-					<span>设备卡号：</span><input type="text" style="width: 350px;" id="cardcode_name" name="cardcode_name" />
+					<span>设备卡号：</span><input type="text" style="width: 350px;" id="edit_cardcode" name="edit_cardcode" />
+					<div class="errorPart"></div>
+				</div>
+				<div style="margin: 20px 0;">
+					<span class="fl">备注：</span><textarea style="width: 350px;" id="edit_describe" name="edit_describe"></textarea>
 					<div class="errorPart"></div>
 				</div>
 				<input class="submit" type="submit" value="提交" id="editAreaContentSubmit" style="display: none;">
