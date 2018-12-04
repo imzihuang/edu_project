@@ -625,7 +625,7 @@
                         for(var j = 0; j < addRelativeLength; j++) {
                             relative_list.splice($.inArray('',relative_list),1);
                         }
-                       
+                       console.log(relative_list);
                         
 						var data = {
 							'name': $("#add_name").val(),
@@ -635,26 +635,26 @@
 							'describe': $("#add_remarks").val(),
 							'relative_list': JSON.stringify(relative_list),
 						}
-						$.ajax({
-							type: "POST",
-							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-							url: "/student_relative/combination_input",
-							async: false,
-							data: data,
-							timeout: "30000",
-							success: function(msg) {
-								layer.closeAll();
-								layer.msg('添加成功', {
-									icon: 1,
-									time: 800
-								});
-								window.location.reload();
-							},
-							error: function() {
-								layer.msg('添加失败');
-								console.log("error");
-							}
-						});
+//						$.ajax({
+//							type: "POST",
+//							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+//							url: "/student_relative/combination_input",
+//							async: false,
+//							data: data,
+//							timeout: "30000",
+//							success: function(msg) {
+//								layer.closeAll();
+//								layer.msg('添加成功', {
+//									icon: 1,
+//									time: 800
+//								});
+//								window.location.reload();
+//							},
+//							error: function() {
+//								layer.msg('添加失败');
+//								console.log("error");
+//							}
+//						});
 
 					},
 					errorPlacement: function(error, element) {
@@ -760,10 +760,10 @@
 										relative_list[i] = '';
 									}
 								}
-								for(var j = 0; j < addRelativeLength; j++) {
+								for(var j = 0; j < editRelativeLength; j++) {
 		                            relative_list.splice($.inArray('',relative_list),1);
 		                        }
-                                console.log(relative_list);
+                                
 								var relativeData = {
 										'student_id': $("#edit_name").attr("title"),
 										'relative_list': JSON.stringify(relative_list),
