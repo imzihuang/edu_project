@@ -69,23 +69,27 @@
 				cursor: pointer;
 			}
 			
-			#schoolInfoContent ul li{
+			#schoolInfoContent ul li {
 				float: left;
 				display: inline-block;
 				height: 30px;
-                margin: 0px 15px;
-                cursor: pointer;
+				margin: 0px 15px;
+				cursor: pointer;
 			}
-			#schoolInfoContent ul li:hover{
+			
+			#schoolInfoContent ul li:hover {
 				color: #de8722;
 			}
-			.openSchool{
+			
+			.openSchool {
 				min-width: 50px;
 			}
-			.openSchool span{
+			
+			.openSchool span {
 				color: #de8722;
 			}
-			.activeColor{
+			
+			.activeColor {
 				color: #de8722;
 			}
 		</style>
@@ -124,10 +128,23 @@
 								<li class="listNav">
 									<a class="J_menuItem" name="teacher.html" id="teacher.html" href="javascript:void(0);">教师管理</a>
 								</li>
-
 							</ul>
 						</li>
-
+						<li class="Lilist">
+							<a href="#" class="titleA">
+								<i class="fa fa-envelope-o"></i>
+								<span class="nav-label">考勤管理</span>
+								<span class="fa arrow"></span>
+							</a>
+							<ul class="nav nav-second-level ulOne">
+								<li class="listNav">
+									<a class="J_menuItem" name="studentAttendance.html" id="studentAttendance.html" href="javascript:void(0);">学生考勤</a>
+								</li>
+								<li class="listNav">
+									<a class="J_menuItem" name="teacherAttendance.html" id="teacherAttendance.html" href="javascript:void(0);">教师考勤</a>
+								</li>
+							</ul>
+						</li>
 					</ul>
 				</div>
 			</nav>
@@ -230,14 +247,14 @@
 				}, false)
 			}
 			//瞄点end
-			if(localStorage.getItem("school")){
+			if(localStorage.getItem("school")) {
 				var schoolSelect = JSON.parse(localStorage.getItem("school"));
-				$(".openSchool span").html('['+schoolSelect.name+']')
-			}else{
+				$(".openSchool span").html('[' + schoolSelect.name + ']')
+			} else {
 				getSchool();
 			}
-            //学校缓存
-			function getSchool(){
+			//学校缓存
+			function getSchool() {
 				var data = {
 					"limit": 20,
 					"offset": 1,
@@ -250,37 +267,35 @@
 					data: data,
 					timeout: "30000",
 					success: function(msg) {
-						var strs= '';
+						var strs = '';
 						var msg = JSON.parse(msg);
 						console.log(msg);
-						if(msg.data.length>0){
+						if(msg.data.length > 0) {
 							for(var i = 0; i < msg.data.length; i++) {
-								strs += '<li id = '+ msg.data[i].id +'>'+ msg.data[i].name +'</li>' 
+								strs += '<li id = ' + msg.data[i].id + '>' + msg.data[i].name + '</li>'
 							}
 							$("#schoolInfoContent ul").html(strs);
-							
-							if(localStorage.getItem("school")){
+
+							if(localStorage.getItem("school")) {
 								var schoolSelect = JSON.parse(localStorage.getItem("school"));
-								$("#"+schoolSelect.id).addClass("activeColor");
-							}else{
+								$("#" + schoolSelect.id).addClass("activeColor");
+							} else {
 								$("#schoolInfoContent ul li").eq(0).addClass("activeColor");
-								$(".openSchool span").html('['+$(".activeColor").html()+']');
+								$(".openSchool span").html('[' + $(".activeColor").html() + ']');
 								var schoolSelect = new Object();
 								schoolSelect.id = $(".activeColor").attr("id");
 								schoolSelect.name = $(".activeColor").html();
-								window.localStorage.setItem("school",JSON.stringify(schoolSelect));
+								window.localStorage.setItem("school", JSON.stringify(schoolSelect));
 							}
-						}else{
+						} else {
 							strs = '请先添加学校'
 							$("#schoolInfoContent ul").html(strs);
 						}
-						
-						
-						
-                        $("#schoolInfoContent ul li").click(function(){
-                        	$("#schoolInfoContent ul li").removeClass("activeColor");
-                        	$(this).addClass("activeColor");
-                        });
+
+						$("#schoolInfoContent ul li").click(function() {
+							$("#schoolInfoContent ul li").removeClass("activeColor");
+							$(this).addClass("activeColor");
+						});
 					},
 					error: function() {
 						console.log("error");
@@ -299,18 +314,18 @@
 					btn: ['确定', '取消'],
 					content: $('#schoolInfoContent'),
 					yes: function() {
-						if(localStorage.getItem("school")){
+						if(localStorage.getItem("school")) {
 							var schoolSelect = JSON.parse(localStorage.getItem("school"));
 							schoolSelect.id = $(".activeColor").attr("id");
 							schoolSelect.name = $(".activeColor").html();
-							window.localStorage.setItem("school",JSON.stringify(schoolSelect));
-						}else{
+							window.localStorage.setItem("school", JSON.stringify(schoolSelect));
+						} else {
 							var schoolSelect = new Object();
 							schoolSelect.id = $(".activeColor").attr("id");
 							schoolSelect.name = $(".activeColor").html();
-							window.localStorage.setItem("school",JSON.stringify(schoolSelect));
+							window.localStorage.setItem("school", JSON.stringify(schoolSelect));
 						}
-						$(".openSchool span").html('['+$(".activeColor").html()+']');
+						$(".openSchool span").html('[' + $(".activeColor").html() + ']');
 						layer.closeAll();
 						layer.msg('切换成功', {
 							icon: 1,
