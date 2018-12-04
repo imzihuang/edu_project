@@ -229,7 +229,7 @@
 			//瞄点end
 			if(localStorage.getItem("school")){
 				var schoolSelect = JSON.parse(localStorage.getItem("school"));
-				$(".openSchool span").html(schoolSelect.name)
+				$(".openSchool span").html('['+schoolSelect.name+']')
 			}else{
 				getSchool();
 			}
@@ -259,9 +259,9 @@
 							if(localStorage.getItem("school")){
 								var schoolSelect = JSON.parse(localStorage.getItem("school"));
 								$("#"+schoolSelect.id).addClass("activeColor");
-							}else{console.log(2222);
+							}else{
 								$("#schoolInfoContent ul li").eq(0).addClass("activeColor");
-								$(".openSchool span").html($(".activeColor").html());
+								$(".openSchool span").html('['+$(".activeColor").html()+']');
 								var schoolSelect = new Object();
 								schoolSelect.id = $(".activeColor").attr("id");
 								schoolSelect.name = $(".activeColor").html();
@@ -307,7 +307,7 @@
 							schoolSelect.name = $(".activeColor").html();
 							window.localStorage.setItem("school",JSON.stringify(schoolSelect));
 						}
-						$(".openSchool span").html($(".activeColor").html());
+						$(".openSchool span").html('['+$(".activeColor").html()+']');
 						layer.closeAll();
 						layer.msg('切换成功', {
 							icon: 1,
