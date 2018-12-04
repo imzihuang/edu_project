@@ -61,10 +61,19 @@
 			.navbar-right {
 				margin-right: 15px!important;
 			}
-			.schoolPart{
+			
+			.schoolPart {
 				float: right;
 				line-height: 70px;
 				margin-right: 10px;
+			}
+			
+			.schoolPart span {
+				cursor: pointer;
+			}
+			#schoolInfoContent ul li{
+				float: left;
+				display: inline-block;
 			}
 		</style>
 	</head>
@@ -102,7 +111,7 @@
 								<li class="listNav">
 									<a class="J_menuItem" name="teacher.html" id="teacher.html" href="javascript:void(0);">教师管理</a>
 								</li>
-                               
+
 							</ul>
 						</li>
 
@@ -123,7 +132,7 @@
 								<a href="login.html"><i class="fa fa-power-off"></i>退出</a>
 							</li>
 						</ul>
-						<div class="schoolPart">学校：<span></span></div>
+						<div class="schoolPart">学校：<span class="openSchool"></span></div>
 					</nav>
 				</div>
 
@@ -135,7 +144,15 @@
 			<!--右侧部分结束-->
 
 		</div>
-
+		<div id="schoolInfoContent" style="display: none; width: 500px; padding: 20px;">
+			<ul>
+				<li>第一学校</li>
+				<li>第一学校</li>
+				<li>第一学校</li>
+				<li>第一学校</li>
+				<li>第一学校</li>
+			</ul>
+		</div>
 		</div>
 
 		<script src="js/html5shiv.js"></script>
@@ -176,11 +193,12 @@
 				loadIframe(h);
 			});
 			//瞄点
-            $(document).ready(function(){
-            	var hash = location.hash;
+			$(document).ready(function() {
+				var hash = location.hash;
 				var url = hash.substring(1, hash.length);
 				$("#iframecontent").attr("src", url);
-            });
+			});
+
 			function loadIframe(url) {
 				var u = window.location.href;
 				var end = u.indexOf("#");
@@ -198,6 +216,40 @@
 					$("#iframecontent").attr("src", url);
 				}, false)
 			}
+			//瞄点end
+			//学校弹框
+			$('#openSchool').click(function() {
+				var data = {
+					"limit": 20,
+					"offset": 1,
+				}
+				$.ajax({
+					type: "GET",
+					contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+					url: "/school/infos",
+					async: false,
+					data: data,
+					timeout: "30000",
+					success: function(msg) {
+
+					},
+					error: function() {
+						console.log("error");
+					}
+				});
+				layerIndex = layer.open({
+					title: '选择学校',
+					type: 1,
+					skin: 'layui-layer-demo',
+					anim: 2,
+					shadeClose: true,
+					btn: ['确定', '取消'],
+					content: $('#schoolInfoContent'),
+					yes: function() {
+
+					}
+				});
+			});
 		</script>
 	</body>
 
