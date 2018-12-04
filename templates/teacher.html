@@ -255,7 +255,8 @@
 				TimeSelectOption($('#add_time'));
 
 				//获取学校
-				schoolInput();
+				var schoolSelect = JSON.parse(localStorage.getItem("school"));
+			    var school = schoolSelect.id
 				//获取年级
 				gradeInput();
 
