@@ -633,7 +633,7 @@
 							data: data,
 							timeout: "30000",
 							success: function(msg) {
-								console.log(msg)
+								console.log(msg.state)
 								layer.closeAll();
 								if(msg.state == 9) {
 									layer.msg('删除失败，清先删除相应的学生信息', {
