@@ -428,15 +428,15 @@
 					}
 					if(chknum == chk) {
 						$("input[name=allcheck]").prop("checked", true);
-						$('#delInfo').attr("disabled", false);
 					} else {
 						$("input[name=allcheck]").prop("checked", false);
-						$('#delInfo').attr("disabled", true);
 					}
 					if(chk > 1) {
 						$('#delInfo').attr('class', 'btn btn-primary btn-myown');
+						$('#delInfo').attr("disabled", false);
 					} else {
 						$('#delInfo').attr('class', 'btn btn-default btn-myown');
+						$('#delInfo').attr("disabled", true);
 					}
 				}
 			});
