@@ -163,8 +163,8 @@
 			$(document).ready(function() {
 				//获取学校
 				var schoolSelect = JSON.parse(localStorage.getItem("school"));
-			    var school = schoolSelect.id
-				//获取年级
+				var school = schoolSelect.id
+					//获取年级
 				gradeInput();
 
 				function gradeInput() {
@@ -261,7 +261,7 @@
 							var strs = '';
 							if(msg.data.length > 0) {
 								for(var i = 0; i < msg.data.length; i++) {
-									if(msg.data[i].describe == ''||msg.data[i].describe == undefined){
+									if(msg.data[i].describe == '' || msg.data[i].describe == undefined) {
 										msg.data[i].describe = '暂无'
 									}
 									strs += '<tr class="gradeX">' +
@@ -318,11 +318,18 @@
 								timeout: "30000",
 								success: function(msg) {
 									layer.closeAll();
-									layer.msg('删除成功', {
-										icon: 1,
-										time: 800 
-									});
-									window.location.reload();
+									if(state == 9) {
+										layer.msg('删除失败，清先删除相应的学生信息', {
+											icon: 1,
+											time: 800 //2s后自动关闭
+										});
+									} else {
+										layer.msg('删除成功', {
+											icon: 1,
+											time: 800
+										});
+										window.location.reload();
+									}
 								},
 								error: function() {
 									layer.msg('删除失败');
@@ -522,7 +529,7 @@
 						btn: ['确定', '取消'],
 						content: $('#addMoreInfoContent'),
 						yes: function() {
-//							$("#addMoreInfoContentSubmit").click();
+							//							$("#addMoreInfoContentSubmit").click();
 							var gradeName = $('.gradeNamePart').children('div').length;
 							var className = $('.classNamePart').children('div').length;
 							var gradeNameArray = new Array();
@@ -628,11 +635,18 @@
 							success: function(msg) {
 								console.log(msg)
 								layer.closeAll();
-								layer.msg('删除成功', {
-									icon: 1,
-									time: 800 //2s后自动关闭
-								});
-								window.location.reload();
+								if(state == 9) {
+									layer.msg('删除失败，清先删除相应的学生信息', {
+										icon: 1,
+										time: 800 //2s后自动关闭
+									});
+								} else {
+									layer.msg('删除成功', {
+										icon: 1,
+										time: 800 //2s后自动关闭
+									});
+									window.location.reload();
+								}
 							},
 							error: function() {
 								layer.msg('删除失败');
@@ -641,7 +655,7 @@
 						});
 					});
 				});
-				
+
 				//全选按钮
 				$("#zx_checkedAllBtn").click(function() {
 					if(this.checked) {
