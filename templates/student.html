@@ -763,37 +763,37 @@
 								for(var j = 0; j < addRelativeLength; j++) {
 		                            relative_list.splice($.inArray('',relative_list),1);
 		                        }
-
+                                console.log(relative_list);
 								var relativeData = {
 										'student_id': $("#edit_name").attr("title"),
 										'relative_list': JSON.stringify(relative_list),
 									}
-								$.ajax({
-									type: "POST",
-									contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-									url: "/bath_update_relative/combination_input",
-									async: false,
-									data: relativeData,
-									timeout: "30000",
-									success: function(msg) {
-										layer.closeAll();
-										layer.msg('编辑成功', {
-											icon: 1,
-											time: 800
-										});
-										window.location.reload();
-									},
-									error: function() {
-										layer.msg('编辑失败');
-										console.log("error");
-									}
-								});
-									},
-									error: function() {
-										layer.msg('编辑失败');
-										console.log("error");
-									}
-								});
+//								$.ajax({
+//									type: "POST",
+//									contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+//									url: "/bath_update_relative/combination_input",
+//									async: false,
+//									data: relativeData,
+//									timeout: "30000",
+//									success: function(msg) {
+//										layer.closeAll();
+//										layer.msg('编辑成功', {
+//											icon: 1,
+//											time: 800
+//										});
+//										window.location.reload();
+//									},
+//									error: function() {
+//										layer.msg('编辑失败');
+//										console.log("error");
+//									}
+//								});
+//									},
+//									error: function() {
+//										layer.msg('编辑失败');
+//										console.log("error");
+//									}
+//								});
 					},
 
 					errorPlacement: function(error, element) {
