@@ -657,7 +657,6 @@
 
 				//全选
 				function allchk() {
-					$('#delInfo').attr("disabled", false);
 					var chknum = $("#tbody :checkbox").size();
 					var chk = 0;
 					var trLength = $("#tbody tr").length;
@@ -668,8 +667,10 @@
 					}
 					if(chknum == chk) {
 						$("input[name=allcheck]").prop("checked", true);
+						$('#delInfo').attr("disabled", false);
 					} else {
 						$("input[name=allcheck]").prop("checked", false);
+						$('#delInfo').attr("disabled", true);
 					}
 					if(chk > 1) {
 						$('#delInfo').attr('class', 'btn btn-primary btn-myown');
