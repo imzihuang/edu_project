@@ -344,7 +344,7 @@
 					},
 					submitHandler: function(form) {
 						var data = {
-							'id': $("#edit_name").attr("id"),
+							'id': $("#edit_name").attr("title"),
 							'name': $("#edit_name").val(),
 							'cardcode': $("#edit_cardcode").val(),
 							'describe': $("#edit_describe").val(),
@@ -381,7 +381,7 @@
 				//编辑弹框
 				$('.areapen').click(function() {
 					$(".errorPart").html("");
-					$("#edit_name").attr("id",$(this).parent("td").siblings(".data_name").attr("name"));
+					$("#edit_name").attr("title",$(this).parent("td").siblings(".data_name").attr("name"));
 					$("#edit_name").val($(this).parent("td").siblings(".data_name").html());
 					$("#edit_cardcode").val($(this).parent("td").siblings(".data_cardcode").html());
 					$("#edit_describe").val($(this).parent("td").siblings(".data_describe").html());
