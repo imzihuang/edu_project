@@ -623,7 +623,10 @@
 							}
 						}
                         for(var j = 0; j < addRelativeLength; j++) {
-                            relative_list.splice($.inArray('',relative_list),1);
+                        	var c = $.inArray('',relative_list);console.log(c);
+                        	if(c != -1){
+                        		relative_list.splice(c,1);
+                        	}
                         }
                        console.log(relative_list);
                         
