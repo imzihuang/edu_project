@@ -227,6 +227,13 @@
 				}, false)
 			}
 			//瞄点end
+			if(localStorage.getItem("school")){
+				var schoolSelect = JSON.parse(localStorage.getItem("school"));
+				$(".openSchool span").html(schoolSelect.name)
+			}else{
+				function getSchool();
+			}
+            //学校缓存
 			function getSchool(){
 				var data = {
 					"limit": 20,
@@ -248,10 +255,24 @@
 								strs += '<li id = '+ msg.data[i].id +'>'+ msg.data[i].name +'</li>' 
 							}
 							$("#schoolInfoContent ul").html(strs);
+							
+							if(localStorage.getItem("school")){
+								var schoolSelect = JSON.parse(localStorage.getItem("school"));
+								$("#"+schoolSelect.id).addClass("activeColor");
+							}else{console.log(2222);
+								$("#schoolInfoContent ul li").eq(0).addClass("activeColor");
+								$(".openSchool span").html($(".activeColor").html());
+								var schoolSelect = new Object();
+								schoolSelect.id = $(".activeColor").attr("id");
+								schoolSelect.name = $(".activeColor").html();
+								window.localStorage.setItem("school",JSON.stringify(schoolSelect));
+							}
 						}else{
 							strs = '请先添加学校'
 							$("#schoolInfoContent ul").html(strs);
 						}
+						
+						
 						
                         $("#schoolInfoContent ul li").click(function(){
                         	$("#schoolInfoContent ul li").removeClass("activeColor");
