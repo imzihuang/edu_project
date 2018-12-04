@@ -71,7 +71,8 @@
 				var dateHistory = JSON.parse(localStorage.getItem("teacherHistory"));
 				var teacherId = dateHistory.id;
 				//获取学校
-				schoolInput();
+				var schoolSelect = JSON.parse(localStorage.getItem("school"));
+			    var school = schoolSelect.id
 				//获取列表
 				getAjaxData({
 					"teacher_id": teacherId,

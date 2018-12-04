@@ -108,7 +108,8 @@
 		<script type="text/javascript">
 			$(document).ready(function() {
 				//获取学校
-				schoolInput();
+				var schoolSelect = JSON.parse(localStorage.getItem("school"));
+			    var school = schoolSelect.id
 				//获取列表
 				getAjaxData({
 					"name": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
