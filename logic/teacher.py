@@ -141,3 +141,7 @@ class TeacherLogic(Logic):
             "status": "deleted"
         }
         db_api.teacher_history_create(history_values)
+
+    def info(self, id=""):
+        teacher_info = db_api.teacher_get(id)
+        return self.views(teacher_info)

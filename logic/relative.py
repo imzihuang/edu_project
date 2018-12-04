@@ -19,10 +19,10 @@ class RelativeLogic(Logic):
         if phone and not convert.is_mobile(phone):
             raise exception.FormalError(phone=phone)
         if not name:
-            raise exception.ParamNone(name="")
+            raise exception.ParamNone(name=name)
         if phone:
             relative_list = db_api.relative_list(phone=phone)
-            if relative_list and relative_list[0].name != name:
+            if relative_list and convert.bs2utf8(relative_list[0].name) != name:
                 raise exception.ParamExist(name=name, phone=phone)
         values = {
             "name": name,
@@ -75,7 +75,12 @@ class RelativeLogic(Logic):
         if not id:
             return
         relative_info = db_api.relative_get(id)
-        return self.views(relative_info)
+        relative_info = self.views(relative_info)
+        _relation_list = self._get_relations_by_relative(relative_id=id)
+        if _relation_list:
+            student_info = db_api.student_get(_relation_list[0].student_id)
+            relative_info.update({"school_id": student_info.school_id})
+        return relative_info
 
     def info_by_phone(self, phone=""):
         if not phone:
@@ -87,6 +92,16 @@ class RelativeLogic(Logic):
         relative_infos = db_api.relative_list(**filters)
         if relative_infos:
             return self.views(relative_infos[0])
+
+    def _get_relations_by_relative(self, relative_id="", relative_name=""):
+        if relative_id:
+            _relation_list = db_api.relation_list(relative_id=relative_id)
+            return _relation_list
+
+        _relative_list = db_api.relative_list(name=relative_name)
+        relative_id = [_relative.id for _relative in _relative_list]
+        _relation_list = db_api.relation_list(relative_id=relative_id)
+        return _relation_list
 
     def _get_relations_by_student(self, student_id="", student_name=""):
         if student_id:
