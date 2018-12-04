@@ -530,7 +530,19 @@
 
 				var relativeStr = '<div style="margin: 20px 0;" class="addRelativeList">' +
 					'<span class="fl">其他联系人：</span>' +
-					'<select>' +
+					'<select name="add_relative" class="add_relative">' +
+					'<option value="father">父亲</option>' +
+					'<option value="moter">母亲</option>' +
+					'<option value="grandfather">爷爷</option>' +
+					'<option value="grandmother">奶奶</option>' +
+					'</select>' +
+					'<input class="relative_name" type="text" placeholder="姓名" />' +
+					'<input class="relative_phone" type="text" placeholder="手机号码" class="marLeft100 marTop10" />' +
+					'<div class="errorPart"></div>' +
+					'</div>';
+               var relativeStrEdit= '<div style="margin: 20px 0;" class="editRelativeList">' +
+					'<span class="fl">其他联系人：</span>' +
+					'<select name="edit_relative" class="edit_relative">' +
 					'<option value="father">父亲</option>' +
 					'<option value="moter">母亲</option>' +
 					'<option value="grandfather">爷爷</option>' +
@@ -543,6 +555,9 @@
 
 				$(".addRelativeBtn").click(function() {
 					$(".addRelative").append(relativeStr);
+				});
+				$(".editRelativeBtn").click(function() {
+					$(".editRelative").append(relativeStrEdit);
 				});
 				//校验隐藏
 				$("#add_grade").change(function() {
