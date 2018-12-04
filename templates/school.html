@@ -35,8 +35,8 @@
 											<div class="ibox-title-Myown1">
 												<div class="zx_searchTit">
 													<div class="sendInquiry2" style="float: left;">
-														<label class="control-label">年级名称：</label>
-														<input type="text" name="" value="" id="grade-name" />
+														<label class="control-label">学校名称：</label>
+														<input type="text" name="" value="" id="school-name" />
 													</div>
 													<div class="sendInquiry0 col-sm-4" style="position: relative; margin:3.5px 0 0 0;">
 														<button class="btn btn-primary btn-myown" id="searchBtn">查询</button>
@@ -50,13 +50,14 @@
 														<tr class="zx_checkedAll">
 															<th colspan="6" style="text-align: left; background: none;padding: 10px 0px;">
 																<button class="btn btn-default btn-myown" id="delInfo" disabled="disabled"><i class="fa fa-trash"></i>&nbsp;批量删除</button>
-																<button class="btn btn-primary btn-myown" id="addInfo">+添加年级</button>
+																<button class="btn btn-primary btn-myown" id="addInfo">+添加学校</button>
 															</th>
 														</tr>
 														<tr class="zx_thTitle">
 															<th style="max-width: 100px;"><input type="checkbox" class="zx_checkedBtn" id="zx_checkedAllBtn" name="allcheck" value="allCheck"></th>
 															<th>序号</th>
-															<th>年级名称</th>
+															<th>学校名称</th>
+															<th>设备卡号</th>
 															<th>创建时间</th>
 															<th style="width: 120px;">操作</th>
 														</tr>
@@ -82,7 +83,11 @@
 		<div id="addInfoContent" style="display: none; width: 500px; padding: 20px;">
 			<form id="addInfoContentform" role="form" method="POST">
 				<div style="margin: 20px 0;">
-					<span>年级名称：</span><input type="text" style="width: 350px;" id="add_name" name="add_name" />
+					<span>学校名称：</span><input type="text" style="width: 350px;" id="add_name" name="add_name" />
+					<div class="errorPart"></div>
+				</div>
+				<div style="margin: 20px 0;">
+					<span>设备卡号：</span><input type="text" style="width: 350px;" id="add_cardcode" name="add_cardcode" />
 					<div class="errorPart"></div>
 				</div>
 				<input class="submit" type="submit" value="提交" id="addInfoContentSubmit" style="display: none;">
@@ -92,7 +97,11 @@
 		<div id="editAreaContent" style="display: none; width: 500px; padding: 20px;">
 			<form id="editAreaContentform" role="form">
 				<div style="margin: 20px 0;">
-					<span>年级名称：</span><input type="text" style="width: 350px;" id="edit_name" name="edit_name" />
+					<span>学校名称：</span><input type="text" style="width: 350px;" id="edit_name" name="edit_name" />
+					<div class="errorPart"></div>
+				</div>
+				<div style="margin: 20px 0;">
+					<span>设备卡号：</span><input type="text" style="width: 350px;" id="cardcode_name" name="cardcode_name" />
 					<div class="errorPart"></div>
 				</div>
 				<input class="submit" type="submit" value="提交" id="editAreaContentSubmit" style="display: none;">
@@ -107,12 +116,9 @@
 		<script src="js/common.js" charset="utf-8"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
-				//获取学校
-				schoolInput();
+				
 				//获取列表
 				getAjaxData({
-					"name": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
-					"school_id": school,
 					"limit": 20,
 					"offset": 1,
 				});
@@ -121,12 +127,12 @@
 					$.ajax({
 						type: "GET",
 						contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-						url: "/grade/infos",
+						url: "/school/infos",
 						async: false,
 						data: senddata,
 						timeout: "30000",
-						success: function(msg) {
-							var msg = JSON.parse(msg);
+						success: function(msg) {console.log(msg);
+							var msg = JSON.parse(msg);console.log(msg);
 							//分页
 							layui.use(['laypage', 'layer'], function() {
 									var page = layui.laypage;
@@ -142,8 +148,7 @@
 												senddata.limit = e.limit;
 												var district = "";
 												getAjaxData({
-													"name": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
-													"school_id": school,
+													"name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
 													"limit": 20,
 													"offset": 1,
 												});
@@ -155,11 +160,11 @@
 							var strs = '';
 							if(msg.data.length > 0) {
 								for(var i = 0; i < msg.data.length; i++) {
-									strs += '<tr class="gradeX">' +
-										'<td><input type="checkbox" class="zx_checkedBtn" name=' + msg.data[i].id + '></td>' +
+									strs += '<tr class="schoolX">' +
+										'<td><input type="checkbox" class="zx_checkedBtn"></td>' +
 										'<td class="centerSort">' + (i + 1) + '</td>' +
-										'<td class="data_name" id = ' + msg.data[i].id + '>' + msg.data[i].name + '</td>' +
-										'<td class="center">' + msg.data[i].create_time + '</td>' +
+										'<td class="data_name">' + msg.data[i].name + '</td>' +
+										'<td class="data_cardcode">' + msg.data[i].cardcode + '</td>' +
 										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" id=' + msg.data[i].id + ' title="删除"></i></td>' +
 										'</tr>'
 								}
@@ -191,7 +196,7 @@
 						}
 					}
 					if(count > 1) {
-						layer.confirm('确定删除选中的年级？', {
+						layer.confirm('确定删除选中的学校？', {
 							btn: ['确定', '取消'] //按钮
 						}, function() {
 							var data = {
@@ -200,7 +205,7 @@
 							$.ajax({
 								type: "POST",
 								contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-								url: "/grade/delete",
+								url: "/school/delete",
 								async: false,
 								data: data,
 								timeout: "30000",
@@ -227,8 +232,7 @@
 				//查询
 				$("#searchBtn").click(function() {
 					getAjaxData({
-						"name": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
-						"school_id": school,
+						"name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
 						"limit": 20,
 						"offset": 1,
 					});
@@ -244,21 +248,28 @@
 						add_name: {
 							required: true,
 						},
+						add_cardcode: {
+							required: true,
+						},
 					},
 					messages: {
 						add_name: {
+							required: '必填',
+						},
+						add_cardcode: {
 							required: '必填',
 						},
 					},
 					submitHandler: function(form) {
 						var data = {
 							'name': $("#add_name").val(),
-							"school_id": school,
+							'cardcode': $("#add_cardcode").val(),
+							'describe': $("#add_describe").val(),
 						}
 						$.ajax({
 							type: "POST",
 							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-							url: "/grade/input",
+							url: "/school/input",
 							async: false,
 							data: data,
 							timeout: "30000",
@@ -288,7 +299,7 @@
 					$("input").val("");
 					$(".errorPart").html("");
 					layerIndex = layer.open({
-						title: '添加年级',
+						title: '添加学校',
 						type: 1,
 						skin: 'layui-layer-demo',
 						anim: 2,
@@ -310,21 +321,28 @@
 						edit_name: {
 							required: true,
 						},
+						edit_cardcode: {
+							required: true,
+						},
 					},
 					messages: {
 						edit_name: {
+							required: '必填',
+						},
+						edit_cardcode: {
 							required: '必填',
 						},
 					},
 					submitHandler: function(form) {
 						var data = {
 							'name': $("#edit_name").val(),
-							"school_id": school,
+							'cardcode': $("#edit_cardcode").val(),
+							'describe': $("#edit_describe").val(),
 						}
 						$.ajax({
 							type: "POST",
 							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-							url: "/grade/update",
+							url: "/school/update",
 							async: false,
 							data: data,
 							timeout: "30000",
@@ -334,12 +352,6 @@
 									icon: 1,
 									time: 80
 
-								});
-								getAjaxData({
-									"name": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
-									"school_id": school,
-									"limit": 20,
-									"offset": 1,
 								});
 								window.location.reload();
 							},
@@ -361,7 +373,7 @@
 					$(".errorPart").html("");
 					$("#edit_name").val($(this).parent("td").siblings(".data_name").html());
 					layerIndex = layer.open({
-						title: '修改年级信息',
+						title: '修改学校信息',
 						type: 1,
 						skin: 'layui-layer-demo',
 						closeBtn: 0,
@@ -378,7 +390,7 @@
                 //单项删除
 				$('.fa-close').click(function() {
 					var deleteId = $(this).attr('id');
-					layer.confirm('确定删除选中的年级？', {
+					layer.confirm('确定删除选中的学校？', {
 						btn: ['确定', '取消']
 					}, function() {
 						var data = {
@@ -387,7 +399,7 @@
 						$.ajax({
 							type: "POST",
 							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-							url: "/grade/delete",
+							url: "/school/delete",
 							async: false,
 							data: data,
 							timeout: "30000",
