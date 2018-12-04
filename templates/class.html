@@ -261,13 +261,16 @@
 							var strs = '';
 							if(msg.data.length > 0) {
 								for(var i = 0; i < msg.data.length; i++) {
+									if(msg.data[i].describe == ''||msg.data[i].describe == undefined){
+										msg.data[i].describe = '暂无'
+									}
 									strs += '<tr class="gradeX">' +
 										'<td><input type="checkbox" class="zx_checkedBtn" name=' + msg.data[i].id + '></td>' +
 										'<td class="centerSort">' + (i + 1) + '</td>' +
 										'<td class="data_name">' + msg.data[i].name + '</td>' +
 										'<td class="center data_grade_name" name="' + msg.data[i].grade_id + '">' + msg.data[i].grade_name + '</td>' +
 										'<td class="center data_id">' + msg.data[i].id + '</td>' +
-										'<td class="center data_name">' + msg.data[i].miaoshu + '</td>' +
+										'<td class="center data_name">' + msg.data[i].describe + '</td>' +
 										'<td class="center">' + msg.data[i].create_time + '</td>' +
 										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" id=' + msg.data[i].id + ' title="删除"></i></td>' +
 										'</tr>'
