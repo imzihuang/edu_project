@@ -875,6 +875,20 @@
 									$(".editRelative .editRelativeList").eq(i).find(".edit_relative").attr("id",msg.data[0].relation_list[i].relative_id);
 									$(".editRelative .editRelativeList").eq(i).find(".relative_name").val(msg.data[0].relation_list[i].relation_info.name);
 									$(".editRelative .editRelativeList").eq(i).find(".relative_phone").val(msg.data[0].relation_list[i].relation_info.phone);
+								}else{
+									if(i < 3) {
+										$(".editRelative .editRelativeList").eq(i).find(".edit_relative").val(msg.data[0].relation_list[i].relation);
+										$(".editRelative .editRelativeList").eq(i).find(".edit_relative").attr("id",msg.data[0].relation_list[i].relative_id);
+										$(".editRelative .editRelativeList").eq(i).find(".relative_name").val(msg.data[0].relation_list[i].relation_info.name);
+										$(".editRelative .editRelativeList").eq(i).find(".relative_phone").val(msg.data[0].relation_list[i].relation_info.phone);
+									}
+									else{
+										$(".editRelativeBtn").click();
+										$(".editRelative .editRelativeList").eq(i).find(".edit_relative").val(msg.data[0].relation_list[i].relation);
+										$(".editRelative .editRelativeList").eq(i).find(".edit_relative").attr("id",msg.data[0].relation_list[i].relative_id);
+										$(".editRelative .editRelativeList").eq(i).find(".relative_name").val(msg.data[0].relation_list[i].relation_info.name);
+										$(".editRelative .editRelativeList").eq(i).find(".relative_phone").val(msg.data[0].relation_list[i].relation_info.phone);
+									}
 								}
 
 							}
