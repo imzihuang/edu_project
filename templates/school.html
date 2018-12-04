@@ -58,6 +58,7 @@
 															<th>序号</th>
 															<th>学校名称</th>
 															<th>设备卡号</th>
+															<th>备注</th>
 															<th style="width: 120px;">操作</th>
 														</tr>
 													</thead>
@@ -172,12 +173,13 @@
 										'<td class="centerSort">' + (i + 1) + '</td>' +
 										'<td class="data_name">' + msg.data[i].name + '</td>' +
 										'<td class="data_cardcode">' + msg.data[i].cardcode + '</td>' +
+										'<td class="data_describe">' + msg.data[i].describe + '</td>' +
 										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" id=' + msg.data[i].id + ' title="删除"></i></td>' +
 										'</tr>'
 								}
 								$("#tbody").html(strs);
 							} else {
-								$("#tbody").html('<tr><td colspan="5" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
+								$("#tbody").html('<tr><td colspan="6" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
 							}
 						},
 						error: function() {
@@ -379,6 +381,8 @@
 				$('.areapen').click(function() {
 					$(".errorPart").html("");
 					$("#edit_name").val($(this).parent("td").siblings(".data_name").html());
+					$("#edit_cardcode").val($(this).parent("td").siblings(".data_cardcode").html());
+					$("#edit_describe").val($(this).parent("td").siblings(".data_describe").html());
 					layerIndex = layer.open({
 						title: '修改学校信息',
 						type: 1,
