@@ -139,8 +139,8 @@
 						async: false,
 						data: senddata,
 						timeout: "30000",
-						success: function(msg) {console.log(msg);
-							var msg = JSON.parse(msg);console.log(msg);
+						success: function(msg) {
+							var msg = JSON.parse(msg);
 							//分页
 							layui.use(['laypage', 'layer'], function() {
 									var page = layui.laypage;
@@ -219,12 +219,20 @@
 								data: data,
 								timeout: "30000",
 								success: function(msg) {
+									var msg = JSON.parse(msg);
 									layer.closeAll();
-									layer.msg('删除成功', {
-										icon: 1,
-										time: 800 //2s后自动关闭
-									});
-									window.location.reload();
+									if(msg.state == 9) {
+										layer.msg('删除失败，清先删除相应的年级信息', {
+											icon: 1,
+											time: 1000 
+										});
+									} else {
+										layer.msg('删除成功', {
+											icon: 1,
+											time: 800 
+										});
+										window.location.reload();
+									}
 								},
 								error: function() {
 									layer.msg('删除失败');
@@ -417,12 +425,20 @@
 							data: data,
 							timeout: "30000",
 							success: function(msg) {
+								var msg = JSON.parse(msg);
 								layer.closeAll();
-								layer.msg('删除成功', {
-									icon: 1,
-									time: 800 //2s后自动关闭
-								});
-								window.location.reload();
+								if(msg.state == 9) {
+									layer.msg('删除失败，清先删除相应的年级信息', {
+										icon: 1,
+										time: 1000 
+									});
+								} else {
+									layer.msg('删除成功', {
+										icon: 1,
+										time: 800 
+									});
+									window.location.reload();
+								}
 							},
 							error: function() {
 								layer.msg('删除失败');

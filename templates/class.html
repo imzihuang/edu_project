@@ -317,11 +317,12 @@
 								data: data,
 								timeout: "30000",
 								success: function(msg) {
+									var msg = JSON.parse(msg);
 									layer.closeAll();
 									if(msg.state == 9) {
 										layer.msg('删除失败，清先删除相应的学生信息', {
 											icon: 1,
-											time: 800 //2s后自动关闭
+											time: 1000 
 										});
 									} else {
 										layer.msg('删除成功', {
@@ -634,17 +635,16 @@
 							timeout: "30000",
 							success: function(msg) {
 								var msg = JSON.parse(msg);
-								console.log(msg.state)
 								layer.closeAll();
 								if(msg.state == 9) {
 									layer.msg('删除失败，清先删除相应的学生信息', {
 										icon: 1,
-										time: 800 //2s后自动关闭
+										time: 1000 
 									});
 								} else {
 									layer.msg('删除成功', {
 										icon: 1,
-										time: 800 //2s后自动关闭
+										time: 800 
 									});
 									window.location.reload();
 								}
