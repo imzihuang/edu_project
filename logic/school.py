@@ -61,3 +61,11 @@ class SchoolLogic(Logic):
         school_list = db_api.school_list(offset=offset, limit=limit, **filters)
         school_count = db_api.school_count(**filters)
         return {"count": school_count, "state": 0, "message": "query success", "data": self.views(school_list)}
+
+    def delete(self, id="", **kwargs):
+        if not id:
+            return "id is none"
+        relevance_grade_count = db_api.grade_list(school_id=id)
+        if relevance_grade_count>0:
+            return "exist grade"
+        db_api.school_deleted(id=id)
