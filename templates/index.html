@@ -74,12 +74,16 @@
 				display: inline-block;
 				height: 30px;
                 margin: 0px 15px;
+                cursor: pointer;
 			}
 			#schoolInfoContent ul li:hover{
-				color: #CE8735;
+				color: #de8722;
 			}
 			.openSchool{
 				min-width: 50px;
+			}
+			.activeColor{
+				color: #de8722;
 			}
 		</style>
 	</head>
@@ -223,8 +227,7 @@
 				}, false)
 			}
 			//瞄点end
-			//学校弹框
-			$('.openSchool').click(function() {
+			function getSchool(){
 				var data = {
 					"limit": 20,
 					"offset": 1,
@@ -249,12 +252,20 @@
 							strs = '请先添加学校'
 							$("#schoolInfoContent ul").html(strs);
 						}
-
+						
+                        $("#schoolInfoContent ul li").click(function(){
+                        	$("#schoolInfoContent ul li").removeClass("activeColor");
+                        	$(this).addClass("activeColor");
+                        });
 					},
 					error: function() {
 						console.log("error");
 					}
 				});
+			}
+			//学校弹框
+			$('.openSchool').click(function() {
+				getSchool();
 				layerIndex = layer.open({
 					title: '选择学校',
 					type: 1,
@@ -264,7 +275,18 @@
 					btn: ['确定', '取消'],
 					content: $('#schoolInfoContent'),
 					yes: function() {
-
+						if(localStorage.getItem("school")){
+							var schoolSelect = JSON.parse(localStorage.getItem("school"));
+							schoolSelect.id = $(".activeColor").attr("id");
+							schoolSelect.name = $(".activeColor").html();
+							window.localStorage.setItem("school",JSON.stringify(schoolSelect));
+						}else{
+							var schoolSelect = new Object();
+							schoolSelect.id = $(".activeColor").attr("id");
+							schoolSelect.name = $(".activeColor").html();
+							window.localStorage.setItem("school",JSON.stringify(schoolSelect));
+						}
+						$(".openSchool span").html($(".activeColor").html());
 					}
 				});
 			});
