@@ -65,7 +65,7 @@ class SchoolLogic(Logic):
     def delete(self, id="", **kwargs):
         if not id:
             return "id is none"
-        relevance_grade_count = db_api.grade_list(school_id=id)
+        relevance_grade_count = db_api.grade_count(school_id=id)
         if relevance_grade_count>0:
             return "exist grade"
         db_api.school_deleted(id=id)
