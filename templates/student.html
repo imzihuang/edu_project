@@ -620,13 +620,10 @@
 						for(var j = 0; j < addRelativeLength; j++) {
 							if(relative_list[j].name == '' || relative_list[j].phone == '') {
 								relative_list[j] = '';
+								relative_list.splice(j,1);
+								j=j-1;
 							}
 						}
-                        
-                        relative_list.splice($.inArray('',relative_list),1);
-                        		
-                       
-                        
 						var data = {
 							'name': $("#add_name").val(),
 							'birthday': $("#add_time").val(),
@@ -758,10 +755,10 @@
 								for(var i = 0; i < editRelativeLength; i++) {
 									if(relative_list[i].name == '' || relative_list[i].phone == '') {
 										relative_list[i] = '';
+										relative_list.splice(i,1);
+								        i=i-1;
 									}
 								}
-								
-		                        relative_list.splice($.inArray('',relative_list),1);
 
 								var relativeData = {
 										'student_id': $("#edit_name").attr("title"),
