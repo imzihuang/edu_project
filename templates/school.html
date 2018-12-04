@@ -171,7 +171,7 @@
 									strs += '<tr class="schoolX">' +
 										'<td><input type="checkbox" class="zx_checkedBtn"></td>' +
 										'<td class="centerSort">' + (i + 1) + '</td>' +
-										'<td class="data_name">' + msg.data[i].name + '</td>' +
+										'<td class="data_name" name = '+ msg.data[i].id +'>' + msg.data[i].name + '</td>' +
 										'<td class="data_cardcode">' + msg.data[i].cardcode + '</td>' +
 										'<td class="data_describe">' + msg.data[i].describe + '</td>' +
 										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" id=' + msg.data[i].id + ' title="删除"></i></td>' +
@@ -344,6 +344,7 @@
 					},
 					submitHandler: function(form) {
 						var data = {
+							'id': $("#edit_name").attr("id"),
 							'name': $("#edit_name").val(),
 							'cardcode': $("#edit_cardcode").val(),
 							'describe': $("#edit_describe").val(),
@@ -380,6 +381,7 @@
 				//编辑弹框
 				$('.areapen').click(function() {
 					$(".errorPart").html("");
+					$("#edit_name").attr("id",$(this).parent("td").siblings(".data_name").attr("name"));
 					$("#edit_name").val($(this).parent("td").siblings(".data_name").html());
 					$("#edit_cardcode").val($(this).parent("td").siblings(".data_cardcode").html());
 					$("#edit_describe").val($(this).parent("td").siblings(".data_describe").html());
