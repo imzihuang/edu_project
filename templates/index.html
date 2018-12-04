@@ -308,6 +308,12 @@
 							window.localStorage.setItem("school",JSON.stringify(schoolSelect));
 						}
 						$(".openSchool span").html($(".activeColor").html());
+						layer.closeAll();
+						layer.msg('切换成功', {
+							icon: 1,
+							time: 800 //后自动关闭
+						});
+						window.location.reload();
 					}
 				});
 			});
