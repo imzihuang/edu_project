@@ -45,6 +45,20 @@ class IndextHandler(RequestHandler):
     def get(self):
         self.render("index.html")
 
+
+html_path = (
+    "grade",
+    "class",
+    "teacher",
+    "student",
+    "relative",
+    "studentHistory",
+    "teacherHistory",
+    "school",
+    "studentAttendance",
+    "teacherAttendance")
+
+
 class ManageViewHandler(RequestHandler):
     def initialize(self, static_path, templates_path, **kwds):
         self.static_path = static_path
@@ -55,7 +69,7 @@ class ManageViewHandler(RequestHandler):
 
     def get(self, manage_obj):
         #real_ip = self.request.headers.get("x-real-ip", self.request.headers.get("x-forwarded-for", ""))
-        if manage_obj not in("grade", "class", "teacher", "student", "relative", "studentHistory", "teacherHistory", "school"):
+        if manage_obj not in html_path:
             self.redirect(r'login.html', permanent=True)
             return
 
