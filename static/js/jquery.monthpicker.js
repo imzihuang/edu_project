@@ -64,7 +64,7 @@
           cssOptions = {
             display:  'none',
             position: 'absolute',
-            top:      linkPosition.top + this._el.height() + (options.topOffset || 0),
+            top:      linkPosition.top + this._el.height() + (options.topOffset || 0) + 22,
             left:     linkPosition.left
           };
         this._id = (new Date).valueOf();
