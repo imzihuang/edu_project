@@ -17,6 +17,7 @@
 		<link href="css/style.css" rel="stylesheet" type="text/css" />
 		<link href="js/plugins/layer/skin/default/layer.css" rel="stylesheet" type="text/css" />
 		<link href="css/layui.css" media="all" rel="stylesheet">
+		<link href="css/jquery.monthpicker.css" rel="stylesheet" type="text/css" >
 
 		<script src="js/jquery.min.js"></script>
 
@@ -35,8 +36,24 @@
 											<div class="ibox-title-Myown1">
 												<div class="zx_searchTit">
 													<div class="sendInquiry2" style="float: left;">
-														<label class="control-label">年级名称：</label>
-														<input type="text" name="" value="" id="grade-name" />
+														<label class="control-label">月份：</label>
+														<input type="text" class="input" id="monthly">
+													</div>
+													<div class="sendInquiry2" style="float: left;">
+														<label class="control-label">所在年级：</label>
+														<select id="grade-name">
+															<option value="">--请选择年级--</option>
+														</select>
+													</div>
+													<div class="sendInquiry2" style="float: left;">
+														<label class="control-label">所在班级：</label>
+														<select id="class-name">
+															<option value="">--请选择班级-</option>
+														</select>
+													</div>
+													<div class="sendInquiry2" style="float: left;">
+														<label class="control-label">学生名称：</label>
+														<input type="text" name="" value="" id="student-name" />
 													</div>
 													<div class="sendInquiry0 col-sm-4" style="position: relative; margin:3.5px 0 0 0;">
 														<button class="btn btn-primary btn-myown" id="searchBtn">查询</button>
@@ -104,9 +121,15 @@
 		<script src="js/jquery.validate.min.js"></script>
 		<script src="js/jquery.form.js"></script>
 		<script src="js/layui.js" charset="utf-8"></script>
+		<script src="js/jquery.monthpicker.js"></script>
 		<script src="js/common.js" charset="utf-8"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
+				//搜索框-月份
+				$('#monthly').monthpicker({
+					years: [2018, 2017, 2016, 2015, 2014],
+			        topOffset: 6
+				})
 				//获取学校
 				var schoolSelect = JSON.parse(localStorage.getItem("school"));
 			    var school = schoolSelect.id
