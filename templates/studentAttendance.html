@@ -20,9 +20,13 @@
 		<link href="css/jquery.monthpicker.css" rel="stylesheet" type="text/css" >
 
 		<script src="js/jquery.min.js"></script>
-
+        
 	</head>
-
+   <style>
+   	#class-name{
+   		width: 180px;
+   	}
+   </style>
 	<body class="gray-bg">
 		<div class="wrapper wrapper-content animated fadeIn">
 			<div class="row">
@@ -66,15 +70,18 @@
 													<thead>
 														<tr class="zx_checkedAll">
 															<th colspan="6" style="text-align: left; background: none;padding: 10px 0px;">
-																<button class="btn btn-default btn-myown" id="delInfo" disabled="disabled"><i class="fa fa-trash"></i>&nbsp;批量删除</button>
-																<button class="btn btn-primary btn-myown" id="addInfo">+添加年级</button>
+																<button class="btn btn-primary btn-myown" id="downLoad">导出月考勤表</button>
 															</th>
 														</tr>
 														<tr class="zx_thTitle">
-															<th style="max-width: 100px;"><input type="checkbox" class="zx_checkedBtn" id="zx_checkedAllBtn" name="allcheck" value="allCheck"></th>
 															<th>序号</th>
-															<th>年级名称</th>
-															<th>创建时间</th>
+															<th>年级</th>
+															<th>姓名</th>
+															<th>月份</th>
+															<th>月签到统计</th>
+															<th>请假</th>
+															<th>迟到</th>
+															<th>早退</th>
 															<th style="width: 120px;">操作</th>
 														</tr>
 													</thead>
@@ -95,7 +102,7 @@
 			</div>
 		</div>
 
-		<!--添加内容-->
+		<!--详情内容-->
 		<div id="addInfoContent" style="display: none; width: 500px; padding: 20px;">
 			<form id="addInfoContentform" role="form" method="POST">
 				<div style="margin: 20px 0;">
@@ -105,16 +112,7 @@
 				<input class="submit" type="submit" value="提交" id="addInfoContentSubmit" style="display: none;">
 			</form>
 		</div>
-		<!--编辑内容-->
-		<div id="editAreaContent" style="display: none; width: 500px; padding: 20px;">
-			<form id="editAreaContentform" role="form">
-				<div style="margin: 20px 0;">
-					<span>年级名称：</span><input type="text" style="width: 350px;" id="edit_name" name="edit_name" />
-					<div class="errorPart"></div>
-				</div>
-				<input class="submit" type="submit" value="提交" id="editAreaContentSubmit" style="display: none;">
-			</form>
-		</div>
+		
 
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/plugins/layer/layer.js"></script>
@@ -270,16 +268,20 @@
 							if(msg.data.length > 0) {
 								for(var i = 0; i < msg.data.length; i++) {
 									strs += '<tr class="gradeX">' +
-										'<td><input type="checkbox" class="zx_checkedBtn" name=' + msg.data[i].id + '></td>' +
 										'<td class="centerSort">' + (i + 1) + '</td>' +
-										'<td class="data_name">' + msg.data[i].name + '</td>' +
+										'<td class="center">' + msg.data[i].name + '</td>' +
 										'<td class="center">' + msg.data[i].create_time + '</td>' +
-										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" id=' + msg.data[i].id + ' title="删除"></i></td>' +
+										'<td class="center">' + msg.data[i].name + '</td>' +
+										'<td class="center">' + msg.data[i].create_time + '</td>' +
+										'<td class="center">' + msg.data[i].name + '</td>' +
+										'<td class="center">' + msg.data[i].create_time + '</td>' +
+										'<td class="center">' + msg.data[i].create_time + '</td>' +
+										'<td><i class="fa fa-pencil areapen" title="查看详情"></td>' +
 										'</tr>'
 								}
 								$("#tbody").html(strs);
 							} else {
-								$("#tbody").html('<tr><td colspan="5" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
+								$("#tbody").html('<tr><td colspan="9" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
 							}
 						},
 						error: function() {
@@ -288,68 +290,12 @@
 					});
 				}
 
-				//批量删除
-				$('#delInfo').click(function() {
-					var trLength = $("#tbody tr").length;
-					var idArray = '';
-					var count = 0;
-					for(var i = 0; i < trLength; i++) {
-						if($("#tbody tr").eq(i).find('input').is(':checked')) {
-							if(count > 0) {
-								idArray = idArray + ',' + $("#tbody tr").eq(i).find('input').attr('name');
-								count++;
-							} else {
-								idArray = idArray + $("#tbody tr").eq(i).find('input').attr('name');
-								count++;
-							}
-						}
-					}
-					if(count > 1) {
-						layer.confirm('确定删除选中的年级？', {
-							btn: ['确定', '取消'] //按钮
-						}, function() {
-							var data = {
-								'id': idArray
-							}
-							$.ajax({
-								type: "POST",
-								contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-								url: "/grade/delete",
-								async: false,
-								data: data,
-								timeout: "30000",
-								success: function(msg) {
-									var msg = JSON.parse(msg);
-									layer.closeAll();
-									if(msg.state == 9) {
-										layer.msg('删除失败，清先删除相应的班级信息', {
-											icon: 1,
-											time: 1000 
-										});
-									} else {
-										layer.msg('删除成功', {
-											icon: 1,
-											time: 800 
-										});
-										window.location.reload();
-									}
-								},
-								error: function() {
-									layer.msg('删除失败');
-									console.log("error");
-								}
-							});
-						}, function() {});
-					} else {
-						$('#delInfo').attr("disabled", "disabled");
-					}
-
-				});
-
 				//查询
 				$("#searchBtn").click(function() {
 					getAjaxData({
-						"name": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
+						"grade": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
+						"class": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
+						"name": $("#student-name").val() == '' ? undefined : $("#student-name").val(),
 						"school_id": school,
 						"limit": 20,
 						"offset": 1,
@@ -423,151 +369,7 @@
 					});
 				});
 
-				//编辑校验
-				$("#editAreaContentform").validate({
-					focusCleanup: true,
-					focusInvalid: false,
-					debug: true,
-					rules: {
-						edit_name: {
-							required: true,
-						},
-					},
-					messages: {
-						edit_name: {
-							required: '必填',
-						},
-					},
-					submitHandler: function(form) {
-						var data = {
-							'name': $("#edit_name").val(),
-							"school_id": school,
-						}
-						$.ajax({
-							type: "POST",
-							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-							url: "/grade/update",
-							async: false,
-							data: data,
-							timeout: "30000",
-							success: function(msg) {
-								layer.closeAll();
-								layer.msg('修改成功', {
-									icon: 1,
-									time: 80
-
-								});
-								window.location.reload();
-							},
-							error: function() {
-								layer.msg('添加失败');
-								console.log("error");
-							}
-						});
-					},
-
-					errorPlacement: function(error, element) {
-						error.appendTo(element.parent().find(".errorPart"));
-					},
-					success: function() {}
-				});
-
-				//编辑弹框
-				$('.areapen').click(function() {
-					$(".errorPart").html("");
-					$("#edit_name").val($(this).parent("td").siblings(".data_name").html());
-					layerIndex = layer.open({
-						title: '修改年级信息',
-						type: 1,
-						skin: 'layui-layer-demo',
-						closeBtn: 0,
-						anim: 2,
-						shadeClose: true,
-						btn: ['确定', '取消'],
-						content: $('#editAreaContent'),
-						yes: function() {
-							$("#editAreaContentSubmit").click();
-						}
-					});
-				});
-               
-                //单项删除
-				$('.fa-close').click(function() {
-					var deleteId = $(this).attr('id');
-					layer.confirm('确定删除选中的年级？', {
-						btn: ['确定', '取消']
-					}, function() {
-						var data = {
-							'id': deleteId
-						}
-						$.ajax({
-							type: "POST",
-							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-							url: "/grade/delete",
-							async: false,
-							data: data,
-							timeout: "30000",
-							success: function(msg) {
-								var msg = JSON.parse(msg);
-								layer.closeAll();
-								if(msg.state == 9) {
-									layer.msg('删除失败，清先删除相应的班级信息', {
-										icon: 1,
-										time: 1000 
-									});
-								} else {
-									layer.msg('删除成功', {
-										icon: 1,
-										time: 800 
-									});
-									window.location.reload();
-								}
-							},
-							error: function() {
-								layer.msg('删除失败');
-								console.log("error");
-							}
-						});
-					});
-				});
-
-				//全选按钮
-				$("#zx_checkedAllBtn").click(function() {
-					if(this.checked) {
-						$("#tbody :checkbox").prop("checked", true);
-					} else {
-						$("#tbody :checkbox").prop("checked", false);
-					}
-					allchk();
-				});
-
-				$("#tbody :checkbox").click(function() {
-					allchk();
-				})
-
-				//全选
-				function allchk() {
-					var chknum = $("#tbody :checkbox").size();
-					var chk = 0;
-					var trLength = $("#tbody tr").length;
-					for(var i = 0; i < trLength; i++) {
-						if($("#tbody tr").eq(i).find('input').is(':checked')) {
-							chk++;
-						}
-					}
-					if(chknum == chk) {
-						$("input[name=allcheck]").prop("checked", true);
-					} else {
-						$("input[name=allcheck]").prop("checked", false);
-					}
-					if(chk > 1) {
-						$('#delInfo').attr('class', 'btn btn-primary btn-myown');
-						$('#delInfo').attr("disabled", false);
-					} else {
-						$('#delInfo').attr('class', 'btn btn-default btn-myown');
-						$('#delInfo').attr("disabled", true);
-					}
-				}
+				
 			});
 		</script>
 	</body>
