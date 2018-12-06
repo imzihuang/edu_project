@@ -133,6 +133,96 @@
 				//获取学校
 				var schoolSelect = JSON.parse(localStorage.getItem("school"));
 			    var school = schoolSelect.id
+			    
+			    //获取年级
+				gradeInput();
+
+				function gradeInput() {
+					var data = {
+						"limit": 20,
+						"offset": 1,
+						'school_id': school,
+					}
+					$.ajax({
+						method: 'GET',
+						xhrFields: {
+							"withCredentials": true
+						},
+						contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+						url: "/grade/infos",
+						data: data,
+						dataType: 'json',
+						jsonpCallback: '',
+						cache: false,
+						timeout: "1000000",
+						success: function(msg) {
+							var str = '<option value="">--请选择年级--</option>';
+							var layerSrt = '';
+							if(msg.data.length > 0) {
+								for(var i = 0; i < msg.data.length; i++) {
+									str += '<option value=' + msg.data[i].id + '>' + msg.data[i].name + '</option>';
+								}
+								$("#grade-name").html(str);
+
+							} else {
+								$("#grade-name").html('<option value="">---无---</option>');
+
+							}
+						},
+						complete: function(XMLHttpRequest, status) {
+
+						}
+					})
+
+				}
+
+				//切换年级
+				$("#grade-name").change(function() {
+                    if($("#grade-name").val() == ''||undefined){
+						$("#class-name").html('<option value="">---请选择班级---</option>');
+					}else{
+						classInput({
+							"limit": 20,
+							"offset": 1,
+							'school_id': school,
+							"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
+						});
+					}
+				});
+			    
+			    //获取班级
+				function classInput(data) {
+					$.ajax({
+						method: 'GET',
+						xhrFields: {
+							"withCredentials": true
+						},
+						contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+						url: "/class/infos",
+						data: data,
+						dataType: 'json',
+						jsonpCallback: '',
+						cache: false,
+						timeout: "1000000",
+						success: function(msg) {
+							var str = '';
+							var layerSrt = '';
+							if(msg.data.length > 0) {
+								for(var i = 0; i < msg.data.length; i++) {
+									str += '<option value=' + msg.data[i].id + '>' + msg.data[i].name + '</option>';
+								}
+								$("#class-name").html(str);
+							} else {
+								$("#class-name").html('<option value="">---无---</option>');
+							}
+						},
+						complete: function(XMLHttpRequest, status) {
+
+						}
+					})
+
+				}
+			    
 				//获取列表
 				getAjaxData({
 					"name": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
