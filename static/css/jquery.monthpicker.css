@@ -56,7 +56,8 @@
 .monthpicker table button {
   width: 100%;
   border: none;
-  background: #CAE3FB;
+  color: #fff;
+  background: #278be4;
   font-size: .8em;
   padding: .6em;
   cursor: pointer;
@@ -65,7 +66,7 @@
 }
 
 .monthpicker table button:hover {
-  background: #B1D3F3;
+  background: #3f99e8;
 }
 
 .monthpicker table button:focus {
