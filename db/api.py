@@ -593,6 +593,36 @@ def teacher_sign_create(values):
 
 #################sign end#######################################
 
+#################sign status start###################################
+def relative_sign_status_create(values):
+    if not values.get('id'):
+        values['id'] = common_util.create_id()
+    relation_sign_ref = models.RelativeStatusInfo()
+    relation_sign_ref.update(values)
+    session = get_session()
+    with session.begin():
+        relation_sign_ref.save(session)
+        return values
+
+def relative_sign_status_update(id, values):
+    query = model_query(models.RelativeStatusInfo).filter_by(id=id)
+    result = query.update(values)
+    if not result:
+        return None  #raise exception.NotFound(code=id)
+    return result
+
+def relative_sign_status_list(start_time, end_time, offset=0, limit=1000, **filters):
+    query = model_query(models.RelativeStatusInfo, order=True, **filters)
+    query = query.filter(models.RelativeStatusInfo.sign_date<=end_time).\
+        filter(models.RelativeStatusInfo.sign_date>=start_time)
+    if offset:
+        query = query.offset(offset)
+    if limit:
+        query = query.limit(limit)
+    return query.all()
+#################sign status end#####################################
+
+
 #################verify manage start#####################################
 def verify_manage_create(values):
     if not values.get('id'):
