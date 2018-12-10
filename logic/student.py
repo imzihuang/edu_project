@@ -166,7 +166,8 @@ class StudentLogic(Logic):
             if relation_list:
                 view.update({"relation_list": relation_list})
                 #学生亲属的签到信息
-                _sign_list = self.com_sign(relation_list, date)
+                sign_count, late_count, early_count = self.com_sign(relation_list, date)
+                view.update({"sign": sign_count, "late": late_count, "early": early_count})
 
         return {"count": student_count, "state": 0, "message": "query success", "data": views_list}
 
@@ -224,13 +225,20 @@ class StudentLogic(Logic):
         :return:
         """
         date = datetime.strptime(date, "%Y-%m-%d") if is_date(date) else datetime.now()
-        firstDatetime, lastDatetime = getMonthFirstDayAndLastDay(date.year, date.month)
-        # for relation in relation_list:
-        #     sign_count = 0
-        #     late_count = 0
-        #     early_count = 0
-        #     signlist = db_api.relative_sign_list(firstDatetime, lastDatetime, relative_id=relation.get("relevance_id"))
-        #     for sign_info in signlist:
+        firstDay, lastDay = getMonthFirstDayAndLastDay(date.year, date.month)
+        sign_count = 0  # 出勤
+        late_count = 0  # 早上迟到
+        early_count = 0  # 下午早退
+        for relation in relation_list:
+            sign_status_list = db_api.relative_sign_status_list(firstDay, lastDay, relative_id=relation.get("relevance_id"))
 
+            for status_info in sign_status_list:
+                if status_info.status == "11":
+                    sign_count+=1
+                if status_info.status[0] == "2":
+                    late_count+=1
+                if status_info.status[1] == "2":
+                    early_count+=1
+        return sign_count, late_count, early_count
 
 

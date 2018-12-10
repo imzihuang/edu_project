@@ -32,13 +32,15 @@ class SignLogic(Logic):
         values = dict()
         if relevance_type in (1, 3):
             #家属签到
+            _sign_type = self.sign_type()
             values = {
                 "relative_id": relevance_id,
-                "sign_type": self.sign_type(),
+                "sign_type": _sign_type,
                 "alias": alias
             }
-            db_api.relative_sign_create(values)
-
+            _ = db_api.relative_sign_create(values)
+            if _:
+                self.manage_relative_sign_status(relevance_id, _sign_type)
         if relevance_type == 2:
             # 老师签到
             values = {
@@ -64,14 +66,17 @@ class SignLogic(Logic):
 
         return {"count": 0, "state": 0, "message": "query success", "data": []}
 
-    def manage_relative_sign_status(self, relative_id, sign_type, ):
+    def manage_relative_sign_status(self, relative_id, sign_type):
         """
         更新考勤信息,status:
-        10：上午打卡
-        20：上午迟到
-        01：上午未打卡，下午打卡
+        上午只认第一次打卡，下午每次签到都要做一次判断，直到最后一次。
+        10：上午正常打卡，下午未打卡
+        20：上午迟到，下午未打卡
+        01：上午未打卡，下午正常打卡
         02：上午未打卡，下午早退
         11：出勤
+        12：上午正常打卡，下午早退
+        21：上午迟到，下午正常打卡
         22: 上午迟到，下午早退
         :param relevance_id:
         :param sign_type:
@@ -81,9 +86,10 @@ class SignLogic(Logic):
         today = datetime.date.today()
         now_time = time.strftime('%H:%M:%S', time.localtime(time.time()))
         # tomorrow = today + datetime.timedelta(days=1)
-        sign_list = db_api.relative_sign_status_list(today, today, relative_id=relative_id)
+        sign_status_list = db_api.relative_sign_status_list(today, today, relative_id=relative_id)
         if sign_type == 1:
-            if sign_list:
+            if sign_status_list:
+                #上午只认第一次打卡
                 return
             status = "10" if now_time < morning else "20"
             values = {
@@ -93,20 +99,30 @@ class SignLogic(Logic):
             }
             db_api.relative_sign_status_create(values)
         if sign_type == 2:
-            if sign_list:
+            if sign_status_list:
+                if sign_status_list[0].status[1] == "2":
+                    #下午已经正常签到过了，不需要重新统计
+                    return
+
                 #存在上午打卡，状态改为出勤
-                if sign_list[0].status == "10":
-                    status = "11" if now_time>afternoon else status = "12"
+                if sign_status_list[0].status[0] == "1":
+                    status = "11" if now_time>afternoon else "12"
                     db_api.relative_sign_status_update(sign_list[0].id, {"status": status})
-                else:#上午迟到
-                    status = "21" if now_time > afternoon else status = "22"
+                # 上午迟到
+                if sign_status_list[0].status[0] == "2":
+                    status = "21" if now_time > afternoon else "22"
+                    db_api.relative_sign_status_update(sign_list[0].id, {"status": status})
+                # 上午未打卡，当下午重复打卡
+                if sign_status_list[0].status[0] == "0":
+                    status = "01" if now_time > afternoon else "02"
                     db_api.relative_sign_status_update(sign_list[0].id, {"status": status})
             else:
-                # 存在上午打卡，状态改为出勤
+                # 不存在存在上午打卡，状态改为出勤
+                status = "01" if now_time > afternoon else "02"
                 values = {
                     "relative_id": relative_id,
                     "sign_date": datetime.date.today(),
-                    "status": 3
+                    "status": status
                 }
                 db_api.relative_sign_status_create(values)
 
