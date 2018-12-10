@@ -272,9 +272,9 @@
 									strs += '<tr class="gradeX">' +
 										'<td class="centerSort">' + (i + 1) + '</td>' +
 										'<td class="center">' + msg.data[i].grade_name + '</td>' +
-										'<td class="center">' + msg.data[i].student_name + '</td>' +
+										'<td class="center">' + msg.data[i].name + '</td>' +
 										'<td class="center">' + msg.data[i].date + '</td>' +
-										'<td class="center">' + msg.data[i].sign + '</td>' +
+										'<td class="center">' + msg.data[i].sign_date + '</td>' +
 										'<td class="center">' + msg.data[i].late + '</td>' +
 										'<td class="center">' + msg.data[i].early + '</td>' +
 										'<td><i class="fa fa-calendar areapen" title="查看详情"></td>' +
@@ -354,7 +354,7 @@
 //				});
 
 				//添加弹框
-				$('#addInfo').click(function() {
+				$('.areapen').click(function() {
 					layerIndex = layer.open({
 						title: '考勤',
 						type: 1,
