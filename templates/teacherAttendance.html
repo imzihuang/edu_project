@@ -93,13 +93,7 @@
 
 		<!--详情内容-->
 		<div id="addInfoContent" style="display: none; width: 500px; padding: 20px;">
-			<form id="addInfoContentform" role="form" method="POST">
-				<div style="margin: 20px 0;">
-					<span>年级名称：</span><input type="text" style="width: 350px;" id="add_name" name="add_name" />
-					<div class="errorPart"></div>
-				</div>
-				<input class="submit" type="submit" value="提交" id="addInfoContentSubmit" style="display: none;">
-			</form>
+			
 		</div>
 		
 
@@ -254,7 +248,7 @@
 				});
 
 				//添加弹框
-				$('#addInfo').click(function() {
+				$('.areapen').click(function() {
 					$("input").val("");
 					$(".errorPart").html("");
 					layerIndex = layer.open({
@@ -263,10 +257,8 @@
 						skin: 'layui-layer-demo',
 						anim: 2,
 						shadeClose: true,
-						btn: ['确定', '取消'],
 						content: $('#addInfoContent'),
 						yes: function() {
-							$("#addInfoContentSubmit").click();
 						}
 					});
 				});
