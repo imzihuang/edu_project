@@ -246,6 +246,7 @@ class RelativeStatusInfo(Base, ModelBase):
     relative_id = Column(VARCHAR(36), nullable=False)
     sign_date = Column(Date, nullable=False)
     status = Column(VARCHAR(5), default=00)
+    create_time = Column(DateTime, default=datetime.now, nullable=False)
     deleted = Column(Boolean, default=False)
 
     def to_dict(self):
