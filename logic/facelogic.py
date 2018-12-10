@@ -99,8 +99,8 @@ class FaceLogic(Logic):
             return True
         return False
 
-    def verify_face_set(self, face_set_token, school_id, cardcode):
-        _face_list = db_api.face_list(face_set_token=face_set_token, school_id=school_id)
+    def verify_face_set(self, face_token, school_id, cardcode):
+        _face_list = db_api.face_list(face_token=face_token, school_id=school_id)
         if not _face_list:
             return None
         for face_info in _face_list:

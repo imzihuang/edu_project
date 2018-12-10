@@ -203,15 +203,15 @@ class ActionHandler(RequestHandler):
             up.write(img['body'])
 
         #获取tonken
-        code, faceset_token = face_recognition_yyl.Face_Search(file_path, school_id)
+        code, face_token = face_recognition_yyl.Face_Search(file_path, school_id)
         if code != 200:
             LOG.error("Search face error:%s" % code)
-            self.finish(json.dumps({'state': 2, 'message': faceset_token, 'code': code}))
+            self.finish(json.dumps({'state': 2, 'message': face_token, 'code': code}))
             return
         face_op = FaceLogic()
         sign_op = SignLogic()
 
-        face_info = face_op.verify_face_set(faceset_token, school_id, cardcode)
+        face_info = face_op.verify_face_set(face_token, school_id, cardcode)
         if face_info:
             self.finish(json.dumps({'state': 3, 'message': 'sign fail, face no exit'}))
         else:
