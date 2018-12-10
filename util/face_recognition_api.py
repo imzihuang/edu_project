@@ -175,10 +175,10 @@ class Face_Recognition_YYL(object):
         if response.status_code == 200:
             confidence = response.json()['results'][0]['confidence']
             if confidence > 80:
-                return response.status_code, response.json()['results'][0]
+                return response.status_code, response.json()['results'][0]['face_token']
             else:
                 return 400, None
-        return response.status_code, response.json()
+        return response.status_code, response.json()['results']
 
 
 _conf = ini_load('config/service.ini')
