@@ -11,7 +11,7 @@ def _handlers():
         (r'/(?P<delete_obj>.+)/delete', delete.DeleteHandler),
         (r'/(?P<action>.+)/action$', action.ActionHandler, default_settings),
         (r'/(?P<action>.+)/wx_action$', wx_action.WXActionHandler),
-        (r'/(?P<combination>.+)/combination_input$', combination_input.CombinationHandler)
+        (r'/(?P<combination>.+)/combination_input$', combination_input.CombinationHandler),
         (r'/(?P<combination>.+)/combination_infos$', combination_infos.CombinationHandler)
     ]
 
