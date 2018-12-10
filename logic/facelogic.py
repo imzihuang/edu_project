@@ -99,23 +99,19 @@ class FaceLogic(Logic):
             return True
         return False
 
-    def verify_face_set(self, face_token, school_id, cardcode):
+    def verify_face(self, face_token, school_id, cardcode):
         _face_list = db_api.face_list(face_token=face_token, school_id=school_id)
         if not _face_list:
             return None
         for face_info in _face_list:
             relative_type = face_info.relevance_type
-            relevance_id = face_info.relevance_id
+            #relevance_id = face_info.relevance_id
             if relative_type==2:
                 # teacher
                 return self.views(face_info)
             else:
-                _relation_list = db_api.relation_list(relative_id=relevance_id)
-                student_id = _relation_list[0].student_id
-                student_info = db_api.student_get(student_id)
-                _class_count = db_api.class_count(id=student_info.class_id, cardcode=cardcode)
-                if _class_count > 0:
-                    return self.views(face_info)
+                # relative
+                return self.views(face_info)
         return None
 
 
