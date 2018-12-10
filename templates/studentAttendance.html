@@ -79,7 +79,6 @@
 															<th>姓名</th>
 															<th>月份</th>
 															<th>月签到统计</th>
-															<th>请假</th>
 															<th>迟到</th>
 															<th>早退</th>
 															<th style="width: 120px;">操作</th>
@@ -254,7 +253,10 @@
 												senddata.limit = e.limit;
 												var district = "";
 												getAjaxData({
-													"name": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
+													"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
+													"class_id": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
+													"date": $("#monthly").val() == '' ? undefined : $("#monthly").val(),
+													"student_name": $("#student-name").val() == '' ? undefined : $("#student-name").val(),
 													"school_id": school,
 													"limit": 20,
 													"offset": 1,
@@ -269,19 +271,18 @@
 								for(var i = 0; i < msg.data.length; i++) {
 									strs += '<tr class="gradeX">' +
 										'<td class="centerSort">' + (i + 1) + '</td>' +
-										'<td class="center">' + msg.data[i].name + '</td>' +
-										'<td class="center">' + msg.data[i].create_time + '</td>' +
-										'<td class="center">' + msg.data[i].name + '</td>' +
-										'<td class="center">' + msg.data[i].create_time + '</td>' +
-										'<td class="center">' + msg.data[i].name + '</td>' +
-										'<td class="center">' + msg.data[i].create_time + '</td>' +
-										'<td class="center">' + msg.data[i].create_time + '</td>' +
+										'<td class="center">' + msg.data[i].grade_name + '</td>' +
+										'<td class="center">' + msg.data[i].student_name + '</td>' +
+										'<td class="center">' + msg.data[i].date + '</td>' +
+										'<td class="center">' + msg.data[i].sign + '</td>' +
+										'<td class="center">' + msg.data[i].late + '</td>' +
+										'<td class="center">' + msg.data[i].early + '</td>' +
 										'<td><i class="fa fa-calendar areapen" title="查看详情"></td>' +
 										'</tr>'
 								}
 								$("#tbody").html(strs);
 							} else {
-								$("#tbody").html('<tr><td colspan="9" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
+								$("#tbody").html('<tr><td colspan="8" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
 							}
 						},
 						error: function() {
@@ -293,9 +294,10 @@
 				//查询
 				$("#searchBtn").click(function() {
 					getAjaxData({
-						"grade": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
-						"class": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
-						"name": $("#student-name").val() == '' ? undefined : $("#student-name").val(),
+						"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
+						"class_id": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
+						"date": $("#monthly").val() == '' ? undefined : $("#monthly").val(),
+						"student_name": $("#student-name").val() == '' ? undefined : $("#student-name").val(),
 						"school_id": school,
 						"limit": 20,
 						"offset": 1,
