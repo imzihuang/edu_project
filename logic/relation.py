@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from random import randint
-import datetime
+from datetime import datetime
 from util.convert import *
 from db import api as db_api
 from logic import Logic
