@@ -272,7 +272,7 @@
 						console.log(msg);
 						if(msg.data.length > 0) {
 							for(var i = 0; i < msg.data.length; i++) {
-								strs += '<li id = ' + msg.data[i].id + '>' + msg.data[i].name + '</li>'
+								strs += '<li id = ' + msg.data[i].id + ' name = '+ msg.data[i].cardcode +'>' + msg.data[i].name + '</li>'
 							}
 							$("#schoolInfoContent ul").html(strs);
 
@@ -284,6 +284,7 @@
 								$(".openSchool span").html('[' + $(".activeColor").html() + ']');
 								var schoolSelect = new Object();
 								schoolSelect.id = $(".activeColor").attr("id");
+								schoolSelect.cardcode = $(".activeColor").attr("name");
 								schoolSelect.name = $(".activeColor").html();
 								window.localStorage.setItem("school", JSON.stringify(schoolSelect));
 							}
@@ -317,11 +318,13 @@
 						if(localStorage.getItem("school")) {
 							var schoolSelect = JSON.parse(localStorage.getItem("school"));
 							schoolSelect.id = $(".activeColor").attr("id");
+							schoolSelect.cardcode = $(".activeColor").attr("name");
 							schoolSelect.name = $(".activeColor").html();
 							window.localStorage.setItem("school", JSON.stringify(schoolSelect));
 						} else {
 							var schoolSelect = new Object();
 							schoolSelect.id = $(".activeColor").attr("id");
+							schoolSelect.cardcode = $(".activeColor").attr("name");
 							schoolSelect.name = $(".activeColor").html();
 							window.localStorage.setItem("school", JSON.stringify(schoolSelect));
 						}
