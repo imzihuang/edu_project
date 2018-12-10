@@ -130,7 +130,7 @@ class StudentLogic(Logic):
     def infos_for_sign(self, id="", name="",
                        school_id="",
                        grade_id="",class_id="",
-                       relative_id="", date="",
+                       relative_id="", sign_date="",
                        limit=100, offset=1):
         offset = (offset - 1) * limit if offset > 0 else 0
         filters = dict()
@@ -169,8 +169,11 @@ class StudentLogic(Logic):
             if relation_list:
                 view.update({"relation_list": relation_list})
                 #学生亲属的签到信息
-                sign_count, late_count, early_count = self.com_sign(relation_list, date)
-                view.update({"sign": sign_count, "late": late_count, "early": early_count})
+                sign_count, late_count, early_count, sign_date = self.com_sign(relation_list, sign_date)
+                view.update({"sign": sign_count,
+                             "late": late_count,
+                             "early": early_count,
+                             "sign_date": datetime.strftime(sign_date, "%Y-%m-%d")})
 
         return {"count": student_count, "state": 0, "message": "query success", "data": views_list}
 
@@ -241,14 +244,14 @@ class StudentLogic(Logic):
         }
         db_api.student_history_create(history_values)
 
-    def com_sign(self, relation_list, date=""):
+    def com_sign(self, relation_list, sign_date=""):
         """
         统计亲属签到信息
         :param relation_list: 学生亲属关系列表
         :return:
         """
-        date = datetime.strptime(date, "%Y-%m-%d") if convert.is_date(date) else datetime.now()
-        firstDay, lastDay = convert.getMonthFirstDayAndLastDay(date.year, date.month)
+        sign_date = datetime.strptime(sign_date, "%Y-%m-%d") if convert.is_date(sign_date) else datetime.now()
+        firstDay, lastDay = convert.getMonthFirstDayAndLastDay(sign_date.year, sign_date.month)
         sign_count = 0  # 出勤
         late_count = 0  # 早上迟到
         early_count = 0  # 下午早退
@@ -257,12 +260,12 @@ class StudentLogic(Logic):
 
             for status_info in sign_status_list:
                 if status_info.status == "11":
-                    sign_count+=1
+                    sign_count += 1
                 if status_info.status[0] == "2":
-                    late_count+=1
+                    late_count += 1
                 if status_info.status[1] == "2":
-                    early_count+=1
-        return sign_count, late_count, early_count
+                    early_count += 1
+        return sign_count, late_count, early_count, sign_date
 
     def com_sign_detail(self, relation_list, start_date="", end_date=""):
         """
