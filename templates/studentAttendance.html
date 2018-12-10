@@ -130,7 +130,8 @@
 				})
 				//获取学校
 				var schoolSelect = JSON.parse(localStorage.getItem("school"));
-			    var school = schoolSelect.id
+			    var school = schoolSelect.id;  
+			    var cardcode = schoolSelect.cardcode;
 			    
 			    //获取年级
 				gradeInput();
@@ -223,7 +224,6 @@
 			    
 				//获取列表
 				getAjaxData({
-					"name": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
 					"school_id": school,
 					"limit": 20,
 					"offset": 1,
@@ -233,7 +233,7 @@
 					$.ajax({
 						type: "GET",
 						contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-						url: "/grade/infos",
+						url: "/student_sign/combination_infos",
 						async: false,
 						data: senddata,
 						timeout: "30000",

@@ -70,7 +70,8 @@
 		<script type="text/javascript">
 			$(document).ready(function() {
 				var dateHistory = JSON.parse(localStorage.getItem("studentHistory"));
-				var studentId = dateHistory.id;
+				var school = schoolSelect.id;  
+			    var cardcode = schoolSelect.cardcode;
 				//获取学校
 				var schoolSelect = JSON.parse(localStorage.getItem("school"));
 			    var school = schoolSelect.id
