@@ -173,7 +173,7 @@ class StudentLogic(Logic):
                 view.update({"sign": sign_count,
                              "late": late_count,
                              "early": early_count,
-                             "sign_date": datetime.strftime(sign_date, "%Y-%m-%d")})
+                             "sign_date": datetime.strftime(sign_date, "%Y-%m")})
 
         return {"count": student_count, "state": 0, "message": "query success", "data": views_list}
 

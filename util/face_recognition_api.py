@@ -192,7 +192,7 @@ face_remove_url = _dic_con.get("remove_url","")
 face_search_url = _dic_con.get("search_url", "")
 
 face_recognition_yyl = Face_Recognition_YYL(face_api_key, face_api_secret, face_create_url, face_detect_url, \
-                                    face_add_url,face_remove_url, face_search_url, '', '')
+                                    face_add_url,face_remove_url, face_search_url, '','', '')
 
 
 
