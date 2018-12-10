@@ -38,7 +38,7 @@ class CombinationHandler(RequestHandler):
         relative_id = convert.bs2utf8(self.get_argument('relative_id', ''))
         grade_id = convert.bs2utf8(self.get_argument('grade_id', ''))
         class_id = convert.bs2utf8(self.get_argument('class_id', ''))
-        date =  convert.bs2utf8(self.get_argument('date', ''))
+        sign_date = convert.bs2utf8(self.get_argument('sign_date', ''))
         limit = int(self.get_argument('limit', 100))
         offset = int(self.get_argument('offset', 1))
 
@@ -46,7 +46,7 @@ class CombinationHandler(RequestHandler):
         _ = student_op.infos_for_sign(id=student_id, name=student_name,
                                       school_id=school_id,
                                   grade_id=grade_id, class_id=class_id,
-                                  relative_id=relative_id, date=date,
+                                  relative_id=relative_id, sign_date=sign_date,
                                   limit=limit, offset=offset
                                   )
         if _:
