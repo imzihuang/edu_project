@@ -128,15 +128,18 @@ class StudentLogic(Logic):
         return {"count": student_count, "state": 0, "message": "query success", "data": views_list}
 
     def infos_for_sign(self, id="", name="",
-              grade_id="",class_id="",
-              relative_id="", date="",
-              limit=100, offset=1):
+                       school_id="",
+                       grade_id="",class_id="",
+                       relative_id="", date="",
+                       limit=100, offset=1):
         offset = (offset - 1) * limit if offset > 0 else 0
         filters = dict()
         if id:
             filters.update({"id": id})
         if name:
             filters.update({"name": name})
+        if school_id:
+            filters.update({"school_id": school_id})
         if grade_id:
             filters.update({"grade_id": grade_id})
         if class_id:
