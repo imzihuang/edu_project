@@ -103,13 +103,7 @@
 
 		<!--详情内容-->
 		<div id="addInfoContent" style="display: none; width: 500px; padding: 20px;">
-			<form id="addInfoContentform" role="form" method="POST">
-				<div style="margin: 20px 0;">
-					<span>年级名称：</span><input type="text" style="width: 350px;" id="add_name" name="add_name" />
-					<div class="errorPart"></div>
-				</div>
-				<input class="submit" type="submit" value="提交" id="addInfoContentSubmit" style="display: none;">
-			</form>
+			
 		</div>
 		
 
@@ -273,8 +267,8 @@
 										'<td class="centerSort">' + (i + 1) + '</td>' +
 										'<td class="center">' + msg.data[i].grade_name + '</td>' +
 										'<td class="center">' + msg.data[i].name + '</td>' +
-										'<td class="center">' + msg.data[i].date + '</td>' +
 										'<td class="center">' + msg.data[i].sign_date + '</td>' +
+										'<td class="center">' + msg.data[i].sign + '</td>' +
 										'<td class="center">' + msg.data[i].late + '</td>' +
 										'<td class="center">' + msg.data[i].early + '</td>' +
 										'<td><i class="fa fa-calendar areapen" title="查看详情"></td>' +
