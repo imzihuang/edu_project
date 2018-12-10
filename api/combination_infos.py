@@ -24,6 +24,8 @@ class CombinationHandler(RequestHandler):
         try:
             if combination == "student_sign":
                 self.student_sign()
+            if combination == "student_sign_details":
+                self.student_sign_details()
 
         except Exception as ex:
             LOG.error("combination %s error:%s"%(combination, ex))
@@ -40,3 +42,22 @@ class CombinationHandler(RequestHandler):
         offset = int(self.get_argument('offset', 1))
 
         student_op = StudentLogic()
+        _ = student_op.infos_for_sign(id=student_id, name=student_name,
+                                  grade_id=grade_id, class_id=class_id,
+                                  relative_id=relative_id, date=date,
+                                  limit=limit, offset=offset
+                                  )
+        if _:
+            self.finish(json.dumps(_))
+        else:
+            self.finish(json.dumps({'state': 1, 'message': 'action student_sign error'}))
+
+
+    def student_sign_details(self):
+        student_id = convert.bs2utf8(self.get_argument('student_id', ''))
+        relative_id = convert.bs2utf8(self.get_argument('relative_id', ''))
+        start_date = convert.bs2utf8(self.get_argument('start_date', ''))
+        end_date = convert.bs2utf8(self.get_argument('end_date', ''))
+        limit = int(self.get_argument('limit', 100))
+        offset = int(self.get_argument('offset', 1))
+        pass

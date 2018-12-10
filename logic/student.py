@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 
 from random import randint
-from datetime import datetime
-from util.convert import *
+from util import convert
+from datetime import datetime, date, timedelta
 from db import api as db_api
 from db import combination as db_combination
 from logic import Logic
@@ -14,7 +14,7 @@ class StudentLogic(Logic):
         pass
 
     def input(self, name="", sex=0, birthday="", class_id="", status="apply", relation_number=3, describe=""):
-        if birthday and not is_date(birthday):
+        if birthday and not convert.is_date(birthday):
             raise exception.FormalError(birthday=birthday)
         if not name:
             raise exception.ParamNone(name="")
@@ -171,6 +171,26 @@ class StudentLogic(Logic):
 
         return {"count": student_count, "state": 0, "message": "query success", "data": views_list}
 
+    def info_for_sign(self, id="", start_date="", end_date=""):
+
+        student_info = db_api.student_get(id)
+
+        # 关联学校和班级，还有学生得签到（学生亲属的签到信息）
+        student_info = self.views(student_info)
+
+        relation_list = self._get_relations_by_student(student_info.get("id"))
+        if relation_list:
+            student_info.update({"relation_list": relation_list})
+            #学生亲属的签到信息
+            sign_detail = self.com_sign_detail(relation_list, start_date, end_date)
+            sign_data = []
+            for k, v in sign_detail:
+                sign_data.append({"date": k, "status": v})
+            student_info.update({"sign_data": sign_data})
+        return student_info
+
+
+
     def _get_relations_by_relative(self, relative_id="", relative_name=""):
         if relative_id:
             _relation_list = db_api.relation_list(relative_id=relative_id)
@@ -224,8 +244,8 @@ class StudentLogic(Logic):
         :param relation_list: 学生亲属关系列表
         :return:
         """
-        date = datetime.strptime(date, "%Y-%m-%d") if is_date(date) else datetime.now()
-        firstDay, lastDay = getMonthFirstDayAndLastDay(date.year, date.month)
+        date = datetime.strptime(date, "%Y-%m-%d") if convert.is_date(date) else datetime.now()
+        firstDay, lastDay = convert.getMonthFirstDayAndLastDay(date.year, date.month)
         sign_count = 0  # 出勤
         late_count = 0  # 早上迟到
         early_count = 0  # 下午早退
@@ -240,5 +260,44 @@ class StudentLogic(Logic):
                 if status_info.status[1] == "2":
                     early_count+=1
         return sign_count, late_count, early_count
+
+    def com_sign_detail(self, relation_list, start_date="", end_date=""):
+        """
+
+        :param relation_list:
+        :param start_date:
+        :param end_date:
+        :return: {"2018-12-01": "11"}
+        """
+        if not convert.is_date(start_date) or not convert.is_date(end_date):
+            start_date, end_date = convert.getMonthFirstDayAndLastDay(datetime.now().year, date.month)
+        else:
+            start_date = datetime.strptime(start_date, "%Y-%m-%d")
+            start_date = date(start_date.year, start_date.month, start_date.day)
+            end_date = datetime.strptime(end_date, "%Y-%m-%d")
+            end_date = date(end_date.year, end_date.month, end_date.day)
+
+        days = (end_date-start_date).days
+        result={}
+        for relation in relation_list:
+            sign_status_list = db_api.relative_sign_status_list(start_date, end_date, relative_id=relation.get("relevance_id"))
+            for x in range(0, days+1):
+                #根据date，可能存在不同的家长签到同一个学生，整合这些家长的签到情况
+                current_date = start_date + timedelta(x)
+                status = ""
+                for sign_status in sign_status_list:
+                    if sign_status.sign_date == current_date:
+                        status = sign_status.status
+                        break
+                if status:
+                    result.update({
+                        datetime.strftime(start_date + timedelta(x), "%Y-%m-%d"):{
+                            "status":status
+                        }
+                    })
+        return result
+
+
+
 
 
