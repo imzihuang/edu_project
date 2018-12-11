@@ -6,6 +6,7 @@ import json
 import os
 import time
 from PIL import Image
+from api.base_auth import auth_api_login, set_edu_cookie
 from logic.school import SchoolLogic
 from logic.userlogic import UserLogic
 from logic.facelogic import FaceLogic
@@ -63,13 +64,17 @@ class ActionHandler(RequestHandler):
         phone = self.get_argument('phone', '')
         _op = UserLogic()
         if name:
-            if _op.auth_username(name, pwd):
+            user_info = _op.auth_username(name, pwd)
+            if user_info:
+                set_edu_cookie(self, user_info.name, str(user_info.level))
                 self.finish(json.dumps({'state': 0, 'message': 'user login success.'}))
             else:
                 self.finish(json.dumps({'state': 1, 'message': 'user login error'}))
             return
         if level in (2, 3) and phone:
-            if _op.auth_phone(phone, pwd):
+            user_info = _op.auth_phone(phone, pwd)
+            if user_info:
+                set_edu_cookie(self, user_info.name, str(user_info.level))
                 self.finish(json.dumps({'state': 0, 'message': 'phone login success.'}))
             else:
                 self.finish(json.dumps({'state': 1, 'message': 'phone login error'}))
@@ -100,6 +105,7 @@ class ActionHandler(RequestHandler):
         ims = ims.resize((width, height))
         ims.save(path)
 
+    @auth_api_login
     def face_auth(self):
         relevance_id = convert.bs2utf8(self.get_argument('relevance_id', ''))
         relevance_type = int(self.get_argument('relevance_type', 1))
@@ -169,6 +175,7 @@ class ActionHandler(RequestHandler):
         else:
             self.finish(json.dumps({'state': 5, 'message': 'face auth faild'}))
 
+    @auth_api_login
     def face_activate(self):
         id = self.get_argument('id', '')
         face_op = FaceLogic()
@@ -178,6 +185,7 @@ class ActionHandler(RequestHandler):
         else:
             self.finish(json.dumps({'state': 0, 'message': 'face active ok'}))
 
+    @auth_api_login
     def face_disable(self):
         id = self.get_argument('id', '')
         face_op = FaceLogic()
@@ -187,6 +195,7 @@ class ActionHandler(RequestHandler):
         else:
             self.finish(json.dumps({'state': 0, 'message': 'face disable ok'}))
 
+    @auth_api_login
     def face_signin(self):
         cardcode = self.get_argument('cardcode', '')
         school_id = self.get_argument('school_id', '')
@@ -225,7 +234,7 @@ class ActionHandler(RequestHandler):
                           face_info.get("img_path", ""))
             self.finish(json.dumps({'state': 0, 'message': 'sign ok'}))
 
-
+    @auth_api_login
     def push_verify(self):
         phone = convert.bs2utf8(self.get_argument('phone', ''))
         if not phone or not convert.is_mobile(phone):

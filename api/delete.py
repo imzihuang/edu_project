@@ -2,10 +2,9 @@
 
 from tornado.web import RequestHandler
 import json
-from util.convert import is_mobile
-from util.exception import ParamExist
 import logging
 
+from api.base_auth import auth_api_login
 from logic import Logic
 from logic.school import SchoolLogic
 from logic.gradelogic import GradeLogic
@@ -19,6 +18,7 @@ from logic.facelogic import FaceLogic
 LOG = logging.getLogger(__name__)
 
 class DeleteHandler(RequestHandler):
+    @auth_api_login
     def post(self, delete_obj):
         try:
             id = self.get_argument('id', '')

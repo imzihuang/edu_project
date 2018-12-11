@@ -6,6 +6,7 @@ from util.exception import ParamExist
 import logging
 
 from util import convert
+from api.base_auth import auth_api_login
 from logic import Logic
 from logic.school import SchoolLogic
 from logic.gradelogic import GradeLogic
@@ -20,6 +21,7 @@ from logic.student_history import Student_HistoryLogic
 LOG = logging.getLogger(__name__)
 
 class CombinationHandler(RequestHandler):
+    @auth_api_login
     def post(self, combination):
         try:
             if combination == "student_relative":
