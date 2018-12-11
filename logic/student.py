@@ -167,7 +167,7 @@ class StudentLogic(Logic):
                 view.update({"class_name": class_info.name})
             relation_list = self._get_relations_by_student(view.get("id"))
             if relation_list:
-                view.update({"relation_list": relation_list})
+                #view.update({"relation_list": relation_list})
                 #学生亲属的签到信息
                 sign_count, late_count, early_count, sign_date = self.com_sign(relation_list, sign_date)
                 view.update({"sign": sign_count,
@@ -177,16 +177,19 @@ class StudentLogic(Logic):
 
         return {"count": student_count, "state": 0, "message": "query success", "data": views_list}
 
-    def info_for_sign(self, id="", start_date="", end_date=""):
-
+    def info_detail_for_sign(self, id="", start_date="", end_date=""):
+        if not id:
+            return
         student_info = db_api.student_get(id)
+        if not student_info:
+            return
 
         # 关联学校和班级，还有学生得签到（学生亲属的签到信息）
         student_info = self.views(student_info)
 
-        relation_list = self._get_relations_by_student(student_info.get("id"))
+        relation_list = self._get_relations_by_student(id)
         if relation_list:
-            student_info.update({"relation_list": relation_list})
+            #student_info.update({"relation_list": relation_list})
             #学生亲属的签到信息
             sign_detail = self.com_sign_detail(relation_list, start_date, end_date)
             sign_data = []

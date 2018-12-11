@@ -53,6 +53,7 @@ class SignLogic(Logic):
         return values
 
     def infos(self, relevance_type=1, relevance_id="", start_time="", end_time="", limit=100, offset=0):
+        offset = (offset - 1) * limit if offset > 0 else 0
         start_time = datetime.datetime.strptime(start_time, "%Y-%m-%d %H:%M:%S")
         end_time = datetime.datetime.strptime(end_time, "%Y-%m-%d %H:%M:%S")
         if relevance_type==2:
