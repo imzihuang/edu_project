@@ -1390,4 +1390,23 @@ textarea {
     right: 30px;
     bottom: 40px;
 }
-
+/*教师学生考勤*/
+.signDetail .topInfo{
+	min-height:50px;
+	width: 100%;
+	background: #EFEFEF;
+}
+.common-width40{
+	width: 40%;
+}
+.common-width60{
+	width: 60%;
+}
+.signDetail .topInfo .common-width40{
+	border-right: 1px solid #ccc;
+}
+.signDetail .topInfo .sculpture{
+	width: 50%;
+	height: 100%;
+	border-radius: 50%;
+}
