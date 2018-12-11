@@ -26,7 +26,7 @@ class SignLogic(Logic):
             return 2
         return 1
 
-    def input(self, relevance_type=1, relevance_id="", alias=""):
+    def input(self, relevance_type=1, relevance_id="", alias="", file_path="", relevance_file_path=""):
         if relevance_type not in (1, 2, 3):
             return
         values = dict()
@@ -36,7 +36,9 @@ class SignLogic(Logic):
             values = {
                 "relative_id": relevance_id,
                 "type": _sign_type,
-                "alias": alias
+                "alias": alias,
+                "img_path": file_path,
+                "relative_img_path": relevance_file_path,
             }
             _ = db_api.relative_sign_create(values)
             if _:
@@ -46,7 +48,9 @@ class SignLogic(Logic):
             values = {
                 "teacher_id": relevance_id,
                 "type": self.sign_type(),
-                "alias": alias
+                "alias": alias,
+                "img_path": file_path,
+                "teacher_img_path": relevance_file_path,
             }
             db_api.teacher_sign_create(values)
 

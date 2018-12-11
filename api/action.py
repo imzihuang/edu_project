@@ -216,7 +216,11 @@ class ActionHandler(RequestHandler):
         if not face_info:
             self.finish(json.dumps({'state': 3, 'message': 'sign fail, face no exit'}))
         else:
-            sign_op.input(face_info.get("relevance_type", 1), face_info.get("relevance_id", ""), face_info.get("alias", ""))
+            sign_op.input(face_info.get("relevance_type", 1),
+                          face_info.get("relevance_id", ""),
+                          face_info.get("alias", ""),
+                          file_path,
+                          face_info.get("img_path", ""))
             self.finish(json.dumps({'state': 0, 'message': 'sign ok'}))
 
 

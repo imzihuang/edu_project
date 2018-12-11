@@ -235,6 +235,8 @@ class RelativeSignInfo(Base, ModelBase):
     create_time = Column(DateTime, default=datetime.now, nullable=False)
     type = Column(Integer, default=0)
     alias = Column(VARCHAR(50))
+    img_path = Column(VARCHAR(200), nullable=False)
+    relative_img_path = Column(VARCHAR(200), nullable=False)
     deleted = Column(Boolean, default=False)
 
     def to_dict(self):
@@ -260,6 +262,8 @@ class TeacherSignInfo(Base, ModelBase):
     create_time = Column(DateTime, default=datetime.now, nullable=False)
     type = Column(Integer, default=0)
     alias = Column(VARCHAR(50))
+    img_path = Column(VARCHAR(200), nullable=False)
+    teacher_img_path = Column(VARCHAR(200), nullable=False)
     deleted = Column(Boolean, default=False)
 
     def to_dict(self):
