@@ -69,7 +69,7 @@ class SignLogic(Logic):
             view_list = self.views(sign_list)
             for view in view_list:
                 view.update({"img_path": "image/tmp/" + view.get("img_path", "")})
-                view.update({"relative_img_path": "image/tmp/" + view.get("relative_img_path", "")})
+                view.update({"relative_img_path": "image/face/" + view.get("relative_img_path", "")})
 
             sign_count = db_api.relative_sign_count(start_time, end_time, relative_id=relevance_id)
             return {"count": sign_count, "state": 0, "message": "query success", "data": view_list}

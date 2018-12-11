@@ -197,8 +197,7 @@ class ActionHandler(RequestHandler):
             return
         # 将图片存储到本地
         img = face_img[0]
-        filename = img['filename']
-        filename = tmp_id + "." + filename.rpartition(".")[-1]
+        filename = tmp_id + ".jpg"
         file_path = self.static_path + self.tmp_path + filename
 
         LOG.info("file path:%s" % file_path)
