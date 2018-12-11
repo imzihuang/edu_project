@@ -24,7 +24,7 @@ LOG = logging.getLogger(__name__)
 class InfosHandler(RequestHandler):
     def get(self, infos_obj):
         limit = int(self.get_argument('limit', 100))
-        offset = int(self.get_argument('offset', 1))
+        offset = int(self.get_argument('offset', 0))
         try:
             _op = Logic()
             _value = dict()

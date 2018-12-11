@@ -47,7 +47,7 @@ class SchoolLogic(Logic):
         _ = db_api.school_update(id, kwargs)
         return _
 
-    def infos(self, id="", name="", cardcode="", limit=100, offset=1):
+    def infos(self, id="", name="", cardcode="", limit=100, offset=0):
         offset = (offset-1)*limit if offset > 0 else 0
         filters = dict()
         if id:
