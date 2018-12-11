@@ -8,6 +8,8 @@ from db import api as db_api
 from db import combination as db_combination
 from logic import Logic
 from util import exception
+import logging
+LOG = logging.getLogger(__name__)
 
 class StudentLogic(Logic):
     def __init__(self):
@@ -184,6 +186,7 @@ class StudentLogic(Logic):
         if not student_info:
             return
 
+        LOG.info("student_id%s"%id)
         # 关联学校和班级，还有学生得签到（学生亲属的签到信息）
         student_info = self.views(student_info)
 
@@ -285,7 +288,7 @@ class StudentLogic(Logic):
             start_date = date(start_date.year, start_date.month, start_date.day)
             end_date = datetime.strptime(end_date, "%Y-%m-%d")
             end_date = date(end_date.year, end_date.month, end_date.day)
-
+        LOG.info("sign start end:%r, %r"%(start_date, end_date))
         days = (end_date-start_date).days
         result={}
         for relation in relation_list:
@@ -300,9 +303,7 @@ class StudentLogic(Logic):
                         break
                 if status:
                     result.update({
-                        datetime.strftime(start_date + timedelta(x), "%Y-%m-%d"):{
-                            "status":status
-                        }
+                        datetime.strftime(start_date + timedelta(x), "%Y-%m-%d"):status
                     })
         return result
 

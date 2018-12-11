@@ -64,4 +64,4 @@ class CombinationHandler(RequestHandler):
         if _:
             self.finish(json.dumps(_))
         else:
-            self.finish(json.dumps({'state': 1, 'message': 'action student_sign error'}))
+            self.finish(json.dumps({'state': 1, 'message': 'action student_sign_details error'}))
