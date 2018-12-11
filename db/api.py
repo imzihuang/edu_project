@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+from sqlalchemy import or_, and_
 from db import models
 from db.base import *
 from util import exception
@@ -567,8 +568,8 @@ def relative_sign_create(values):
 
 def relative_sign_list(start_time, end_time, offset=0, limit=1000, **filters):
     query = model_query(models.RelativeSignInfo, order=True, **filters)
-    query = query.filter(models.RelativeSignInfo.create_time<end_time).\
-        filter(models.RelativeSignInfo.create_time>start_time)
+    query = query.filter(and_(models.RelativeSignInfo.create_time < end_time,
+                              models.RelativeSignInfo.create_time > start_time))
     if offset:
         query = query.offset(offset)
     if limit:
