@@ -35,7 +35,7 @@ class SignLogic(Logic):
             _sign_type = self.sign_type()
             values = {
                 "relative_id": relevance_id,
-                "sign_type": _sign_type,
+                "type": _sign_type,
                 "alias": alias
             }
             _ = db_api.relative_sign_create(values)
@@ -45,7 +45,7 @@ class SignLogic(Logic):
             # 老师签到
             values = {
                 "teacher_id": relevance_id,
-                "sign_type": self.sign_type(),
+                "type": self.sign_type(),
                 "alias": alias
             }
             db_api.teacher_sign_create(values)
@@ -107,15 +107,15 @@ class SignLogic(Logic):
                 #存在上午打卡，状态改为出勤
                 if sign_status_list[0].status[0] == "1":
                     status = "11" if now_time>afternoon else "12"
-                    db_api.relative_sign_status_update(sign_list[0].id, {"status": status})
+                    db_api.relative_sign_status_update(sign_status_list[0].id, {"status": status})
                 # 上午迟到
                 if sign_status_list[0].status[0] == "2":
                     status = "21" if now_time > afternoon else "22"
-                    db_api.relative_sign_status_update(sign_list[0].id, {"status": status})
+                    db_api.relative_sign_status_update(sign_status_list[0].id, {"status": status})
                 # 上午未打卡，当下午重复打卡
                 if sign_status_list[0].status[0] == "0":
                     status = "01" if now_time > afternoon else "02"
-                    db_api.relative_sign_status_update(sign_list[0].id, {"status": status})
+                    db_api.relative_sign_status_update(sign_status_list[0].id, {"status": status})
             else:
                 # 不存在存在上午打卡，状态改为出勤
                 status = "01" if now_time > afternoon else "02"
