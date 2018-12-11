@@ -282,7 +282,7 @@ class StudentLogic(Logic):
         :return: {"2018-12-01": "11"}
         """
         if not convert.is_date(start_date) or not convert.is_date(end_date):
-            start_date, end_date = convert.getMonthFirstDayAndLastDay(datetime.now().year, date.month)
+            start_date, end_date = convert.getMonthFirstDayAndLastDay(datetime.now().year, datetime.now().month)
         else:
             start_date = datetime.strptime(start_date, "%Y-%m-%d")
             start_date = date(start_date.year, start_date.month, start_date.day)
