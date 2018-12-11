@@ -196,8 +196,11 @@ class ActionHandler(RequestHandler):
             self.finish(json.dumps({'state': 1, 'message': 'school_id or img is None'}))
             return
         # 将图片存储到本地
-        file_path = self.static_path + self.tmp_path + tmp_id + '.jpg'
         img = face_img[0]
+        filename = img['filename']
+        filename = tmp_id + "." + filename.rpartition(".")[-1]
+        file_path = self.static_path + self.tmp_path + filename
+
         LOG.info("file path:%s" % file_path)
         with open(file_path, 'wb') as up:
             up.write(img['body'])
@@ -219,7 +222,7 @@ class ActionHandler(RequestHandler):
             sign_op.input(face_info.get("relevance_type", 1),
                           face_info.get("relevance_id", ""),
                           face_info.get("alias", ""),
-                          file_path,
+                          filename,
                           face_info.get("img_path", ""))
             self.finish(json.dumps({'state': 0, 'message': 'sign ok'}))
 
