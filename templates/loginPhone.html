@@ -96,12 +96,12 @@
 
 				<form class="m-t" role="form" action="index.html">
 					<div class="form-group">
-						<input type="text" class="form-control" placeholder="用户名" required="" id="form-username">
+						<input type="text" class="form-control" placeholder="手机号" required="" id="form-userphone">
 					</div>
 					<div class="form-group" style="margin-bottom: 0px;">
 						<input type="password" class="form-control passwordInput" placeholder="密码" required="" id="form-password">
 					</div>
-					<a class="fr" href="loginPhone.html">手机号登录？</a>
+					<a class="fr" href="loginPhone.html">用户名登录？</a>
 					<button type="submit" class="btn btn-primary block full-width m-b" onclick="login()">登 录</button>
 				</form>
 			</div>
@@ -113,33 +113,41 @@
 		<script src="js/bootstrap.min.js"></script>
 		<script type="text/javascript">
 			function login() {
-				var data = {
-					'level':0,
-					'name': $("#form-username").val(),
-					'pwd': $("#form-password").val()
-				}
-				$.ajax({
-					type: "POST",
-					contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-					url: "/login/action",
-					async: false,
-					data: data,
-					timeout: "30000",
-					success: function(msg) {
-						var data = JSON.parse(msg);
-						console.log(msg);
-						if(data.state == 0) {
-							window.location.href = "/index.html";
-						} else if(data.state == 1) {
-							alert("用户名或密码错误 ");
-						} else {
-							alert("用户名为空且不属于电话用户");
-						}
-					},
-					error: function() {
-						console.log("error");
+				var reg = /^[1][3,4,5,7,8][0-9]{9}$/;
+				var phoneNum = $("#form-userphone").val();
+				var flag = reg.test(phoneNum);
+				if(flag == true){
+					var data = {
+						'level':1,
+						'phone': $("#form-userphone").val(),
+						'pwd': $("#form-password").val()
 					}
-				});
+					$.ajax({
+						type: "POST",
+						contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+						url: "/login/action",
+						async: false,
+						data: data,
+						timeout: "30000",
+						success: function(msg) {
+							var data = JSON.parse(msg);
+							console.log(msg);
+							if(data.state == 0) {
+								window.location.href = "/index.html";
+							} else if(data.state == 1) {
+								alert("用户名或密码错误 ");
+							} else {
+								alert("用户名为空且不属于电话用户");
+							}
+						},
+						error: function() {
+							console.log("error");
+						}
+					});
+				}else{
+					alert("请填写正确的手机号！ ");
+				}
+				
 			}
 		</script>
 	</body>
