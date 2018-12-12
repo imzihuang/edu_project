@@ -25,8 +25,9 @@ class UserLogic(Logic):
                 _ = model.to_dict().pop("pwd")
                 result.append(_)
             return result
-        _ = models.to_dict().pop("pwd")
-        return _
+        model = models.to_dict()
+        model.pop("pwd")
+        return model
 
     def input(self, name="", pwd="", affirm_pwd="", activate=0, phone="", school_id="", level=1):
         if pwd != affirm_pwd:
@@ -75,7 +76,6 @@ class UserLogic(Logic):
         user_list = db_api.user_list(**filters)
         if user_list:
             user_info = self.views(user_list[0])
-            user_info.pop("pwd")
             if user_info.get("school_id", ""):
                 school_info = db_api.school_get(user_info.get("school_id"))
                 user_info.update({"school_name": school_info.name})
@@ -85,7 +85,6 @@ class UserLogic(Logic):
         user_list = db_api.user_list(phone=phone, pwd=encry_md5(pwd))
         if user_list:
             user_info = self.views(user_list[0])
-            user_info.pop("pwd")
             if user_info.get("school_id", ""):
                 school_info = db_api.school_get(user_info.get("school_id"))
                 user_info.update({"school_name": school_info.name})
