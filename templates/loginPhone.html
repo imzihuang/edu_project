@@ -101,7 +101,7 @@
 					<div class="form-group" style="margin-bottom: 0px;">
 						<input type="password" class="form-control passwordInput" placeholder="密码" required="" id="form-password">
 					</div>
-					<a class="fr" href="loginPhone.html">用户名登录？</a>
+					<a class="fr" href="login.html">用户名登录？</a>
 					<button type="submit" class="btn btn-primary block full-width m-b" onclick="login()">登 录</button>
 				</form>
 			</div>
@@ -133,7 +133,7 @@
 							var data = JSON.parse(msg);
 							console.log(msg);
 							if(data.state == 0) {
-								window.location.href = "/index.html";
+								window.location.href = "/index.html#school.html";
 							} else if(data.state == 1) {
 								alert("用户名或密码错误 ");
 							} else {
