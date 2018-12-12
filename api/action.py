@@ -59,7 +59,6 @@ class ActionHandler(RequestHandler):
 
 
     def login(self):
-        level = int(self.get_argument('level', 0))
         name = self.get_argument('name', '')
         pwd = self.get_argument('pwd', '')
         phone = self.get_argument('phone', '')
@@ -68,7 +67,7 @@ class ActionHandler(RequestHandler):
             user_info = _op.auth_username(name, pwd)
             if user_info:
                 set_edu_cookie(self, user_info.name, str(user_info.level), user_info.school_id)
-                self.finish(json.dumps({'state': 0, 'message': 'user login success.'}))
+                self.finish(json.dumps({'state': 0, 'message': 'user login success.', 'user_info': user_info}))
             else:
                 self.finish(json.dumps({'state': 1, 'message': 'user login error'}))
             return
@@ -76,7 +75,7 @@ class ActionHandler(RequestHandler):
             user_info = _op.auth_phone(phone, pwd)
             if user_info:
                 set_edu_cookie(self, user_info.name, str(user_info.level), user_info.school_id)
-                self.finish(json.dumps({'state': 0, 'message': 'phone login success.'}))
+                self.finish(json.dumps({'state': 0, 'message': 'phone login success.', 'user_info': user_info}))
             else:
                 self.finish(json.dumps({'state': 1, 'message': 'phone login error'}))
             return

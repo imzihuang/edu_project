@@ -74,12 +74,22 @@ class UserLogic(Logic):
         }
         user_list = db_api.user_list(**filters)
         if user_list:
-            return user_list[0]
+            user_info = self.views(user_list[0])
+            user_info.pop("pwd")
+            if user_info.get("school_id", ""):
+                school_info = db_api.school_get(user_info.get("school_id"))
+                user_info.update({"school_name": school_info.name})
+            return user_info
 
     def auth_phone(self, phone, pwd):
         user_list = db_api.user_list(phone=phone, pwd=encry_md5(pwd))
         if user_list:
-            return user_list[0]
+            user_info = self.views(user_list[0])
+            user_info.pop("pwd")
+            if user_info.get("school_id", ""):
+                school_info = db_api.school_get(user_info.get("school_id"))
+                user_info.update({"school_name": school_info.name})
+            return user_info
 
     def delete(self, id="", **kwargs):
         db_api.user_deleted(id=id)
@@ -99,7 +109,7 @@ class WXUserLogic(Logic):
             "openid": openid,
             "session_key": session_key,
         }
-        if phone and is_mobile(phone):
+        if phone and convert.is_mobile(phone):
             values.update({"phone": phone})
 
         wx_obj = db_api.wxuser_create(values)
