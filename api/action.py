@@ -66,7 +66,7 @@ class ActionHandler(RequestHandler):
         if name:
             user_info = _op.auth_username(name, pwd)
             if user_info:
-                set_edu_cookie(self, user_info.name, str(user_info.level), user_info.school_id)
+                set_edu_cookie(self, user_info.get("name"), str(user_info.get("level")), user_info.get("school_id"))
                 self.finish(json.dumps({'state': 0, 'message': 'user login success.', 'user_info': user_info}))
             else:
                 self.finish(json.dumps({'state': 1, 'message': 'user login error'}))
@@ -74,7 +74,7 @@ class ActionHandler(RequestHandler):
         if phone:
             user_info = _op.auth_phone(phone, pwd)
             if user_info:
-                set_edu_cookie(self, user_info.name, str(user_info.level), user_info.school_id)
+                set_edu_cookie(self, user_info.get("name"), str(user_info.get("level")), user_info.get("school_id"))
                 self.finish(json.dumps({'state': 0, 'message': 'phone login success.', 'user_info': user_info}))
             else:
                 self.finish(json.dumps({'state': 1, 'message': 'phone login error'}))
