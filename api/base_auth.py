@@ -17,7 +17,8 @@ def auth_api_login(func):
     return __
 
 com_cookie_time = 3600
-def set_edu_cookie(set_obj, user_name, user_level):
+def set_edu_cookie(set_obj, user_name, user_level, school_id=""):
     # 设置cookie
     set_obj.set_secure_cookie("user_name", user_name, expires=time.time() + com_cookie_time)
     set_obj.set_secure_cookie("user_level", str(user_level), expires=time.time() + com_cookie_time)
+    set_obj.set_secure_cookie("school_id", school_id, expires=time.time() + com_cookie_time)

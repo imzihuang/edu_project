@@ -2,7 +2,7 @@
 
 from tornado.web import RequestHandler
 import json
-from util.exception import ParamExist
+from util.exception import ParamExist, NotFound
 import logging
 
 from util import convert
@@ -17,6 +17,7 @@ from logic.relative import RelativeLogic
 from logic.relation import RelationLogic
 from logic.teacher_history import Teacher_HistoryLogic
 from logic.student_history import Student_HistoryLogic
+from logic.userlogic import UserLogic
 
 LOG = logging.getLogger(__name__)
 
@@ -60,17 +61,25 @@ class RegistryHandler(RequestHandler):
                 _infos = self._get_relation_argument()
                 _op = RelationLogic()
 
+            if registry_obj == "user":
+                user_level = self.get_secure_cookie('user_level')
+                if user_level != "1":
+                    self.finish(json.dumps({'state': 4, 'message': 'Only super administrators can operate'}))
+                    return
+                _infos = self._get_user_argument()
+                _op = UserLogic()
+
             _ = _op.input(**_infos)
             if _:
                 self.finish(json.dumps({'state': 0, 'message': 'input info success.'}))
             else:
-                self.finish(json.dumps({'state': 10, 'message': 'action %s error'%registry_obj}))
-        except ParamExist as ex:
-            LOG.error("Input %s param error:%s" % (registry_obj, ex))
-            self.finish(json.dumps({'state': 1, 'message': 'params exit'}))
+                self.finish(json.dumps({'state': 1, 'message': 'action %s error'%registry_obj}))
+        except NotFound as ex:
+            LOG.error("Input %s param not data:%s" % (registry_obj, ex))
+            self.finish(json.dumps({'state': 2, 'message': 'param not data'}))
         except Exception as ex:
             LOG.error("Input %s error:%s"%(registry_obj, ex))
-            self.finish(json.dumps({'state': 2, 'message': 'input error'}))
+            self.finish(json.dumps({'state': 3, 'message': 'input error'}))
 
     def _get_school_argument(self):
         name = convert.bs2utf8(self.get_argument('name', ''))
@@ -183,3 +192,22 @@ class RegistryHandler(RequestHandler):
             "student_id": student_id,
             "relative_id": relative_id
         }
+
+    def _get_user_argument(self):
+        name = convert.bs2utf8(self.get_argument('name', ''))
+        pwd = convert.bs2utf8(self.get_argument('pwd', ''))
+        affirm_pwd = convert.bs2utf8(self.get_argument('affirm_pwd', ''))
+        phone = convert.bs2utf8(self.get_argument('phone', ''))
+        level = int(self.get_argument('level', 1))
+        school_id = convert.bs2utf8(self.get_argument('school_id', ''))
+        activate = 1
+        return {
+            "name": name,
+            "pwd": pwd,
+            "affirm_pwd": affirm_pwd,
+            "activate": activate,
+            "phone": phone,
+            "level": level,
+            "school_id": school_id,
+        }
+

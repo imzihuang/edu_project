@@ -204,6 +204,7 @@ class UserInfo(Base, ModelBase):
     verify_code = Column(VARCHAR(100))
     activate = Column(Integer, default=0)
     level = Column(Integer, default=1)
+    school_id = Column(VARCHAR(36))
     deleted = Column(Boolean, default=False)
     create_time = Column(DateTime, default=datetime.now, nullable=False)
     updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
