@@ -8,6 +8,8 @@ from db import api as db_api
 from db import combination as db_combination
 from logic import Logic
 from util import exception
+import logging
+LOG = logging.getLogger(__name__)
 
 class StudentLogic(Logic):
     def __init__(self):
@@ -167,7 +169,7 @@ class StudentLogic(Logic):
                 view.update({"class_name": class_info.name})
             relation_list = self._get_relations_by_student(view.get("id"))
             if relation_list:
-                view.update({"relation_list": relation_list})
+                #view.update({"relation_list": relation_list})
                 #学生亲属的签到信息
                 sign_count, late_count, early_count, sign_date = self.com_sign(relation_list, sign_date)
                 view.update({"sign": sign_count,
@@ -177,16 +179,20 @@ class StudentLogic(Logic):
 
         return {"count": student_count, "state": 0, "message": "query success", "data": views_list}
 
-    def info_for_sign(self, id="", start_date="", end_date=""):
-
+    def info_detail_for_sign(self, id="", start_date="", end_date=""):
+        if not id:
+            return
         student_info = db_api.student_get(id)
+        if not student_info:
+            return
 
+        LOG.info("student_id%s"%id)
         # 关联学校和班级，还有学生得签到（学生亲属的签到信息）
         student_info = self.views(student_info)
 
-        relation_list = self._get_relations_by_student(student_info.get("id"))
+        relation_list = self._get_relations_by_student(id)
         if relation_list:
-            student_info.update({"relation_list": relation_list})
+            #student_info.update({"relation_list": relation_list})
             #学生亲属的签到信息
             sign_detail = self.com_sign_detail(relation_list, start_date, end_date)
             sign_data = []
@@ -276,13 +282,13 @@ class StudentLogic(Logic):
         :return: {"2018-12-01": "11"}
         """
         if not convert.is_date(start_date) or not convert.is_date(end_date):
-            start_date, end_date = convert.getMonthFirstDayAndLastDay(datetime.now().year, date.month)
+            start_date, end_date = convert.getMonthFirstDayAndLastDay(datetime.now().year, datetime.now().month)
         else:
             start_date = datetime.strptime(start_date, "%Y-%m-%d")
             start_date = date(start_date.year, start_date.month, start_date.day)
             end_date = datetime.strptime(end_date, "%Y-%m-%d")
             end_date = date(end_date.year, end_date.month, end_date.day)
-
+        LOG.info("sign start end:%r, %r"%(start_date, end_date))
         days = (end_date-start_date).days
         result={}
         for relation in relation_list:
@@ -297,9 +303,7 @@ class StudentLogic(Logic):
                         break
                 if status:
                     result.update({
-                        datetime.strftime(start_date + timedelta(x), "%Y-%m-%d"):{
-                            "status":status
-                        }
+                        datetime.strftime(start_date + timedelta(x), "%Y-%m-%d"):status
                     })
         return result
 

@@ -63,16 +63,14 @@ class UserLogic(Logic):
             "name": name,
             "pwd": encry_md5(pwd)
         }
-        _ = db_api.user_list(**filters)
-        if _:
-            return True
-        return False
+        user_list = db_api.user_list(**filters)
+        if user_list:
+            return user_list[0]
 
     def auth_phone(self, phone, pwd):
         user_list = db_api.user_list(phone=phone, pwd=encry_md5(pwd))
         if user_list:
-            return True
-        return False
+            return user_list[0]
 
     def delete(self, id="", **kwargs):
         db_api.user_deleted(id=id)

@@ -5,6 +5,7 @@ import json
 from util import convert
 import logging
 
+from api.base_auth import auth_api_login
 from logic import Logic
 from logic.school import SchoolLogic
 from logic.gradelogic import GradeLogic
@@ -17,6 +18,7 @@ from logic.relation import RelationLogic
 LOG = logging.getLogger(__name__)
 
 class UpdateHandler(RequestHandler):
+    @auth_api_login
     def post(self, update_obj):
         try:
             _id = ""

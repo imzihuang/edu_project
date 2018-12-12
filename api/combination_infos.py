@@ -40,14 +40,14 @@ class CombinationHandler(RequestHandler):
         class_id = convert.bs2utf8(self.get_argument('class_id', ''))
         sign_date = convert.bs2utf8(self.get_argument('sign_date', ''))
         limit = int(self.get_argument('limit', 100))
-        offset = int(self.get_argument('offset', 1))
+        offset = int(self.get_argument('offset', 0))
 
         student_op = StudentLogic()
         _ = student_op.infos_for_sign(id=student_id, name=student_name,
                                       school_id=school_id,
-                                  grade_id=grade_id, class_id=class_id,
-                                  relative_id=relative_id, sign_date=sign_date,
-                                  limit=limit, offset=offset
+                                      grade_id=grade_id, class_id=class_id,
+                                      relative_id=relative_id, sign_date=sign_date,
+                                      limit=limit, offset=offset
                                   )
         if _:
             self.finish(json.dumps(_))
@@ -57,9 +57,11 @@ class CombinationHandler(RequestHandler):
 
     def student_sign_details(self):
         student_id = convert.bs2utf8(self.get_argument('student_id', ''))
-        relative_id = convert.bs2utf8(self.get_argument('relative_id', ''))
         start_date = convert.bs2utf8(self.get_argument('start_date', ''))
         end_date = convert.bs2utf8(self.get_argument('end_date', ''))
-        limit = int(self.get_argument('limit', 100))
-        offset = int(self.get_argument('offset', 1))
-        pass
+        student_op = StudentLogic()
+        _ = student_op.info_detail_for_sign(student_id, start_date, end_date)
+        if _:
+            self.finish(json.dumps(_))
+        else:
+            self.finish(json.dumps({'state': 1, 'message': 'action student_sign_details error'}))
