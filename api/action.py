@@ -36,6 +36,7 @@ class ActionHandler(RequestHandler):
         if action == "login":
             self.login()
             return
+
         if action == "face_auth":
             self.face_auth()
             return
@@ -66,7 +67,7 @@ class ActionHandler(RequestHandler):
         if name:
             user_info = _op.auth_username(name, pwd)
             if user_info:
-                set_edu_cookie(self, user_info.name, str(user_info.level))
+                set_edu_cookie(self, user_info.name, str(user_info.level), user_info.school_id)
                 self.finish(json.dumps({'state': 0, 'message': 'user login success.'}))
             else:
                 self.finish(json.dumps({'state': 1, 'message': 'user login error'}))
@@ -74,7 +75,7 @@ class ActionHandler(RequestHandler):
         if level in (2, 3) and phone:
             user_info = _op.auth_phone(phone, pwd)
             if user_info:
-                set_edu_cookie(self, user_info.name, str(user_info.level))
+                set_edu_cookie(self, user_info.name, str(user_info.level), user_info.school_id)
                 self.finish(json.dumps({'state': 0, 'message': 'phone login success.'}))
             else:
                 self.finish(json.dumps({'state': 1, 'message': 'phone login error'}))
@@ -82,7 +83,7 @@ class ActionHandler(RequestHandler):
 
         self.finish(json.dumps({'state': 2, 'message': 'login fail'}))
 
-    def img_resize(self, path):
+    def _img_resize(self, path):
         """
         对大于2M的图片进行缩放
         :param path:
@@ -152,7 +153,7 @@ class ActionHandler(RequestHandler):
             up.write(img['body'])
              #up.write(base64.b64decode(img.rpartition(",")[-1]))
 
-        self.img_resize(file_path)
+        self._img_resize(file_path)
 
         # 通过第三方api获取人脸特征
         #identy_code, face_token = face_util.face_identy(file_path)

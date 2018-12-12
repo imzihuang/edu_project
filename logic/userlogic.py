@@ -4,8 +4,8 @@
 from random import randint
 import datetime
 from util.encrypt_md5 import encry_md5
-from util.convert import *
-from util.exception import ParamExist
+from util import convert
+from util.exception import ParamExist, NotFound
 from db import api as db_api
 from logic import Logic
 import logging
@@ -28,15 +28,24 @@ class UserLogic(Logic):
         _ = models.to_dict().pop("pwd")
         return _
 
-    def input(self, name="", pwd="", activate="",level=1):
-        if db_api.user_list(name=name):
-            raise ParamExist(key="name", value=name)
+    def input(self, name="", pwd="", affirm_pwd="", activate=0, phone="", school_id="", level=1):
+        if pwd != affirm_pwd:
+            return
+        if not convert.is_mobile(phone):
+            return
+        if db_api.user_list(name=name, phone=phone):
+            raise ParamExist(key="name or phone", value=name+"or"+phone)
         values = {
             "name": name,
             "pwd": encry_md5(pwd),
             "activate": activate,
+            "phone": phone,
             "level": level
         }
+        if school_id:
+            if not db_api.school_get(school_id):
+                raise NotFound(name="school_id", values=school_id)
+            values.update({"school_id": school_id})
         user_obj = db_api.user_create(values)
         return user_obj
 
