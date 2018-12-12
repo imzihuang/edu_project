@@ -56,7 +56,8 @@ html_path = (
     "teacherHistory",
     "school",
     "studentAttendance",
-    "teacherAttendance")
+    "teacherAttendance",
+    "loginPhone")
 
 
 class ManageViewHandler(RequestHandler):

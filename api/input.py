@@ -63,7 +63,7 @@ class RegistryHandler(RequestHandler):
 
             if registry_obj == "user":
                 user_level = self.get_secure_cookie('user_level')
-                if user_level != "1":
+                if user_level != "0":
                     self.finish(json.dumps({'state': 4, 'message': 'Only super administrators can operate'}))
                     return
                 _infos = self._get_user_argument()

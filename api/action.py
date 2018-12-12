@@ -72,7 +72,7 @@ class ActionHandler(RequestHandler):
             else:
                 self.finish(json.dumps({'state': 1, 'message': 'user login error'}))
             return
-        if level in (2, 3) and phone:
+        if phone:
             user_info = _op.auth_phone(phone, pwd)
             if user_info:
                 set_edu_cookie(self, user_info.name, str(user_info.level), user_info.school_id)
