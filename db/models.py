@@ -137,7 +137,7 @@ class StudentInfo(Base, ModelBase):
     updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     grade_info = relationship(GradeInfo, backref='student_list',
-                              foreign_keys=class_id,
+                              foreign_keys=grade_id,
                               lazy='subquery',
                               primaryjoin='StudentInfo.grade_id == GradeInfo.id')
     class_info = relationship(ClassInfo, backref='student_list',
