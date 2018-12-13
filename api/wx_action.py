@@ -86,7 +86,7 @@ class WXActionHandler(RequestHandler):
             return
         wx_info = wx_op.update(edu_session, phone=phone)
         if wx_info:
-            self.finish(json.dumps({'state': 0, 'edu_session': edu_session}))
+            self.finish(json.dumps({'state': 0, 'edu_session': edu_session, 'relative_id': relative_info.get('id'), 'message': 'ok'}))
         else:
             self.finish(json.dumps({'state': 3, 'message': 'wx id not singn'}))
 
@@ -115,5 +115,5 @@ class WXActionHandler(RequestHandler):
 
         #更新微信号的手机号码
         new_wx_info = wx_op.update(edu_session, phone=phone)
-        self.finish(json.dumps({'state': 0, 'edu_session': edu_session}))
+        self.finish(json.dumps({'state': 0, 'edu_session': edu_session, 'relative_id': new_relative_info.get('id'), 'message': 'ok'}))
 
