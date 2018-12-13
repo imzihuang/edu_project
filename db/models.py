@@ -146,7 +146,10 @@ class StudentInfo(Base, ModelBase):
                               primaryjoin='StudentInfo.class_id == ClassInfo.id')
 
     def to_dict(self):
-        return _to_dict(self)
+        view = _to_dict(self)
+        view.update({"grade_info": self.grade_info.to_dict()})
+        view.update({"class_info": self.class_info.to_dict()})
+        return view
        #return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
 
 class StudentHistory(Base, ModelBase):
