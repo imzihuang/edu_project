@@ -31,6 +31,9 @@ class WXActionHandler(RequestHandler):
             if action == "update_user_phone":
                 self.update_user_phone()
                 return
+            if action == "verify_phone_code":
+                self.verify_phone_code()
+                return
         except ParamExist as ex:
             LOG.error("Wx action %s error:%s" % (action, ex))
             self.finish(json.dumps({'state': 9, 'message': 'params exit'}))
@@ -117,3 +120,14 @@ class WXActionHandler(RequestHandler):
         new_wx_info = wx_op.update(edu_session, phone=phone)
         self.finish(json.dumps({'state': 0, 'edu_session': edu_session, 'relative_id': new_relative_info.get('id'), 'message': 'ok'}))
 
+    def verify_phone_code(self):
+        phone = convert.bs2utf8(self.get_argument('phone', ''))
+        verify_code = convert.bs2utf8(self.get_argument('verify_code', ''))
+        verify_op = VerifyManageLogic()
+
+        # verify code
+        _ = verify_op.verify_code_phone(phone=phone, code=verify_code)
+        if not _:
+            self.finish(json.dumps({'state': 1, 'message': 'verify code error'}))
+        else:
+            self.finish(json.dumps({'state': 0, 'message': 'verify code ok'}))
