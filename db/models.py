@@ -100,7 +100,7 @@ class TeacherInfo(Base, ModelBase):
 class TeacherHistory(Base, ModelBase):
     __tablename__ = 'teacher_history'
     id = Column(VARCHAR(36), primary_key=True)
-    teacher_id = Column(VARCHAR(36), nullable=False)
+    teacher_id = Column(VARCHAR(36), ForeignKey("teacher_info.id"))
     status = Column(VARCHAR(36), default="education")
     describe = Column(VARCHAR(500))
     deleted = Column(Boolean, default=False)
@@ -138,7 +138,7 @@ class StudentInfo(Base, ModelBase):
 class StudentHistory(Base, ModelBase):
     __tablename__ = 'student_history'
     id = Column(VARCHAR(36), primary_key=True)
-    student_id = Column(VARCHAR(36), nullable=False)
+    student_id = Column(VARCHAR(36), ForeignKey("student_info.id"))
     status = Column(VARCHAR(36), default="apply")
     describe = Column(VARCHAR(500))
     deleted = Column(Boolean, default=False)
@@ -193,13 +193,16 @@ class RelationInfo(Base, ModelBase):
     __tablename__ = 'relation_info'
     id = Column(VARCHAR(36), primary_key=True)
     relation = Column(VARCHAR(36), nullable=False)
-    student_id = Column(VARCHAR(36), nullable=False)
-    relative_id = Column(VARCHAR(36), nullable=False)
+    student_id = Column(VARCHAR(36), ForeignKey("student_info.id"))
+    relative_id = Column(VARCHAR(36), ForeignKey("relative_info.id"))
     deleted = Column(Boolean, default=False)
     create_time = Column(DateTime, default=datetime.now, nullable=False)
     updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     UniqueConstraint('student_id', 'relative_id')
+
+    student_info = relationship("StudentInfo", back_populates="student_list")
+    relative_info = relationship("RelativeInfo", back_populates="relative_list")
 
     def to_dict(self):
         return _to_dict(self)
