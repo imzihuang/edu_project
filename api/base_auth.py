@@ -10,9 +10,9 @@ def auth_api_login(func):
     def __(torn_self, *args, **kwargs):
         user_name = torn_self.get_secure_cookie('user_name')
         edu_session = torn_self.get_argument('edu_session', '')
-        if not user_name and not edu_session:
-            torn_self.set_status(401)
-            return
+        #if not user_name and not edu_session:
+        #    torn_self.set_status(401)
+        #    return
         func(torn_self, *args, **kwargs)
     return __
 
