@@ -4,7 +4,7 @@ from sqlalchemy import Column, Table, MetaData, UniqueConstraint, ForeignKey
 
 from sqlalchemy.types import *
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, backref
 from datetime import datetime
 from base import get_engine, ModelBase
 
@@ -67,7 +67,10 @@ class ClassInfo(Base, ModelBase):
     create_time = Column(DateTime, default=datetime.now, nullable=False)
     updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
-    grade_info = relationship("GradeInfo", back_populates="grade_list")
+    grade_info = relationship(GradeInfo, backref='class_list',
+                              foreign_keys=grade_id,
+                              lazy='subquery',
+                              primaryjoin='ClassInfo.grade_id == GradeInfo.id')
 
     def to_dict(self):
         return _to_dict(self)
@@ -90,8 +93,14 @@ class TeacherInfo(Base, ModelBase):
     create_time = Column(DateTime, default=datetime.now, nullable=False)
     updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
-    grade_info = relationship("GradeInfo", back_populates="grade_list")
-    class_info = relationship("ClassInfo", back_populates="class_list")
+    grade_info = relationship(GradeInfo, backref='teacher_list',
+                              foreign_keys=grade_id,
+                              lazy='subquery',
+                              primaryjoin='TeacherInfo.grade_id == GradeInfo.id')
+    class_info = relationship(ClassInfo, backref='teacher_list',
+                              foreign_keys=class_id,
+                              lazy='subquery',
+                              primaryjoin='TeacherInfo.class_id == ClassInfo.id')
 
     def to_dict(self):
         return _to_dict(self)
@@ -121,15 +130,20 @@ class StudentInfo(Base, ModelBase):
     school_id = Column(VARCHAR(36), ForeignKey("school_info.id"))
     grade_id = Column(VARCHAR(36), ForeignKey("grade_info.id"))
     class_id = Column(VARCHAR(36), ForeignKey("class_info.id"))
-    user_id = Column(VARCHAR(36))
     relation_number = Column(Integer, default=3)
     describe = Column(VARCHAR(500))
     deleted = Column(Boolean, default=False)
     create_time = Column(DateTime, default=datetime.now, nullable=False)
     updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
-    grade_info = relationship("GradeInfo", back_populates="grade_list")
-    class_info = relationship("ClassInfo", back_populates="class_list")
+    grade_info = relationship(GradeInfo, backref='student_list',
+                              foreign_keys=class_id,
+                              lazy='subquery',
+                              primaryjoin='StudentInfo.grade_id == GradeInfo.id')
+    class_info = relationship(ClassInfo, backref='student_list',
+                              foreign_keys=class_id,
+                              lazy='subquery',
+                              primaryjoin='StudentInfo.class_id == ClassInfo.id')
 
     def to_dict(self):
         return _to_dict(self)
@@ -199,10 +213,16 @@ class RelationInfo(Base, ModelBase):
     create_time = Column(DateTime, default=datetime.now, nullable=False)
     updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
-    UniqueConstraint('student_id', 'relative_id')
+    #UniqueConstraint('student_id', 'relative_id')
 
-    student_info = relationship("StudentInfo", back_populates="student_list")
-    relative_info = relationship("RelativeInfo", back_populates="relative_list")
+    student_info = relationship(StudentInfo, backref='relation_list',
+                              foreign_keys=student_id,
+                              lazy='subquery',
+                              primaryjoin='RelationInfo.student_id == StudentInfo.id')
+    relative_info = relationship(RelativeInfo, backref='relation_list',
+                              foreign_keys=relative_id,
+                              lazy='subquery',
+                              primaryjoin='RelationInfo.relative_id == RelativeInfo.id')
 
     def to_dict(self):
         return _to_dict(self)

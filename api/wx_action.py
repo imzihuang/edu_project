@@ -28,6 +28,9 @@ class WXActionHandler(RequestHandler):
             if action == "bind":
                 self.bind_user()
                 return
+            if action == "update_user_phone":
+                self.update_user_phone()
+                return
         except ParamExist as ex:
             LOG.error("Wx action %s error:%s" % (action, ex))
             self.finish(json.dumps({'state': 9, 'message': 'params exit'}))
@@ -86,4 +89,31 @@ class WXActionHandler(RequestHandler):
             self.finish(json.dumps({'state': 0, 'edu_session': edu_session}))
         else:
             self.finish(json.dumps({'state': 3, 'message': 'wx id not singn'}))
+
+    def update_user_phone(self):
+        phone = convert.bs2utf8(self.get_argument('phone', ''))
+        verify_code = convert.bs2utf8(self.get_argument('verify_code', ''))
+        edu_session = convert.bs2utf8(self.get_argument('edu_session', ''))
+        relative_op = RelativeLogic()
+        verify_op = VerifyManageLogic()
+        wx_op = WXUserLogic()
+
+        # verify code
+        _ = verify_op.verify_code_phone(phone=phone, code=verify_code)
+        if not _:
+            self.finish(json.dumps({'state': 1, 'message': 'verify code error'}))
+            return
+        old_wx_info = wx_op.info(edu_session)
+        if not old_wx_info:
+            self.finish(json.dumps({'state': 3, 'message': 'wx id not singn'}))
+        #更新亲属的手机号码
+        old_relative_info = relative_op.info_by_phone(phone=old_wx_info.get("phone"))
+        if not old_relative_info:
+            self.finish(json.dumps({'state': 2, 'message': 'phone not singn'}))
+
+        new_relative_info = relative_op.update(old_relative_info.get("id"), phone=phone)
+
+        #更新微信号的手机号码
+        new_wx_info = wx_op.update(edu_session, phone=phone)
+        self.finish(json.dumps({'state': 0, 'edu_session': edu_session}))
 
