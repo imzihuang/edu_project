@@ -128,13 +128,13 @@
 					success: function(msg) {
 						var data = JSON.parse(msg);
 						console.log(msg);
-//						if(data.state == 0) {
-////							window.location.href = "/index.html#school.html";
-//						} else if(data.state == 1) {
-//							alert("用户名或密码错误 ");
-//						} else {
-//							alert("用户名为空且不属于电话用户");
-//						}
+						if(data.state == 0) {
+//							window.location.href = "/index.html#school.html";
+						} else if(data.state == 1) {
+							alert("用户名或密码错误 ");
+						} else {
+							alert("用户名为空且不属于电话用户");
+						}
 					},
 					error: function() {
 						console.log("error");
