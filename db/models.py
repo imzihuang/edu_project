@@ -18,6 +18,8 @@ def _to_dict(model_obj):
                 result.update({c.name: getattr(model_obj, c.name, None).strftime('%Y-%m-%d')})
             else:
                 result.update({c.name: getattr(model_obj, c.name, None).strftime('%Y-%m-%d %H:%M:%S')})
+        elif isinstance(getattr(model_obj, c.name, None), Base):
+            result.update({c.name: getattr(model_obj, c.name, None).to_dict()})
         else:
             result.update({c.name: getattr(model_obj, c.name, None)})
     return result
@@ -65,6 +67,8 @@ class ClassInfo(Base, ModelBase):
     create_time = Column(DateTime, default=datetime.now, nullable=False)
     updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
+    grade_info = relationship("GradeInfo", back_populates="grade_list")
+
     def to_dict(self):
         return _to_dict(self)
        #return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
@@ -77,7 +81,7 @@ class TeacherInfo(Base, ModelBase):
     birthday = Column(DateTime)
     school_id = Column(VARCHAR(36), ForeignKey("school_info.id"))
     grade_id = Column(VARCHAR(36), ForeignKey("grade_info.id"))
-    class_id = Column(VARCHAR(500))
+    class_id = Column(VARCHAR(36), ForeignKey("class_info.id"))
     user_id = Column(VARCHAR(36))
     phone = Column(VARCHAR(36))
     position = Column(Integer, default=2)
@@ -85,6 +89,9 @@ class TeacherInfo(Base, ModelBase):
     deleted = Column(Boolean, default=False)
     create_time = Column(DateTime, default=datetime.now, nullable=False)
     updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
+
+    grade_info = relationship("GradeInfo", back_populates="grade_list")
+    class_info = relationship("ClassInfo", back_populates="class_list")
 
     def to_dict(self):
         return _to_dict(self)
@@ -111,15 +118,18 @@ class StudentInfo(Base, ModelBase):
     name = Column(VARCHAR(100), nullable=False)
     sex = Column(Integer, default=0)
     birthday = Column(DateTime)
-    school_id = Column(VARCHAR(36), nullable=False)
-    grade_id = Column(VARCHAR(36), nullable=False)
-    class_id = Column(VARCHAR(36), nullable=False)
+    school_id = Column(VARCHAR(36), ForeignKey("school_info.id"))
+    grade_id = Column(VARCHAR(36), ForeignKey("grade_info.id"))
+    class_id = Column(VARCHAR(36), ForeignKey("class_info.id"))
     user_id = Column(VARCHAR(36))
     relation_number = Column(Integer, default=3)
     describe = Column(VARCHAR(500))
     deleted = Column(Boolean, default=False)
     create_time = Column(DateTime, default=datetime.now, nullable=False)
     updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
+
+    grade_info = relationship("GradeInfo", back_populates="grade_list")
+    class_info = relationship("ClassInfo", back_populates="class_list")
 
     def to_dict(self):
         return _to_dict(self)
