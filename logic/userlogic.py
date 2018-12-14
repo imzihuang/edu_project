@@ -56,13 +56,17 @@ class UserLogic(Logic):
         _ = db_api.user_update(id, kwargs)
         return _
 
-    def infos(self,  id="", name="", limit=100, offset=1):
+    def infos(self, id="", name="", phone="", school_id="", limit=100, offset=1):
         offset = (offset - 1) * limit if offset > 0 else 0
         filters = dict()
         if id:
             filters.update({"id": id})
         if name:
             filters.update({"name": name})
+        if phone:
+            filters.update({"phone": phone})
+        if school_id:
+            filters.update({"school_id": school_id})
         user_list = db_api.user_list(offset=offset, limit=limit, **filters)
         user_count = db_api.user_count(**filters)
         return {"count": user_count, "state": 0, "message": "query success", "data": self.views(user_list)}
