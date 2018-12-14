@@ -105,34 +105,36 @@ class SignLogic(Logic):
             values = {
                 "relative_id": relative_id,
                 "sign_date": datetime.date.today(),
-                "status": status
+                "status": status,
+                "morning": now_time,
             }
             db_api.relative_sign_status_create(values)
         if sign_type == 2:
             if sign_status_list:
-                if sign_status_list[0].status[1] == "2":
+                if sign_status_list[0].status[1] == "1":
                     #下午已经正常签到过了，不需要重新统计
                     return
 
                 #存在上午打卡，状态改为出勤
                 if sign_status_list[0].status[0] == "1":
-                    status = "11" if now_time>afternoon else "12"
-                    db_api.relative_sign_status_update(sign_status_list[0].id, {"status": status})
+                    status = "11" if now_time > afternoon else "12"
+                    db_api.relative_sign_status_update(sign_status_list[0].id, {"status": status, "afternoon": now_time})
                 # 上午迟到
                 if sign_status_list[0].status[0] == "2":
                     status = "21" if now_time > afternoon else "22"
-                    db_api.relative_sign_status_update(sign_status_list[0].id, {"status": status})
+                    db_api.relative_sign_status_update(sign_status_list[0].id, {"status": status, "afternoon": now_time})
                 # 上午未打卡，当下午重复打卡
                 if sign_status_list[0].status[0] == "0":
                     status = "01" if now_time > afternoon else "02"
-                    db_api.relative_sign_status_update(sign_status_list[0].id, {"status": status})
+                    db_api.relative_sign_status_update(sign_status_list[0].id, {"status": status, "afternoon": now_time})
             else:
                 # 不存在存在上午打卡，状态改为出勤
                 status = "01" if now_time > afternoon else "02"
                 values = {
                     "relative_id": relative_id,
                     "sign_date": datetime.date.today(),
-                    "status": status
+                    "status": status,
+                    "afternoon": now_time
                 }
                 db_api.relative_sign_status_create(values)
 

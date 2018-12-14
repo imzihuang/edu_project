@@ -286,6 +286,8 @@ class RelativeStatusInfo(Base, ModelBase):
     sign_date = Column(Date, nullable=False)
     status = Column(VARCHAR(5), default=00)
     create_time = Column(DateTime, default=datetime.now, nullable=False)
+    morning = Column(VARCHAR(20))
+    afternoon = Column(VARCHAR(20))
     deleted = Column(Boolean, default=False)
 
     def to_dict(self):
@@ -305,13 +307,20 @@ class TeacherSignInfo(Base, ModelBase):
 
     def to_dict(self):
         return _to_dict(self)
-        """
-        return {
-        c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S')
-        if isinstance(getattr(self, c.name, None),
-                      datetime) else getattr(self, c.name, None)
-        for c in self.__table__.columns}
-        """
+
+class TeacherStatusInfo(Base, ModelBase):
+    __tablename__ = 'teacher_status_info'
+    id = Column(VARCHAR(36), primary_key=True)
+    teacher_id = Column(VARCHAR(36), nullable=False)
+    sign_date = Column(Date, nullable=False)
+    status = Column(VARCHAR(5), default=00)
+    create_time = Column(DateTime, default=datetime.now, nullable=False)
+    morning = Column(VARCHAR(20))
+    afternoon = Column(VARCHAR(20))
+    deleted = Column(Boolean, default=False)
+
+    def to_dict(self):
+        return _to_dict(self)
 
 class VerifyManage(Base, ModelBase):
     __tablename__ = 'verify_manage'
