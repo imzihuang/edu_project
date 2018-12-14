@@ -210,7 +210,12 @@
 			var level = localStorage.getItem("level");
 			if(level == 1){
 				$(".schoolPart").removeClass("openSchool");
-				$(".level1").css("display","none")
+				$(".level1").css("display","none");
+				var school = JSON.parse(localStorage.getItem("school"));
+				var schoolName = school.name
+				$(".schoolPart span").html(schoolName);
+			}else{
+				getSchool();
 			}
 			//导航
 			$('.Lilist li a').each(function() {
@@ -265,12 +270,12 @@
 				}, false)
 			}
 			//瞄点end
-			if(localStorage.getItem("school")) {
-				var schoolSelect = JSON.parse(localStorage.getItem("school"));
-				$(".schoolPart span").html('[' + schoolSelect.name + ']')
-			} else {
-				getSchool();
-			}
+//			if(localStorage.getItem("school")) {
+//				var schoolSelect = JSON.parse(localStorage.getItem("school"));
+//				$(".schoolPart span").html('[' + schoolSelect.name + ']')
+//			} else {
+//				getSchool();
+//			}
 			//学校缓存
 			function getSchool() {
 				var data = {
