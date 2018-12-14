@@ -532,6 +532,13 @@ def wxuser_get(id):
         return None  #raise exception.NotFound(code=id)
     return result
 
+def wxuser_get_by_phone(phone):
+    query = model_query(models.WXUserInfo)
+    result = query.filter_by(phone=phone).first()
+    if not result:
+        return None
+    return result
+
 def wxuser_list(offset=0, limit=1000, **filters):
     query = model_query(models.WXUserInfo, order=True, **filters)
     if offset:
