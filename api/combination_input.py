@@ -60,8 +60,8 @@ class CombinationHandler(RequestHandler):
             if not name:
                 return 2
             if phone:
-                relative_list = relative_op.info_by_phone(phone=phone)
-                if relative_list and convert.bs2utf8(relative_list.name) != name:
+                db_relative_list = relative_op.info_by_phone(phone=phone)
+                if db_relative_list and convert.bs2utf8(db_relative_list[0].get("name", "")) != name:
                     LOG.info("relative info, phone:%s and name:%s error"%(phone, name))
                     return 2
 
