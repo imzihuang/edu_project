@@ -84,6 +84,7 @@ class UserLogic(Logic):
             if user_info.get("school_id", ""):
                 school_info = db_api.school_get(user_info.get("school_id"))
                 user_info.update({"school_name": school_info.name})
+                user_info.update({"cardcode": school_info.cardcode})
             return user_info
 
     def auth_phone(self, phone, pwd):
@@ -93,6 +94,7 @@ class UserLogic(Logic):
             if user_info.get("school_id", ""):
                 school_info = db_api.school_get(user_info.get("school_id"))
                 user_info.update({"school_name": school_info.name})
+                user_info.update({"cardcode": school_info.cardcode})
             return user_info
 
     def delete(self, id="", **kwargs):
