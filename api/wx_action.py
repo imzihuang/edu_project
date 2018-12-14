@@ -84,8 +84,8 @@ class WXActionHandler(RequestHandler):
             return
 
         #verify relative
-        relative_info = relative_op.info_by_phone(phone=phone)
-        if not relative_info:
+        relative_list = relative_op.info_by_phone(phone=phone)
+        if not relative_list:
             LOG.error("bind user phone not singn relative: phone:%s" % phone)
             self.finish(json.dumps({'state': 2, 'message': 'phone not singn relative'}))
             return
@@ -129,10 +129,9 @@ class WXActionHandler(RequestHandler):
             return
         verify_relative_list = relative_op.info_by_phone(phone=phone)
         if verify_relative_list:
-            if verify_wx_info:
-                LOG.error("update user phone, new phone exit relative: phone:%s" % phone)
-                self.finish(json.dumps({'state': 3, 'message': 'new phone exit relative'}))
-                return
+            LOG.error("update user phone, new phone exit relative: phone:%s" % phone)
+            self.finish(json.dumps({'state': 3, 'message': 'new phone exit relative'}))
+            return
 
         #待更新手机号码的亲属，通过旧手机号(可能存在多个)
         old_relative_list = relative_op.info_by_phone(phone=old_wx_info.get("phone"))
