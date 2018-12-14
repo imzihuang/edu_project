@@ -120,13 +120,15 @@ class WXUserLogic(Logic):
         _ = db_api.wxuser_update(id, kwargs)
         return _
 
-    def infos(self, id="", openid="", limit=100, offset=1):
+    def infos(self, id="", openid="", phone="", limit=100, offset=1):
         offset = (offset - 1) * limit if offset > 0 else 0
         filters = dict()
         if id:
             filters.update({"id": id})
         if openid:
             filters.update({"openid": openid})
+        if phone:
+            filters.update({"phone": phone})
         wx_list = db_api.wxuser_list(offset=offset, limit=limit, **filters)
         wx_count = db_api.wxuser_count(**filters)
         return {"count": wx_count, "state": 0, "message": "query success", "data": self.views(wx_list)}
@@ -135,6 +137,12 @@ class WXUserLogic(Logic):
         if not id:
             return
         wx_info = db_api.wxuser_get(id)
+        return self.views(wx_info)
+
+    def info_by_phone(self, phone):
+        if not phone:
+            return
+        wx_info = db_api.wxuser_get_by_phone(phone)
         return self.views(wx_info)
 
     def info_by_openid(self, openid):

@@ -90,8 +90,9 @@ class RelativeLogic(Logic):
             filters.update({"phone": phone})
 
         relative_infos = db_api.relative_list(**filters)
-        if relative_infos:
-            return self.views(relative_infos[0])
+        return relative_infos
+        #if relative_infos:
+        #    return self.views(relative_infos[0])
 
     def _get_relations_by_relative(self, relative_id="", relative_name=""):
         if relative_id:

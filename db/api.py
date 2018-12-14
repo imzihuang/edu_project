@@ -532,6 +532,13 @@ def wxuser_get(id):
         return None  #raise exception.NotFound(code=id)
     return result
 
+def wxuser_get_by_phone(phone):
+    query = model_query(models.WXUserInfo)
+    result = query.filter_by(phone=phone).first()
+    if not result:
+        return None
+    return result
+
 def wxuser_list(offset=0, limit=1000, **filters):
     query = model_query(models.WXUserInfo, order=True, **filters)
     if offset:
@@ -634,6 +641,13 @@ def verify_manage_create(values):
     with session.begin():
         verify_ref.save(session)
         return values
+
+def verify_manage_update(id, values):
+    query = model_query(models.VerifyManage).filter_by(id=id)
+    result = query.update(values)
+    if not result:
+        return None  # raise exception.NotFound(code=id)
+    return result
 
 def verify_manage_get(id):
     query = model_query(models.VerifyManage)
