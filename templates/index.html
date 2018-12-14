@@ -113,7 +113,7 @@
 								<span class="fa arrow"></span>
 							</a>
 							<ul class="nav nav-second-level ulOne">
-								<li class="listNav">
+								<li class="listNav level1">
 									<a class="J_menuItem" name="school.html" id="school.html" href="javascript:void(0);">学校</a>
 								</li>
 								<li class="listNav">
@@ -142,6 +142,18 @@
 								</li>
 								<li class="listNav">
 									<a class="J_menuItem" name="teacherAttendance.html" id="teacherAttendance.html" href="javascript:void(0);">教师考勤</a>
+								</li>
+							</ul>
+						</li>
+						<li class="Lilist">
+							<a href="#" class="titleA">
+								<i class="fa fa-calendar-plus-o"></i>
+								<span class="nav-label">用户管理</span>
+								<span class="fa arrow"></span>
+							</a>
+							<ul class="nav nav-second-level ulTwo">
+								<li class="listNav">
+									<a class="J_menuItem" name="commonPerson.html" id="commonPerson.html" href="javascript:void(0);">用户管理</a>
 								</li>
 							</ul>
 						</li>
@@ -194,6 +206,12 @@
 		<script type="text/javascript" src="js/contabs.min.js"></script>
 		<script type="text/javascript" src="js/pace.min.js"></script>
 		<script>
+			//权限判断
+			var level = localStorage.getItem("level");
+			if(level == 1){
+				$(".schoolPart").removeClass("openSchool");
+				$(".level1").css("display","none")
+			}
 			//导航
 			$('.Lilist li a').each(function() {
 				$(this).click(function() {
@@ -249,7 +267,7 @@
 			//瞄点end
 			if(localStorage.getItem("school")) {
 				var schoolSelect = JSON.parse(localStorage.getItem("school"));
-				$(".openSchool span").html('[' + schoolSelect.name + ']')
+				$(".schoolPart span").html('[' + schoolSelect.name + ']')
 			} else {
 				getSchool();
 			}
@@ -281,7 +299,7 @@
 								$("#" + schoolSelect.id).addClass("activeColor");
 							} else {
 								$("#schoolInfoContent ul li").eq(0).addClass("activeColor");
-								$(".openSchool span").html('[' + $(".activeColor").html() + ']');
+								$(".schoolPart span").html('[' + $(".activeColor").html() + ']');
 								var schoolSelect = new Object();
 								schoolSelect.id = $(".activeColor").attr("id");
 								schoolSelect.cardcode = $(".activeColor").attr("name");
@@ -328,7 +346,7 @@
 							schoolSelect.name = $(".activeColor").html();
 							window.localStorage.setItem("school", JSON.stringify(schoolSelect));
 						}
-						$(".openSchool span").html('[' + $(".activeColor").html() + ']');
+						$(".schoolPart span").html('[' + $(".activeColor").html() + ']');
 						layer.closeAll();
 						layer.msg('切换成功', {
 							icon: 1,
