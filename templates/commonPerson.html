@@ -133,6 +133,8 @@
 				var schoolSelect = JSON.parse(localStorage.getItem("school"));
 			    var school = schoolSelect.id;  
 			    var cardcode = schoolSelect.cardcode;
+			    //下拉获取学校
+			    getSchool()
 				//获取列表
 				getAjaxData({
 					"limit": 20,
@@ -276,9 +278,12 @@
 							for(var i = 0; i < msg.data.length; i++) {
 								str += '<option value=' + msg.data[i].id + '>' + msg.data[i].name + '</option>';
 							}
+							$("#add_school").html(str);
+							$("#edit_school").html(str);
 						} else {
-							strs = '请先添加学校'
-							$("#schoolInfoContent ul").html(strs);
+							str += '<option>--请先添加学校--</option>';
+							$("#add_school").html(str);
+							$("#edit_school").html(str);
 						}
 
 						
