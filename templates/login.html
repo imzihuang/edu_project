@@ -117,23 +117,23 @@
 		<script src="js/jquery.min.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<script type="text/javascript">
-			$(document).ready(function() {
-				var level = 0;
-				$(".goPhone").click(function() {
-					level = 1;
-					$(".phoneDiv").css("display", "block");
-					$(".nameDiv").css("display", "none");
-					$(".goName").css("display", "block");
-					$(".goPhone").css("display", "none");
-				});
-				$(".goName").click(function() {
-					level = 0;
-					$(".phoneDiv").css("display", "none");
-					$(".nameDiv").css("display", "block");
-					$(".goName").css("display", "none");
-					$(".goPhone").css("display", "block");
-				});
+			
+			var level = 0;
+			$(".goPhone").click(function() {
+				level = 1;
+				$(".phoneDiv").css("display", "block");
+				$(".nameDiv").css("display", "none");
+				$(".goName").css("display", "block");
+				$(".goPhone").css("display", "none");
 			});
+			$(".goName").click(function() {
+				level = 0;
+				$(".phoneDiv").css("display", "none");
+				$(".nameDiv").css("display", "block");
+				$(".goName").css("display", "none");
+				$(".goPhone").css("display", "block");
+			});
+			
 			function login() {
 					if(level == 0) {
 						var data = {
