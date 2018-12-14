@@ -67,6 +67,8 @@ class SignLogic(Logic):
         if relevance_type in (1, 3):
             sign_list = db_api.relative_sign_list(start_time, end_time, offset, limit, relative_id=relevance_id)
             view_list = self.views(sign_list)
+            if not view_list:
+                return {"count": 0, "state": 0, "message": "query success", "data": []}
             for view in view_list:
                 view.update({"img_path": "image/tmp/" + view.get("img_path", "")})
                 view.update({"relative_img_path": "image/face/" + view.get("relative_img_path", "")})
