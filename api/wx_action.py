@@ -114,26 +114,20 @@ class WXActionHandler(RequestHandler):
             LOG.error("update user wx id not singn: phone:%s" % phone)
             self.finish(json.dumps({'state': 3, 'message': 'wx id not singn'}))
             return
-        #更新亲属的手机号码
-        old_relative_info = relative_op.info_by_phone(phone=old_wx_info.get("phone"))
-        if not old_relative_info:
+
+        #更新亲属的手机号码(可能存在多个)
+        old_relative_list = relative_op.info_by_phone(phone=old_wx_info.get("phone"))
+        if not old_relative_list:
             LOG.error("update user phone not singn: phone:%s" % phone)
             self.finish(json.dumps({'state': 2, 'message': 'phone not singn'}))
             return
 
-        relative_id = old_relative_info.get("id")
-
-        new_relative_info = relative_op.update(relative_id, phone=phone)
-        new_wx_info = None
+        relative_ids = ",".join([relative_info.id for relative_info in old_relative_list])
+        for relative_info in old_relative_list:
+            relative_op.update(relative_info.id, phone=phone)
         #更新微信号的手机号码
-        if new_relative_info:
-            new_wx_info = wx_op.update(edu_session, phone=phone)
-        if new_relative_info and new_wx_info:
-            self.finish(json.dumps({'state': 0, 'edu_session': edu_session, 'relative_id': relative_id, 'message': 'ok'}))
-        else:
-            LOG.error("update user phone error: phone:%s" % phone)
-            self.finish(
-                json.dumps({'state': 4, 'edu_session': edu_session, 'relative_id': relative_id, 'message': 'update phone error'}))
+        wx_op.update(edu_session, phone=phone)
+        self.finish(json.dumps({'state': 0, 'edu_session': edu_session, 'relative_id': relative_ids, 'message': 'ok'}))
 
     def verify_phone_code(self):
         phone = convert.bs2utf8(self.get_argument('phone', ''))
