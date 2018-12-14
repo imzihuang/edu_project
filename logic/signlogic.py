@@ -131,6 +131,7 @@ class SignLogic(Logic):
                     db_api.relative_sign_status_update(sign_status_list[0].id, {"status": status, "afternoon": now_time})
             else:
                 # 不存在存在上午打卡，状态改为出勤
+                LOG.info("now after:%s, %s"%(now_time, afternoon))
                 status = "01" if now_time > afternoon else "02"
                 values = {
                     "relative_id": relative_id,
