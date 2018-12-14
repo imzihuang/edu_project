@@ -67,6 +67,8 @@ class SignLogic(Logic):
         if relevance_type in (1, 3):
             sign_list = db_api.relative_sign_list(start_time, end_time, offset, limit, relative_id=relevance_id)
             view_list = self.views(sign_list)
+            if not view_list:
+                return {"count": 0, "state": 0, "message": "query success", "data": []}
             for view in view_list:
                 view.update({"img_path": "image/tmp/" + view.get("img_path", "")})
                 view.update({"relative_img_path": "image/face/" + view.get("relative_img_path", "")})
@@ -129,6 +131,7 @@ class SignLogic(Logic):
                     db_api.relative_sign_status_update(sign_status_list[0].id, {"status": status, "afternoon": now_time})
             else:
                 # 不存在存在上午打卡，状态改为出勤
+                LOG.info("now after:%s, %s"%(now_time, afternoon))
                 status = "01" if now_time > afternoon else "02"
                 values = {
                     "relative_id": relative_id,

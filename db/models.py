@@ -237,7 +237,6 @@ class UserInfo(Base, ModelBase):
     name = Column(VARCHAR(100), nullable=False)
     pwd = Column(VARCHAR(100), nullable=False)
     phone = Column(VARCHAR(36))
-    verify_code = Column(VARCHAR(100))
     activate = Column(Integer, default=0)
     level = Column(Integer, default=1)
     school_id = Column(VARCHAR(36))
