@@ -97,6 +97,10 @@
 					<span>密码：</span><input type="text" style="width: 350px;" id="add_password" name="add_password" />
 					<div class="errorPart"></div>
 				</div>
+				<div style="margin: 20px 0;">
+					<span>确认密码：</span><input type="text" style="width: 350px;" id="add_affirm_pwd" name="add_affirm_pwd" />
+					<div class="errorPart"></div>
+				</div>
 				<input class="submit" type="submit" value="提交" id="addInfoContentSubmit" style="display: none;">
 			</form>
 		</div>
@@ -115,6 +119,10 @@
 				</div>
 				<div style="margin: 20px 0;">
 					<span>密码：</span><input type="text" style="width: 350px;" id="edit_password" name="edit_password" />
+					<div class="errorPart"></div>
+				</div>
+				<div style="margin: 20px 0;">
+					<span>确认密码：</span><input type="text" style="width: 350px;" id="edit_affirm_pwd" name="edit_affirm_pwd" />
 					<div class="errorPart"></div>
 				</div>
 				<input class="submit" type="submit" value="提交" id="editAreaContentSubmit" style="display: none;">
@@ -317,7 +325,10 @@
 					},
 					submitHandler: function(form) {
 						var data = {
-							'name': $("#add_name").val(),
+							'phone':$("#add_person_phone").val(),
+							'school_id':$("#add_school").val(),
+							'pwd': $("#add_password").val(),
+							'affirm_pwd': $("#add_affirm_pwd").val(),
 						}
 						$.ajax({
 							type: "POST",
