@@ -635,6 +635,13 @@ def verify_manage_create(values):
         verify_ref.save(session)
         return values
 
+def verify_manage_update(id, values):
+    query = model_query(models.VerifyManage).filter_by(id=id)
+    result = query.update(values)
+    if not result:
+        return None  # raise exception.NotFound(code=id)
+    return result
+
 def verify_manage_get(id):
     query = model_query(models.VerifyManage)
     result = query.filter_by(id=id).first()

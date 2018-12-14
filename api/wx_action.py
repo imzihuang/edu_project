@@ -79,18 +79,21 @@ class WXActionHandler(RequestHandler):
         #verify code
         _ = verify_op.verify_code_phone(phone=phone, code=verify_code)
         if not _:
+            LOG.error("bind user verify code error: phone:%s" % phone)
             self.finish(json.dumps({'state': 1, 'message': 'verify code error'}))
             return
 
         #verify relative
         relative_info = relative_op.info_by_phone(phone=phone)
         if not relative_info:
+            LOG.error("bind user phone not singn: phone:%s" % phone)
             self.finish(json.dumps({'state': 2, 'message': 'phone not singn'}))
             return
         wx_info = wx_op.update(edu_session, phone=phone)
         if wx_info:
             self.finish(json.dumps({'state': 0, 'edu_session': edu_session, 'relative_id': relative_info.get('id'), 'message': 'ok'}))
         else:
+            LOG.error("bind user wx id not singn: phone:%s" % phone)
             self.finish(json.dumps({'state': 3, 'message': 'wx id not singn'}))
 
     def update_user_phone(self):
@@ -108,7 +111,9 @@ class WXActionHandler(RequestHandler):
             return
         old_wx_info = wx_op.info(edu_session)
         if not old_wx_info:
+            LOG.error("update user phone id not singn: phone:%s" % phone)
             self.finish(json.dumps({'state': 3, 'message': 'wx id not singn'}))
+            return
         #更新亲属的手机号码
         old_relative_info = relative_op.info_by_phone(phone=old_wx_info.get("phone"))
         if not old_relative_info:
