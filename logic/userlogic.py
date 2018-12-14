@@ -17,13 +17,14 @@ class UserLogic(Logic):
 
     def views(self, models):
         if isinstance(models, dict):
-            _ = models.pop("pwd")
-            return _
+            models.pop("pwd")
+            return models
         if isinstance(models, list):
             result = []
             for model in models:
-                _ = model.to_dict().pop("pwd")
-                result.append(_)
+                _model = model.to_dict()
+                _model.pop("pwd")
+                result.append(_model)
             return result
         model = models.to_dict()
         model.pop("pwd")
