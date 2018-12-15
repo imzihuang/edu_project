@@ -47,7 +47,8 @@ class IndextHandler(RequestHandler):
         return self.templates_path
 
     def get(self):
-        if not self.get_secure_cookie('user_name', ""):
+        LOG.info("-----------------index-----------:%s"%self.get_secure_cookie('user_name'))
+        if not self.get_secure_cookie('user_name'):
             self.redirect(self.prefix + r'login.html', permanent=True)
             return
         self.render("index.html")

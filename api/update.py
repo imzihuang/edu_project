@@ -214,7 +214,7 @@ class UpdateHandler(RequestHandler):
             result.update({"school_id": school_id})
 
         #only admin
-        current_user_level = self.get_secure_cookie('user_level', "")
+        current_user_level = self.get_secure_cookie('user_level')
         if current_user_level == "0" and level>-1:
             result.update({"level": level})
         if phone:

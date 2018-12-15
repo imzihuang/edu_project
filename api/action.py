@@ -90,7 +90,7 @@ class ActionHandler(RequestHandler):
         try:
             self.clear_cookie("user_name")
             self.clear_cookie("user_level")
-            if self.get_secure_cookie('school_id', ""):
+            if self.get_secure_cookie('school_id'):
                 self.clear_cookie("school_id")
             self.finish(json.dumps({'state': 0, 'message': 'logout ok'}))
         except Exception,ex:
