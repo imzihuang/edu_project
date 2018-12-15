@@ -35,8 +35,10 @@ class UserLogic(Logic):
             return
         if not convert.is_mobile(phone):
             return
-        if db_api.user_list(name=name, phone=phone):
-            raise ParamExist(key="name or phone", value=name+"or"+phone)
+        if db_api.user_list(name=name):
+            raise ParamExist(key="name", value=name)
+        if db_api.user_list(phone=phone):
+            raise ParamExist(key="phone", value=phone)
         values = {
             "name": name,
             "pwd": encry_md5(pwd),
@@ -54,6 +56,16 @@ class UserLogic(Logic):
     def update(self, id="", **kwargs):
         if not id or not kwargs:
             return False
+        if kwargs.get("school_id", ""):
+            _ = db_api.school_get(kwargs.get("school_id", ""))
+            if not _:
+                return False
+        name = kwargs.get("name", "")
+        if name and db_api.user_list(name=name):
+            raise ParamExist(key="name", value=name)
+        phone = kwargs.get("phone", "")
+        if phone and db_api.user_list(phone=phone):
+            raise ParamExist(key="phone", value=phone)
         _ = db_api.user_update(id, kwargs)
         return _
 

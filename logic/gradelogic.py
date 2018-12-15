@@ -26,6 +26,8 @@ class GradeLogic(Logic):
             return False
         if kwargs.get("school_id", ""):
             _ = db_api.school_get(kwargs.get("school_id", ""))
+            if not _:
+                return False
         _ = db_api.grade_update(id, kwargs)
         return _
 

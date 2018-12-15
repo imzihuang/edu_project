@@ -262,9 +262,19 @@ class InfosHandler(RequestHandler):
         name = self.get_argument('name', '')
         school_id = self.get_argument('school_id', '')
         phone = self.get_argument('phone', '')
-        return {
+        current_school_id = self.get_secure_cookie('school_id', "")
+        value = {
             "id": id,
             "name": name,
-            "school_id": school_id,
             "phone": phone
         }
+        if current_school_id:
+            value .update({
+                "school_id": current_school_id
+            })
+        else:
+            if school_id:
+                value.update({
+                    "school_id": school_id
+                })
+        return value

@@ -89,6 +89,7 @@ class WXActionHandler(RequestHandler):
             LOG.error("bind user phone not singn relative: phone:%s" % phone)
             self.finish(json.dumps({'state': 2, 'message': 'phone not singn relative'}))
             return
+        relative_ids = ",".join([relative_info.id for relative_info in relative_list])
         #verify phone exit
         old_wx_info = wx_op.info_by_phone(phone)
         if old_wx_info:
@@ -99,7 +100,7 @@ class WXActionHandler(RequestHandler):
         #bind phone
         wx_op.update(edu_session, phone=phone)
         self.finish(json.dumps(
-            {'state': 0, 'edu_session': edu_session, 'relative_id': relative_info.get('id'), 'message': 'ok'}))
+            {'state': 0, 'edu_session': edu_session, 'relative_id': relative_ids, 'message': 'ok'}))
 
 
     def update_user_phone(self):
