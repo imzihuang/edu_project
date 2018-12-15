@@ -37,6 +37,10 @@ class ActionHandler(RequestHandler):
             self.login()
             return
 
+        if action == "sign_out":
+            self.sign_out()
+            return
+
         if action == "face_auth":
             self.face_auth()
             return
@@ -81,6 +85,16 @@ class ActionHandler(RequestHandler):
             return
 
         self.finish(json.dumps({'state': 2, 'message': 'login fail'}))
+
+    def sign_out(self):
+        try:
+            self.clear_cookie("user_name")
+            self.clear_cookie("user_level")
+            if self.get_secure_cookie('school_id', ""):
+                self.clear_cookie("school_id")
+            self.finish(json.dumps({'state': 0, 'message': 'logout ok'}))
+        except Exception,ex:
+            self.finish(json.dumps({'state': 1, 'message': 'logout faild'}))
 
     def _img_resize(self, path):
         """
