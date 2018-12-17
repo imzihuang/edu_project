@@ -240,7 +240,7 @@
 										'<td class="data_name">' + msg.data[i].name + '</td>' +
 										'<td class="center data_school_name" id =' + msg.data[i].school_id + '>' + msg.data[i].school_name + '</td>' +
 										'<td class="data_level" name =' + msg.data[i].level + '>' + levelName + '</td>' +
-										'<td class="center data_level">' + msg.data[i].phone + '</td>' +
+										'<td class="center data_phone">' + msg.data[i].phone + '</td>' +
 										'<td class="center">' + msg.data[i].create_time + '</td>' +
 										'<td><i class="fa fa-pencil areapen" title="修改详情"></i>&nbsp;&nbsp;' +
 										'<i class="fa fa-close" id=' + msg.data[i].id + ' title="删除"></i>&nbsp;&nbsp;' +
@@ -673,7 +673,7 @@
 									$(".codeBtn").css("color", "#1ba0e7");
 								},60000);
 							} else {
-								alert("发送失败");
+								layer.msg('发送失败');
 							}
 						},
 						error: function() {
