@@ -287,8 +287,3 @@ class StudentLogic(Logic):
             result.update({datetime.strftime(sign_status.sign_date, "%Y-%m-%d"): sign_status.status})
 
         return result
-
-
-
-
-

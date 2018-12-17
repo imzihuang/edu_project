@@ -103,7 +103,12 @@ class TeacherInfo(Base, ModelBase):
                               primaryjoin='TeacherInfo.class_id == ClassInfo.id')
 
     def to_dict(self):
-        return _to_dict(self)
+        view = _to_dict(self)
+        if self.grade_info:
+            view.update({"grade_info": self.grade_info.to_dict()})
+        if self.class_info:
+            view.update({"class_info": self.class_info.to_dict()})
+        return view
        #return {c.name: getattr(self, c.name, None).strftime('%Y-%m-%d %H:%M:%S') if isinstance(getattr(self, c.name, None), datetime) else getattr(self, c.name, None) for c in self.__table__.columns}
 
 class TeacherHistory(Base, ModelBase):
