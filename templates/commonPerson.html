@@ -340,6 +340,9 @@
 					if(level != 0) {
 						personSchool = ''
 					}
+					if($("#person-school").val() == '--请选择学校--'){
+						$("#person-school").val() = ''
+					}
 					getAjaxData({
 						"name": $("#person-name").val() == '' ? undefined : $("#person-name").val(),
 						"school_id": personSchool,
