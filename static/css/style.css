@@ -385,7 +385,7 @@ p {
 }
 
 .logobg {
-	background: url(../img/logo.png) no-repeat;
+	background: url(../img/logo1.png) no-repeat;
 }
 
 a.navbar-minimalize.minimalize-styl-2.btn.btn-primary {
@@ -934,7 +934,7 @@ nav.navbar.navbar-static-top {
 }
 
 .table-bordered>thead>tr>th {
-	background: #2f4050;
+	background: #1ba0e7;
 	color: #e3f0f9;
 }
 
