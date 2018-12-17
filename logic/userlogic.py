@@ -86,7 +86,7 @@ class UserLogic(Logic):
             return False
         if not convert.is_mobile(phone):
             return False
-        db_api.user_update(user_id, pwd=encry_md5(pwd))
+        db_api.user_update(user_id, {"pwd":encry_md5(pwd)})
         return True
 
 

@@ -631,6 +631,35 @@ def relative_sign_status_list(start_time, end_time, offset=0, limit=1000, **filt
 #################sign status end#####################################
 
 
+#################student sign status start###################################
+def student_sign_status_create(values):
+    if not values.get('id'):
+        values['id'] = common_util.create_id()
+    relation_sign_ref = models.StudentStatusInfo()
+    relation_sign_ref.update(values)
+    session = get_session()
+    with session.begin():
+        relation_sign_ref.save(session)
+        return values
+
+def student_sign_status_update(id, values):
+    query = model_query(models.StudentStatusInfo).filter_by(id=id)
+    result = query.update(values)
+    if not result:
+        return None  #raise exception.NotFound(code=id)
+    return result
+
+def student_sign_status_list(start_time, end_time, offset=0, limit=1000, **filters):
+    query = model_query(models.StudentStatusInfo, order=True, **filters)
+    query = query.filter(models.StudentStatusInfo.sign_date<=end_time).\
+        filter(models.StudentStatusInfo.sign_date>=start_time)
+    if offset:
+        query = query.offset(offset)
+    if limit:
+        query = query.limit(limit)
+    return query.all()
+#################student sign status end#####################################
+
 #################verify manage start#####################################
 def verify_manage_create(values):
     if not values.get('id'):
