@@ -94,7 +94,7 @@
 		<!--添加内容-->
 		<div id="addInfoContent" style="display: none; width: 500px; padding: 20px;">
 			<form id="addInfoContentform" role="form" method="POST">
-				<div style="margin: 20px 0;">
+				<div style="margin: 20px 0;" class="addSchoolDiv">
 					<span>学校：</span>
 					<select style="width: 350px;" id="add_school" name="add_school">
 						<option value="">--请选择学校--</option>
@@ -130,7 +130,7 @@
 		<!--编辑内容-->
 		<div id="editAreaContent" style="display: none; width: 500px; padding: 20px;">
 			<form id="editAreaContentform" role="form">
-				<div style="margin: 20px 0;">
+				<div style="margin: 20px 0;" class="editSchoolDiv">
 					<span>学校：</span>
 					<select style="width: 350px;" id="edit_school" name="edit_school">
 						<option value="">--请选择学校--</option>
@@ -197,8 +197,8 @@
 					$(".schoolSearch").css("display", "none");
 				}
 				if(level == 1){
-					$("#add_school").css("display","none");
-					$("#edit_school").css("display","none");
+					$(".addSchoolDiv").css("display","none");
+					$(".editSchoolDiv").css("display","none");
 				}
 				//下拉获取学校
 				getSchool()
