@@ -329,7 +329,7 @@
 						},
 						add_affirm_pwd: {
 							required: true,
-							equalTo: true,
+							equalTo: '#add_password',
 						},
 					},
 					messages: {
@@ -344,7 +344,7 @@
 						},
 						add_affirm_pwd: {
 							required: '必填',
-							equalTo:"#add_password",
+							equalTo:"密码不一致",
 						},
 					},
 					submitHandler: function(form) {
@@ -418,7 +418,7 @@
 						},
 						edit_affirm_pwd: {
 							required: true,
-							equalTo: true,
+							equalTo: '#edit_password',
 						},
 					},
 					messages: {
@@ -433,7 +433,7 @@
 						},
 						edit_affirm_pwd: {
 							required: '必填',
-							equalTo:"#edit_password",
+							equalTo:"密码不一致",
 						},
 					},
 					submitHandler: function(form) {
