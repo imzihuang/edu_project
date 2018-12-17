@@ -161,21 +161,18 @@ class StudentLogic(Logic):
             school_info = db_api.school_get(id=view.get("school_id"))
             if school_info:
                 view.update({"school_name": school_info.name})
-            grade_info = db_api.grade_get(id=view.get("grade_id"))
+            grade_info = view.get("grade_info", None)
             if grade_info:
-                view.update({"grade_name": grade_info.name})
-            class_info = db_api.class_get(id=view.get("class_id"))
+                view.update({"grade_name": grade_info.get("name")})
+            class_info = view.get("class_info", None)
             if class_info:
-                view.update({"class_name": class_info.name})
-            relation_list = self._get_relations_by_student(view.get("id"))
-            if relation_list:
-                #view.update({"relation_list": relation_list})
-                #学生亲属的签到信息
-                sign_count, late_count, early_count, sign_date = self.com_sign(relation_list, sign_date)
-                view.update({"sign": sign_count,
-                             "late": late_count,
-                             "early": early_count,
-                             "sign_date": datetime.strftime(sign_date, "%Y-%m")})
+                view.update({"class_name": class_info.get("name")})
+
+            sign_count, late_count, early_count, sign_date = self.com_sign(view.get("id"), sign_date)
+            view.update({"sign": sign_count,
+                         "late": late_count,
+                         "early": early_count,
+                         "sign_date": datetime.strftime(sign_date, "%Y-%m")})
 
         return {"count": student_count, "state": 0, "message": "query success", "data": views_list}
 
@@ -189,16 +186,11 @@ class StudentLogic(Logic):
         LOG.info("student_id%s"%id)
         # 关联学校和班级，还有学生得签到（学生亲属的签到信息）
         student_info = self.views(student_info)
-
-        relation_list = self._get_relations_by_student(id)
-        if relation_list:
-            #student_info.update({"relation_list": relation_list})
-            #学生亲属的签到信息
-            sign_detail = self.com_sign_detail(relation_list, start_date, end_date)
-            sign_data = []
-            for k, v in sign_detail:
-                sign_data.append({"date": k, "status": v})
-            student_info.update({"sign_data": sign_data})
+        sign_detail = self.com_sign_detail(id, start_date, end_date)
+        sign_data = []
+        for k, v in sign_detail.items():
+            sign_data.append({"date": k, "status": v})
+        student_info.update({"sign_data": sign_data})
         return student_info
 
 
@@ -250,10 +242,10 @@ class StudentLogic(Logic):
         }
         db_api.student_history_create(history_values)
 
-    def com_sign(self, relation_list, sign_date=""):
+    def com_sign(self, student_id, sign_date=""):
         """
         统计亲属签到信息
-        :param relation_list: 学生亲属关系列表
+        :param student_id: 学生编号
         :return:
         """
         sign_date = datetime.strptime(sign_date, "%Y-%m-%d") if convert.is_date(sign_date) else datetime.now()
@@ -261,19 +253,18 @@ class StudentLogic(Logic):
         sign_count = 0  # 出勤
         late_count = 0  # 早上迟到
         early_count = 0  # 下午早退
-        for relation in relation_list:
-            sign_status_list = db_api.relative_sign_status_list(firstDay, lastDay, relative_id=relation.get("relevance_id"))
 
-            for status_info in sign_status_list:
-                if status_info.status == "11":
-                    sign_count += 1
-                if status_info.status[0] == "2":
-                    late_count += 1
-                if status_info.status[1] == "2":
-                    early_count += 1
+        sign_status_list = db_api.student_sign_status_list(firstDay, lastDay, student_id=student_id)
+        for status_info in sign_status_list:
+            if status_info.status == "11":
+                sign_count += 1
+            if status_info.status[0] == "2":
+                late_count += 1
+            if status_info.status[1] == "2":
+                early_count += 1
         return sign_count, late_count, early_count, sign_date
 
-    def com_sign_detail(self, relation_list, start_date="", end_date=""):
+    def com_sign_detail(self, student_id, start_date="", end_date=""):
         """
 
         :param relation_list:
@@ -291,20 +282,10 @@ class StudentLogic(Logic):
         LOG.info("sign start end:%r, %r"%(start_date, end_date))
         days = (end_date-start_date).days
         result={}
-        for relation in relation_list:
-            sign_status_list = db_api.relative_sign_status_list(start_date, end_date, relative_id=relation.get("relevance_id"))
-            for x in range(0, days+1):
-                #根据date，可能存在不同的家长签到同一个学生，整合这些家长的签到情况
-                current_date = start_date + timedelta(x)
-                status = ""
-                for sign_status in sign_status_list:
-                    if sign_status.sign_date == current_date:
-                        status = sign_status.status
-                        break
-                if status:
-                    result.update({
-                        datetime.strftime(start_date + timedelta(x), "%Y-%m-%d"):status
-                    })
+        sign_status_list = db_api.relative_sign_status_list(start_date, end_date, student_id=student_id)
+        for sign_status in sign_status_list:
+            result.update({datetime.strftime(sign_status.sign_date): sign_status.status})
+
         return result
 
 
