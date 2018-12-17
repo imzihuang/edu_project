@@ -266,15 +266,16 @@ class ActionHandler(RequestHandler):
         sign_op = SignLogic()
         LOG.info("face token:%s"%face_token)
 
-        face_info = face_op.verify_face(face_token, school_id, cardcode)
-        if not face_info:
+        face_list = face_op.verify_face(face_token, school_id, cardcode)
+        if not face_list:
             self.finish(json.dumps({'state': 3, 'message': 'sign fail, face no exit'}))
         else:
-            sign_op.input(face_info.get("relevance_type", 1),
-                          face_info.get("relevance_id", ""),
-                          face_info.get("alias", ""),
-                          filename,
-                          face_info.get("img_path", ""))
+            for face_info in face_list:
+                sign_op.input(face_info.get("relevance_type", 1),
+                              face_info.get("relevance_id", ""),
+                              face_info.get("alias", ""),
+                              filename,
+                              face_info.get("img_path", ""))
             self.finish(json.dumps({'state': 0, 'message': 'sign ok'}))
 
     @auth_api_login
