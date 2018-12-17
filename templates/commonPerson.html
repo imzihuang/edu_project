@@ -635,7 +635,7 @@
 				//修改密码弹框
 				$('.changePwd').click(function() {
 					$(".errorPart").html("");
-					$("#edit_person_phone").val($(this).parent("td").siblings(".data_phone").html());
+					$("#reset_person_phone").val($(this).parent("td").siblings(".data_phone").html());
 					layerIndex = layer.open({
 						title: '修改用户信息',
 						type: 1,
@@ -665,16 +665,16 @@
 						success: function(msg) {
 							var data = JSON.parse(msg);
 							console.log(data);
-							if(data.state == 0) {
-								$(".codeBtn").css("border", "1px solid #ccc");
-								$(".codeBtn").css("color", "#ccc");
-								var time = setTimeout(function() {
-									$(".codeBtn").css("border", "1px solid #1ba0e7");
-									$(".codeBtn").css("color", "#1ba0e7");
-								},60000);
-							} else {
-								layer.msg('发送失败');
-							}
+//							if(data.state == 0) {
+//								$(".codeBtn").css("border", "1px solid #ccc");
+//								$(".codeBtn").css("color", "#ccc");
+//								var time = setTimeout(function() {
+//									$(".codeBtn").css("border", "1px solid #1ba0e7");
+//									$(".codeBtn").css("color", "#1ba0e7");
+//								},60000);
+//							} else {
+//								layer.msg('发送失败');
+//							}
 						},
 						error: function() {
 							console.log("error");
