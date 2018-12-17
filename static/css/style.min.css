@@ -82,7 +82,7 @@ a:focus {
 
 .navbar-default {
 	background-color: transparent;
-	border-color: #2f4050;
+	border-color: #1ba0e7;
 	position: relative
 }
 
@@ -470,7 +470,7 @@ body.body-small.fixed-sidebar.mini-navbar .navbar-static-side {
 	position: absolute;
 	left: 70px;
 	top: 0;
-	background-color: #2f4050;
+	background-color: #1ba0e7;
 	padding: 10px 10px 0;
 	font-size: 12px;
 	display: block;
@@ -508,7 +508,7 @@ body.canvas-menu.mini-navbar .navbar-default .nav>li>.nav-second-level li a {
 
 body.canvas-menu nav.navbar-static-side {
 	z-index: 2001;
-	background: #2f4050;
+	background: #1ba0e7;
 	height: 100%;
 	position: fixed;
 	display: none
@@ -1267,23 +1267,23 @@ button.dim:active:before {
 }
 
 .tooltip-inner {
-	background-color: #2F4050
+	background-color: #1ba0e7
 }
 
 .tooltip.top .tooltip-arrow {
-	border-top-color: #2F4050
+	border-top-color: #1ba0e7
 }
 
 .tooltip.right .tooltip-arrow {
-	border-right-color: #2F4050
+	border-right-color: #1ba0e7
 }
 
 .tooltip.bottom .tooltip-arrow {
-	border-bottom-color: #2F4050
+	border-bottom-color: #1ba0e7
 }
 
 .tooltip.left .tooltip-arrow {
-	border-left-color: #2F4050
+	border-left-color: #1ba0e7
 }
 
 .easypiechart {
@@ -3031,7 +3031,7 @@ a.forum-item-title:hover {
 	padding: 12px 10px;
 	margin: 0;
 	border-radius: 0;
-	background: #2f4050;
+	background: #1ba0e7;
 	color: #fff;
 	text-align: center;
 	border-right: 1px solid #334556
@@ -3137,7 +3137,7 @@ body.boxed-layout {
 }
 
 body.boxed-layout #wrapper {
-	background-color: #2f4050;
+	background-color: #1ba0e7;
 	margin: 0 auto
 }
 
@@ -3268,7 +3268,7 @@ video {
 #wrapper {
 	width: 100%;
 	overflow-x: hidden;
-	background-color: #2f4050
+	background-color: #1ba0e7
 }
 
 .wrapper {
@@ -5257,7 +5257,7 @@ dd.project-people {
 .article h1 {
 	font-size: 48px;
 	font-weight: 700;
-	color: #2F4050
+	color: #1ba0e7
 }
 
 .article p {
@@ -5413,7 +5413,7 @@ del {
 }
 
 .small-chat-box .heading {
-	background: #2f4050;
+	background: #1ba0e7;
 	padding: 8px 15px;
 	font-weight: 700;
 	color: #fff
@@ -6622,7 +6622,7 @@ body.rtls.top-navigation .footer.fixed {
 }
 
 .content-tabs {
-	border-bottom: solid 2px #2f4050
+	border-bottom: solid 2px #1ba0e7
 }
 
 .page-tabs a {
@@ -6634,7 +6634,7 @@ body.rtls.top-navigation .footer.fixed {
 }
 
 .page-tabs a.active {
-	background: #2f4050;
+	background: #1ba0e7;
 	color: #a7b1c2
 }
 
@@ -6989,7 +6989,7 @@ body.skin-3 {
 }
 
 .navbar-static-side {
-	background: #2f4050
+	background: #1ba0e7
 }
 
 .nav-close {
@@ -7217,7 +7217,7 @@ body.skin-3 {
 	height: 38px;
 	width: 38px;
 	display: block;
-	background: #2f4050;
+	background: #1ba0e7;
 	padding: 9px 8px;
 	text-align: center;
 	color: #fff;
