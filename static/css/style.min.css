@@ -199,7 +199,7 @@ body.body-small .navbar-top-links li:last-child {
 
 .nav>li.active {
 	border-left: 4px solid #19aa8d;
-	background: #293846
+	/*background: #293846*/
 }
 
 .nav.nav-second-level>li.active {
@@ -309,7 +309,7 @@ body.mini-navbar .navbar-default .nav>li>.nav-second-level li a {
 }
 
 .canvas-menu.mini-navbar .nav-second-level {
-	background: #293846
+	/*background: #293846*/
 }
 
 .mini-navbar li.active .nav-second-level {
@@ -6640,7 +6640,7 @@ body.rtls.top-navigation .footer.fixed {
 
 .page-tabs a.active i:hover,
 .page-tabs a.active:hover {
-	background: #293846;
+	/*background: #293846;*/
 	color: #fff
 }
 
