@@ -103,16 +103,17 @@ class FaceLogic(Logic):
         _face_list = db_api.face_list(face_token=face_token, school_id=school_id)
         if not _face_list:
             return None
-        for face_info in _face_list:
-            relative_type = face_info.relevance_type
-            #relevance_id = face_info.relevance_id
-            if relative_type==2:
-                # teacher
-                return self.views(face_info)
-            else:
-                # relative
-                return self.views(face_info)
-        return None
+        return self.views(_face_list)
+        # for face_info in _face_list:
+        #     relative_type = face_info.relevance_type
+        #     #relevance_id = face_info.relevance_id
+        #     if relative_type==2:
+        #         # teacher
+        #         return self.views(face_info)
+        #     else:
+        #         # relative
+        #         return self.views(face_info)
+        #return None
 
 
     def get_extra_face_count(self, relevance_id=""):
