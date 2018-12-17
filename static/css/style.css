@@ -1211,15 +1211,18 @@ body.fixed-sidebar.full-height-layout.gray-bg.pace-done.mini-navbar .nav-second-
 }
 
 body.fixed-sidebar.full-height-layout.gray-bg.pace-done.mini-navbar .ulOne {
-	top: 0;
+	top: 10px;
+	background: #fff;
 }
 
 body.fixed-sidebar.full-height-layout.gray-bg.pace-done.mini-navbar .ulTwo {
-	top: 52px;
+	top: 60px;
+	background: #fff;
 }
 
 body.fixed-sidebar.full-height-layout.gray-bg.pace-done.mini-navbar .ulThree {
-	top: 104px;
+	top: 110px;
+	background: #fff;
 }
 
 .ulFour {
