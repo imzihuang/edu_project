@@ -44,7 +44,9 @@
 													</div>
 													<div class="sendInquiry2 schoolSearch" style="float: left;">
 														<label class="control-label">所属学校：</label>
-														<input type="text" name="" value="" id="person-school" />
+														<select id="person-school" name="">
+															<option>--请选择学校--</option>
+														</select>
 													</div>
 													<div class="sendInquiry0 col-sm-4" style="position: relative; margin:3.5px 0 0 0;">
 														<button class="btn btn-primary btn-myown" id="searchBtn">查询</button>
@@ -225,12 +227,13 @@
 												senddata.offset = e.curr;
 												senddata.limit = e.limit;
 												var district = "";
+												var personSchool = $("#person-school").val()
 												if(level!=0){
-													$("#person-school").val() == ''
+													personSchool = ''
 												}
 												getAjaxData({
 													"name":$("#person-name").val() == '' ? undefined : $("#person-name").val(),
-													"school_id":$("#person-school").val() == '' ? undefined : $("#person-school").val(),
+													"school_id":personSchool,
 													"phone":$("#person-phone").val() == '' ? undefined : $("#person-phone").val(),
 													"limit": 20,
 													"offset": 1,
@@ -330,12 +333,13 @@
 
 				//查询
 				$("#searchBtn").click(function() {
+					var personSchool = $("#person-school").val()
 					if(level!=0){
-						$("#person-school").val() == ''
+						personSchool = ''
 					}
 					getAjaxData({
 						"name":$("#person-name").val() == '' ? undefined : $("#person-name").val(),
-						"school_id":$("#person-school").val() == '' ? undefined : $("#person-school").val(),
+						"school_id":personSchool,
 						"phone":$("#person-phone").val() == '' ? undefined : $("#person-phone").val(),
 						"limit": 20,
 						"offset": 1,
@@ -364,10 +368,12 @@
 								}
 								$("#add_school").html(str);
 								$("#edit_school").html(str);
+                                $("#person-school").append(str);
 							} else {
 								str += '<option>--请先添加学校--</option>';
 								$("#add_school").html(str);
 								$("#edit_school").html(str);
+								$("#person-school").html(str);
 							}
 
 						},
