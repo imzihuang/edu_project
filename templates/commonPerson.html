@@ -149,7 +149,7 @@
 		<div id="editpwd" style="display: none; width: 500px; padding: 20px;">
 			<form id="editpwdform" role="form">
 				<div style="margin: 20px 0;position: relative;">
-					<span>用户手机：</span><input type="text" style="width: 350px;" id="reset_person_phone" name="reset_person_phone" disdisabled="disabled">
+					<span>用户手机：</span><input type="text" style="width: 280px;" id="reset_person_phone" name="reset_person_phone" disdisabled="disabled">
 					<div class="errorPart"></div>
 					<button class="codeBtn">验证码</button>
 				</div>
@@ -650,7 +650,37 @@
 						}
 					});
 				});
-
+                //获取验证码
+                $(".codeBtn").click(function(){
+                	var data = {
+						"phone": $("#reset_person_phone").val()
+					}
+                	$.ajax({
+						type: "POST",
+						contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+						url: "/push_verify/action",
+						async: false,
+						data: data,
+						timeout: "30000",
+						success: function(msg) {
+							var data = JSON.parse(msg);
+							console.log(data);
+							if(data.state == 0) {
+								$(".codeBtn").css("border","1px solid #ccc");
+								$(".codeBtn").css("color","#ccc");
+								var setTimeout(function(){
+									$(".codeBtn").css("border","1px solid #1ba0e7");
+								    $(".codeBtn").css("color","#1ba0e7");
+								},60000);
+							}else {
+								alert("发送失败");
+							}
+						},
+						error: function() {
+							console.log("error");
+						}
+					});
+                });
 				//单项删除
 				$('.fa-close').click(function() {
 					var deleteId = $(this).attr('id');

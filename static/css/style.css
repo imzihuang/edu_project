@@ -1278,7 +1278,8 @@ body.fixed-sidebar.full-height-layout.gray-bg.pace-done.mini-navbar .nav>li.acti
 }
 
 #addInfoContent span,
-#editAreaContent span {
+#editAreaContent span,
+#editpwd span {
 	width: 100px;
 	display: inline-block;
 }
@@ -1424,10 +1425,16 @@ textarea {
 }
 .codeBtn{
 	position: absolute;
-	background: #fff;
-	color: #1ba0e7;
-	border: 1px solid #1ba0e7;
-	border-radius: 5px;
-	top: 10px;
-	right: 0px;
+    background: #fff;
+    color: #1ba0e7;
+    border: 1px solid #1ba0e7;
+    border-radius: 3px;
+    top: 1px;
+    right: 40px;
+    width: 60px;
+    height: 30px;
+}
+.fa-cogs{
+	color: #ea8618;
+	cursor: pointer;
 }
