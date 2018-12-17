@@ -62,9 +62,10 @@ class RegistryHandler(RequestHandler):
                 _op = RelationLogic()
 
             if registry_obj == "user":
-                user_level = self.get_secure_cookie('user_level')
-                if user_level != "0":
-                    self.finish(json.dumps({'state': 4, 'message': 'Only super administrators can operate'}))
+                user_level = int(self.get_secure_cookie('user_level'))
+                level = int(self.get_argument('level', 1))
+                if user_level>=level:
+                    self.finish(json.dumps({'state': 4, 'message': 'Permissions cannot operate'}))
                     return
                 _infos = self._get_user_argument()
                 _op = UserLogic()
