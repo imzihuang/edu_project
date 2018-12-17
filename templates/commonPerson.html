@@ -313,6 +313,19 @@
 			}
 				//添加校验
 				var layerIndex;
+				jQuery.validator.addMethod("isPhone", function(value, element) {
+					var reg = /^[1][3,4,5,7,8][0-9]{9}$/;
+					var phoneNum = $("#add_person_phone").val();
+					var flag = reg.test(phoneNum);
+					return flag;
+				}, "请正确填写手机号码");
+                
+                jQuery.validator.addMethod("isPhoneEdit", function(value, element) {
+					var reg = /^[1][3,4,5,7,8][0-9]{9}$/;
+					var phoneNum = $("#edit_person_phone").val();
+					var flag = reg.test(phoneNum);
+					return flag;
+				}, "请正确填写手机号码");
 				$("#addInfoContentform").validate({
 					focusCleanup: true,
 					focusInvalid: false,
@@ -323,6 +336,7 @@
 						},
 						add_person_phone: {
 							required: true,
+							isPhone:true,
 						},
 						add_password: {
 							required: true,
@@ -338,6 +352,7 @@
 						},
 						add_person_phone: {
 							required: '必填',
+							isPhone:'请填写正确的手机号',
 						},
 						add_password: {
 							required: '必填',
@@ -412,6 +427,7 @@
 						},
 						edit_person_phone: {
 							required: true,
+							isPhoneEdit:true,
 						},
 						edit_password: {
 							required: true,
@@ -427,6 +443,7 @@
 						},
 						edit_person_phone: {
 							required: '必填',
+							isPhoneEdit:'请填写正确的手机号',
 						},
 						edit_password: {
 							required: '必填',

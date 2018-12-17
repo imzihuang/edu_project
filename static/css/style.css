@@ -463,7 +463,7 @@ body.mini-navbar .logo-element {
 }
 
 .navbar-static-top {
-	background: #fff;
+	background: #1ba0e7;
 }
 
 .activeOpen {
@@ -1078,7 +1078,7 @@ input[type="checkbox"]:checked::after {
 }
 
 .navbar-static-side {
-	background: #26303a;
+	background: #ecf0f3;
 }
 
 .nav>li.active {
@@ -1127,7 +1127,7 @@ i.fa.fa-retweet {
 }
 
 .nav>li.active .titleA {
-	background: #278be4;
+	background: #edf8ff;
 }
 
 .btn-primary {
@@ -1412,4 +1412,7 @@ textarea {
 }
 .fr{
 	float: right;
+}
+#side-menu{
+	background: #fff;
 }

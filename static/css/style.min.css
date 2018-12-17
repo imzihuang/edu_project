@@ -53,11 +53,11 @@ a:focus {
 }
 
 .nav.navbar-right>li>a {
-	color: #999c9e
+	color: #fff
 }
 
 .nav>li.active>a {
-	color: #fff
+	color: #8d8f91;
 }
 
 .navbar-default .nav>li>a:focus,
@@ -207,7 +207,8 @@ body.body-small .navbar-top-links li:last-child {
 }
 
 .nav.nav-second-level.collapse[style] {
-	height: auto!important
+	height: auto!important;
+	background: #ffffff;
 }
 
 .nav-header a {
