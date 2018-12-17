@@ -33,33 +33,41 @@ class ActionHandler(RequestHandler):
         self.tmp_path = tmp_path
 
     def post(self, action):
-        if action == "login":
-            self.login()
-            return
+        try:
+            if action == "login":
+                self.login()
+                return
 
-        if action == "sign_out":
-            self.sign_out()
-            return
+            if action == "sign_out":
+                self.sign_out()
+                return
 
-        if action == "face_auth":
-            self.face_auth()
-            return
+            if action == "reset_pwd":
+                self.reset_pwd()
+                return
 
-        if action == "face_activate":
-            self.face_activate()
-            return
+            if action == "face_auth":
+                self.face_auth()
+                return
 
-        if action == "face_disable":
-            self.face_disable()
-            return
+            if action == "face_activate":
+                self.face_activate()
+                return
 
-        if action == "face_signin":
-            self.face_signin()
-            return
+            if action == "face_disable":
+                self.face_disable()
+                return
 
-        if action == "push_verify":
-            self.push_verify()
-            return
+            if action == "face_signin":
+                self.face_signin()
+                return
+
+            if action == "push_verify":
+                self.push_verify()
+                return
+        except Exception as ex:
+            LOG.error("action %s error:%s" % (action, ex))
+            self.finish(json.dumps({'state': 10, 'message': 'action error'}))
 
 
     def login(self):
@@ -87,14 +95,35 @@ class ActionHandler(RequestHandler):
         self.finish(json.dumps({'state': 2, 'message': 'login fail'}))
 
     def sign_out(self):
-        try:
-            self.clear_cookie("user_name")
-            self.clear_cookie("user_level")
-            if self.get_secure_cookie('school_id'):
-                self.clear_cookie("school_id")
-            self.finish(json.dumps({'state': 0, 'message': 'logout ok'}))
-        except Exception,ex:
-            self.finish(json.dumps({'state': 1, 'message': 'logout faild'}))
+        self.clear_cookie("user_name")
+        self.clear_cookie("user_level")
+        if self.get_secure_cookie('school_id'):
+            self.clear_cookie("school_id")
+        self.finish(json.dumps({'state': 0, 'message': 'logout ok'}))
+
+    def reset_pwd(self):
+        new_pwd = convert.bs2utf8(self.get_argument('new_pwd', ''))
+        affirm_pwd = convert.bs2utf8(self.get_argument('affirm_pwd', ''))
+        phone = convert.bs2utf8(self.get_argument('phone', ''))
+        verify_code = convert.bs2utf8(self.get_argument('verify_code', ''))
+
+        if not new_pwd or new_pwd != affirm_pwd:
+            self.finish(json.dumps({'state': 1, 'message': 'pwd error'}))
+            return
+
+        verify_op = VerifyManageLogic()
+        # verify code
+        _ = verify_op.verify_code_phone(phone=phone, code=verify_code)
+        if not _:
+            self.finish(json.dumps({'state': 2, 'message': 'verify code error'}))
+            return
+
+        user_op = UserLogic()
+        _ = user_op.update_pwd_by_phone(phone, new_pwd)
+        if _:
+            self.finish(json.dumps({'state': 0, 'message': 'reset pwd success'}))
+        else:
+            self.finish(json.dumps({'state': 3, 'message': 'reset pwd faild'}))
 
     def _img_resize(self, path):
         """
