@@ -576,7 +576,7 @@
 					$(".errorPart").html("");
 					$("#edit_school").val($(this).parent("td").siblings(".data_school_name").attr("id"));
 					$("#edit_person_name").val($(this).parent("td").siblings(".data_name").html());
-					$("#edit_person_name").attr("title",$(this).parent("td").siblings(".checkedBtn input").attr("name"));
+					$("#edit_person_name").attr("title",$(this).parent("td").siblings(".checkedBtn").find("input").attr("name"));
 					$("#edit_person_phone").val($(this).parent("td").siblings(".data_phone").html());
 					$("#edit_level").val($(this).parent("td").siblings(".data_level").attr("name"));
 					layerIndex = layer.open({
