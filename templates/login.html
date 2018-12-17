@@ -153,7 +153,7 @@
 								console.log(msg);
 								if(data.state == 0) {
 									window.localStorage.setItem("level",level);
-									window.location.href = "/edu/index.html#school.html";
+//									window.location.href = "/edu/index.html#school.html";
 								} else if(data.state == 1) {
 									alert("用户名或密码错误 ");
 								} else {
@@ -191,7 +191,7 @@
 										school.name = data.user_info.school_name;
 										window.localStorage.setItem("school", JSON.stringify(school));
 										window.localStorage.setItem("level",level);
-										window.location.href = "/edu/index.html#grade.html";
+//										window.location.href = "/edu/index.html#grade.html";
 									} else if(data.state == 1) {
 										alert("用户名或密码错误 ");
 									} else {
