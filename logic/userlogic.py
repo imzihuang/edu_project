@@ -56,6 +56,12 @@ class UserLogic(Logic):
     def update(self, id="", **kwargs):
         if not id or not kwargs:
             return False
+
+        user_info = db_api.user_get(id)
+        current_user_level = kwargs.pop("current_user_level")
+        if user_info and int(current_user_level) >= user_info.level:
+            return "Permissions cannot be updated"
+
         if kwargs.get("school_id", ""):
             _ = db_api.school_get(kwargs.get("school_id", ""))
             if not _:
@@ -131,6 +137,13 @@ class UserLogic(Logic):
             return user_info
 
     def delete(self, id="", **kwargs):
+        user_list = db_api.user_list(id=id)
+        if not user_list:
+            return "Id does not exist"
+        current_user_level = kwargs.pop("current_user_level")
+        for user_info in user_list:
+            if int(current_user_level) >= user_info.level:
+                return "Permissions cannot be deleted"
         db_api.user_deleted(id=id)
 
 class WXUserLogic(Logic):

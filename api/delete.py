@@ -23,6 +23,7 @@ class DeleteHandler(RequestHandler):
     def post(self, delete_obj):
         try:
             id = self.get_argument('id', '')
+            kwargs = {}
             _op = Logic()
 
             if delete_obj == "school":
@@ -55,12 +56,13 @@ class DeleteHandler(RequestHandler):
                 if current_user_level != "0":
                     self.finish(json.dumps({'state': 2, 'message': 'only admin'}))
                     return
+                kwargs.update({"current_user_level": current_user_level})
                 _op = UserLogic()
 
             if not id:
                 self.finish(json.dumps({'state': 1, 'message': 'params %s is None' % delete_obj}))
             id = id.split(",")
-            _message = _op.delete(id)
+            _message = _op.delete(id, **kwargs)
             if _message:
                 self.finish(json.dumps({'state': 9, 'message': _message}))
                 return
