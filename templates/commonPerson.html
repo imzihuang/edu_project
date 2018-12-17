@@ -35,8 +35,16 @@
 											<div class="ibox-title-Myown1">
 												<div class="zx_searchTit">
 													<div class="sendInquiry2" style="float: left;">
+														<label class="control-label">用户名：</label>
+														<input type="text" name="" value="" id="person-name" />
+													</div>
+													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">用户手机：</label>
 														<input type="text" name="" value="" id="person-phone" />
+													</div>
+													<div class="sendInquiry2 schoolSearch" style="float: left;">
+														<label class="control-label">所属学校：</label>
+														<input type="text" name="" value="" id="person-school" />
 													</div>
 													<div class="sendInquiry0 col-sm-4" style="position: relative; margin:3.5px 0 0 0;">
 														<button class="btn btn-primary btn-myown" id="searchBtn">查询</button>
@@ -182,6 +190,9 @@
 				var level = JSON.parse(localStorage.getItem("level"));
 				var school = schoolSelect.id;
 				var cardcode = schoolSelect.cardcode;
+				if(level != 0){
+					$(".schoolSearch").css("display","none");
+				}
 				//下拉获取学校
 				getSchool()
 					//获取列表
@@ -214,7 +225,13 @@
 												senddata.offset = e.curr;
 												senddata.limit = e.limit;
 												var district = "";
+												if(level!=0){
+													$("#person-school").val() == ''
+												}
 												getAjaxData({
+													"name":$("#person-name").val() == '' ? undefined : $("#person-name").val(),
+													"school_id":$("#person-school").val() == '' ? undefined : $("#person-school").val(),
+													"phone":$("#person-phone").val() == '' ? undefined : $("#person-phone").val(),
 													"limit": 20,
 													"offset": 1,
 												});
@@ -313,7 +330,13 @@
 
 				//查询
 				$("#searchBtn").click(function() {
+					if(level!=0){
+						$("#person-school").val() == ''
+					}
 					getAjaxData({
+						"name":$("#person-name").val() == '' ? undefined : $("#person-name").val(),
+						"school_id":$("#person-school").val() == '' ? undefined : $("#person-school").val(),
+						"phone":$("#person-phone").val() == '' ? undefined : $("#person-phone").val(),
 						"limit": 20,
 						"offset": 1,
 					});
