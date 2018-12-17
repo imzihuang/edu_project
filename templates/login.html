@@ -149,7 +149,7 @@
 						timeout: "30000",
 						success: function(msg) {
 							var data = JSON.parse(msg);
-							console.log(msg);
+							console.log(data);
 							if(data.state == 0) {
 								if(data.user_info.level == 0) {
 									var level = data.user_info.level;

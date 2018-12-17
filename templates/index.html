@@ -170,8 +170,8 @@
 							</div>
 						</div>
 						<ul class="nav navbar-top-links navbar-right" style="width: 80px;">
-							<li class="m-t-xs" style="float: right;">
-								<a href="login.html"><i class="fa fa-power-off"></i>退出</a>
+							<li class="m-t-xs outBtn" style="float: right;">
+								<a><i class="fa fa-power-off"></i>退出</a>
 							</li>
 						</ul>
 						<div class="schoolPart openSchool">学校：<span class=""></span></div>
@@ -208,13 +208,13 @@
 		<script>
 			//权限判断
 			var level = localStorage.getItem("level");
-			if(level == 1){
+			if(level == 1) {
 				$(".schoolPart").removeClass("openSchool");
-				$(".level1").css("display","none");
+				$(".level1").css("display", "none");
 				var school = JSON.parse(localStorage.getItem("school"));
 				var schoolName = school.name
 				$(".schoolPart span").html(schoolName);
-			}else{
+			} else {
 				getSchool();
 			}
 			//导航
@@ -270,12 +270,7 @@
 				}, false)
 			}
 			//瞄点end
-//			if(localStorage.getItem("school")) {
-//				var schoolSelect = JSON.parse(localStorage.getItem("school"));
-//				$(".schoolPart span").html('[' + schoolSelect.name + ']')
-//			} else {
-//				getSchool();
-//			}
+
 			//学校缓存
 			function getSchool() {
 				var data = {
@@ -295,7 +290,7 @@
 						console.log(msg);
 						if(msg.data.length > 0) {
 							for(var i = 0; i < msg.data.length; i++) {
-								strs += '<li id = ' + msg.data[i].id + ' name = '+ msg.data[i].cardcode +'>' + msg.data[i].name + '</li>'
+								strs += '<li id = ' + msg.data[i].id + ' name = ' + msg.data[i].cardcode + '>' + msg.data[i].name + '</li>'
 							}
 							$("#schoolInfoContent ul").html(strs);
 
@@ -358,6 +353,28 @@
 							time: 800 //后自动关闭
 						});
 						window.location.reload();
+					}
+				});
+			});
+			//退出
+			$(".outBtn").click(function() {
+				$.ajax({
+					type: "POST",
+					contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+					url: "/sign_out/action",
+					async: false,
+					timeout: "30000",
+					success: function(msg) {
+                           var data = JSON.parse(msg);
+							console.log(data);
+							if(data.state == 0) {
+								window.location.href = "/edu/login.html";
+							}else{
+								alert("登出失败");
+							}
+					},
+					error: function() {
+						console.log("error");
 					}
 				});
 			});
