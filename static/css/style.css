@@ -393,7 +393,7 @@ a.navbar-minimalize.minimalize-styl-2.btn.btn-primary {
 }
 
 .layui-layer-molv .layui-layer-title {
-	background: #293846;
+	background: #1ba0e7;
 	color: #fafafa;
 	border: none;
 }
@@ -410,7 +410,7 @@ body.mini-navbar .logo-element {
 }
 
 .fa-pencil, .fa-calendar {
-	color: #278be4;
+	color: #1ba0e7;
 }
 
 .fa-pencil:hover {
@@ -467,7 +467,7 @@ body.mini-navbar .logo-element {
 }
 
 .activeOpen {
-	background: #293846;
+	background: #1ba0e7;
 	color: #fff;
 }
 
@@ -475,7 +475,7 @@ body.mini-navbar .logo-element {
 	color: #fafafa!important;
 	height: 42px!important;
 	line-height: 42px!important;
-	background: #293846!important;
+	background: #1ba0e7!important;
 }
 
 .layui-layer.layui-layer-page.layui-layer-demo.layer-anim-02 {
@@ -484,7 +484,7 @@ body.mini-navbar .logo-element {
 }
 
 .layui-layer-btn .layui-layer-btn0 {
-	background: #278be4!important;
+	background: #1ba0e7!important;
 	border: 1px solid #0c9b9e!important;
 }
 
@@ -926,7 +926,7 @@ nav.navbar.navbar-static-top {
 }
 
 .openTd {
-	color: #278be4;
+	color: #1ba0e7;
 }
 
 .colseTd {
@@ -1050,7 +1050,7 @@ input[type="checkbox"]:checked::after {
 }
 
 .btn-primary {
-	border-color: #278be4;
+	border-color: #1ba0e7;
 }
 
 .td250 {
@@ -1131,11 +1131,11 @@ i.fa.fa-retweet {
 }
 
 .btn-primary {
-	background: #278be4;
+	background: #1ba0e7;
 }
 
 .btn-primary:hover {
-	background: #278be4;
+	background: #1ba0e7;
 }
 
 .contentStep1,
@@ -1374,7 +1374,7 @@ textarea {
 
 #addMoreInfoContent .fa-plus-square {
 	margin-left: 10px;
-	color: #293846;
+	color: #1ba0e7;
 	cursor: pointer;
 }
 #addMoreInfoContent .addClassInput{
