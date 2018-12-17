@@ -56,9 +56,10 @@
 														<tr class="zx_thTitle">
 															<th style="max-width: 100px;"><input type="checkbox" class="zx_checkedBtn" id="zx_checkedAllBtn" name="allcheck" value="allCheck"></th>
 															<th>序号</th>
-															<th>用户手机</th>
-															<th>密码</th>
-															<th>学校名称</th>
+															<th>用户名</th>
+															<th>所属学校</th>
+															<th>账号等级</th>
+															<th>联系电话</th>
 															<th>创建时间</th>
 															<th style="width: 120px;">操作</th>
 														</tr>
@@ -90,6 +91,10 @@
 					</select>
 				</div>
 				<div style="margin: 20px 0;">
+					<span>用户名：</span><input type="text" style="width: 350px;" id="add_person_name" name="add_person_name" />
+					<div class="errorPart"></div>
+				</div>
+				<div style="margin: 20px 0;">
 					<span>用户手机：</span><input type="text" style="width: 350px;" id="add_person_phone" name="add_person_phone" />
 					<div class="errorPart"></div>
 				</div>
@@ -112,6 +117,10 @@
 					<select style="width: 350px;" id="edit_school" name="edit_school">
 						<option value="">--请选择学校--</option>
 					</select>
+				</div>
+				<div style="margin: 20px 0;">
+					<span>用户名：</span><input type="text" style="width: 350px;" id="edit_person_name" name="edit_person_name" />
+					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;">
 					<span>用户手机：</span><input type="text" style="width: 350px;" id="edit_person_phone" name="edit_person_phone" />
@@ -153,7 +162,7 @@
 					$.ajax({
 						type: "GET",
 						contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-						url: "/grade/infos",
+						url: "/user/infos",
 						async: false,
 						data: senddata,
 						timeout: "30000",
@@ -189,15 +198,16 @@
 										'<td><input type="checkbox" class="zx_checkedBtn" name=' + msg.data[i].id + '></td>' +
 										'<td class="centerSort">' + (i + 1) + '</td>' +
 										'<td class="data_name">' + msg.data[i].name + '</td>' +
-										'<td class="center">' + msg.data[i].create_time + '</td>' +
-										'<td class="data_name">' + msg.data[i].name + '</td>' +
+										'<td class="center">' + msg.data[i].school_id + '</td>' +
+										'<td class="data_name">' + msg.data[i].level + '</td>' +
+										'<td class="center">' + msg.data[i].phone + '</td>' +
 										'<td class="center">' + msg.data[i].create_time + '</td>' +
 										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" id=' + msg.data[i].id + ' title="删除"></i></td>' +
 										'</tr>'
 								}
 								$("#tbody").html(strs);
 							} else {
-								$("#tbody").html('<tr><td colspan="7" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
+								$("#tbody").html('<tr><td colspan="8" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
 							}
 						},
 						error: function() {
@@ -232,7 +242,7 @@
 							$.ajax({
 								type: "POST",
 								contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-								url: "/grade/delete",
+								url: "/user/delete",
 								async: false,
 								data: data,
 								timeout: "30000",
@@ -308,23 +318,38 @@
 					focusInvalid: false,
 					debug: true,
 					rules: {
+						add_person_name:{
+							required: true,
+						},
 						add_person_phone: {
 							required: true,
 						},
 						add_password: {
 							required: true,
+						},
+						add_affirm_pwd: {
+							required: true,
+							equalTo: true,
 						},
 					},
 					messages: {
+						add_person_name:{
+							required: '必填',
+						},
 						add_person_phone: {
 							required: '必填',
 						},
 						add_password: {
 							required: '必填',
+						},
+						add_affirm_pwd: {
+							required: '必填',
+							equalTo:"#add_password",
 						},
 					},
 					submitHandler: function(form) {
 						var data = {
+							'name':$("#add_person_name").val(),
 							'phone':$("#add_person_phone").val(),
 							'school_id':$("#add_school").val(),
 							'pwd': $("#add_password").val(),
@@ -382,29 +407,47 @@
 					focusInvalid: false,
 					debug: true,
 					rules: {
+						edit_person_name:{
+							required: true,
+						},
 						edit_person_phone: {
 							required: true,
 						},
-						add_password: {
+						edit_password: {
 							required: true,
+						},
+						edit_affirm_pwd: {
+							required: true,
+							equalTo: true,
 						},
 					},
 					messages: {
-						add_person_phone: {
+						edit_person_name:{
 							required: '必填',
 						},
-						add_password: {
+						edit_person_phone: {
 							required: '必填',
+						},
+						edit_password: {
+							required: '必填',
+						},
+						edit_affirm_pwd: {
+							required: '必填',
+							equalTo:"#edit_password",
 						},
 					},
 					submitHandler: function(form) {
 						var data = {
-							'name': $("#edit_name").val(),
+							'name':$("#add_person_name").val(),
+							'phone':$("#add_person_phone").val(),
+							'school_id':$("#add_school").val(),
+							'pwd': $("#add_password").val(),
+							'affirm_pwd': $("#add_affirm_pwd").val(),
 						}
 						$.ajax({
 							type: "POST",
 							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-							url: "/grade/update",
+							url: "/user/update",
 							async: false,
 							data: data,
 							timeout: "30000",
@@ -461,7 +504,7 @@
 						$.ajax({
 							type: "POST",
 							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-							url: "/grade/delete",
+							url: "/user/delete",
 							async: false,
 							data: data,
 							timeout: "30000",

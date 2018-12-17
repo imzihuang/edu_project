@@ -368,7 +368,7 @@
 					success: function(msg) {
                            var data = JSON.parse(msg);
 							console.log(data);
-							if(data.state == 0) {alert("登出成功");
+							if(data.state == 0) {
 								window.location.href = "/edu/login.html";
 							}else{
 								alert("登出失败");
