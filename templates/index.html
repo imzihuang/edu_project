@@ -297,6 +297,7 @@
 							if(localStorage.getItem("school")) {
 								var schoolSelect = JSON.parse(localStorage.getItem("school"));
 								$("#" + schoolSelect.id).addClass("activeColor");
+								$(".schoolPart span").html('[' + $(".activeColor").html() + ']');
 							} else {
 								$("#schoolInfoContent ul li").eq(0).addClass("activeColor");
 								$(".schoolPart span").html('[' + $(".activeColor").html() + ']');
@@ -367,7 +368,7 @@
 					success: function(msg) {
                            var data = JSON.parse(msg);
 							console.log(data);
-							if(data.state == 0) {
+							if(data.state == 0) {alert("登出成功");
 								window.location.href = "/edu/login.html";
 							}else{
 								alert("登出失败");
