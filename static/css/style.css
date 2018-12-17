@@ -1426,7 +1426,7 @@ textarea {
 .codeBtn{
 	position: absolute;
     background: #fff;
-    color: #1ba0e7;
+    color: #1ba0e7 !important;
     border: 1px solid #1ba0e7;
     border-radius: 3px;
     top: 1px;

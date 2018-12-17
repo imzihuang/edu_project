@@ -601,7 +601,7 @@
 							data: data,
 							timeout: "30000",
 							success: function(msg) {
-								var msg = JSON.parse(msg);
+								var msg = JSON.parse(msg);console.log(msg);
 								if(msg.state == 0) {
 									layer.closeAll();
 									layer.msg('修改成功', {
@@ -637,7 +637,7 @@
 					$(".errorPart").html("");
 					$("#reset_person_phone").val($(this).parent("td").siblings(".data_phone").html());
 					layerIndex = layer.open({
-						title: '修改用户信息',
+						title: '修改密码',
 						type: 1,
 						skin: 'layui-layer-demo',
 						closeBtn: 0,
@@ -667,10 +667,10 @@
 							console.log(data);
 							if(data.state == 0) {
 								$(".codeBtn").css("border", "1px solid #ccc");
-								$(".codeBtn").css("color", "#ccc");
+								$(".codeBtn").css("color", "#ccc !important");
 								var time = setTimeout(function() {
 									$(".codeBtn").css("border", "1px solid #1ba0e7");
-									$(".codeBtn").css("color", "#1ba0e7");
+									$(".codeBtn").css("color", "#1ba0e7 !important");
 								},60000);
 							} else {
 								layer.msg('发送失败');
