@@ -60,7 +60,7 @@ class UserLogic(Logic):
         user_info = db_api.user_get(id)
         current_user_level = kwargs.pop("current_user_level")
         if user_info and int(current_user_level) >= user_info.level:
-            return "Permissions cannot be updated"
+            return False
 
         if kwargs.get("school_id", ""):
             _ = db_api.school_get(kwargs.get("school_id", ""))
