@@ -114,7 +114,7 @@
 								<span class="fa arrow"></span>
 							</a>
 							<ul class="nav nav-second-level ulOne">
-								<li class="listNav level1">
+								<li class="listNav level2">
 									<a class="J_menuItem" name="school.html" id="school.html" href="javascript:void(0);">学校</a>
 								</li>
 								<li class="listNav">
@@ -215,7 +215,14 @@
 				var school = JSON.parse(localStorage.getItem("school"));
 				var schoolName = school.name
 				$(".schoolPart span").html(schoolName);
-			} else {
+			} else if (level == 2){
+				$(".schoolPart").removeClass("openSchool");
+				$(".level1").css("display", "none");
+				$(".level2").css("display", "none");
+				var school = JSON.parse(localStorage.getItem("school"));
+				var schoolName = school.name
+				$(".schoolPart span").html(schoolName);
+			}else{
 				getSchool();
 			}
 			//导航
