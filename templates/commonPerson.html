@@ -440,9 +440,7 @@
 					submitHandler: function(form) {
 						var addLevel = $("#add_level").val()
 						var addSchool = $("#add_school").val()
-						if(level != 0) {
-							addLevel = ''
-						}
+						
 						if(level == 1){
 							addSchool = school
 						}
@@ -484,9 +482,7 @@
 
 				//添加弹框
 				$('#addInfo').click(function() {
-					if(level != 0) {
-						$(".level").css("display", "none");
-					}
+					
 					$("input").val("");
 					$(".errorPart").html("");
 					layerIndex = layer.open({
@@ -529,9 +525,6 @@
 					submitHandler: function(form) {
 						var editLevel = $("#edit_level").val()
 						var editSchool = $("#edit_school").val()
-						if(level != 0) {
-							editLevel = ''
-						}
 						
 						if(level == 1){
 							editSchool = school
