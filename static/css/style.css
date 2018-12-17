@@ -1045,7 +1045,7 @@ input[type="checkbox"]:checked::after {
 
 .navbar-default .nav>.Lilist>a:focus,
 .navbar-default .nav>.Lilist>a:hover {
-	background: #278be4;
+	background: #EDF8FF;
 	color: #fff;
 }
 
@@ -1117,7 +1117,7 @@ i.fa.fa-retweet {
 }
 
 .Lilist .titleA {
-	color: #adb2bb;
+	color: #8D8F91;
 	padding: 15px 20px 15px 25px!important;
 	font-size: 15px;
 }
@@ -1415,4 +1415,7 @@ textarea {
 }
 #side-menu{
 	background: #fff;
+}
+.collapse.in {
+    background: #fff;
 }
