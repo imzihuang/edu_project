@@ -142,7 +142,6 @@
 				<div style="margin: 20px 0;" class="level">
 					<span>账号等级：</span>
 					<select style="width: 350px;" id="edit_level" name="edit_level">
-						<option value="0">超级管理员</option>
 						<option value="1">学校管理员</option>
 						<option value="2">学校用户</option>
 					</select>
@@ -442,7 +441,8 @@
 						var addSchool = $("#add_school").val()
 						
 						if(level == 1){
-							addSchool = school
+							addSchool = school;
+							addLevel = 1
 						}
 						var data = {
 							'name': $("#add_person_name").val(),
@@ -482,7 +482,9 @@
 
 				//添加弹框
 				$('#addInfo').click(function() {
-					
+					if(level != 0) {
+						$(".level").css("display", "none");
+					}
 					$("input").val("");
 					$(".errorPart").html("");
 					layerIndex = layer.open({
@@ -527,7 +529,8 @@
 						var editSchool = $("#edit_school").val()
 						
 						if(level == 1){
-							editSchool = school
+							editSchool = school;
+							addLevel = 1
 						}
 						var data = {
 							'name': $("#add_person_name").val(),
@@ -587,6 +590,7 @@
 						content: $('#editAreaContent'),
 						yes: function() {
 							$("#editAreaContentSubmit").click();
+							
 						}
 					});
 				});
