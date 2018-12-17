@@ -659,10 +659,12 @@
 							console.log(data);
 							if(data.state == 0) {
 								$(".codeBtn").css("border", "1px solid #ccc");
+								$(".codeBtn").attr("disabled", "disabled");
 								$(".codeBtn").css("color", "#ccc !important");
 								var time = setTimeout(function() {
 									$(".codeBtn").css("border", "1px solid #1ba0e7");
 									$(".codeBtn").css("color", "#1ba0e7 !important");
+									$(".codeBtn").attr("disabled", false);
 								},60000);
 							} else {
 								layer.msg('发送失败');
