@@ -66,8 +66,23 @@ class UserLogic(Logic):
         phone = kwargs.get("phone", "")
         if phone and db_api.user_list(phone=phone):
             raise ParamExist(key="phone", value=phone)
+        if kwargs.get("pwd", ""):
+            kwargs.pop("pwd")
         _ = db_api.user_update(id, kwargs)
         return _
+
+    def update_pwd_by_phone(self, phone, pwd):
+        user_list = db_api.user_list(phone=phone)
+        if not user_list:
+            return False
+        user_id = user_list[0].id
+        if not phone:
+            return False
+        if not convert.is_mobile(phone):
+            return False
+        db_api.user_update(user_id, pwd=encry_md5(pwd))
+        return True
+
 
     def infos(self, id="", name="", phone="", school_id="", limit=100, offset=1):
         offset = (offset - 1) * limit if offset > 0 else 0
@@ -82,7 +97,13 @@ class UserLogic(Logic):
             filters.update({"school_id": school_id})
         user_list = db_api.user_list(offset=offset, limit=limit, **filters)
         user_count = db_api.user_count(**filters)
-        return {"count": user_count, "state": 0, "message": "query success", "data": self.views(user_list)}
+        user_views = self.views(user_list)
+        for user_info in user_views:
+            school_info = db_api.school_get(id=user_info.get("school_id"))
+            if school_info:
+                user_info.update({"school_name": school_info.name})
+
+        return {"count": user_count, "state": 0, "message": "query success", "data": user_views}
 
 
     def auth_username(self, name, pwd):
