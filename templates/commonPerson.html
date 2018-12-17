@@ -98,6 +98,14 @@
 					<span>用户手机：</span><input type="text" style="width: 350px;" id="add_person_phone" name="add_person_phone" />
 					<div class="errorPart"></div>
 				</div>
+				<div style="margin: 20px 0;" class="level">
+					<span>账号等级：</span>
+					<select style="width: 350px;" id="add_level" name="add_level">
+						<option value="0">超级管理员</option>
+						<option value="1">学校管理员</option>
+						<option value="2">学校用户</option>
+					</select>
+				</div>
 				<div style="margin: 20px 0;">
 					<span>密码：</span><input type="text" style="width: 350px;" id="add_password" name="add_password" />
 					<div class="errorPart"></div>
@@ -122,19 +130,42 @@
 					<span>用户名：</span><input type="text" style="width: 350px;" id="edit_person_name" name="edit_person_name" />
 					<div class="errorPart"></div>
 				</div>
+				<div style="margin: 20px 0;" class="level">
+					<span>账号等级：</span>
+					<select style="width: 350px;" id="edit_level" name="edit_level">
+						<option value="0">超级管理员</option>
+						<option value="1">学校管理员</option>
+						<option value="2">学校用户</option>
+					</select>
+				</div>
 				<div style="margin: 20px 0;">
 					<span>用户手机：</span><input type="text" style="width: 350px;" id="edit_person_phone" name="edit_person_phone" />
 					<div class="errorPart"></div>
 				</div>
-				<div style="margin: 20px 0;">
-					<span>密码：</span><input type="text" style="width: 350px;" id="edit_password" name="edit_password" />
-					<div class="errorPart"></div>
-				</div>
-				<div style="margin: 20px 0;">
-					<span>确认密码：</span><input type="text" style="width: 350px;" id="edit_affirm_pwd" name="edit_affirm_pwd" />
-					<div class="errorPart"></div>
-				</div>
 				<input class="submit" type="submit" value="提交" id="editAreaContentSubmit" style="display: none;">
+			</form>
+		</div>
+		<!--修改密码-->
+		<div id="editpwd" style="display: none; width: 500px; padding: 20px;">
+			<form id="editpwdform" role="form">
+				<div style="margin: 20px 0;position: relative;">
+					<span>用户手机：</span><input type="text" style="width: 350px;" id="reset_person_phone" name="reset_person_phone" disdisabled="disabled">
+					<div class="errorPart"></div>
+					<button class="codeBtn">验证码</button>
+				</div>
+				<div style="margin: 20px 0;">
+					<span>验证码：</span><input type="text" style="width: 350px;" id="reset_person_code" name="reset_person_code" />
+					<div class="errorPart"></div>
+				</div>
+				<div style="margin: 20px 0;">
+					<span>新密码：</span><input type="text" style="width: 350px;" id="reset_password" name="reset_password" />
+					<div class="errorPart"></div>
+				</div>
+				<div style="margin: 20px 0;">
+					<span>确认新密码：</span><input type="text" style="width: 350px;" id="reset_affirm_pwd" name="reset_affirm_pwd" />
+					<div class="errorPart"></div>
+				</div>
+				<input class="submit" type="submit" value="提交" id="editpwdformSubmit" style="display: none;">
 			</form>
 		</div>
 
@@ -148,11 +179,12 @@
 			$(document).ready(function() {
 				//获取学校
 				var schoolSelect = JSON.parse(localStorage.getItem("school"));
-			    var school = schoolSelect.id;  
-			    var cardcode = schoolSelect.cardcode;
-			    //下拉获取学校
-			    getSchool()
-				//获取列表
+				var level = JSON.parse(localStorage.getItem("level"));
+				var school = schoolSelect.id;
+				var cardcode = schoolSelect.cardcode;
+				//下拉获取学校
+				getSchool()
+					//获取列表
 				getAjaxData({
 					"limit": 20,
 					"offset": 1,
@@ -194,15 +226,26 @@
 							var strs = '';
 							if(msg.data.length > 0) {
 								for(var i = 0; i < msg.data.length; i++) {
+									var levelName;
+									if(msg.data[i].level == 0){
+										levelName = '超级管理员'
+									}else if(msg.data[i].level == 1){
+										levelName = '学校管理员'
+									}else if(msg.data[i].level == 2){
+										levelName = '学校用户'
+									}
 									strs += '<tr class="gradeX">' +
 										'<td><input type="checkbox" class="zx_checkedBtn" name=' + msg.data[i].id + '></td>' +
 										'<td class="centerSort">' + (i + 1) + '</td>' +
 										'<td class="data_name">' + msg.data[i].name + '</td>' +
-										'<td class="center">' + msg.data[i].school_name + '</td>' +
-										'<td class="data_name">' + msg.data[i].level + '</td>' +
-										'<td class="center">' + msg.data[i].phone + '</td>' +
+										'<td class="center data_school_name" id ='+ msg.data[i].school_id +'>' + msg.data[i].school_name + '</td>' +
+										'<td class="data_level" name =' + msg.data[i].level + '>' + levelName + '</td>' +
+										'<td class="center data_level">' + msg.data[i].phone + '</td>' +
 										'<td class="center">' + msg.data[i].create_time + '</td>' +
-										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" id=' + msg.data[i].id + ' title="删除"></i></td>' +
+										'<td><i class="fa fa-pencil areapen" title="修改详情"></i>&nbsp;&nbsp;'+
+										'<i class="fa fa-close" id=' + msg.data[i].id + ' title="删除"></i>&nbsp;&nbsp;'+
+										'<i class="fa fa-cogs changePwd" title="修改密码"></i>'+
+										'</td>' +
 										'</tr>'
 								}
 								$("#tbody").html(strs);
@@ -251,10 +294,10 @@
 									layer.closeAll();
 									layer.msg('删除成功', {
 										icon: 1,
-										time: 800 
+										time: 800
 									});
 									window.location.reload();
-									
+
 								},
 								error: function() {
 									layer.msg('删除失败');
@@ -275,42 +318,41 @@
 						"offset": 1,
 					});
 				});
-                //获取学校
-                function getSchool() {
-				var data = {
-					"limit": 20,
-					"offset": 1,
-				}
-				$.ajax({
-					type: "GET",
-					contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-					url: "/school/infos",
-					async: false,
-					data: data,
-					timeout: "30000",
-					success: function(msg) {
-						var str = '';
-						var msg = JSON.parse(msg);
-						console.log(msg);
-						if(msg.data.length > 0) {
-							for(var i = 0; i < msg.data.length; i++) {
-								str += '<option value=' + msg.data[i].id + '>' + msg.data[i].name + '</option>';
-							}
-							$("#add_school").html(str);
-							$("#edit_school").html(str);
-						} else {
-							str += '<option>--请先添加学校--</option>';
-							$("#add_school").html(str);
-							$("#edit_school").html(str);
-						}
-
-						
-					},
-					error: function() {
-						console.log("error");
+				//获取学校
+				function getSchool() {
+					var data = {
+						"limit": 20,
+						"offset": 1,
 					}
-				});
-			}
+					$.ajax({
+						type: "GET",
+						contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+						url: "/school/infos",
+						async: false,
+						data: data,
+						timeout: "30000",
+						success: function(msg) {
+							var str = '';
+							var msg = JSON.parse(msg);
+							console.log(msg);
+							if(msg.data.length > 0) {
+								for(var i = 0; i < msg.data.length; i++) {
+									str += '<option value=' + msg.data[i].id + '>' + msg.data[i].name + '</option>';
+								}
+								$("#add_school").html(str);
+								$("#edit_school").html(str);
+							} else {
+								str += '<option>--请先添加学校--</option>';
+								$("#add_school").html(str);
+								$("#edit_school").html(str);
+							}
+
+						},
+						error: function() {
+							console.log("error");
+						}
+					});
+				}
 				//添加校验
 				var layerIndex;
 				jQuery.validator.addMethod("isPhone", function(value, element) {
@@ -319,8 +361,8 @@
 					var flag = reg.test(phoneNum);
 					return flag;
 				}, "请正确填写手机号码");
-                
-                jQuery.validator.addMethod("isPhoneEdit", function(value, element) {
+
+				jQuery.validator.addMethod("isPhoneEdit", function(value, element) {
 					var reg = /^[1][3,4,5,7,8][0-9]{9}$/;
 					var phoneNum = $("#edit_person_phone").val();
 					var flag = reg.test(phoneNum);
@@ -331,12 +373,12 @@
 					focusInvalid: false,
 					debug: true,
 					rules: {
-						add_person_name:{
+						add_person_name: {
 							required: true,
 						},
 						add_person_phone: {
 							required: true,
-							isPhone:true,
+							isPhone: true,
 						},
 						add_password: {
 							required: true,
@@ -347,28 +389,32 @@
 						},
 					},
 					messages: {
-						add_person_name:{
+						add_person_name: {
 							required: '必填',
 						},
 						add_person_phone: {
 							required: '必填',
-							isPhone:'请填写正确的手机号',
+							isPhone: '请填写正确的手机号',
 						},
 						add_password: {
 							required: '必填',
 						},
 						add_affirm_pwd: {
 							required: '必填',
-							equalTo:"密码不一致",
+							equalTo: "密码不一致",
 						},
 					},
 					submitHandler: function(form) {
+						if(level!=0){
+							$("#add_level").val() = ''
+						}
 						var data = {
-							'name':$("#add_person_name").val(),
-							'phone':$("#add_person_phone").val(),
-							'school_id':$("#add_school").val(),
+							'name': $("#add_person_name").val(),
+							'phone': $("#add_person_phone").val(),
+							'school_id': $("#add_school").val(),
 							'pwd': $("#add_password").val(),
 							'affirm_pwd': $("#add_affirm_pwd").val(),
+							'level': $("#add_level").val() == '' ? undefined : $("#add_level").val(),,
 						}
 						$.ajax({
 							type: "POST",
@@ -400,6 +446,9 @@
 
 				//添加弹框
 				$('#addInfo').click(function() {
+					if(level!=0){
+						$(".level").css("display","none");
+					}
 					$("input").val("");
 					$(".errorPart").html("");
 					layerIndex = layer.open({
@@ -422,42 +471,28 @@
 					focusInvalid: false,
 					debug: true,
 					rules: {
-						edit_person_name:{
+						edit_person_name: {
 							required: true,
 						},
 						edit_person_phone: {
 							required: true,
-							isPhoneEdit:true,
-						},
-						edit_password: {
-							required: true,
-						},
-						edit_affirm_pwd: {
-							required: true,
-							equalTo: '#edit_password',
+							isPhoneEdit: true,
 						},
 					},
 					messages: {
-						edit_person_name:{
+						edit_person_name: {
 							required: '必填',
 						},
 						edit_person_phone: {
 							required: '必填',
-							isPhoneEdit:'请填写正确的手机号',
-						},
-						edit_password: {
-							required: '必填',
-						},
-						edit_affirm_pwd: {
-							required: '必填',
-							equalTo:"密码不一致",
+							isPhoneEdit: '请填写正确的手机号',
 						},
 					},
 					submitHandler: function(form) {
 						var data = {
-							'name':$("#add_person_name").val(),
-							'phone':$("#add_person_phone").val(),
-							'school_id':$("#add_school").val(),
+							'name': $("#add_person_name").val(),
+							'phone': $("#add_person_phone").val(),
+							'school_id': $("#add_school").val(),
 							'pwd': $("#add_password").val(),
 							'affirm_pwd': $("#add_affirm_pwd").val(),
 						}
@@ -492,8 +527,14 @@
 
 				//编辑弹框
 				$('.areapen').click(function() {
+					if(level!=0){
+						$(".level").css("display","none");
+					}
 					$(".errorPart").html("");
-					$("#edit_name").val($(this).parent("td").siblings(".data_name").html());
+					$("#edit_school").val($(this).parent("td").siblings(".data_school_name").attr("id"));
+					$("#edit_person_name").val($(this).parent("td").siblings(".data_name").html());
+					$("#edit_person_phone").val($(this).parent("td").siblings(".data_phone").html());
+					$("#edit_level").val($(this).parent("td").siblings(".data_level").attr("name"));
 					layerIndex = layer.open({
 						title: '修改用户信息',
 						type: 1,
@@ -508,8 +549,109 @@
 						}
 					});
 				});
-               
-                //单项删除
+				//修改密码校验
+				$("#editAreaContentform").validate({
+					focusCleanup: true,
+					focusInvalid: false,
+					debug: true,
+					rules: {
+						edit_person_phone: {
+							required: true,
+							isPhoneEdit: true,
+						},
+						edit_person_code: {
+							required: true,
+						},
+						edit_password: {
+							required: true,
+						},
+						edit_affirm_pwd: {
+							required: true,
+							equalTo: '#edit_password',
+						},
+					},
+					messages: {
+						edit_person_phone: {
+							required: '必填',
+							isPhoneEdit: '请填写正确的手机号',
+						},
+						edit_person_code: {
+							required: '必填',
+						},
+						edit_password: {
+							required: '必填',
+						},
+						edit_affirm_pwd: {
+							required: '必填',
+							equalTo: "密码不一致",
+						},
+					},
+					submitHandler: function(form) {
+						var data = {
+							'phone': $("#reset_person_phone").val(),
+							'veirfy_code': $("#reset_person_code").val(),
+							'new_pwd': $("#reset_password").val(),
+							'affirm_pwd': $("#reset_affirm_pwd").val(),
+						}
+						$.ajax({
+							type: "POST",
+							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+							url: "/reset_pwd/action",
+							async: false,
+							data: data,
+							timeout: "30000",
+							success: function(msg) {
+								var msg = JSON.parse(msg);
+								if(msg.state == 0){
+									layer.closeAll();
+									layer.msg('修改成功', {
+										icon: 1,
+										time: 80
+									});
+									window.location.reload();
+								}else if(msg.state == 1){
+									layer.msg('密码错误，未空或者二次密码不一致');
+								}else if(msg.state == 2){
+									layer.msg('只有管理员可以重置其他用户');
+								}else if(msg.state == 3){
+									layer.msg('手机号不存在或错误');
+								}else{
+									layer.msg('修改失败');
+								}
+							},
+							error: function() {
+								layer.msg('修改失败');
+								console.log("error");
+							}
+						});
+					},
+
+					errorPlacement: function(error, element) {
+						error.appendTo(element.parent().find(".errorPart"));
+					},
+					success: function() {}
+				});
+
+				//修改密码弹框
+				$('.changePwd').click(function() {
+					$(".errorPart").html("");
+					$("#edit_person_phone").val($(this).parent("td").siblings(".data_phone").html());
+					layerIndex = layer.open({
+						title: '修改用户信息',
+						type: 1,
+						skin: 'layui-layer-demo',
+						closeBtn: 0,
+						anim: 2,
+						shadeClose: true,
+						btn: ['确定', '取消'],
+						content: $('#editpwd'),
+						yes: function() {
+							$("#editpwdformSubmit").click();
+						}
+					});
+				});
+
+				//单项删除
 				$('.fa-close').click(function() {
 					var deleteId = $(this).attr('id');
 					layer.confirm('确定删除选中的用户？', {
@@ -530,10 +672,10 @@
 								layer.closeAll();
 								layer.msg('删除成功', {
 									icon: 1,
-									time: 800 
+									time: 800
 								});
 								window.location.reload();
-								
+
 							},
 							error: function() {
 								layer.msg('删除失败');

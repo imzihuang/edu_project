@@ -1422,3 +1422,12 @@ textarea {
 .collapse.in {
     background: #fff;
 }
+.codeBtn{
+	position: absolute;
+	background: #fff;
+	color: #1ba0e7;
+	border: 1px solid #1ba0e7;
+	border-radius: 5px;
+	top: 10px;
+	right: 0px;
+}
