@@ -14,6 +14,7 @@ from logic.student import StudentLogic
 from logic.relative import RelativeLogic
 from logic.relation import RelationLogic
 from logic.facelogic import FaceLogic
+from logic.userlogic import UserLogic
 
 LOG = logging.getLogger(__name__)
 
@@ -47,6 +48,14 @@ class DeleteHandler(RequestHandler):
 
             if delete_obj == "face":
                 _op = FaceLogic()
+
+            if delete_obj == "user":
+                # only admin
+                current_user_level = self.get_secure_cookie('user_level')
+                if current_user_level != "0":
+                    self.finish(json.dumps({'state': 2, 'message': 'only admin'}))
+                    return
+                _op = UserLogic()
 
             if not id:
                 self.finish(json.dumps({'state': 1, 'message': 'params %s is None' % delete_obj}))

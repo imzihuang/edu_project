@@ -77,6 +77,9 @@ class RegistryHandler(RequestHandler):
         except NotFound as ex:
             LOG.error("Input %s param not data:%s" % (registry_obj, ex))
             self.finish(json.dumps({'state': 2, 'message': 'param not data'}))
+        except ParamExist as ex:
+            LOG.error("Input %s param exit:%s" % (registry_obj, ex))
+            self.finish(json.dumps({'state': 5, 'message': 'param exit'}))
         except Exception as ex:
             LOG.error("Input %s error:%s"%(registry_obj, ex))
             self.finish(json.dumps({'state': 3, 'message': 'input error'}))
@@ -148,7 +151,7 @@ class RegistryHandler(RequestHandler):
         class_id = convert.bs2utf8(self.get_argument('class_id', ''))
         status = convert.bs2utf8(self.get_argument('status', 'apply'))
         relation_number = int(self.get_argument('relation_number', 3))
-        describe = convert.bs2utf8(self._get_class_argument('describe', ''))
+        describe = convert.bs2utf8(self.get_argument('describe', ''))
         return {
             "name": name,
             "sex": sex,
@@ -174,7 +177,7 @@ class RegistryHandler(RequestHandler):
         sex = int(self.get_argument('sex', 0))
         birthday = convert.bs2utf8(self.get_argument('birthday', 0))
         phone = convert.bs2utf8(self.get_argument('phone', ''))
-        describe = convert.bs2utf8(self._get_class_argument('describe', ''))
+        describe = convert.bs2utf8(self.get_argument('describe', ''))
         return {
             "name": name,
             "sex": sex,

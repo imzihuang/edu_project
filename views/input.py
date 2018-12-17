@@ -35,14 +35,22 @@ class LoginViewHandler(RequestHandler):
         self.render("login.html")
 
 class IndextHandler(RequestHandler):
-    def initialize(self, static_path, templates_path, **kwargs):
+    def initialize(self, static_path, templates_path, view_prefix, **kwargs):
         self.static_path = static_path
         self.templates_path = templates_path
+
+        if view_prefix[-1] != '/':
+            view_prefix += '/'
+            self.prefix = view_prefix
 
     def get_template_path(self):
         return self.templates_path
 
     def get(self):
+        LOG.info("-----------------index-----------:%s"%self.get_secure_cookie('user_name'))
+        if not self.get_secure_cookie('user_name'):
+            self.redirect(self.prefix + r'login.html', permanent=True)
+            return
         self.render("index.html")
 
 

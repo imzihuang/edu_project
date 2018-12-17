@@ -5,6 +5,7 @@ import json
 from util import convert
 import logging
 
+from util.exception import ParamExist, NotFound
 from api.base_auth import auth_api_login
 from logic import Logic
 from logic.school import SchoolLogic
@@ -14,6 +15,7 @@ from logic.teacher import TeacherLogic
 from logic.student import StudentLogic
 from logic.relative import RelativeLogic
 from logic.relation import RelationLogic
+from logic.userlogic import UserLogic
 
 LOG = logging.getLogger(__name__)
 
@@ -52,14 +54,25 @@ class UpdateHandler(RequestHandler):
                 _id, _value = self._get_relation_argument()
                 _op = RelationLogic()
 
+            if update_obj == "user":
+                _id, _value = self._get_user_argument()
+                _op = UserLogic()
+
             if not _value or not _id:
-                self.finish(json.dumps({'state': 9, 'message': 'params %s is None' % update_obj}))
+                LOG.error("update info, %s params is None: %s, %r" % (update_obj, _id, _value))
+                self.finish(json.dumps({'state': 1, 'message': 'params %s is None' % update_obj}))
                 return
             _ = _op.update(_id, **_value)
             self.finish(json.dumps({'state': 0, 'message': 'update info success.'}))
+        except NotFound as ex:
+            LOG.error("Update %s param not data:%s" % (update_obj, ex))
+            self.finish(json.dumps({'state': 2, 'message': 'param not data'}))
+        except ParamExist as ex:
+            LOG.error("Update %s param exit:%s" % (update_obj, ex))
+            self.finish(json.dumps({'state': 5, 'message': 'param exit'}))
         except Exception as ex:
             LOG.error("Update %s error:%s" % (update_obj, ex))
-            self.finish(json.dumps({'state': 10, 'message': 'update action error'}))
+            self.finish(json.dumps({'state': 3, 'message': 'update action error'}))
 
 
     def _get_school_argument(self):
@@ -187,5 +200,24 @@ class UpdateHandler(RequestHandler):
             "student_id": student_id,
             "relative_id": relative_id
         }
+        return id, result
+
+    def _get_user_argument(self):
+        name = convert.bs2utf8(self.get_argument('name', ''))
+        level = int(self.get_argument('level', -1))
+        school_id = convert.bs2utf8(self.get_argument('school_id', ''))
+        phone = convert.bs2utf8(self.get_argument('phone', ''))
+        result = {}
+        if name:
+            result.update({"name": name,})
+        if school_id:
+            result.update({"school_id": school_id})
+
+        #only admin
+        current_user_level = self.get_secure_cookie('user_level')
+        if current_user_level == "0" and level>-1:
+            result.update({"level": level})
+        if phone:
+            result.update({"phone": phone})
         return id, result
 

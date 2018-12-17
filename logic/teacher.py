@@ -58,7 +58,7 @@ class TeacherLogic(Logic):
     def update(self, id="", **kwargs):
         if not id or not kwargs:
             return False
-        if kwargs.get("class_id"):
+        if kwargs.get("class_id", ""):
             class_id = kwargs.get("class_id").split(",")
             class_list = db_api.class_list(id=class_id)
             kwargs.update({
