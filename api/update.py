@@ -63,7 +63,10 @@ class UpdateHandler(RequestHandler):
                 self.finish(json.dumps({'state': 1, 'message': 'params %s is None' % update_obj}))
                 return
             _ = _op.update(_id, **_value)
-            self.finish(json.dumps({'state': 0, 'message': 'update info success.'}))
+            if _:
+                self.finish(json.dumps({'state': 0, 'message': 'update info success.'}))
+            else:
+                self.finish(json.dumps({'state': 0, 'message': 'update info faild.'}))
         except NotFound as ex:
             LOG.error("Update %s param not data:%s" % (update_obj, ex))
             self.finish(json.dumps({'state': 2, 'message': 'param not data'}))
@@ -213,6 +216,9 @@ class UpdateHandler(RequestHandler):
         if school_id:
             result.update({"school_id": school_id})
 
+        #only admin
+        current_user_level = int(self.get_secure_cookie('user_level'))
+        result.update({"current_user_level": current_user_level})
         if level>-1:
             result.update({"level": level})
         if phone:

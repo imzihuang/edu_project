@@ -53,9 +53,6 @@ class DeleteHandler(RequestHandler):
             if delete_obj == "user":
                 # only admin
                 current_user_level = self.get_secure_cookie('user_level')
-                if current_user_level != "0":
-                    self.finish(json.dumps({'state': 2, 'message': 'only admin'}))
-                    return
                 kwargs.update({"current_user_level": current_user_level})
                 _op = UserLogic()
 
