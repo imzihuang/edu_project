@@ -258,7 +258,7 @@
 										levelName = '学校用户'
 									}
 									strs += '<tr class="gradeX">' +
-										'<td><input type="checkbox" class="zx_checkedBtn" name=' + msg.data[i].id + '></td>' +
+										'<td class="checkedBtn" ><input type="checkbox" class="zx_checkedBtn" name=' + msg.data[i].id + '></td>' +
 										'<td class="centerSort">' + (i + 1) + '</td>' +
 										'<td class="data_name">' + msg.data[i].name + '</td>' +
 										'<td class="center data_school_name" id =' + msg.data[i].school_id + '>' + msg.data[i].school_name + '</td>' +
@@ -533,6 +533,7 @@
 							addLevel = 2
 						}
 						var data = {
+							'id':$("#edit_person_name").attr("title");
 							'name': $("#edit_person_name").val(),
 							'phone': $("#edit_person_phone").val(),
 							'school_id': editSchool,
@@ -575,6 +576,7 @@
 					$(".errorPart").html("");
 					$("#edit_school").val($(this).parent("td").siblings(".data_school_name").attr("id"));
 					$("#edit_person_name").val($(this).parent("td").siblings(".data_name").html());
+					$("#edit_person_name").attr("title",$(this).parent("td").siblings(".checkedBtn input").attr("name"));
 					$("#edit_person_phone").val($(this).parent("td").siblings(".data_phone").html());
 					$("#edit_level").val($(this).parent("td").siblings(".data_level").attr("name"));
 					layerIndex = layer.open({
