@@ -211,7 +211,7 @@
 			var level = localStorage.getItem("level");
 			if(level == 1) {
 				$(".schoolPart").removeClass("openSchool");
-				$(".level1").css("display", "none");
+				$(".level2").css("display", "none");
 				var school = JSON.parse(localStorage.getItem("school"));
 				var schoolName = school.name
 				$(".schoolPart span").html(schoolName);
