@@ -116,12 +116,12 @@ class StudentLogic(Logic):
             school_info = db_api.school_get(id=view.get("school_id"))
             if school_info:
                 view.update({"school_name": school_info.name})
-            grade_info = db_api.grade_get(id=view.get("grade_id"))
+            grade_info = view.get("grade_info", None)
             if grade_info:
-                view.update({"grade_name": grade_info.name})
-            class_info = db_api.class_get(id=view.get("class_id"))
+                view.update({"grade_name": grade_info.get("name")})
+            class_info = view.get("class_info", None)
             if class_info:
-                view.update({"class_name": class_info.name})
+                view.update({"class_name": class_info.get("name")})
             relation_list = self._get_relations_by_student(view.get("id"))
             if relation_list:
                 view.update({"relation_list": relation_list})
