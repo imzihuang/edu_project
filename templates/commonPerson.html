@@ -192,8 +192,8 @@
 				var level = JSON.parse(localStorage.getItem("level"));
 				var school = schoolSelect.id;
 				var cardcode = schoolSelect.cardcode;
-				if(level != 0){
-					$(".schoolSearch").css("display","none");
+				if(level != 0) {
+					$(".schoolSearch").css("display", "none");
 				}
 				//下拉获取学校
 				getSchool()
@@ -228,13 +228,13 @@
 												senddata.limit = e.limit;
 												var district = "";
 												var personSchool = $("#person-school").val()
-												if(level!=0){
+												if(level != 0) {
 													personSchool = ''
 												}
 												getAjaxData({
-													"name":$("#person-name").val() == '' ? undefined : $("#person-name").val(),
-													"school_id":personSchool,
-													"phone":$("#person-phone").val() == '' ? undefined : $("#person-phone").val(),
+													"name": $("#person-name").val() == '' ? undefined : $("#person-name").val(),
+													"school_id": personSchool,
+													"phone": $("#person-phone").val() == '' ? undefined : $("#person-phone").val(),
 													"limit": 20,
 													"offset": 1,
 												});
@@ -334,13 +334,13 @@
 				//查询
 				$("#searchBtn").click(function() {
 					var personSchool = $("#person-school").val()
-					if(level!=0){
+					if(level != 0) {
 						personSchool = ''
 					}
 					getAjaxData({
-						"name":$("#person-name").val() == '' ? undefined : $("#person-name").val(),
-						"school_id":personSchool,
-						"phone":$("#person-phone").val() == '' ? undefined : $("#person-phone").val(),
+						"name": $("#person-name").val() == '' ? undefined : $("#person-name").val(),
+						"school_id": personSchool,
+						"phone": $("#person-phone").val() == '' ? undefined : $("#person-phone").val(),
 						"limit": 20,
 						"offset": 1,
 					});
@@ -368,7 +368,7 @@
 								}
 								$("#add_school").html(str);
 								$("#edit_school").html(str);
-                                $("#person-school").append(str);
+								$("#person-school").append(str);
 							} else {
 								str += '<option>--请先添加学校--</option>';
 								$("#add_school").html(str);
@@ -434,8 +434,9 @@
 						},
 					},
 					submitHandler: function(form) {
+						var addLevel = $("#add_level").val()
 						if(level != 0) {
-							$("#add_level").val() = ''
+							addLevel = ''
 						}
 						var data = {
 							'name': $("#add_person_name").val(),
@@ -443,7 +444,7 @@
 							'school_id': $("#add_school").val(),
 							'pwd': $("#add_password").val(),
 							'affirm_pwd': $("#add_affirm_pwd").val(),
-							'level': $("#add_level").val() == '' ? undefined : $("#add_level").val(),
+							'level': addLevel == '' ? undefined : addLevel,
 						}
 						$.ajax({
 							type: "POST",
@@ -518,12 +519,17 @@
 						},
 					},
 					submitHandler: function(form) {
+						var editLevel = $("#edit_level").val()
+						if(level != 0) {
+							editLevel = ''
+						}
 						var data = {
 							'name': $("#add_person_name").val(),
 							'phone': $("#add_person_phone").val(),
 							'school_id': $("#add_school").val(),
 							'pwd': $("#add_password").val(),
 							'affirm_pwd': $("#add_affirm_pwd").val(),
+							'level':editLevel == '' ? undefined : editLevel,
 						}
 						$.ajax({
 							type: "POST",
@@ -622,7 +628,8 @@
 							data: data,
 							timeout: "30000",
 							success: function(msg) {
-								var msg = JSON.parse(msg);console.log(msg);
+								var msg = JSON.parse(msg);
+								console.log(msg);
 								if(msg.state == 0) {
 									layer.closeAll();
 									layer.msg('修改成功', {
@@ -694,7 +701,7 @@
 									$(".codeBtn").css("border", "1px solid #1ba0e7");
 									$(".codeBtn").css("color", "#1ba0e7 !important");
 									$(".codeBtn").attr("disabled", false);
-								},60000);
+								}, 60000);
 							} else {
 								layer.msg('发送失败');
 							}
