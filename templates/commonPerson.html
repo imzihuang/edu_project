@@ -94,7 +94,7 @@
 		<!--添加内容-->
 		<div id="addInfoContent" style="display: none; width: 500px; padding: 20px;">
 			<form id="addInfoContentform" role="form" method="POST">
-				<div style="margin: 20px 0;">
+				<div style="margin: 20px 0;" class="addSchoolDiv">
 					<span>学校：</span>
 					<select style="width: 350px;" id="add_school" name="add_school">
 						<option value="">--请选择学校--</option>
@@ -111,7 +111,6 @@
 				<div style="margin: 20px 0;" class="level">
 					<span>账号等级：</span>
 					<select style="width: 350px;" id="add_level" name="add_level">
-						<option value="0">超级管理员</option>
 						<option value="1">学校管理员</option>
 						<option value="2">学校用户</option>
 					</select>
@@ -130,7 +129,7 @@
 		<!--编辑内容-->
 		<div id="editAreaContent" style="display: none; width: 500px; padding: 20px;">
 			<form id="editAreaContentform" role="form">
-				<div style="margin: 20px 0;">
+				<div style="margin: 20px 0;" class="editSchoolDiv">
 					<span>学校：</span>
 					<select style="width: 350px;" id="edit_school" name="edit_school">
 						<option value="">--请选择学校--</option>
@@ -190,10 +189,15 @@
 				//获取学校
 				var schoolSelect = JSON.parse(localStorage.getItem("school"));
 				var level = JSON.parse(localStorage.getItem("level"));
+				var name = schoolSelect.name;
 				var school = schoolSelect.id;
 				var cardcode = schoolSelect.cardcode;
 				if(level != 0) {
 					$(".schoolSearch").css("display", "none");
+				}
+				if(level == 1){
+					$(".addSchoolDiv").css("display","none");
+					$(".editSchoolDiv").css("display","none");
 				}
 				//下拉获取学校
 				getSchool()
@@ -435,13 +439,15 @@
 					},
 					submitHandler: function(form) {
 						var addLevel = $("#add_level").val()
-						if(level != 0) {
-							addLevel = ''
+						var addSchool = $("#add_school").val()
+						
+						if(level == 1){
+							addSchool = school
 						}
 						var data = {
 							'name': $("#add_person_name").val(),
 							'phone': $("#add_person_phone").val(),
-							'school_id': $("#add_school").val(),
+							'school_id': addSchool,
 							'pwd': $("#add_password").val(),
 							'affirm_pwd': $("#add_affirm_pwd").val(),
 							'level': addLevel == '' ? undefined : addLevel,
@@ -476,9 +482,7 @@
 
 				//添加弹框
 				$('#addInfo').click(function() {
-					if(level != 0) {
-						$(".level").css("display", "none");
-					}
+					
 					$("input").val("");
 					$(".errorPart").html("");
 					layerIndex = layer.open({
@@ -520,13 +524,15 @@
 					},
 					submitHandler: function(form) {
 						var editLevel = $("#edit_level").val()
-						if(level != 0) {
-							editLevel = ''
+						var editSchool = $("#edit_school").val()
+						
+						if(level == 1){
+							editSchool = school
 						}
 						var data = {
 							'name': $("#add_person_name").val(),
 							'phone': $("#add_person_phone").val(),
-							'school_id': $("#add_school").val(),
+							'school_id': editSchool,
 							'pwd': $("#add_password").val(),
 							'affirm_pwd': $("#add_affirm_pwd").val(),
 							'level':editLevel == '' ? undefined : editLevel,
