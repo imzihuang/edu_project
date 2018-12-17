@@ -472,10 +472,11 @@ body.mini-navbar .logo-element {
 }
 
 .layui-layer-title {
-	color: #fafafa!important;
-	height: 42px!important;
-	line-height: 42px!important;
-	background: #1ba0e7!important;
+	color: #555!important;
+    height: 42px!important;
+    line-height: 42px!important;
+    background: #fff!important;
+    border-left: 5px solid #1ba0e7;
 }
 
 .layui-layer.layui-layer-page.layui-layer-demo.layer-anim-02 {
@@ -1113,7 +1114,7 @@ i.fa.fa-retweet {
 	}*/
 
 .nav>li>a i:hover {
-	color: #fff;
+	color: #1ba0e7;
 }
 
 .Lilist .titleA {
@@ -1127,7 +1128,7 @@ i.fa.fa-retweet {
 }
 
 .nav>li.active .titleA {
-	background: #edf8ff;
+	background: #fff;
 }
 
 .btn-primary {
@@ -1415,6 +1416,8 @@ textarea {
 }
 #side-menu{
 	background: #fff;
+	margin-top: 10px;
+	min-height: 380px;
 }
 .collapse.in {
     background: #fff;
