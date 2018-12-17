@@ -491,8 +491,6 @@
 							}
 							//教师历史
 							$(".teacher_data_name").click(function(){
-								top.location.href = "index.html#teacherHistory.html";
-								top.location.reload();
 								if(localStorage.getItem("teacherHistory")){
 									var dateHistory = JSON.parse(localStorage.getItem("teacherHistory"));
 									dateHistory.id = $(this).attr("title");
@@ -502,6 +500,8 @@
 									dateHistory.id = $(this).attr("title");
 									window.localStorage.setItem("teacherHistory", JSON.stringify(dateHistory));
 								}
+								top.location.href = "index.html#teacherHistory.html";
+								top.location.reload();
 							});
 						},
 						error: function() {

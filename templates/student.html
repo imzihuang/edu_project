@@ -478,7 +478,7 @@
 							if(msg.data.length > 0) {
 								for(var i = 0; i < msg.data.length; i++) {
 									strs += '<tr class="gradeX">' +
-										'<td class="data_name">' + msg.data[i].name + '</td>' +
+										'<td class="data_name" title = '+ msg.data[i].id +'>' + msg.data[i].name + '</td>' +
 										'<td class="center data_id">' + msg.data[i].relation_list[0].relation + '</td>' +
 										'<td class="center">' + msg.data[i].relation_list[0].relation_info.name + '</td>' +
 										'<td class="center">' + msg.data[i].relation_list[0].relation_info.phone + '</td>' +
@@ -491,8 +491,6 @@
 							}
 							//学生历史
 							$(".data_name").click(function(){
-								top.location.href = "index.html#studentHistory.html";
-								top.location.reload();
 								if(localStorage.getItem("studentHistory")){
 									var dateHistory = JSON.parse(localStorage.getItem("studentHistory"));
 									dateHistory.id = $(this).attr("title");
@@ -502,6 +500,8 @@
 									dateHistory.id = $(this).attr("title");
 									window.localStorage.setItem("studentHistory", JSON.stringify(dateHistory));
 								}
+								top.location.href = "index.html#studentHistory.html";
+								top.location.reload();
 							});
 						},
 						error: function() {
