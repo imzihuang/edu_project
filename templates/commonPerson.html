@@ -151,7 +151,7 @@
 				<div style="margin: 20px 0;position: relative;">
 					<span>用户手机：</span><input type="text" style="width: 280px;" id="reset_person_phone" name="reset_person_phone" disdisabled="disabled">
 					<div class="errorPart"></div>
-					<input class="codeBtn" value="验证码" type="button">
+					<input class="codeBtn" value="验证码" type="button" name="codeBtn">
 				</div>
 				<div style="margin: 20px 0;">
 					<span>验证码：</span><input type="text" style="width: 350px;" id="reset_person_code" name="reset_person_code" />
@@ -563,7 +563,7 @@
 						},
 						reset_affirm_pwd: {
 							required: true,
-							equalTo: '#edit_password',
+							equalTo: '#reset_password',
 						},
 					},
 					messages: {
