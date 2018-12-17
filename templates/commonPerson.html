@@ -190,10 +190,15 @@
 				//获取学校
 				var schoolSelect = JSON.parse(localStorage.getItem("school"));
 				var level = JSON.parse(localStorage.getItem("level"));
+				var name = schoolSelect.name;
 				var school = schoolSelect.id;
 				var cardcode = schoolSelect.cardcode;
 				if(level != 0) {
 					$(".schoolSearch").css("display", "none");
+				}
+				if(level == 1){
+					$("#add_school").css("display","none");
+					$("#edit_school").css("display","none");
 				}
 				//下拉获取学校
 				getSchool()
@@ -435,13 +440,17 @@
 					},
 					submitHandler: function(form) {
 						var addLevel = $("#add_level").val()
+						var addSchool = $("#add_school").val()
 						if(level != 0) {
 							addLevel = ''
+						}
+						if(level == 1){
+							addSchool = school
 						}
 						var data = {
 							'name': $("#add_person_name").val(),
 							'phone': $("#add_person_phone").val(),
-							'school_id': $("#add_school").val(),
+							'school_id': addSchool,
 							'pwd': $("#add_password").val(),
 							'affirm_pwd': $("#add_affirm_pwd").val(),
 							'level': addLevel == '' ? undefined : addLevel,
@@ -520,13 +529,18 @@
 					},
 					submitHandler: function(form) {
 						var editLevel = $("#edit_level").val()
+						var editSchool = $("#edit_school").val()
 						if(level != 0) {
 							editLevel = ''
+						}
+						
+						if(level == 1){
+							editSchool = school
 						}
 						var data = {
 							'name': $("#add_person_name").val(),
 							'phone': $("#add_person_phone").val(),
-							'school_id': $("#add_school").val(),
+							'school_id': editSchool,
 							'pwd': $("#add_password").val(),
 							'affirm_pwd': $("#add_affirm_pwd").val(),
 							'level':editLevel == '' ? undefined : editLevel,
