@@ -136,7 +136,7 @@
 			function login() {
 				if(count == 0) {
 					var data = {
-						'level': level,
+						'level': count,
 						'name': $("#form-username").val(),
 						'pwd': $("#form-password").val()
 					}
@@ -181,7 +181,7 @@
 					var flag = reg.test(phoneNum);
 					if(flag == true) {
 						var data = {
-							'level': level,
+							'level': count,
 							'phone': $("#form-userphone").val(),
 							'pwd': $("#form-password").val()
 						}
