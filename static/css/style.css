@@ -1089,7 +1089,7 @@ border-left: 2px solid #3798af!important;*/
 }
 
 .nav-header {
-	background: #26303a;
+	background: #fff;
 }
 
 .fa-retweet {
@@ -1228,7 +1228,7 @@ body.fixed-sidebar.full-height-layout.gray-bg.pace-done.mini-navbar .ulThree {
 }
 
 body.fixed-sidebar.full-height-layout.gray-bg.pace-done.mini-navbar .nav>li.active .titleA {
-	background: #26303a;
+	background: #fff;
 	color: #adb2bb;
 }
 

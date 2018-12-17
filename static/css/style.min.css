@@ -470,7 +470,7 @@ body.body-small.fixed-sidebar.mini-navbar .navbar-static-side {
 	position: absolute;
 	left: 70px;
 	top: 0;
-	background-color: #1ba0e7;
+	/*background-color: #1ba0e7;*/
 	padding: 10px 10px 0;
 	font-size: 12px;
 	display: block;
