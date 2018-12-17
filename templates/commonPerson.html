@@ -533,11 +533,9 @@
 							addLevel = 2
 						}
 						var data = {
-							'name': $("#add_person_name").val(),
-							'phone': $("#add_person_phone").val(),
+							'name': $("#edit_person_name").val(),
+							'phone': $("#edit_person_phone").val(),
 							'school_id': editSchool,
-							'pwd': $("#add_password").val(),
-							'affirm_pwd': $("#add_affirm_pwd").val(),
 							'level':editLevel == '' ? undefined : editLevel,
 						}
 						$.ajax({
