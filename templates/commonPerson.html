@@ -555,33 +555,25 @@
 					focusInvalid: false,
 					debug: true,
 					rules: {
-						edit_person_phone: {
-							required: true,
-							isPhoneEdit: true,
-						},
-						edit_person_code: {
+						reset_person_code: {
 							required: true,
 						},
-						edit_password: {
+						reset_password: {
 							required: true,
 						},
-						edit_affirm_pwd: {
+						reset_affirm_pwd: {
 							required: true,
 							equalTo: '#edit_password',
 						},
 					},
 					messages: {
-						edit_person_phone: {
-							required: '必填',
-							isPhoneEdit: '请填写正确的手机号',
-						},
-						edit_person_code: {
+						reset_person_code: {
 							required: '必填',
 						},
-						edit_password: {
+						reset_password: {
 							required: '必填',
 						},
-						edit_affirm_pwd: {
+						reset_affirm_pwd: {
 							required: '必填',
 							equalTo: "密码不一致",
 						},
