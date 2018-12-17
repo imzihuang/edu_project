@@ -66,7 +66,7 @@ class UpdateHandler(RequestHandler):
             if _:
                 self.finish(json.dumps({'state': 0, 'message': 'update info success.'}))
             else:
-                self.finish(json.dumps({'state': 0, 'message': 'update info faild.'}))
+                self.finish(json.dumps({'state': 4, 'message': 'update info faild.'}))
         except NotFound as ex:
             LOG.error("Update %s param not data:%s" % (update_obj, ex))
             self.finish(json.dumps({'state': 2, 'message': 'param not data'}))
