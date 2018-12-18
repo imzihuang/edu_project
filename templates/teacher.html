@@ -875,9 +875,9 @@
 					var a = a.split(",");
 					var obj = $(".editClassNamePart .classNameList").length;
 					for(var i = 0; i < obj; i++) {
-						for(var j = 0; j < a.length; j++) {console.log(a[j])
+						for(var j = 0; j < a.length; j++) {
 							if($(".editClassNamePart .classNameList").eq(i).find("input").val() == a[j]) {
-								$(".editClassNamePart .classNameList").eq(i).find("input").attr("checked", true);
+								$(".editClassNamePart .classNameList").eq(i).find("input").prop("checked", true);
 							}
 						}
 					}
