@@ -32,7 +32,7 @@
 			display: none;
 		}
 		
-		.teacher_data_name{
+		.teacher_data_name {
 			color: #278be4;
 			cursor: pointer;
 		}
@@ -191,8 +191,8 @@
 				</div>
 				<div style="margin: 20px 0;">
 					<span>性别：</span>
-					<input type="radio" name="editsex" value="1" ><span style="width: 40px;margin-left: 5px;">男</span>
-					<input type="radio" name="editsex" value="0" ><span style="width: 40px;margin-left: 5px;">女</span>
+					<input type="radio" name="editsex" value="1"><span style="width: 40px;margin-left: 5px;">男</span>
+					<input type="radio" name="editsex" value="0"><span style="width: 40px;margin-left: 5px;">女</span>
 					<div class="errorPart"></div>
 				</div>
 				<div style="margin: 20px 0;position:relative;margin-left: -4px;">
@@ -256,8 +256,8 @@
 
 				//获取学校
 				var schoolSelect = JSON.parse(localStorage.getItem("school"));
-			    var school = schoolSelect.id;  
-			    var cardcode = schoolSelect.cardcode;
+				var school = schoolSelect.id;
+				var cardcode = schoolSelect.cardcode;
 				//获取年级
 				gradeInput();
 
@@ -316,7 +316,7 @@
 						"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
 					}, 'no');
 				});
-				
+
 				//新增弹框切换年级
 				$("#add_grade").change(function() {
 					if($("#add_grade").val() == '') {
@@ -330,7 +330,7 @@
 						}, 'yes', 'yes');
 					}
 				});
-				
+
 				//编辑弹框切换年级
 				$("#edit_grade").change(function() {
 					if($("#edit_grade").val() == '') {
@@ -419,95 +419,95 @@
 						timeout: "30000",
 						success: function(msg) {
 							var msg = JSON.parse(msg);
-							if(msg.state == 0){
+							if(msg.state == 0) {
 								//分页
-							layui.use(['laypage', 'layer'], function() {
-									var page = layui.laypage;
-									page.render({
-										elem: "layPage",
-										count: msg.count,
-										curr: senddata.offset,
-										limit: senddata.limit,
-										layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
-										jump: function(e, first) {
-											if(!first) {
-												senddata.offset = e.curr;
-												senddata.limit = e.limit;
-												var district = "";
-												getAjaxData({
-													"name": $("#teacher-name").val() == '' ? undefined : $("#teacher-name").val(),
-													"phone": $("#teacher-phone").val() == '' ? undefined : $("#teacher-phone").val(),
-													"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
-													"class_id": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
-													"position": $("#teacher-president").val() == '' ? undefined : $("#teacher-president").val(),
-													"status": $("#teacher-state").val() == '' ? undefined : $("#teacher-state").val(),
-													"limit": e.limit,
-													"offset": e.curr,
-												});
+								layui.use(['laypage', 'layer'], function() {
+										var page = layui.laypage;
+										page.render({
+											elem: "layPage",
+											count: msg.count,
+											curr: senddata.offset,
+											limit: senddata.limit,
+											layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
+											jump: function(e, first) {
+												if(!first) {
+													senddata.offset = e.curr;
+													senddata.limit = e.limit;
+													var district = "";
+													getAjaxData({
+														"name": $("#teacher-name").val() == '' ? undefined : $("#teacher-name").val(),
+														"phone": $("#teacher-phone").val() == '' ? undefined : $("#teacher-phone").val(),
+														"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
+														"class_id": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
+														"position": $("#teacher-president").val() == '' ? undefined : $("#teacher-president").val(),
+														"status": $("#teacher-state").val() == '' ? undefined : $("#teacher-state").val(),
+														"limit": e.limit,
+														"offset": e.curr,
+													});
 
+												}
 											}
-										}
+										})
 									})
-								})
-								//表格渲染
-							var strs = '';
-							if(msg.data.length > 0) {
-								for(var i = 0; i < msg.data.length; i++) {
-									var className = '';
-									if(msg.data[i].position == 1) {
-										msg.data[i].position = '园长';
+									//表格渲染
+								var strs = '';
+								if(msg.data.length > 0) {
+									for(var i = 0; i < msg.data.length; i++) {
+										var className = '';
+										if(msg.data[i].position == 1) {
+											msg.data[i].position = '园长';
+										} else {
+											msg.data[i].position = '教师';
+										}
+										if(msg.data[i].status == 'education') {
+											msg.data[i].status = '在教';
+										} else if(msg.data[i].status == 'holiday') {
+											msg.data[i].status = '休假';
+										} else if(msg.data[i].status == 'dimission') {
+											msg.data[i].status = '离职';
+										}
+										//									for(var j = 0; j < msg.data[i].class_info.length; j++) {
+										//										if(j == msg.data[i].class_info.length - 1) {
+										//											className += msg.data[i].class_info[j].name;
+										//										} else {
+										//											className += msg.data[i].class_info[j].name + ',';
+										//										}
+										//									}
+										strs += '<tr class="gradeX">' +
+											'<td><input type="checkbox" class="zx_checkedBtn" name ="' + msg.data[i].id + '" ></td>' +
+											'<td class="centerSort">' + (i + 1) + '</td>' +
+											'<td class="teacher_data_name" name = "' + msg.data[i].describe + '" title = "' + msg.data[i].id + '">' + msg.data[i].name + '</td>' +
+											'<td class="center data_phone" id="' + msg.data[i].sex + '">' + msg.data[i].phone + '</td>' +
+											'<td class="center data_position">' + msg.data[i].position + '</td>' +
+											'<td class="center data_grade_name" id ="' + msg.data[i].grade_id + '">' + msg.data[i].grade_name + '</td>' +
+											'<td class="center data_class_name">' + msg.data[i].name + '</td>' +
+											'<td class="center data_status">' + msg.data[i].status + '</td>' +
+											'<td class="center data_time" name ="' + msg.data[i].birthday + '">' + msg.data[i].create_time + '</td>' +
+											'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除" id = "' + msg.data[i].id + '"></i></td>' +
+											'</tr>'
+									}
+									$("#tbody").html(strs);
+								} else {
+									$("#tbody").html('<tr><td colspan="10" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
+								}
+								//教师历史
+								$(".teacher_data_name").click(function() {
+									if(localStorage.getItem("teacherHistory")) {
+										var dateHistory = JSON.parse(localStorage.getItem("teacherHistory"));
+										dateHistory.id = $(this).attr("title");
+										window.localStorage.setItem("teacherHistory", JSON.stringify(dateHistory));
 									} else {
-										msg.data[i].position = '教师';
+										var dateHistory = new Object();
+										dateHistory.id = $(this).attr("title");
+										window.localStorage.setItem("teacherHistory", JSON.stringify(dateHistory));
 									}
-									if(msg.data[i].status == 'education') {
-										msg.data[i].status = '在教';
-									} else if(msg.data[i].status == 'holiday') {
-										msg.data[i].status = '休假';
-									} else if(msg.data[i].status == 'dimission') {
-										msg.data[i].status = '离职';
-									}
-//									for(var j = 0; j < msg.data[i].class_info.length; j++) {
-//										if(j == msg.data[i].class_info.length - 1) {
-//											className += msg.data[i].class_info[j].name;
-//										} else {
-//											className += msg.data[i].class_info[j].name + ',';
-//										}
-//									}
-									strs += '<tr class="gradeX">' +
-										'<td><input type="checkbox" class="zx_checkedBtn" name ="' + msg.data[i].id + '" ></td>' +
-										'<td class="centerSort">' + (i + 1) + '</td>' +
-										'<td class="teacher_data_name" name = "' + msg.data[i].describe + '" title = "' + msg.data[i].id + '">' + msg.data[i].name + '</td>' +
-										'<td class="center data_phone" id="' + msg.data[i].sex + '">' + msg.data[i].phone + '</td>' +
-										'<td class="center data_position">' + msg.data[i].position + '</td>' +
-										'<td class="center data_grade_name" id ="' + msg.data[i].grade_id + '">' + msg.data[i].grade_name + '</td>' +
-										'<td class="center data_class_name">' + msg.data[i].name + '</td>' +
-										'<td class="center data_status">' + msg.data[i].status + '</td>' +
-										'<td class="center data_time" name ="' + msg.data[i].birthday + '">' + msg.data[i].create_time + '</td>' +
-										'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除" id = "' + msg.data[i].id + '"></i></td>' +
-										'</tr>'
-								}
-								$("#tbody").html(strs);
+									top.location.href = "index.html#teacherHistory.html";
+									top.location.reload();
+								});
 							} else {
-								$("#tbody").html('<tr><td colspan="10" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
+								alert("请求异常!")
 							}
-							//教师历史
-							$(".teacher_data_name").click(function(){
-								if(localStorage.getItem("teacherHistory")){
-									var dateHistory = JSON.parse(localStorage.getItem("teacherHistory"));
-									dateHistory.id = $(this).attr("title");
-									window.localStorage.setItem("teacherHistory", JSON.stringify(dateHistory));
-								}else{
-									var dateHistory = new Object();
-									dateHistory.id = $(this).attr("title");
-									window.localStorage.setItem("teacherHistory", JSON.stringify(dateHistory));
-								}
-								top.location.href = "index.html#teacherHistory.html";
-								top.location.reload();
-							});
-							}else(
-								alert("请求异常!");
-							)
-							
+
 						},
 						error: function() {
 							console.log("error");
@@ -571,7 +571,7 @@
 					}
 					if(count > 1) {
 						layer.confirm('确定删除选中的老师？', {
-							btn: ['确定', '取消'] 
+							btn: ['确定', '取消']
 						}, function() {
 							var data = {
 								'id': idArray
@@ -615,15 +615,15 @@
 						"offset": 1,
 					});
 				});
-			    
-			    //校验隐藏
+
+				//校验隐藏
 				$("#add_post").change(function() {
 					$(".errorPartAddPost").css("display", "none");
 				});
 				$("#add_time").focus(function() {
 					$(".errorPartAddTime").css("display", "none");
 				});
-				
+
 				//添加校验
 				var layerIndex;
 				jQuery.validator.addMethod("isPhone", function(value, element) {
@@ -632,14 +632,14 @@
 					var flag = reg.test(phoneNum);
 					return flag;
 				}, "请正确填写手机号码");
-				
+
 				jQuery.validator.addMethod("isPhoneEdit", function(value, element) {
 					var reg = /^[0-9]{10,20}$/;
 					var phoneNum = $("#edit_phone").val();
 					var flag = reg.test(phoneNum);
 					return flag;
 				}, "请正确填写手机号码");
-				
+
 				$("#addInfoContentform").validate({
 					focusCleanup: true,
 					focusInvalid: false,
@@ -750,7 +750,7 @@
 						}
 					});
 				});
-				
+
 				//编辑校验
 				$("#editAreaContentform").validate({
 					focusCleanup: true,
@@ -889,7 +889,7 @@
 								layer.closeAll();
 								layer.msg('删除成功', {
 									icon: 1,
-									time: 800 
+									time: 800
 								});
 								window.location.reload();
 							},
