@@ -506,7 +506,8 @@
 								});
 							} else {
 								$("#tbody").html('<tr><td colspan="10" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
-								alert("请求异常!")
+								
+								layer.msg('请求异常');
 							}
 
 						},
@@ -675,7 +676,7 @@
 								return false;
 							} else {
 								for(var i = 0; i < obj.length; i++) {
-									if($("#addClassNamePart .classNameList").eq(i).find("input").checked) {
+									if($("#addClassNamePart .classNameList").eq(i).find("input").is(":checked")) {
 										if(i == obj.length - 1) {
 											classId += obj[i].value;
 										} else {
