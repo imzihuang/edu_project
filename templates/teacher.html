@@ -869,7 +869,7 @@
 						for(var j = 0; j < a.length; j++) {
 							if($(".editClassNamePart .classNameList").eq(i).find("input").val() == a[j]) {
 								console.log($(".editClassNamePart .classNameList").eq(i).find("input").val())
-								$(".editClassNamePart .classNameList").eq(i).find("input").click();
+								$(".editClassNamePart .classNameList").eq(i).find("input").prop("checked",true);
 							}
 						}
 					}
