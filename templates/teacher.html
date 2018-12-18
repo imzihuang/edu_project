@@ -864,12 +864,12 @@
 					$("#edit_grade").change();
                     var a = $(this).parent("td").siblings(".data_class_name").attr("id");
 					var a = a.split(",");
-					var obj = $(".editClassNamePart .classNameList").length;console.log(333)
+					var obj = $(".editClassNamePart .classNameList").length;console.log(obj);console.log(a)
 					for(var i = 0; i < obj; i++) {console.log(111)
 						for(var j = 0; j < a.length; j++) {console.log(222)
 							if($(".editClassNamePart .classNameList").eq(i).find("input").val() == a[j]) {
 								console.log($(".editClassNamePart .classNameList").eq(i).find("input").val())
-								$(".editClassNamePart .classNameList").eq(i).find("input").prop("checked",true);
+								$(".editClassNamePart .classNameList").eq(0).find("input").prop("checked",true);
 							}
 						}
 					}
