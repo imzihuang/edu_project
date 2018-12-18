@@ -280,7 +280,6 @@ class StudentLogic(Logic):
             end_date = datetime.strptime(end_date, "%Y-%m-%d")
             end_date = date(end_date.year, end_date.month, end_date.day)
         LOG.info("sign start end:%r, %r"%(start_date, end_date))
-        days = (end_date-start_date).days
         result={}
         sign_status_list = db_api.student_sign_status_list(start_date, end_date, student_id=student_id)
         for sign_status in sign_status_list:
