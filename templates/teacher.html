@@ -664,7 +664,7 @@
 						},
 					},
 					submitHandler: function(form) {
-						var obj = document.getElementsByName('checkboxClassName');
+						var obj = $("#addClassNamePart .classNameList");
 						var classId = '';
 						if($("#add_post option:selected").val() == '' || $("#add_post option:selected").val() == undefined) {
 							$(".errorPartAddPost").css("display", "block");
@@ -675,7 +675,7 @@
 								return false;
 							} else {
 								for(var i = 0; i < obj.length; i++) {
-									if(obj[i].checked) {
+									if($("#addClassNamePart .classNameList").eq(i).find("input").checked) {
 										if(i == obj.length - 1) {
 											classId += obj[i].value;
 										} else {
