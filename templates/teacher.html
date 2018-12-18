@@ -466,13 +466,13 @@
 										} else if(msg.data[i].status == 'dimission') {
 											msg.data[i].status = '离职';
 										}
-										//									for(var j = 0; j < msg.data[i].class_info.length; j++) {
-										//										if(j == msg.data[i].class_info.length - 1) {
-										//											className += msg.data[i].class_info[j].name;
-										//										} else {
-										//											className += msg.data[i].class_info[j].name + ',';
+										//										for(var j = 0; j < msg.data[i].class_info.length; j++) {
+										//											if(j == msg.data[i].class_info.length - 1) {
+										//												className += msg.data[i].class_info[j].name;
+										//											} else {
+										//												className += msg.data[i].class_info[j].name + ',';
+										//											}
 										//										}
-										//									}
 										strs += '<tr class="gradeX">' +
 											'<td><input type="checkbox" class="zx_checkedBtn" name ="' + msg.data[i].id + '" ></td>' +
 											'<td class="centerSort">' + (i + 1) + '</td>' +
@@ -480,7 +480,7 @@
 											'<td class="center data_phone" id="' + msg.data[i].sex + '">' + msg.data[i].phone + '</td>' +
 											'<td class="center data_position">' + msg.data[i].position + '</td>' +
 											'<td class="center data_grade_name" id ="' + msg.data[i].grade_id + '">' + msg.data[i].grade_name + '</td>' +
-											'<td class="center data_class_name">' + msg.data[i].class_name + '</td>' +
+											'<td class="center data_class_name" id ="'+ msg.data[i].class_info.id +'">' + msg.data[i].class_info.name + '</td>' +
 											'<td class="center data_status">' + msg.data[i].status + '</td>' +
 											'<td class="center data_time" name ="' + msg.data[i].birthday + '">' + msg.data[i].create_time + '</td>' +
 											'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除" id = "' + msg.data[i].id + '"></i></td>' +
@@ -506,7 +506,8 @@
 								});
 							} else {
 								$("#tbody").html('<tr><td colspan="10" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
-								alert("请求异常!")
+
+								layer.msg('请求异常');
 							}
 
 						},
@@ -664,7 +665,7 @@
 						},
 					},
 					submitHandler: function(form) {
-						var obj = document.getElementsByName('checkboxClassName');
+						var obj = $("#addClassNamePart .classNameList");
 						var classId = '';
 						if($("#add_post option:selected").val() == '' || $("#add_post option:selected").val() == undefined) {
 							$(".errorPartAddPost").css("display", "block");
@@ -674,13 +675,22 @@
 								$(".errorPartAddTime").css("display", "block");
 								return false;
 							} else {
+								var j = 0;
+								var h = 0;
 								for(var i = 0; i < obj.length; i++) {
-									if(obj[i].checked) {
-										if(i == obj.length - 1) {
-											classId += obj[i].value;
+									if($("#addClassNamePart .classNameList").eq(i).find("input").is(":checked")) {
+										j++;
+									}
+								}
+
+								for(var i = 0; i < obj.length; i++) {
+									if($("#addClassNamePart .classNameList").eq(i).find("input").is(":checked")) {
+										if(h == j - 1) {
+											classId += $("#addClassNamePart .classNameList").eq(i).find("input").val();
 										} else {
-											classId += obj[i].value + ',';
+											classId += $("#addClassNamePart .classNameList").eq(i).find("input").val() + ',';
 										}
+										h++;
 									}
 								}
 								var data = {
@@ -776,47 +786,66 @@
 						},
 					},
 					submitHandler: function(form) {
-						var obj = document.getElementsByName('checkboxClassName');
+						var obj = $("#editClassNamePart .classNameList");
 						var classId = '';
-						for(var i = 0; i < obj.length; i++) {
-							if(obj[i].checked) {
-								if(i == obj.length - 1) {
-									classId += obj[i].value;
-								} else {
-									classId += obj[i].value + ',';
+						if($("#edit_post option:selected").val() == '' || $("#edit_post option:selected").val() == undefined) {
+							$(".errorPartEditPost").css("display", "block");
+							return false;
+						} else {
+							if($("#edit_time").val() == '') {
+								$(".errorPartEditTime").css("display", "block");
+								return false;
+							} else {
+								var j = 0;
+								var h = 0;
+								for(var i = 0; i < obj.length; i++) {
+									if($("#editClassNamePart .classNameList").eq(i).find("input").is(":checked")) {
+										j++;
+									}
 								}
-							}
-						}
-						var data = {
-							'name': $("#edit_name").val(),
-							'sex': $("input[name='editsex']:checked").val(),
-							'position': $("#edit_post option:selected").val(),
-							'phone': $("#edit_phone").val(),
-							'class_id': classId,
-							'describe': $("#edit_remarks").val(),
-							'birthday': $("#edit_time").val(),
-							'school_id': school,
-						}
-						$.ajax({
-							type: "POST",
-							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-							url: "/teacher/update",
-							async: false,
-							data: data,
-							timeout: "30000",
-							success: function(msg) {
-								layer.closeAll();
-								layer.msg('修改成功', {
-									icon: 1,
-									time: 800 //2s后自动关闭
+
+								for(var i = 0; i < obj.length; i++) {
+									if($("#editClassNamePart .classNameList").eq(i).find("input").is(":checked")) {
+										if(h == j - 1) {
+											classId += $("#editClassNamePart .classNameList").eq(i).find("input").val();
+										} else {
+											classId += $("#editClassNamePart .classNameList").eq(i).find("input").val() + ',';
+										}
+										h++;
+									}
+								}
+								var data = {
+									'name': $("#edit_name").val(),
+									'sex': $("input[name='editsex']:checked").val(),
+									'position': $("#edit_post option:selected").val(),
+									'phone': $("#edit_phone").val(),
+									'class_id': classId,
+									'describe': $("#edit_remarks").val(),
+									'birthday': $("#edit_time").val(),
+									'school_id': school,
+								}
+								$.ajax({
+									type: "POST",
+									contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+									url: "/teacher/update",
+									async: false,
+									data: data,
+									timeout: "30000",
+									success: function(msg) {
+										layer.closeAll();
+										layer.msg('修改成功', {
+											icon: 1,
+											time: 800 //2s后自动关闭
+										});
+										window.location.reload()
+									},
+									error: function() {
+										layer.msg('修改失败');
+										console.log("error");
+									}
 								});
-								window.location.reload()
-							},
-							error: function() {
-								layer.msg('修改失败');
-								console.log("error");
 							}
-						});
+						}
 					},
 
 					errorPlacement: function(error, element) {
@@ -830,7 +859,20 @@
 					//初始化赋值
 					$(".errorPart").html("");
 					$(".errorPartEditSpt").css("display", "none");
-
+					
+                    $("#edit_grade").val($(this).parent("td").siblings(".data_grade_name").attr("id"));
+					$("#edit_grade").change();
+                    var a = $(this).parent("td").siblings(".data_class_name").attr("id");
+					var a = a.split(",");
+					var obj = $(".editClassNamePart .classNameList").length;console.log(obj);console.log(a)
+					for(var i = 0; i < obj; i++) {console.log(111)
+						for(var j = 0; j < a.length; j++) {console.log(222)
+							if($(".editClassNamePart .classNameList").eq(i).find("input").val() == a[j]) {
+								console.log($(".editClassNamePart .classNameList").eq(i).find("input").val())
+								$(".editClassNamePart .classNameList").eq(0).find("input").prop("checked",true);
+							}
+						}
+					}
 					TimeSelectOption($('#edit_time'), $(this).parent("td").siblings(".data_time").attr("name"));
 					$("#edit_name").val($(this).parent("td").siblings(".teacher_data_name").html());
 					$("#edit_phone").val($(this).parent("td").siblings(".data_phone").html());
@@ -840,19 +882,6 @@
 						$("#edit_post").val("1");
 					}
 					$("input:radio[value='" + $(this).parent("td").siblings(".data_phone").attr("id") + "']").attr("checked", "checked");
-					$("#edit_grade").val($(this).parent("td").siblings(".data_grade_name").attr("id"));
-					$("#edit_grade").change();
-					var a = $(this).parent("td").siblings(".data_class_name").html();
-					var a = a.split(",");
-					var obj = $(".editClassNamePart .classNameList").length;
-					for(var i = 0; i < obj; i++) {
-						for(var j = 0; j < a.length; j++) {
-							if($(".editClassNamePart .classNameList").eq(i).attr("id") == a[j]) {
-								$(".editClassNamePart .classNameList").eq(i).attr("checked", true);
-							}
-						}
-					}
-
 					$("#edit_remarks").val($(this).parent("td").siblings(".data_name").attr("name"));
 
 					layerIndex = layer.open({
