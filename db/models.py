@@ -283,20 +283,6 @@ class RelativeSignInfo(Base, ModelBase):
     def to_dict(self):
         return _to_dict(self)
 
-class RelativeStatusInfo(Base, ModelBase):
-    __tablename__ = 'relative_status_info'
-    id = Column(VARCHAR(36), primary_key=True)
-    relative_id = Column(VARCHAR(36), nullable=False)
-    sign_date = Column(Date, nullable=False)
-    status = Column(VARCHAR(5), default=00)
-    create_time = Column(DateTime, default=datetime.now, nullable=False)
-    morning = Column(VARCHAR(20))
-    afternoon = Column(VARCHAR(20))
-    deleted = Column(Boolean, default=False)
-
-    def to_dict(self):
-        return _to_dict(self)
-
 class StudentStatusInfo(Base, ModelBase):
     __tablename__ = 'student_status_info'
     id = Column(VARCHAR(36), primary_key=True)
