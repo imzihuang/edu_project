@@ -56,10 +56,10 @@ class UserLogic(Logic):
     def update(self, id="", **kwargs):
         if not id or not kwargs:
             return False
-
+        LOG.info("kwargs 111:%r"%kwargs)
         user_info = db_api.user_get(id)
         current_user_level = kwargs.pop("current_user_level")
-        if user_info and int(current_user_level) >= user_info.level:
+        if not user_info or current_user_level >= user_info.level:
             return False
 
         if kwargs.get("school_id", ""):
@@ -67,13 +67,16 @@ class UserLogic(Logic):
             if not _:
                 return False
         name = kwargs.get("name", "")
-        if name and db_api.user_list(name=name):
+        LOG.info("kwargs 2222:%r" % kwargs)
+        if name and user_info.name!=name and db_api.user_list(name=name):
             raise ParamExist(key="name", value=name)
         phone = kwargs.get("phone", "")
-        if phone and db_api.user_list(phone=phone):
+        LOG.info("kwargs 333:%r" % kwargs)
+        if phone and user_info.phone!=phone and db_api.user_list(phone=phone):
             raise ParamExist(key="phone", value=phone)
         if kwargs.get("pwd", ""):
             kwargs.pop("pwd")
+        LOG.info("kwargs 444:%r" % kwargs)
         _ = db_api.user_update(id, kwargs)
         return _
 

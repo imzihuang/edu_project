@@ -206,6 +206,7 @@ class UpdateHandler(RequestHandler):
         return id, result
 
     def _get_user_argument(self):
+        id = convert.bs2utf8(self.get_argument('id', ''))
         name = convert.bs2utf8(self.get_argument('name', ''))
         level = int(self.get_argument('level', -1))
         school_id = convert.bs2utf8(self.get_argument('school_id', ''))
