@@ -872,7 +872,7 @@
 					$("#edit_grade").val($(this).parent("td").siblings(".data_grade_name").attr("id"));
 					$("#edit_grade").change();
 					var a = $(this).parent("td").siblings(".data_class_name").html();
-					var a = a.split(",");
+					var a = a.split(",");console.log(a.length)
 					var obj = $(".editClassNamePart .classNameList").length;
 					for(var i = 0; i < obj; i++) {
 						for(var j = 0; j < a.length; j++) {
