@@ -389,6 +389,56 @@
 								$("#edit_class").html('<option value="">---无---</option>');
 
 							}
+							//编辑弹框
+							$('.areapen').click(function() {
+								//初始化赋值
+								$(".errorPart").html("");
+								$(".errorPartEditSpt").css("display", "none");
+
+								$("#edit_grade").val($(this).parent("td").siblings(".data_grade_name").attr("id"));
+								$("#edit_grade").change();
+
+								TimeSelectOption($('#edit_time'), $(this).parent("td").siblings(".data_time").attr("name"));
+								$("#edit_name").val($(this).parent("td").siblings(".teacher_data_name").html());
+								$("#edit_phone").val($(this).parent("td").siblings(".data_phone").html());
+								if($(this).parent("td").siblings(".data_position").html() == '教师') {
+									$("#edit_post").val("2");
+								} else {
+									$("#edit_post").val("1");
+								}
+								$("input:radio[value='" + $(this).parent("td").siblings(".data_phone").attr("id") + "']").attr("checked", "checked");
+								$("#edit_remarks").val($(this).parent("td").siblings(".data_name").attr("name"));
+
+								var a = $(this).parent("td").siblings(".data_class_name").attr("id");
+								var a = a.split(",");
+								var obj = $(".editClassNamePart .classNameList").length;
+								console.log(obj);
+								console.log(a)
+								for(var i = 0; i < obj; i++) {
+									console.log(111)
+									for(var j = 0; j < a.length; j++) {
+										console.log(222)
+										if($(".editClassNamePart .classNameList").eq(i).find("input").val() == a[j]) {
+											console.log($(".editClassNamePart .classNameList").eq(i).find("input").val())
+											$(".editClassNamePart .classNameList").eq(0).find("input").prop("checked", true);
+										}
+									}
+								}
+								layerIndex = layer.open({
+									title: '修改老师信息',
+									type: 1,
+									skin: 'layui-layer-demo',
+									closeBtn: 0,
+									anim: 2,
+									shadeClose: true,
+									btn: ['确定', '取消'],
+									content: $('#editAreaContent'),
+									yes: function() {
+										$("#editAreaContentSubmit").click();
+									}
+								});
+							});
+							///////////
 						},
 						complete: function(XMLHttpRequest, status) {
 
@@ -480,7 +530,7 @@
 											'<td class="center data_phone" id="' + msg.data[i].sex + '">' + msg.data[i].phone + '</td>' +
 											'<td class="center data_position">' + msg.data[i].position + '</td>' +
 											'<td class="center data_grade_name" id ="' + msg.data[i].grade_id + '">' + msg.data[i].grade_name + '</td>' +
-											'<td class="center data_class_name" id ="'+ msg.data[i].class_info.id +'">' + msg.data[i].class_info.name + '</td>' +
+											'<td class="center data_class_name" id ="' + msg.data[i].class_info.id + '">' + msg.data[i].class_info.name + '</td>' +
 											'<td class="center data_status">' + msg.data[i].status + '</td>' +
 											'<td class="center data_time" name ="' + msg.data[i].birthday + '">' + msg.data[i].create_time + '</td>' +
 											'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除" id = "' + msg.data[i].id + '"></i></td>' +
@@ -852,51 +902,6 @@
 						error.appendTo(element.parent().find(".errorPart"));
 					},
 					success: function() {}
-				});
-
-				//编辑弹框
-				$('.areapen').click(function() {
-					//初始化赋值
-					$(".errorPart").html("");
-					$(".errorPartEditSpt").css("display", "none");
-					
-                    $("#edit_grade").val($(this).parent("td").siblings(".data_grade_name").attr("id"));
-					$("#edit_grade").change();
-                    var a = $(this).parent("td").siblings(".data_class_name").attr("id");
-					var a = a.split(",");
-					var obj = $(".editClassNamePart .classNameList").length;console.log(obj);console.log(a)
-					for(var i = 0; i < obj; i++) {console.log(111)
-						for(var j = 0; j < a.length; j++) {console.log(222)
-							if($(".editClassNamePart .classNameList").eq(i).find("input").val() == a[j]) {
-								console.log($(".editClassNamePart .classNameList").eq(i).find("input").val())
-								$(".editClassNamePart .classNameList").eq(0).find("input").prop("checked",true);
-							}
-						}
-					}
-					TimeSelectOption($('#edit_time'), $(this).parent("td").siblings(".data_time").attr("name"));
-					$("#edit_name").val($(this).parent("td").siblings(".teacher_data_name").html());
-					$("#edit_phone").val($(this).parent("td").siblings(".data_phone").html());
-					if($(this).parent("td").siblings(".data_position").html() == '教师') {
-						$("#edit_post").val("2");
-					} else {
-						$("#edit_post").val("1");
-					}
-					$("input:radio[value='" + $(this).parent("td").siblings(".data_phone").attr("id") + "']").attr("checked", "checked");
-					$("#edit_remarks").val($(this).parent("td").siblings(".data_name").attr("name"));
-
-					layerIndex = layer.open({
-						title: '修改老师信息',
-						type: 1,
-						skin: 'layui-layer-demo',
-						closeBtn: 0,
-						anim: 2,
-						shadeClose: true,
-						btn: ['确定', '取消'],
-						content: $('#editAreaContent'),
-						yes: function() {
-							$("#editAreaContentSubmit").click();
-						}
-					});
 				});
 
 				//单项删除
