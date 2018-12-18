@@ -466,13 +466,13 @@
 										} else if(msg.data[i].status == 'dimission') {
 											msg.data[i].status = '离职';
 										}
-										for(var j = 0; j < msg.data[i].class_info.length; j++) {
-											if(j == msg.data[i].class_info.length - 1) {
-												className += msg.data[i].class_info[j].name;
-											} else {
-												className += msg.data[i].class_info[j].name + ',';
-											}
-										}
+//										for(var j = 0; j < msg.data[i].class_info.length; j++) {
+//											if(j == msg.data[i].class_info.length - 1) {
+//												className += msg.data[i].class_info[j].name;
+//											} else {
+//												className += msg.data[i].class_info[j].name + ',';
+//											}
+//										}
 										strs += '<tr class="gradeX">' +
 											'<td><input type="checkbox" class="zx_checkedBtn" name ="' + msg.data[i].id + '" ></td>' +
 											'<td class="centerSort">' + (i + 1) + '</td>' +
@@ -480,7 +480,7 @@
 											'<td class="center data_phone" id="' + msg.data[i].sex + '">' + msg.data[i].phone + '</td>' +
 											'<td class="center data_position">' + msg.data[i].position + '</td>' +
 											'<td class="center data_grade_name" id ="' + msg.data[i].grade_id + '">' + msg.data[i].grade_name + '</td>' +
-											'<td class="center data_class_name">' + className + '</td>' +
+											'<td class="center data_class_name">' + msg.data[i].class_info.name + '</td>' +
 											'<td class="center data_status">' + msg.data[i].status + '</td>' +
 											'<td class="center data_time" name ="' + msg.data[i].birthday + '">' + msg.data[i].create_time + '</td>' +
 											'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除" id = "' + msg.data[i].id + '"></i></td>' +
