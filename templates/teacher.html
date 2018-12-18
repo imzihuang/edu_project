@@ -675,12 +675,12 @@
 								$(".errorPartAddTime").css("display", "block");
 								return false;
 							} else {
-								for(var i = 0; i < obj.length; i++) {
+								for(var i = 0; i < obj.length; i++) {console.log(obj.length);
 									if($("#addClassNamePart .classNameList").eq(i).find("input").is(":checked")) {
 										if(i == obj.length - 1) {
-											classId += obj[i].value;
+											classId += $("#addClassNamePart .classNameList").eq(i).find("input").val();
 										} else {
-											classId += obj[i].value + ',';
+											classId += $("#addClassNamePart .classNameList").eq(i).find("input").val() + ',';
 										}
 									}
 								}
