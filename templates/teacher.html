@@ -675,13 +675,22 @@
 								$(".errorPartAddTime").css("display", "block");
 								return false;
 							} else {
-								for(var i = 0; i < obj.length; i++) {console.log(obj.length);
+								var j=0;
+								var h=0;
+								for(var i = 0; i < obj.length; i++) {
 									if($("#addClassNamePart .classNameList").eq(i).find("input").is(":checked")) {
-										if(i == obj.length - 1) {
+                                      j++;
+									}
+								}
+								
+								for(var i = 0; i < obj.length; i++) {
+									if($("#addClassNamePart .classNameList").eq(i).find("input").is(":checked")) {
+										if(h == j-1) {
 											classId += $("#addClassNamePart .classNameList").eq(i).find("input").val();
 										} else {
 											classId += $("#addClassNamePart .classNameList").eq(i).find("input").val() + ',';
 										}
+                                        h++;
 									}
 								}
 								var data = {
