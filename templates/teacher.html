@@ -876,7 +876,7 @@
 					var obj = $(".editClassNamePart .classNameList").length;
 					for(var i = 0; i < obj; i++) {
 						for(var j = 0; j < a.length; j++) {
-							if($(".editClassNamePart .classNameList").eq(i).find("input").attr("id") == a[j]) {
+							if($(".editClassNamePart .classNameList").eq(i).find("input").attr("value") == a[j]) {
 								$(".editClassNamePart .classNameList").eq(i).find("input").attr("checked", true);
 							}
 						}
