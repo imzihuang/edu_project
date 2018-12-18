@@ -864,7 +864,7 @@
 					$("#edit_grade").change();
                     var a = $(this).parent("td").siblings(".data_class_name").attr("id");
 					var a = a.split(",");
-					var obj = $(".editClassNamePart .classNameList").length;
+					var obj = $(".editClassNamePart .classNameList").length;console.log(333)
 					for(var i = 0; i < obj; i++) {console.log(111)
 						for(var j = 0; j < a.length; j++) {console.log(222)
 							if($(".editClassNamePart .classNameList").eq(i).find("input").val() == a[j]) {
@@ -882,8 +882,6 @@
 						$("#edit_post").val("1");
 					}
 					$("input:radio[value='" + $(this).parent("td").siblings(".data_phone").attr("id") + "']").attr("checked", "checked");
-					
-
 					$("#edit_remarks").val($(this).parent("td").siblings(".data_name").attr("name"));
 
 					layerIndex = layer.open({
