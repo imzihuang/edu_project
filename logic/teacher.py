@@ -25,21 +25,19 @@ class TeacherLogic(Logic):
             #"birthday": birthday,
             #"school_id": class_info.school_id,
             #"grade_id": class_info.grade_id,
-            "class_id": class_id,
+            #"class_id": class_id,
             "phone": phone,
             "describe": describe
         }
-        class_info = None
         if class_id:
-            class_id = class_id.split(",")
-            class_list = db_api.class_list(id=class_id)
-            class_info = class_list[0]
-        if class_info:
-            #if class_info.school_id != school_id:
-            #    raise exception.ParamNone(school_id=school_id)
-            values.update({"school_id": class_info.school_id if class_info else school_id,
-                            "grade_id": class_info.grade_id,
-                           })
+            class_info = db_api.class_get(id=class_id)
+            if class_info:
+                #if class_info.school_id != school_id:
+                #    raise exception.ParamNone(school_id=school_id)
+                values.update({"school_id": class_info.school_id if class_info else school_id,
+                               "grade_id": class_info.grade_id,
+                               "class_id": class_id,
+                               })
         if birthday:
             values.update({"birthday": birthday})
         if position != 0:
@@ -59,11 +57,10 @@ class TeacherLogic(Logic):
         if not id or not kwargs:
             return False
         if kwargs.get("class_id", ""):
-            class_id = kwargs.get("class_id").split(",")
-            class_list = db_api.class_list(id=class_id)
+            class_info = db_api.class_get(id=kwargs.get("class_id"))
             kwargs.update({
-                "school_id": class_list[0].school_id,
-                "grade_id": class_list[0].grade_id,
+                "school_id": class_info.school_id,
+                "grade_id": class_info.grade_id,
             })
 
         _ = db_api.teacher_update(id, kwargs)
@@ -113,17 +110,21 @@ class TeacherLogic(Logic):
         teacher_list = db_api.teacher_list(offset=offset, limit=limit, **filters)
         views_list = self.views(teacher_list)
         for view in views_list:
-            school_info = db_api.school_get(id=view.get("school_id"))
-            if school_info:
-                view.update({"school_name": school_info.name})
-            grade_info = db_api.grade_get(id=view.get("grade_id"))
-            if grade_info:
-                view.update({"grade_name": grade_info.name})
+            if view.get("school_id", ""):
+                school_info = db_api.school_get(id=view.get("school_id"))
+                if school_info:
+                    view.update({"school_name": school_info.name})
+            if view.get("grade_id", ""):
+                grade_info = view.get("grade_info", None)
+                # grade_info = db_api.grade_get(id=view.get("grade_id"))
+                if grade_info:
+                    view.update({"grade_name": grade_info.name})
 
-            class_id = view.get("class_id").split(",")
-            class_list = db_api.class_list(id=class_id)
-            if class_list:
-                view.update({"class_info": self.views(class_list)})
+            if view.get("class_id", ""):
+                class_info = view.get("class_info", None)
+                # class_info = db_api.class_get(id=view.get("class_id"))
+                if class_info:
+                    view.update({"class_info": self.views(class_info)})
 
             #history
             teacher_history_lilst = db_api.teacher_history_list(teacher_id=view.get("id"))
