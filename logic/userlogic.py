@@ -41,7 +41,7 @@ class UserLogic(Logic):
             raise ParamExist(key="phone", value=phone)
         values = {
             "name": name,
-            "pwd": encry_md5(pwd),
+            "pwd": encry_md5(pwd.strip()),
             "activate": activate,
             "phone": phone,
             "level": level
@@ -89,7 +89,7 @@ class UserLogic(Logic):
             return False
         if not convert.is_mobile(phone):
             return False
-        db_api.user_update(user_id, {"pwd":encry_md5(pwd)})
+        db_api.user_update(user_id, {"pwd":encry_md5(pwd.strip())})
         return True
 
 
