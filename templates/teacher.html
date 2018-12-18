@@ -859,7 +859,9 @@
 					//初始化赋值
 					$(".errorPart").html("");
 					$(".errorPartEditSpt").css("display", "none");
-
+					
+                    $("#edit_grade").val($(this).parent("td").siblings(".data_grade_name").attr("id"));
+					$("#edit_grade").change();
                     var a = $(this).parent("td").siblings(".data_class_name").attr("id");
 					var a = a.split(",");
 					var obj = $(".editClassNamePart .classNameList").length;
@@ -880,8 +882,7 @@
 						$("#edit_post").val("1");
 					}
 					$("input:radio[value='" + $(this).parent("td").siblings(".data_phone").attr("id") + "']").attr("checked", "checked");
-					$("#edit_grade").val($(this).parent("td").siblings(".data_grade_name").attr("id"));
-					$("#edit_grade").change();
+					
 
 					$("#edit_remarks").val($(this).parent("td").siblings(".data_name").attr("name"));
 
