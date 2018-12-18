@@ -860,6 +860,16 @@
 					$(".errorPart").html("");
 					$(".errorPartEditSpt").css("display", "none");
 
+                    var a = $(this).parent("td").siblings(".data_class_name").attr("id");
+					var a = a.split(",");
+					var obj = $(".editClassNamePart .classNameList").length;
+					for(var i = 0; i < obj; i++) {
+						for(var j = 0; j < a.length; j++) {
+							if($(".editClassNamePart .classNameList").eq(i).find("input").val() == a[j]) {
+								$(".editClassNamePart .classNameList").eq(i).find("input").click();
+							}
+						}
+					}
 					TimeSelectOption($('#edit_time'), $(this).parent("td").siblings(".data_time").attr("name"));
 					$("#edit_name").val($(this).parent("td").siblings(".teacher_data_name").html());
 					$("#edit_phone").val($(this).parent("td").siblings(".data_phone").html());
@@ -871,17 +881,6 @@
 					$("input:radio[value='" + $(this).parent("td").siblings(".data_phone").attr("id") + "']").attr("checked", "checked");
 					$("#edit_grade").val($(this).parent("td").siblings(".data_grade_name").attr("id"));
 					$("#edit_grade").change();
-					var a = $(this).parent("td").siblings(".data_class_name").attr("id");
-					var a = a.split(",");
-					var obj = $(".editClassNamePart .classNameList").length;
-					for(var i = 0; i < obj; i++) {
-						for(var j = 0; j < a.length; j++) {console.log($(".editClassNamePart .classNameList").eq(i).find("input").val())
-						console.log(a[j]);
-							if($(".editClassNamePart .classNameList").eq(i).find("input").val() == a[j]) {
-								$(".editClassNamePart .classNameList").eq(i).find("input").prop("checked", true);
-							}
-						}
-					}
 
 					$("#edit_remarks").val($(this).parent("td").siblings(".data_name").attr("name"));
 
