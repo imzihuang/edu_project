@@ -419,7 +419,8 @@
 						timeout: "30000",
 						success: function(msg) {
 							var msg = JSON.parse(msg);
-							//分页
+							if(msg.state == 0){
+								//分页
 							layui.use(['laypage', 'layer'], function() {
 									var page = layui.laypage;
 									page.render({
@@ -503,6 +504,10 @@
 								top.location.href = "index.html#teacherHistory.html";
 								top.location.reload();
 							});
+							}else(
+								alert("请求异常!");
+							)
+							
 						},
 						error: function() {
 							console.log("error");
