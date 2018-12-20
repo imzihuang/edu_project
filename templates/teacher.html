@@ -480,7 +480,7 @@
 											'<td class="center data_phone" id="' + msg.data[i].sex + '">' + msg.data[i].phone + '</td>' +
 											'<td class="center data_position">' + msg.data[i].position + '</td>' +
 											'<td class="center data_grade_name" id ="' + msg.data[i].grade_id + '">' + msg.data[i].grade_name + '</td>' +
-											'<td class="center data_class_name" id ="'+ msg.data[i].class_info.id +'">' + msg.data[i].class_info.name + '</td>' +
+											'<td class="center data_class_name" id ="' + msg.data[i].class_info.id + '">' + msg.data[i].class_info.name + '</td>' +
 											'<td class="center data_status">' + msg.data[i].status + '</td>' +
 											'<td class="center data_time" name ="' + msg.data[i].birthday + '">' + msg.data[i].create_time + '</td>' +
 											'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除" id = "' + msg.data[i].id + '"></i></td>' +
@@ -859,12 +859,11 @@
 					//初始化赋值
 					$(".errorPart").html("");
 					$(".errorPartEditSpt").css("display", "none");
-					
-                    $("#edit_grade").val($(this).parent("td").siblings(".data_grade_name").attr("id"));
-                    var a = $(this).parent("td").siblings(".data_class_name").attr("id");
+					$("#edit_grade").val($(this).parent("td").siblings(".data_grade_name").attr("id"));
+					//初始化班级
+					var a = $(this).parent("td").siblings(".data_class_name").attr("id");
 					var a = a.split(",");
-//					$("#edit_grade").change();
-                    if($("#edit_grade").val() == '') {
+					if($("#edit_grade").val() == '') {
 						$(".editClassNamePart").html("");
 					} else {
 						var sendData = {
@@ -874,48 +873,42 @@
 							"grade_id": $("#edit_grade").val() == '' ? undefined : $("#edit_grade").val(),
 						}
 						$.ajax({
-						method: 'GET',
-						xhrFields: {
-							"withCredentials": true
-						},
-						contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-						url: "/class/infos",
-						data: sendData,
-						dataType: 'json',
-						jsonpCallback: '',
-						cache: false,
-						timeout: "1000000",
-						success: function(msg) {
-							var str = '';
-							var layerSrt = '';
-							if(msg.data.length > 0) {
-								for(var i = 0; i < msg.data.length; i++) {
-									layerSrt += '<div class="classNameList"><input type="checkbox" name="checkboxClassName"' +
-										'value="' + msg.data[i].id + '" /><span class="className">' + msg.data[i].name + '</span></div>'
-								}
-								layerSrt = layerSrt + '<div style="clear:both"></div>'
-								$(".editClassNamePart").html(layerSrt);
-								$("#addInfoContent .classNameList").remove();
-								var obj = $(".editClassNamePart .classNameList").length;
-								for(var i = 0; i < obj; i++) {
-									for(var j = 0; j < a.length; j++) {
-										if($(".editClassNamePart .classNameList").eq(i).find("input").val() == a[j]) {
-											$(".editClassNamePart .classNameList").eq(i).find("input").prop("checked",true);
+							method: 'GET',
+							xhrFields: {
+								"withCredentials": true
+							},
+							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+							url: "/class/infos",
+							data: sendData,
+							dataType: 'json',
+							jsonpCallback: '',
+							cache: false,
+							timeout: "1000000",
+							success: function(msg) {
+								var str = '';
+								var layerSrt = '';
+								if(msg.data.length > 0) {
+									for(var i = 0; i < msg.data.length; i++) {
+										layerSrt += '<div class="classNameList"><input type="checkbox" name="checkboxClassName"' +
+											'value="' + msg.data[i].id + '" /><span class="className">' + msg.data[i].name + '</span></div>'
+									}
+									layerSrt = layerSrt + '<div style="clear:both"></div>'
+									$(".editClassNamePart").html(layerSrt);
+									$("#addInfoContent .classNameList").remove();
+									var obj = $(".editClassNamePart .classNameList").length;
+									for(var i = 0; i < obj; i++) {
+										for(var j = 0; j < a.length; j++) {
+											if($(".editClassNamePart .classNameList").eq(i).find("input").val() == a[j]) {
+												$(".editClassNamePart .classNameList").eq(i).find("input").prop("checked", true);
+											}
 										}
 									}
 								}
-							} else {
-								$("#class-name").html('<option value="">---无---</option>');
-								$("#add_class").html('<option value="">---无---</option>');
-								$("#edit_class").html('<option value="">---无---</option>');
-							}
-						},
-						complete: function(XMLHttpRequest, status) {
-
-						}
-					})
+							},
+							complete: function(XMLHttpRequest, status) {}
+						})
 					}
-                    
+
 					TimeSelectOption($('#edit_time'), $(this).parent("td").siblings(".data_time").attr("name"));
 					$("#edit_name").val($(this).parent("td").siblings(".teacher_data_name").html());
 					$("#edit_phone").val($(this).parent("td").siblings(".data_phone").html());
@@ -926,9 +919,7 @@
 					}
 					$("input:radio[value='" + $(this).parent("td").siblings(".data_phone").attr("id") + "']").attr("checked", "checked");
 					$("#edit_remarks").val($(this).parent("td").siblings(".data_name").attr("name"));
-                    
-                    
-					
+
 					layerIndex = layer.open({
 						title: '修改老师信息',
 						type: 1,
