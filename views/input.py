@@ -68,7 +68,8 @@ html_path = (
     "teacherAttendance",
     "loginPhone",
     "commonPerson",
-    "studentAttendance")
+    "studentAttendance",
+    "forgetPassword")
 
 
 class ManageViewHandler(RequestHandler):
