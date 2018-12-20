@@ -6,14 +6,17 @@ import datetime
 from util.convert import *
 from db import api as db_api
 from logic import Logic
+from util import exception
 
 class ClassLogic(Logic):
     def input(self, name="", grade_id="", cardcode="", student_number=0):
         # verify school_id
         _ = db_api.grade_get(grade_id)
         if not _:
-            return
-
+            raise exception.NotFound(grade_id=grade_id)
+        _count = db_api.class_count(name=name)
+        if _count>0:
+            raise exception.ParamExist(name=name)
         values = {
             "name": name,
             "grade_id": grade_id,
@@ -26,10 +29,20 @@ class ClassLogic(Logic):
 
     def update(self, id="", **kwargs):
         if not id or not kwargs:
-            return False
+            raise exception.ParamNone(id=id)
+        class_info = db_api.class_get(id)
+        if not class_info:
+            raise exception.NotFound(class_id=id)
         if kwargs.get("grade_id", ""):
             _ = db_api.grade_get(kwargs.get("grade_id", ""))
-            kwargs.update({"school_id":_.school_id})
+            if not _:
+                raise exception.NotFound(grade_id=kwargs.get("grade_id", ""))
+            kwargs.update({"school_id": _.school_id})
+
+        name = kwargs.get("name", "")
+        if name and class_info.name != name and db_api.class_list(name=name):
+            raise exception.ParamExist(class_name=name)
+
         _ = db_api.class_update(id, kwargs)
         return _
 

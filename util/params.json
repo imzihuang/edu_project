@@ -1,0 +1,20 @@
+
+//student_relative
+{
+  "id": "1234567890",
+  "name": "测试名称",
+  "sex": 1,
+  "birthday": "2014-10-01",
+  "school_name": "123",
+  "grade_name": "123",
+  "class_name": "123",
+  "create_time": "2018-12-12",
+  "relative_list":[
+    {
+      "name": "测试家长",
+      "sex": 1,
+      "birthday": "1987-10-01",
+      "phone": "13654871247",
+      "relation": "father"
+    }]
+}
