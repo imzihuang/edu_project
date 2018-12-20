@@ -5,7 +5,7 @@ from random import randint
 import datetime
 from util.encrypt_md5 import encry_md5
 from util import convert
-from util.exception import ParamExist, NotFound
+from util.exception import ParamExist, NotFound, ParamNone, FormalError
 from db import api as db_api
 from logic import Logic
 import logging
@@ -32,9 +32,9 @@ class UserLogic(Logic):
 
     def input(self, name="", pwd="", affirm_pwd="", activate=0, phone="", school_id="", level=1):
         if pwd != affirm_pwd:
-            return
+            raise FormalError(pwd=pwd, affirm_pwd=affirm_pwd)
         if not convert.is_mobile(phone):
-            return
+            raise FormalError(phone=phone)
         if db_api.user_list(name=name):
             raise ParamExist(key="name", value=name)
         if db_api.user_list(phone=phone):
@@ -48,26 +48,25 @@ class UserLogic(Logic):
         }
         if school_id:
             if not db_api.school_get(school_id):
-                raise NotFound(name="school_id", values=school_id)
+                raise NotFound(school_id=school_id)
             values.update({"school_id": school_id})
         user_obj = db_api.user_create(values)
         return user_obj
 
     def update(self, id="", **kwargs):
         if not id or not kwargs:
-            return False
+            raise ParamNone(id=id)
         LOG.info("kwargs 111:%r"%kwargs)
         user_info = db_api.user_get(id)
         current_user_level = kwargs.pop("current_user_level")
         if not user_info or current_user_level >= user_info.level:
-            return False
+            raise FormalError(current_user_level=current_user_level, level=user_info.level)
 
         if kwargs.get("school_id", ""):
             _ = db_api.school_get(kwargs.get("school_id", ""))
             if not _:
-                return False
+                raise NotFound(school_id=kwargs.get("school_id", ""))
         name = kwargs.get("name", "")
-        LOG.info("kwargs 2222:%r" % kwargs)
         if name and user_info.name!=name and db_api.user_list(name=name):
             raise ParamExist(key="name", value=name)
         phone = kwargs.get("phone", "")
