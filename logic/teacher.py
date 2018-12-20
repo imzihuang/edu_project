@@ -19,22 +19,22 @@ class TeacherLogic(Logic):
             raise exception.FormalError(birthday=birthday)
         if not name or not class_id:
             raise exception.ParamNone(class_id="")
+        if phone:
+            _count = db_api.teacher_count(phone=phone)
+            if _count>0:
+                raise exception.ParamExist(phone=phone)
         values = {
             "name": name,
             "sex": sex,
             #"birthday": birthday,
-            #"school_id": class_info.school_id,
-            #"grade_id": class_info.grade_id,
-            #"class_id": class_id,
+            "school_id": school_id,
             "phone": phone,
             "describe": describe
         }
         if class_id:
             class_info = db_api.class_get(id=class_id)
             if class_info:
-                #if class_info.school_id != school_id:
-                #    raise exception.ParamNone(school_id=school_id)
-                values.update({"school_id": class_info.school_id if class_info else school_id,
+                values.update({"school_id": class_info.school_id,
                                "grade_id": class_info.grade_id,
                                "class_id": class_id,
                                })
@@ -55,13 +55,21 @@ class TeacherLogic(Logic):
 
     def update(self, id="", **kwargs):
         if not id or not kwargs:
-            return False
+            raise exception.ParamNone(id=id)
+        teacher_info = db_api.teacher_get(id)
+        if not teacher_info:
+            raise exception.NotFound(id=id)
         if kwargs.get("class_id", ""):
             class_info = db_api.class_get(id=kwargs.get("class_id"))
+            if not class_info:
+                raise exception.NotFound(class_id=kwargs.get("class_id", ""))
             kwargs.update({
                 "school_id": class_info.school_id,
                 "grade_id": class_info.grade_id,
             })
+        name=kwargs.get("name", "")
+        if name and teacher_info.name != name and db_api.teacher_list(name=name):
+            raise exception.ParamExist(key="name", value=name)
 
         _ = db_api.teacher_update(id, kwargs)
         return _

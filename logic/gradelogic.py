@@ -4,7 +4,7 @@
 from random import randint
 import datetime
 from util.convert import *
-from util.exception import ParamExist
+from util import exception
 from db import api as db_api
 from logic import Logic
 
@@ -12,8 +12,10 @@ class GradeLogic(Logic):
     def input(self, name="", school_id=""):
         # verify school_id
         if not db_api.school_get(school_id):
-            return
-
+            raise exception.NotFound(school_id=school_id)
+        _count = db_api.class_count(name=name)
+        if _count > 0:
+            raise exception.ParamExist(name=name)
         values = {
             "name": name,
             "school_id": school_id,
@@ -23,11 +25,20 @@ class GradeLogic(Logic):
 
     def update(self, id="", **kwargs):
         if not id or not kwargs:
-            return False
+            raise exception.ParamNone(grade_id=id)
+        garde_info = db_api.grade_get(id)
+        if not garde_info:
+            raise exception.NotFound(grade_id=id)
+
         if kwargs.get("school_id", ""):
             _ = db_api.school_get(kwargs.get("school_id", ""))
             if not _:
-                return False
+                raise exception.NotFound(school_id=kwargs.get("school_id", ""))
+
+        name = kwargs.get("name", "")
+        if name and garde_info.name != name and db_api.teacher_list(name=name):
+            raise exception.ParamExist(grade_name=name)
+
         _ = db_api.grade_update(id, kwargs)
         return _
 
