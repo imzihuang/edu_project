@@ -711,12 +711,26 @@
 									data: data,
 									timeout: "30000",
 									success: function(msg) {
-										layer.closeAll();
-										layer.msg('添加成功', {
-											icon: 1,
-											time: 800 //2s后自动关闭
-										});
-										window.location.reload();
+										var msg = JSON.parse(msg);
+							            if(msg.state == 0) {
+							            	layer.closeAll();
+											layer.msg('添加成功', {
+												icon: 1,
+												time: 800 
+											});
+											window.location.reload();
+							            }else if(msg.state == 1){
+							            	layer.msg('添加失败');
+							            }else if(msg.state == 2){
+							            	layer.msg('关键参数不存在');
+							            }else if(msg.state == 3){
+							            	layer.msg('其他错误');
+							            }else if(msg.state == 5){
+							            	layer.msg('参数已经存在，如手机号不允许重复注册');
+							            }else if(msg.state == 6){
+							            	layer.msg('关键参数不允许为空');
+							            }
+										
 									},
 									error: function() {
 										layer.msg('添加失败');
