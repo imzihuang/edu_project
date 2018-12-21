@@ -477,11 +477,15 @@
 										//										}
 										
 										if(msg.data[i].class_info == ''|| msg.data[i].class_info == undefined){
-											class_info_id = '暂无'
+											class_info_id = ''
 											class_info_name = '暂无'
 										}else{
 											class_info_id = msg.data[i].class_info.id;
 											class_info_name = msg.data[i].class_info.name;
+										}
+										if(msg.data[i].grade_id == ''||msg.data[i].grade_id == undefined){
+											msg.data[i].grade_id = ''
+											msg.data[i].grade_name = '暂无'
 										}
 										strs += '<tr class="gradeX">' +
 											'<td><input type="checkbox" class="zx_checkedBtn" name ="' + msg.data[i].id + '" ></td>' +
