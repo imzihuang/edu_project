@@ -252,7 +252,7 @@
 		<script src="js/common.js" charset="utf-8"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
-				TimeSelectOption($('#add_time'));
+				
 
 				//获取学校
 				var schoolSelect = JSON.parse(localStorage.getItem("school"));
@@ -418,7 +418,7 @@
 						data: senddata,
 						timeout: "30000",
 						success: function(msg) {
-							var msg = JSON.parse(msg);
+							var msg = JSON.parse(msg);console.log(msg)
 							if(msg.state == 0) {
 								//分页
 								layui.use(['laypage', 'layer'], function() {
@@ -451,6 +451,8 @@
 									})
 									//表格渲染
 								var strs = '';
+								var class_info_id = '';
+								var class_info_name = '';
 								if(msg.data.length > 0) {
 									for(var i = 0; i < msg.data.length; i++) {
 										var className = '';
@@ -473,6 +475,21 @@
 										//												className += msg.data[i].class_info[j].name + ',';
 										//											}
 										//										}
+										
+										if(msg.data[i].class_info == ''|| msg.data[i].class_info == undefined){
+											class_info_id = ''
+											class_info_name = '暂无'
+										}else{
+											class_info_id = msg.data[i].class_info.id;
+											class_info_name = msg.data[i].class_info.name;
+										}
+										if(msg.data[i].grade_id == ''||msg.data[i].grade_id == undefined){
+											msg.data[i].grade_id = ''
+											msg.data[i].grade_name = '暂无'
+										}
+//										if(msg.data[i].birthday == ''|| msg.data[i].birthday == undefined){
+//											msg.data[i].birthday = ''
+//										}
 										strs += '<tr class="gradeX">' +
 											'<td><input type="checkbox" class="zx_checkedBtn" name ="' + msg.data[i].id + '" ></td>' +
 											'<td class="centerSort">' + (i + 1) + '</td>' +
@@ -480,7 +497,7 @@
 											'<td class="center data_phone" id="' + msg.data[i].sex + '">' + msg.data[i].phone + '</td>' +
 											'<td class="center data_position">' + msg.data[i].position + '</td>' +
 											'<td class="center data_grade_name" id ="' + msg.data[i].grade_id + '">' + msg.data[i].grade_name + '</td>' +
-											'<td class="center data_class_name" id ="' + msg.data[i].class_info.id + '">' + msg.data[i].class_info.name + '</td>' +
+											'<td class="center data_class_name" id ="' + class_info_id + '">' + class_info_name + '</td>' +
 											'<td class="center data_status">' + msg.data[i].status + '</td>' +
 											'<td class="center data_time" name ="' + msg.data[i].birthday + '">' + msg.data[i].create_time + '</td>' +
 											'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除" id = "' + msg.data[i].id + '"></i></td>' +
@@ -711,12 +728,25 @@
 									data: data,
 									timeout: "30000",
 									success: function(msg) {
-										layer.closeAll();
-										layer.msg('添加成功', {
-											icon: 1,
-											time: 800 //2s后自动关闭
-										});
-										window.location.reload();
+										var msg = JSON.parse(msg);
+							            if(msg.state == 0) {
+							            	layer.closeAll();
+											layer.msg('添加成功', {
+												icon: 1,
+												time: 800 
+											});
+											window.location.reload();
+							            }else if(msg.state == 1){
+							            	layer.msg('添加失败');
+							            }else if(msg.state == 2){
+							            	layer.msg('关键参数不存在');
+							            }else if(msg.state == 5){
+							            	layer.msg('参数已经存在，如手机号不允许重复注册');
+							            }else if(msg.state == 6){
+							            	layer.msg('关键参数不允许为空');
+							            }else{
+							            	layer.msg('其他错误');
+							            }
 									},
 									error: function() {
 										layer.msg('添加失败');
@@ -740,7 +770,7 @@
 					$(".addClassNamePart").html('');
 					$(".errorPartAddSpt").css("display", "none");
 					$(".errorPart").html("");
-
+                    TimeSelectOption($('#add_time'));
 					layerIndex = layer.open({
 						title: '添加老师',
 						type: 1,
@@ -971,7 +1001,7 @@
 				var beginTimeTake;
 
 				function TimeSelectOption(reportrangeId, time) {
-					if(time != '' || time != undefined) {
+					if(time != '' && time != undefined && time != 'null') {console.log(time)
 						reportrangeId.val(time);
 					} else {
 						time = moment().format('YYYY-MM-DD');
