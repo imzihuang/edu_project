@@ -102,7 +102,7 @@
 		</div>
 
 		<!--详情内容-->
-		<div id="addInfoContent signDetail" style="display: none; width: 500px; padding: 20px;">
+		<div id="addInfoContent" style="display: none; width: 500px; padding: 20px;">
 			<div class="topInfo">
 				<div class="common-width40 fl">
 					<div class="sculpture">
@@ -124,7 +124,7 @@
 			$(document).ready(function() {
 				//搜索框-月份
 				$('#monthly').monthpicker({
-					years: [2018, 2017, 2016, 2015, 2014],
+					years: [2019,2018, 2017, 2016, 2015, 2014],
 			        topOffset: 6
 				})
 				//获取学校
@@ -306,52 +306,52 @@
 
 				//添加校验
 				var layerIndex;
-//				$("#addInfoContentform").validate({
-//					focusCleanup: true,
-//					focusInvalid: false,
-//					debug: true,
-//					rules: {
-//						add_name: {
-//							required: true,
-//						},
-//					},
-//					messages: {
-//						add_name: {
-//							required: '必填',
-//						},
-//					},
-//					submitHandler: function(form) {
-//						var data = {
-//							'name': $("#add_name").val(),
-//							"school_id": school,
-//						}
-//						$.ajax({
-//							type: "POST",
-//							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-//							url: "/grade/input",
-//							async: false,
-//							data: data,
-//							timeout: "30000",
-//							success: function(msg) {
-//								layer.closeAll();
-//								layer.msg('添加成功', {
-//									icon: 1,
-//									time: 800 //2s后自动关闭
-//								});
-//								window.location.reload();
-//							},
-//							error: function() {
-//								layer.msg('添加失败');
-//								console.log("error");
-//							}
-//						});
-//
-//					},
-//					errorPlacement: function(error, element) {
-//						error.appendTo(element.parent().find(".errorPart"));
-//					},
-//					success: function() {}
-//				});
+				$("#addInfoContentform").validate({
+					focusCleanup: true,
+					focusInvalid: false,
+					debug: true,
+					rules: {
+						add_name: {
+							required: true,
+						},
+					},
+					messages: {
+						add_name: {
+							required: '必填',
+						},
+					},
+					submitHandler: function(form) {
+						var data = {
+							'name': $("#add_name").val(),
+							"school_id": school,
+						}
+						$.ajax({
+							type: "POST",
+							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+							url: "/grade/input",
+							async: false,
+							data: data,
+							timeout: "30000",
+							success: function(msg) {
+								layer.closeAll();
+								layer.msg('添加成功', {
+									icon: 1,
+									time: 800 //2s后自动关闭
+								});
+								window.location.reload();
+							},
+							error: function() {
+								layer.msg('添加失败');
+								console.log("error");
+							}
+						});
+
+					},
+					errorPlacement: function(error, element) {
+						error.appendTo(element.parent().find(".errorPart"));
+					},
+					success: function() {}
+				});
 
 				//添加弹框
 				$('.areapen').click(function() {
