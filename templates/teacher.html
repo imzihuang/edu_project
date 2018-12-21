@@ -473,6 +473,12 @@
 										//												className += msg.data[i].class_info[j].name + ',';
 										//											}
 										//										}
+										if(msg.data[i].class_info.id == ''||msg.data[i].class_info.id == undefined){
+											msg.data[i].class_info.id = '暂无'
+										}
+										if(msg.data[i].class_info.name == ''|| msg.data[i].class_info.name == undefined){
+											msg.data[i].class_info.name = '暂无'
+										}
 										strs += '<tr class="gradeX">' +
 											'<td><input type="checkbox" class="zx_checkedBtn" name ="' + msg.data[i].id + '" ></td>' +
 											'<td class="centerSort">' + (i + 1) + '</td>' +
