@@ -418,7 +418,7 @@
 						data: senddata,
 						timeout: "30000",
 						success: function(msg) {
-							var msg = JSON.parse(msg);
+							var msg = JSON.parse(msg);console.log(msg)
 							if(msg.state == 0) {
 								//分页
 								layui.use(['laypage', 'layer'], function() {
@@ -473,7 +473,8 @@
 										//												className += msg.data[i].class_info[j].name + ',';
 										//											}
 										//										}
-										if(msg.data[i].class_info.id == ''||msg.data[i].class_info.id == undefined){
+										console.log(msg.data[i].class_info.id)
+										if(msg.data[i].class_info.id == ''|| msg.data[i].class_info.id == undefined){
 											msg.data[i].class_info.id = '暂无'
 										}
 										if(msg.data[i].class_info.name == ''|| msg.data[i].class_info.name == undefined){
