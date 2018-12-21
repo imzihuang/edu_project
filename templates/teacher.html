@@ -451,6 +451,8 @@
 									})
 									//表格渲染
 								var strs = '';
+								var class_info_id = '';
+								var class_info_name = '';
 								if(msg.data.length > 0) {
 									for(var i = 0; i < msg.data.length; i++) {
 										var className = '';
@@ -473,12 +475,13 @@
 										//												className += msg.data[i].class_info[j].name + ',';
 										//											}
 										//										}
-										console.log(msg.data[i].class_info.id)
-										if(msg.data[i].class_info.id == ''|| msg.data[i].class_info.id == undefined){
-											msg.data[i].class_info.id = '暂无'
-										}
-										if(msg.data[i].class_info.name == ''|| msg.data[i].class_info.name == undefined){
-											msg.data[i].class_info.name = '暂无'
+										
+										if(msg.data[i].class_info == ''|| msg.data[i].class_info == undefined){
+											class_info_id = '暂无'
+											class_info_name = '暂无'
+										}else{
+											class_info_id = msg.data[i].class_info.id;
+											class_info_name = msg.data[i].class_info.name;
 										}
 										strs += '<tr class="gradeX">' +
 											'<td><input type="checkbox" class="zx_checkedBtn" name ="' + msg.data[i].id + '" ></td>' +
@@ -487,7 +490,7 @@
 											'<td class="center data_phone" id="' + msg.data[i].sex + '">' + msg.data[i].phone + '</td>' +
 											'<td class="center data_position">' + msg.data[i].position + '</td>' +
 											'<td class="center data_grade_name" id ="' + msg.data[i].grade_id + '">' + msg.data[i].grade_name + '</td>' +
-											'<td class="center data_class_name" id ="' + msg.data[i].class_info.id + '">' + msg.data[i].class_info.name + '</td>' +
+											'<td class="center data_class_name" id ="' + class_info_id + '">' + class_info_name + '</td>' +
 											'<td class="center data_status">' + msg.data[i].status + '</td>' +
 											'<td class="center data_time" name ="' + msg.data[i].birthday + '">' + msg.data[i].create_time + '</td>' +
 											'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除" id = "' + msg.data[i].id + '"></i></td>' +
