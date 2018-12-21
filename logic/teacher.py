@@ -17,8 +17,8 @@ class TeacherLogic(Logic):
               phone="", position=2, describe="", status="education"):
         if birthday and not is_date(birthday):
             raise exception.FormalError(birthday=birthday)
-        if not name or not class_id:
-            raise exception.ParamNone(class_id="")
+        if not name:
+            raise exception.ParamNone(name="")
         if phone:
             _count = db_api.teacher_count(phone=phone)
             if _count>0:
@@ -70,6 +70,10 @@ class TeacherLogic(Logic):
         name=kwargs.get("name", "")
         if name and teacher_info.name != name and db_api.teacher_list(name=name):
             raise exception.ParamExist(key="name", value=name)
+
+        phone = kwargs.get("phone", "")
+        if phone and teacher_info.phone != phone and db_api.teacher_list(phone=phone):
+            raise exception.ParamExist(key="phone", value=phone)
 
         _ = db_api.teacher_update(id, kwargs)
         return _
