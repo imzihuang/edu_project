@@ -252,7 +252,7 @@
 		<script src="js/common.js" charset="utf-8"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
-				TimeSelectOption($('#add_time'));
+				
 
 				//获取学校
 				var schoolSelect = JSON.parse(localStorage.getItem("school"));
@@ -770,7 +770,7 @@
 					$(".addClassNamePart").html('');
 					$(".errorPartAddSpt").css("display", "none");
 					$(".errorPart").html("");
-
+                    TimeSelectOption($('#add_time'));
 					layerIndex = layer.open({
 						title: '添加老师',
 						type: 1,
@@ -1001,9 +1001,9 @@
 				var beginTimeTake;
 
 				function TimeSelectOption(reportrangeId, time) {
-					if(time != '' || time != undefined) {console.log(time);
+					if(time != '' || time != undefined|| time != null) {
 						reportrangeId.val(time);
-					} else {console.log(time);
+					} else {
 						time = moment().format('YYYY-MM-DD');
 					}
 					reportrangeId.daterangepicker({
