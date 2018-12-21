@@ -2,7 +2,7 @@
 
 from tornado.web import RequestHandler
 import json
-from util.exception import ParamExist, NotFound
+from util.exception import ParamExist, NotFound, ParamNone
 import logging
 
 from util import convert
@@ -81,6 +81,9 @@ class RegistryHandler(RequestHandler):
         except ParamExist as ex:
             LOG.error("Input %s param exit:%s" % (registry_obj, ex))
             self.finish(json.dumps({'state': 5, 'message': 'param exit'}))
+        except ParamNone as ex:
+            LOG.error("Input %s param exit:%s" % (registry_obj, ex))
+            self.finish(json.dumps({'state': 6, 'message': 'param exit'}))
         except Exception as ex:
             LOG.error("Input %s error:%s"%(registry_obj, ex))
             self.finish(json.dumps({'state': 3, 'message': 'input error'}))
