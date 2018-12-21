@@ -487,9 +487,9 @@
 											msg.data[i].grade_id = ''
 											msg.data[i].grade_name = '暂无'
 										}
-										if(msg.data[i].birthday == ''||msg.data[i].birthday == undefined){
-											msg.data[i].birthday = ''
-										}
+//										if(msg.data[i].birthday == ''|| msg.data[i].birthday == undefined){
+//											msg.data[i].birthday = ''
+//										}
 										strs += '<tr class="gradeX">' +
 											'<td><input type="checkbox" class="zx_checkedBtn" name ="' + msg.data[i].id + '" ></td>' +
 											'<td class="centerSort">' + (i + 1) + '</td>' +
@@ -1000,10 +1000,10 @@
 				//添加弹框日期
 				var beginTimeTake;
 
-				function TimeSelectOption(reportrangeId, time) {console.log(time);
+				function TimeSelectOption(reportrangeId, time) {
 					if(time != '' || time != undefined) {
 						reportrangeId.val(time);
-					} else {
+					} else {console.log(time);
 						time = moment().format('YYYY-MM-DD');
 					}
 					reportrangeId.daterangepicker({
