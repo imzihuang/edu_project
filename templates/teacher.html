@@ -698,9 +698,9 @@
 									'sex': $("input[name='addsex']:checked").val(),
 									'position': $("#add_post option:selected").val(),
 									'phone': $("#add_phone").val(),
-									'class_id': classId,
-									'describe': $("#add_remarks").val(),
-									'birthday': $("#add_time").val(),
+									'class_id': classId == '' ? undefined : classId,
+									'describe': $("#edit_remarks").val() == '' ? undefined : $("#edit_remarks").val(),
+									'birthday': $("#edit_time").val() == '' ? undefined : $("#edit_time").val(),
 									'school_id': school,
 								}
 								$.ajax({
@@ -819,9 +819,9 @@
 									'sex': $("input[name='editsex']:checked").val(),
 									'position': $("#edit_post option:selected").val(),
 									'phone': $("#edit_phone").val(),
-									'class_id': classId,
-									'describe': $("#edit_remarks").val(),
-									'birthday': $("#edit_time").val(),
+									'class_id': classId == '' ? undefined : classId,
+									'describe': $("#edit_remarks").val() == '' ? undefined : $("#edit_remarks").val(),
+									'birthday': $("#edit_time").val() == '' ? undefined : $("#edit_time").val(),
 									'school_id': school,
 								}
 								$.ajax({
