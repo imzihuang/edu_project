@@ -103,13 +103,32 @@
 
 		<!--详情内容-->
 		<div id="addInfoContent signDetail" style="display: none; width: 500px; padding: 20px;">
-			<div class="topInfo">
+			<!--<div class="topInfo">
 				<div class="common-width40 fl">
 					<div class="sculpture">
-					   <!--<img src="../static/img/a9.jpg"/>-->
+					 <img src="../static/img/a9.jpg"/>
 					</div>
 				</div>
-			</div>
+			</div>-->
+			<form id="addInfoContentform" role="form" method="POST">
+				<div style="margin: 20px 0;">
+					<span>教师姓名：</span><input type="text" style="width: 350px;" id="add_name" name="add_name" />
+					<div class="errorPart"></div>
+				</div>
+				<div style="margin: 20px 0;">
+					<span>性别：</span>
+					<input type="radio" value="1" name="addsex" checked><span style="width: 40px;margin-left: 5px;">男</span>
+					<input type="radio" value="0" name="addsex"><span style="width: 40px;margin-left: 5px;">女</span>
+					<div class="errorPart"></div>
+				</div>
+				
+				<div style="margin: 20px 0;clear: both;">
+					<span class="fl">备注：</span>
+					<textarea style="width: 350px;" id="add_remarks" name="add_remarks"></textarea>
+					<div class="errorPart"></div>
+				</div>
+				<input class="submit" type="submit" value="提交" id="addInfoContentSubmit" style="display: none;">
+			</form>
 		</div>
 		
 
