@@ -1000,11 +1000,11 @@
 				//添加弹框日期
 				var beginTimeTake;
 
-				function TimeSelectOption(reportrangeId, time) {
+				function TimeSelectOption(reportrangeId, time) {console.log(time);
 					if(time != '' || time != undefined) {
 						reportrangeId.val(time);
 					} else {
-						time = moment().format('YYYY-MM-DD');console.log(time);
+						time = moment().format('YYYY-MM-DD');
 					}
 					reportrangeId.daterangepicker({
 						startDate: time,
