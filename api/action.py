@@ -278,7 +278,7 @@ class ActionHandler(RequestHandler):
                               face_info.get("img_path", ""))
             self.finish(json.dumps({'state': 0, 'message': 'sign ok'}))
 
-    @auth_api_login
+    
     def push_verify(self):
         phone = convert.bs2utf8(self.get_argument('phone', ''))
         if not phone or not convert.is_mobile(phone):
