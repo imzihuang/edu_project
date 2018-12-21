@@ -146,7 +146,7 @@
 					<span>出生日期：</span>
 					<input type="text" id="add_time" name="add_time" class="form-control" style="width: 350px;display: inline-block;">
 					<i class="glyphicon glyphicon-calendar fa fa-calendar" style="position: absolute;right: 20px;top: 8px;"></i>
-					<div class="errorPartAddTime errorPartAddSpt">请选择日期</div>
+					<!--<div class="errorPartAddTime errorPartAddSpt">请选择日期</div>-->
 				</div>
 				<div style="margin: 20px 0;">
 					<span>职务：</span>
@@ -671,10 +671,10 @@
 							$(".errorPartAddPost").css("display", "block");
 							return false;
 						} else {
-							if($("#add_time").val() == '') {
-								$(".errorPartAddTime").css("display", "block");
-								return false;
-							} else {
+//							if($("#add_time").val() == '') {
+//								$(".errorPartAddTime").css("display", "block");
+//								return false;
+//							} else {
 								var j = 0;
 								var h = 0;
 								for(var i = 0; i < obj.length; i++) {
@@ -723,7 +723,7 @@
 										console.log("error");
 									}
 								});
-							}
+//							}
 						}
 					},
 					errorPlacement: function(error, element) {
@@ -792,10 +792,10 @@
 							$(".errorPartEditPost").css("display", "block");
 							return false;
 						} else {
-							if($("#edit_time").val() == '') {
-								$(".errorPartEditTime").css("display", "block");
-								return false;
-							} else {
+//							if($("#edit_time").val() == '') {
+//								$(".errorPartEditTime").css("display", "block");
+//								return false;
+//							} else {
 								var j = 0;
 								var h = 0;
 								for(var i = 0; i < obj.length; i++) {
@@ -844,7 +844,7 @@
 										console.log("error");
 									}
 								});
-							}
+//							}
 						}
 					},
 
