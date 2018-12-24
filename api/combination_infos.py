@@ -80,7 +80,7 @@ class CombinationHandler(RequestHandler):
         _excel = util_excel.make_student_excel(_data)
         self.write(_excel)
         self.set_header('Content-Type', 'application/octet-stream')
-        self.set_header('Content-Disposition', 'attachment; filename=' + filename)
+        self.set_header('Content-Disposition', 'attachment; filename=student.xls')
         self.finish()
 
 

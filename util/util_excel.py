@@ -117,17 +117,17 @@ def demo_read_excel(file_path):
 
 
 excel_header={
-    "id": "编号",
-    "student_name": "学生名称",
-    "relative_name": "家长名称",
-    "sex": "性别",
-    "birthday": "出生日期",
-    "school_name": "学校名称",
-    "grade_name": "年级名称",
-    "class_name": "班级名称",
-    "create_time": "创建日期",
-    "phone": "电话号码",
-    "relation": "关系"
+    "id": "编号".decode('utf-8'),
+    "student_name": "学生名称".decode('utf-8'),
+    "relative_name": "家长名称".decode('utf-8'),
+    "sex": "性别".decode('utf-8'),
+    "birthday": "出生日期".decode('utf-8'),
+    "school_name": "学校名称".decode('utf-8'),
+    "grade_name": "年级名称".decode('utf-8'),
+    "class_name": "班级名称".decode('utf-8'),
+    "create_time": "创建日期".decode('utf-8'),
+    "phone": "电话号码".decode('utf-8'),
+    "relation": "关系".decode('utf-8')
 }
 
 
