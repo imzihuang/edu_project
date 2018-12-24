@@ -5,9 +5,9 @@ import xlwt as ExcelWrite
 import xlrd as ExcelRead
 
 def make_student_header(sheet, student_relative_list):
+    row = 0
     for student_dict in student_relative_list:
         col = 0
-        row = 0
         for k in student_dict:
             if k!="relative_list":
                 if k not in excel_header:
@@ -27,7 +27,7 @@ def make_student_excel(student_relative_list):
     if not student_relative_list:
         return ''
     xls = ExcelWrite.Workbook(style_compression=2)
-    sheet = xls.add_sheet("student_relative")
+    sheet = xls.add_sheet("student_relative", cell_overwrite_ok=True)
 
     make_student_header(sheet, student_relative_list)
     row = 1
@@ -42,6 +42,7 @@ def make_student_excel(student_relative_list):
                 col += 1
         relative_list = student_dict.get("relative_list", [])
         for relative_info in relative_list:
+            row += 1
             for k, v in relative_info.items():
                 if k not in excel_header:
                     continue
