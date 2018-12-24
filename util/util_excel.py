@@ -10,6 +10,8 @@ def make_student_header(sheet, student_relative_list):
         col = 0
         for k in student_dict:
             if k!="relative_list":
+                if k == "name":
+                    k="student_name"
                 if k not in excel_header:
                     continue
                 sheet.write(row, col, excel_header.get(k, k))
@@ -17,6 +19,8 @@ def make_student_header(sheet, student_relative_list):
         relative_list = student_dict.get("relative_list", [])
         for relative_info in relative_list:
             for k in relative_info:
+                if k != "name":
+                    k = "relative_name"
                 if k not in excel_header:
                     continue
                 sheet.write(row, col, excel_header.get(k, k))
@@ -36,14 +40,17 @@ def make_student_excel(student_relative_list):
         col = 0
         for k, v in student_dict.items():
             if k != "relative_list":
+                if k == "name":
+                    k="student_name"
                 if k not in excel_header:
                     continue
                 sheet.write(row, col, v)
                 col += 1
         relative_list = student_dict.get("relative_list", [])
         for relative_info in relative_list:
-            row += 1
             for k, v in relative_info.items():
+                if k != "name":
+                    k = "relative_name"
                 if k not in excel_header:
                     continue
                 sheet.write(row, col, excel_header.get(k, k))
