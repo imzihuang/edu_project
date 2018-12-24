@@ -28,7 +28,7 @@ class CombinationHandler(RequestHandler):
             if combination == "student_sign_details":
                 self.student_sign_details()
             if combination == "batch_student_excel":
-                self.batch_student()
+                self.batch_student_excel()
 
         except Exception as ex:
             LOG.error("combination %s error:%s"%(combination, ex))
