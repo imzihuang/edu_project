@@ -6,6 +6,7 @@ from util.exception import ParamExist
 import logging
 
 from util import convert
+from util import util_excel
 from logic import Logic
 from logic.school import SchoolLogic
 from logic.gradelogic import GradeLogic
@@ -26,6 +27,8 @@ class CombinationHandler(RequestHandler):
                 self.student_sign()
             if combination == "student_sign_details":
                 self.student_sign_details()
+            if combination == "batch_student_excel":
+                self.batch_student_excel()
 
         except Exception as ex:
             LOG.error("combination %s error:%s"%(combination, ex))
@@ -65,3 +68,20 @@ class CombinationHandler(RequestHandler):
             self.finish(json.dumps(_))
         else:
             self.finish(json.dumps({'state': 1, 'message': 'action student_sign_details error'}))
+
+    def batch_student_excel(self):
+        student_id = convert.bs2utf8(self.get_argument('student_id', ''))
+        student_name = convert.bs2utf8(self.get_argument('student_name', ''))
+        grade_id = convert.bs2utf8(self.get_argument('grade_id', ''))
+        class_id = convert.bs2utf8(self.get_argument('class_id', ''))
+        student_op = StudentLogic()
+
+        _data = student_op.student_relative_excel(student_id, student_name, grade_id, class_id)
+        _excel = util_excel.make_student_excel(_data)
+        self.write(_excel)
+        self.set_header('Content-Type', 'application/octet-stream')
+        self.set_header('Content-Disposition', 'attachment; filename=student.xls')
+        self.finish()
+
+
+

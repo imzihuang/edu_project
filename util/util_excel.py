@@ -4,27 +4,60 @@ import StringIO
 import xlwt as ExcelWrite
 import xlrd as ExcelRead
 
+def make_student_header(sheet, student_relative_list):
+    row = 0
+    for student_dict in student_relative_list:
+        col = 0
+        for k in student_dict:
+            if k!="relative_list":
+                if k == "name":
+                    k="student_name"
+                if k not in excel_header:
+                    continue
+                sheet.write(row, col, excel_header.get(k, k))
+                col += 1
+        relative_list = student_dict.get("relative_list", [])
+        for relative_info in relative_list:
+            for k in relative_info:
+                if k == "name":
+                    k = "relative_name"
+                if k not in excel_header:
+                    continue
+                sheet.write(row, col, excel_header.get(k, k))
+                col += 1
+
 
 def make_student_excel(student_relative_list):
     if not student_relative_list:
         return ''
     xls = ExcelWrite.Workbook(style_compression=2)
-    sheet = xls.add_sheet("student_relative")
-    #flag_header = False
+    sheet = xls.add_sheet("student_relative", cell_overwrite_ok=True)
+
+    make_student_header(sheet, student_relative_list)
     row = 1
     #填充每行的数据
     for student_dict in student_relative_list:
         col = 0
-        if not flag_header:
-            flag_header = True
-            for k in student_dict:
-                sheet.write(0, col, k)
-                col += 1
-        col = 0
         for k, v in student_dict.items():
-            sheet.write(row, col, v)
-            col += 1
+            if k != "relative_list":
+                if k == "name":
+                    k="student_name"
+                if k not in excel_header:
+                    continue
+                sheet.write(row, col, v)
+                col += 1
+        relative_list = student_dict.get("relative_list", [])
+        for relative_info in relative_list:
+            for k, v in relative_info.items():
+                if k == "name":
+                    k = "relative_name"
+                if k not in excel_header:
+                    continue
+                sheet.write(row, col, v)
+                col += 1
+
         row += 1
+
     sf = StringIO.StringIO()
     xls.save(sf)
     contents = sf.getvalue()
@@ -88,3 +121,27 @@ def demo_read_excel(file_path):
 
     # 打印单元格内容格式
     print(sheet.cell(1, 0).ctype)
+
+
+excel_header={
+    "id": "编号".decode('utf-8'),
+    "student_name": "学生名称".decode('utf-8'),
+    "relative_name": "家长名称".decode('utf-8'),
+    "sex": "性别".decode('utf-8'),
+    "birthday": "出生日期".decode('utf-8'),
+    "school_name": "学校名称".decode('utf-8'),
+    "grade_name": "年级名称".decode('utf-8'),
+    "class_name": "班级名称".decode('utf-8'),
+    "create_time": "创建日期".decode('utf-8'),
+    "phone": "电话号码".decode('utf-8'),
+    "relation": "关系".decode('utf-8')
+}
+
+
+# merge_format = workbook.add_format({
+#     'bold':     True,
+#     'border':   6,
+#     'align':    'center',#水平居中
+#     'valign':   'vcenter',#垂直居中
+#     'fg_color': '#D7E4BC',#颜色填充
+# })

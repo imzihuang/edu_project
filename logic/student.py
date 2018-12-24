@@ -216,6 +216,22 @@ class StudentLogic(Logic):
 
         return relation_list
 
+    def _get_relative_by_student(self, student_id=""):
+        relation_list = db_api.relation_list(student_id=student_id)
+        relation_list = self.views(relation_list)
+        if not relation_list:
+            return
+        for relavtion in relation_list:
+            relative_info = db_api.relative_get(relavtion.get("relative_id"))
+            relavtion.update({
+                "phone": relative_info.phone,
+                "name": relative_info.name,
+                "sex": relative_info.sex,
+                "birthday": relative_info.birthday,
+            })
+
+        return relation_list
+
 
     def delete(self, id="", **kwargs):
         if not id:
@@ -286,3 +302,32 @@ class StudentLogic(Logic):
             result.update({datetime.strftime(sign_status.sign_date, "%Y-%m-%d"): sign_status.status})
 
         return result
+
+    def student_relative_excel(self, student_id="", student_name="", grade_id="", class_id=""):
+        filters = {}
+        if student_id:
+            filters.update({"id": student_id})
+        if student_name:
+            filters.update({"name": student_name})
+        if grade_id:
+            filters.update({"grade_id": grade_id})
+        if class_id:
+            filters.update({"grade_id": class_id})
+
+        student_list = db_api.student_list(**filters)
+        views_list = self.views(student_list)
+        for view in views_list:
+            school_info = db_api.school_get(id=view.get("school_id"))
+            if school_info:
+                view.update({"school_name": school_info.name})
+            grade_info = view.get("grade_info", None)
+            if grade_info:
+                view.update({"grade_name": grade_info.get("name")})
+            class_info = view.get("class_info", None)
+            if class_info:
+                view.update({"class_name": class_info.get("name")})
+            relation_list = self._get_relative_by_student(view.get("id"))
+            if relation_list:
+                view.update({"relative_list": relation_list})
+        return views_list
+

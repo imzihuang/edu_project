@@ -238,7 +238,6 @@ class ActionHandler(RequestHandler):
         else:
             self.finish(json.dumps({'state': 0, 'message': 'face disable ok'}))
 
-    @auth_api_login
     def face_signin(self):
         cardcode = self.get_argument('cardcode', '')
         school_id = self.get_argument('school_id', '')
