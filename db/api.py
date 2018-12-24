@@ -441,7 +441,8 @@ def relation_get(id):
     return result
 
 def relation_list(offset=0, limit=1000, **filters):
-    query = model_query(models.RelationInfo, order=True, **filters)
+    #query = model_query(models.RelationInfo, order=True, **filters)
+    query = model_query(models.RelationInfo, **filters)
     if offset:
         query = query.offset(offset)
     if limit:
