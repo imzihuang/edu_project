@@ -11,7 +11,7 @@ def delete_student(student_id=""):
         try:
             # del relation
             query = model_query(models.RelationInfo, session=session, student_id=student_id)
-            relative_ids = [relation.id for relation in query.all()]
+            relative_ids = [relation.relative_id for relation in query.all()]
             query.delete(synchronize_session=False)
 
             # del student

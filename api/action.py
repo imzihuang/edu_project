@@ -170,6 +170,10 @@ class ActionHandler(RequestHandler):
                 relative_info = relative_op.info(relevance_id)
                 school_id = relative_info.get("school_id", "")
 
+        if not school_id:
+            LOG.error("school_id is none")
+            self.finish(json.dumps({'state': 3, 'message': 'school is none'}))
+            return
 
         face_op = FaceLogic()
         _verify = face_op.verify_authd(relevance_id, relevance_type)
