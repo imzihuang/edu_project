@@ -142,12 +142,12 @@
 				<div class="common-width40 fl">
 					<div class="sculpture fl">
 					</div>
-					<div class="studentInfo studentName">姓名</div>
-					<div class="studentInfo">班级</div>
+					<div class="studentInfo studentName"></div>
+					<div class="studentInfo studentClass"></div>
 					<div class="clearfix"></div>
 				</div>
-				<div class="common-width60 fl">
-					<h3>2018年18月考勤统计</h3>
+				<div class="common-width60 fl attendanceInfo">
+					<h3><span class="year">2018</span>年<span class="month">18</span>月考勤统计</h3>
 					<div class="attendance fl">出勤：20天</div>
 					<div class="attendance fl">迟到：20天</div>
 					<div class="attendance fl">早退：20天</div>
@@ -316,8 +316,8 @@
 								for(var i = 0; i < msg.data.length; i++) {
 									strs += '<tr class="gradeX">' +
 										'<td class="centerSort">' + (i + 1) + '</td>' +
-										'<td class="center" name = '+ msg.data[i].class_name +'>' + msg.data[i].grade_name + '</td>' +
-										'<td class="center">' + msg.data[i].name + '</td>' +
+										'<td class="center grade_name" name = '+ msg.data[i].class_name +'>' + msg.data[i].grade_name + '</td>' +
+										'<td class="center name">' + msg.data[i].name + '</td>' +
 										'<td class="center sign_date">' + msg.data[i].sign_date + '</td>' +
 										'<td class="center sign">' + msg.data[i].sign + '</td>' +
 										'<td class="center late">' + msg.data[i].late + '</td>' +
@@ -400,6 +400,13 @@
 
 				//添加弹框
 				$('.areapen').click(function() {
+					$(".studentName").html($(this).sublings(".name").html());
+					$(".studentClass").html($(this).sublings(".grade_name").html() + $(this).sublings(".grade_name").attr("name"));
+					$(".attendanceInfo .attendance").eq(0).html($(this).sublings(".sign").html());
+					$(".attendanceInfo .attendance").eq(1).html($(this).sublings(".late").html());
+					$(".attendanceInfo .attendance").eq(2).html($(this).sublings(".early").html());
+					$(".attendanceInfo .year").html($(this).sublings(".sign_date").html().substring(0,4));
+					$(".attendanceInfo .month").html($(this).sublings(".sign_date").html().substring(6,8));
 					var data = {
 						"student_id": $(this).attr("id"),
 						"start_date": $(".sign_date").html(),
