@@ -30,6 +30,7 @@
    	.topInfo{
    		width: 100%;
    		min-height: 30px;
+   		border-bottom: 1px solid #efefef;
    	}
 	.sculpture{
 		width: 70px;
@@ -43,7 +44,7 @@
 		line-height: 28px;
 	}
 	.common-width40{
-		border-right:1px solid #ccc;
+		border-right:1px solid #efefef;
 		padding: 20px 0px;
 	}
 	.common-width60{
@@ -143,14 +144,15 @@
 					<div class="sculpture fl">
 					</div>
 					<div class="studentInfo studentName"></div>
+					<div class="studentInfo studentGrade"></div>
 					<div class="studentInfo studentClass"></div>
 					<div class="clearfix"></div>
 				</div>
 				<div class="common-width60 fl attendanceInfo">
 					<h3><span class="year">2018</span>年<span class="month">18</span>月考勤统计</h3>
-					<div class="attendance fl">出勤：20天</div>
-					<div class="attendance fl">迟到：20天</div>
-					<div class="attendance fl">早退：20天</div>
+					<div class="attendance fl">出勤：<span></span>天</div>
+					<div class="attendance fl">迟到：<span></span>天</div>
+					<div class="attendance fl">早退：<span></span>天</div>
 				</div>
 			</div>
 			<div class="calendar-box calendar-layer clearfix"></div>
@@ -401,10 +403,11 @@
 				//添加弹框
 				$('.areapen').click(function() {console.log($(this).parent().siblings(".sign_date").html());
 					$(".studentName").html($(this).parent().siblings(".name").html());
-					$(".studentClass").html($(this).parent().siblings(".grade_name").html() + $(this).parent().siblings(".grade_name").attr("name"));
-					$(".attendanceInfo .attendance").eq(0).html($(this).parent().siblings(".sign").html());
-					$(".attendanceInfo .attendance").eq(1).html($(this).parent().siblings(".late").html());
-					$(".attendanceInfo .attendance").eq(2).html($(this).parent().siblings(".early").html());
+					$(".studentClass").html$(this).parent().siblings(".grade_name").attr("name"));
+					$(".studentGrade").html($(this).parent().siblings(".grade_name").html());
+					$(".attendanceInfo .attendance").eq(0).find("span").html($(this).parent().siblings(".sign").html());
+					$(".attendanceInfo .attendance").eq(1).find("span").html($(this).parent().siblings(".late").html());
+					$(".attendanceInfo .attendance").eq(2).find("span").html($(this).parent().siblings(".early").html());
 					$(".attendanceInfo .year").html($(this).parent().siblings(".sign_date").html().substring(0,4));
 					$(".attendanceInfo .month").html($(this).parent().siblings(".sign_date").html().substring(6,8));
 					var data = {
