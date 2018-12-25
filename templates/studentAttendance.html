@@ -415,7 +415,7 @@
 					$(".attendanceInfo .attendance").eq(1).find("span").html($(this).parent().siblings(".late").html());
 					$(".attendanceInfo .attendance").eq(2).find("span").html($(this).parent().siblings(".early").html());
 					$(".attendanceInfo .year").html($(this).parent().siblings(".sign_date").html().substring(0,4));
-					$(".attendanceInfo .month").html($(this).parent().siblings(".sign_date").html().substring(6,8));
+					$(".attendanceInfo .month").html($(this).parent().siblings(".sign_date").html().substring(5));
 					var data = {
 						"student_id": $(this).attr("id"),
 						"start_date": $(".sign_date").html(),
