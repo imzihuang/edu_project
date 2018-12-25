@@ -7,6 +7,7 @@ import logging
 
 from util import convert
 from util import util_excel
+from util.exception import NotFound, ParamNone
 from logic import Logic
 from logic.school import SchoolLogic
 from logic.gradelogic import GradeLogic
@@ -29,10 +30,15 @@ class CombinationHandler(RequestHandler):
                 self.student_sign_details()
             if combination == "batch_student_excel":
                 self.batch_student_excel()
-
+        except NotFound as ex:
+            LOG.error("combination info %s param not data:%s" % (combination, ex))
+            self.finish(json.dumps({'state': 2, 'message': 'param not data'}))
+        except ParamNone as ex:
+            LOG.error("combination info %s param is None:%s" % (combination, ex))
+            self.finish(json.dumps({'state': 3, 'message': 'param is None'}))
         except Exception as ex:
             LOG.error("combination %s error:%s"%(combination, ex))
-            self.finish(json.dumps({'state': 10, 'message': 'combination input error'}))
+            self.finish(json.dumps({'state': 10, 'message': 'combination info error'}))
 
     def student_sign(self):
         school_id = convert.bs2utf8(self.get_argument('school_id', ''))

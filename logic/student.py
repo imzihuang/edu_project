@@ -50,7 +50,7 @@ class StudentLogic(Logic):
 
     def update(self, id="", **kwargs):
         if not id or not kwargs:
-            return False
+            raise exception.ParamNone(id=id)
         if kwargs.get("class_id"):
             class_info = db_api.class_get(id=kwargs.get("class_id"))
             kwargs.update({
@@ -178,10 +178,10 @@ class StudentLogic(Logic):
 
     def info_detail_for_sign(self, id="", start_date="", end_date=""):
         if not id:
-            return
+            raise exception.ParamNone(id=id)
         student_info = db_api.student_get(id)
         if not student_info:
-            return
+            raise exception.NotFound(id=id)
 
         LOG.info("student_id%s"%id)
         # 关联学校和班级，还有学生得签到（学生亲属的签到信息）
