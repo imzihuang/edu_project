@@ -41,7 +41,7 @@
 	display: inline-block;
 	width:25px;
 	height: 19px;
-	background: url("../images/left-arr.png") left center no-repeat;
+	background: url("../img/left-arr.png") left center no-repeat;
 	background-size: contain;
 	vertical-align: middle;
 	cursor: pointer;
@@ -50,7 +50,7 @@
 	display: inline-block;
 	width:25px;
 	height: 19px;
-	background: url("../images/right-arr.png") right center no-repeat;
+	background: url("../img/right-arr.png") right center no-repeat;
 	background-size: contain;
 	vertical-align: middle;
 	cursor: pointer;
