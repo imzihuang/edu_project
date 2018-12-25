@@ -399,14 +399,14 @@
 				});
 
 				//添加弹框
-				$('.areapen').click(function() {console.log($(this).siblings(".sign_date").html());
-					$(".studentName").html($(this).siblings(".name").html());
-					$(".studentClass").html($(this).siblings(".grade_name").html() + $(this).siblings(".grade_name").attr("name"));
-					$(".attendanceInfo .attendance").eq(0).html($(this).siblings(".sign").html());
-					$(".attendanceInfo .attendance").eq(1).html($(this).siblings(".late").html());
-					$(".attendanceInfo .attendance").eq(2).html($(this).siblings(".early").html());
-					$(".attendanceInfo .year").html($(this).siblings(".sign_date").html().substring(0,4));
-					$(".attendanceInfo .month").html($(this).siblings(".sign_date").html().substring(6,8));
+				$('.areapen').click(function() {console.log($(this).parent().siblings(".sign_date").html());
+					$(".studentName").html($(this).parent().siblings(".name").html());
+					$(".studentClass").html($(this).parent().siblings(".grade_name").html() + $(this).parent().siblings(".grade_name").attr("name"));
+					$(".attendanceInfo .attendance").eq(0).html($(this).parent().siblings(".sign").html());
+					$(".attendanceInfo .attendance").eq(1).html($(this).parent().siblings(".late").html());
+					$(".attendanceInfo .attendance").eq(2).html($(this).parent().siblings(".early").html());
+					$(".attendanceInfo .year").html($(this).parent().siblings(".sign_date").html().substring(0,4));
+					$(".attendanceInfo .month").html($(this).parent().siblings(".sign_date").html().substring(6,8));
 					var data = {
 						"student_id": $(this).attr("id"),
 						"start_date": $(".sign_date").html(),
