@@ -399,7 +399,7 @@
 				});
 
 				//添加弹框
-				$('.areapen').click(function() {
+				$('.areapen').click(function() {console.log($(this).siblings(".sign_date").html());
 					$(".studentName").html($(this).siblings(".name").html());
 					$(".studentClass").html($(this).siblings(".grade_name").html() + $(this).siblings(".grade_name").attr("name"));
 					$(".attendanceInfo .attendance").eq(0).html($(this).siblings(".sign").html());
