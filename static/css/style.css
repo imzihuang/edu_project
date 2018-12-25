@@ -1441,13 +1441,7 @@ textarea {
 	color: #ea8618;
 	cursor: pointer;
 }
-.sculpture{
-	width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    background: url(./img/a9.jpg);
-    background-size: 100%;
-}
+
 @media only screen and (max-height:768px ) {
 	.layui-layer-content{
 		max-height: 300px;
