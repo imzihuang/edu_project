@@ -34,8 +34,19 @@
 		width: 70px;
 	    height: 70px;
 	    border-radius: 50%;
+	    margin-right: 20px;
 	    background: url(./img/a9.jpg);
 	    background-size: 100%;
+	}
+	.studentInfo{
+		line-height: 30px;
+	}
+	.common-width40{
+		border-right:1px solid #ccc;
+		padding: 20px 0px;
+	}
+	.clearfix{
+		clear: both;
 	}
    </style>
 	<body class="gray-bg">
@@ -113,15 +124,20 @@
 		</div>
 
 		<!--详情内容-->
-		<div id="addInfoContent" style="display: none; width: 500px; padding: 20px;">
+		<div id="addInfoContent" style="display: none; width: 500px; padding: 0px 20px;">
 			<div class="topInfo">
 				<div class="common-width40 fl">
 					<div class="sculpture fl">
 					</div>
-					<div>姓名</div>
-					<div>班级</div>
+					<div class="fl studentInfo">姓名</div>
+					<div class="fl studentInfo">班级</div>
+					<div class="clearfix"></div>
 				</div>
 				<div class="common-width60 fl">
+					<h3>2018年18月考勤统计</h3>
+					<div>出勤：20天</div>
+					<div>迟到：20天</div>
+					<div>早退：20天</div>
 				</div>
 			</div>
 		</div>
