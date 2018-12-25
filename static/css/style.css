@@ -1441,3 +1441,8 @@ textarea {
 	color: #ea8618;
 	cursor: pointer;
 }
+@media only screen and (max-height:768px ) {
+	.layui-layer-content{
+		max-height: 300px;
+	}
+}
