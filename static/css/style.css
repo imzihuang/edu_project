@@ -1446,7 +1446,8 @@ textarea {
 	height: 30px;
 	padding: 20px;
 	border-radius: 50%;
-	background: url(../static/img/a9.jpg);
+	background: url(../static/img/user.png);
+	background-size: 100%;
 }
 @media only screen and (max-height:768px ) {
 	.layui-layer-content{
