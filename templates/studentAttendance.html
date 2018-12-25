@@ -18,6 +18,7 @@
 		<link href="js/plugins/layer/skin/default/layer.css" rel="stylesheet" type="text/css" />
 		<link href="css/layui.css" media="all" rel="stylesheet">
 		<link href="css/jquery.monthpicker.css" rel="stylesheet" type="text/css" >
+		<link href="css/calendar-pro.css" rel="stylesheet" type="text/css" >
 
 		<script src="js/jquery.min.js"></script>
         
@@ -39,7 +40,7 @@
 	    background-size: 100%;
 	}
 	.studentInfo{
-		line-height: 30px;
+		line-height: 28px;
 	}
 	.common-width40{
 		border-right:1px solid #ccc;
@@ -51,12 +52,12 @@
 	.clearfix{
 		clear: both;
 	}
-	h3{
+	h3,.studentName{
 	    font-weight: bold;
 	    margin-bottom: 5px;
 	}
 	.attendance{
-		min-width: 120px;
+		min-width: 115px;
 		line-height: 26px;
 		font-size: 14px;
 	}
@@ -141,7 +142,7 @@
 				<div class="common-width40 fl">
 					<div class="sculpture fl">
 					</div>
-					<div class="studentInfo">姓名</div>
+					<div class="studentInfo studentName">姓名</div>
 					<div class="studentInfo">班级</div>
 					<div class="clearfix"></div>
 				</div>
@@ -152,6 +153,7 @@
 					<div class="attendance fl">早退：20天</div>
 				</div>
 			</div>
+			<div class="calendar-box calendar-layer"></div>
 		</div>
 		
 
@@ -161,6 +163,7 @@
 		<script src="js/jquery.form.js"></script>
 		<script src="js/layui.js" charset="utf-8"></script>
 		<script src="js/jquery.monthpicker.js"></script>
+		<script src="js/calendar-pro.js"></script>
 		<script src="js/common.js" charset="utf-8"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
@@ -412,7 +415,19 @@
 					});
 				});
 
-				
+				//弹框日历
+				$('.calendar-box').calendar({
+					ele : '.calendar-layer', 
+					title : '',
+					data : [
+						{date:'2017-05-07',data:'107'},
+						{date:'2017-05-08',data:'108'},
+						{date:'2017-05-09',data:'109'},
+						{date:'2017-05-10',data:'110'},
+						{date:'2017-05-11',data:'111'},
+						{date:'2017-05-12',data:'112'},
+					]
+				});
 			});
 		</script>
 	</body>
