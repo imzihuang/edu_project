@@ -137,7 +137,7 @@
 		</div>
 
 		<!--详情内容-->
-		<div id="addInfoContent" style="display: none; width: 500px; padding: 0px 20px;">
+		<div id="addAttendanceContent" style="display: none; width: 500px; padding: 0px 20px;">
 			<div class="topInfo">
 				<div class="common-width40 fl">
 					<div class="sculpture fl">
@@ -153,7 +153,7 @@
 					<div class="attendance fl">早退：20天</div>
 				</div>
 			</div>
-			<div class="calendar-box calendar-layer"></div>
+			<div class="calendar-box calendar-layer clearfix"></div>
 		</div>
 		
 
@@ -282,7 +282,7 @@
 						data: senddata,
 						timeout: "30000",
 						success: function(msg) {
-							var msg = JSON.parse(msg);
+							var msg = JSON.parse(msg);console.log(msg)
 							//分页
 							layui.use(['laypage', 'layer'], function() {
 									var page = layui.laypage;
@@ -322,7 +322,7 @@
 										'<td class="center">' + msg.data[i].sign + '</td>' +
 										'<td class="center">' + msg.data[i].late + '</td>' +
 										'<td class="center">' + msg.data[i].early + '</td>' +
-										'<td><i class="fa fa-calendar areapen" title="查看详情"></td>' +
+										'<td><i class="fa fa-calendar areapen" title="查看详情" id = '+ msg.data[i].student_id +'></td>' +
 										'</tr>'
 								}
 								$("#tbody").html(strs);
@@ -407,8 +407,7 @@
 						closeBtn: 1,
 						anim: 2,
 						shadeClose: true,
-//						btn: ['确定', '取消'],
-						content: $('#addInfoContent'),
+						content: $('#addAttendanceContent'),
 						yes: function() {
 							
 						}
