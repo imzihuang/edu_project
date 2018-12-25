@@ -188,8 +188,15 @@ class StudentLogic(Logic):
         student_info = self.views(student_info)
         sign_detail = self.com_sign_detail(id, start_date, end_date)
         sign_data = []
-        for k, v in sign_detail.items():
-            sign_data.append({"date": k, "status": v})
+        for sign_status in sign_detail:
+            sign_data.append({
+                "date": datetime.strftime(sign_status.sign_date, "%Y-%m-%d"),
+                "status": sign_status.status,
+                "morning": sign_status.morning,
+                "afternoon": sign_status.afternoon
+            })
+            #result.update({datetime.strftime(sign_status.sign_date, "%Y-%m-%d"): sign_status.status})
+
         student_info.update({"sign_data": sign_data})
         return student_info
 
@@ -301,7 +308,7 @@ class StudentLogic(Logic):
         for sign_status in sign_status_list:
             result.update({datetime.strftime(sign_status.sign_date, "%Y-%m-%d"): sign_status.status})
 
-        return result
+        return sign_status_list
 
     def student_relative_excel(self, student_id="", student_name="", grade_id="", class_id=""):
         filters = {}
