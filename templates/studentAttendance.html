@@ -489,7 +489,7 @@
 							for(var i=0;i<msg.sign_data.length;i++){
 								calendarData[i] = new Object();
 								calendarData[i].date = msg.sign_data[i].date;
-								calendarData[i].status = msg.sign_data[i].status;
+								calendarData[i].data = msg.sign_data[i].status;
 							}
 							console.log(calendarData)
 							//弹框日历
@@ -498,7 +498,6 @@
 								title : '',
 								data : calendarData
 							});
-							//颜色设置
 							var length = $(".calendar-box .ht-rili-body .ht-rili-onclick").length;
 							for(var i = 0;i < length;i++){
 							    if($(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html() == '10'){
