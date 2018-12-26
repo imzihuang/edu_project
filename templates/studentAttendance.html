@@ -436,6 +436,29 @@
 						success: function(msg) {
 //							var msg = JSON.parse(msg);
 							console.log(msg)
+							var calendarData = new Array();
+							for(var i=0;i<msg.sign_data.length;i++){
+								calendarData[i] = new Object();
+								calendarData[i].date = msg.sign_data[i].date;
+								calendarData[i].status = msg.sign_data[i].status;
+							}
+//							for(var i=0;i<msg.sign_data.length;i++){
+//								if(calendarData[i].status == )
+//								calendarData[i].status = msg.sign_data[i].status;
+//							}
+							//弹框日历
+							$('.calendar-box').calendar({
+								ele : '.calendar-layer', 
+								title : '',
+								data : [
+									{date:'2017-05-07',data:'107'},
+									{date:'2017-05-08',data:'108'},
+									{date:'2017-05-09',data:'109'},
+									{date:'2017-05-10',data:'110'},
+									{date:'2017-05-11',data:'111'},
+									{date:'2017-05-12',data:'112'},
+								]
+							});
 						},
 						complete: function(XMLHttpRequest, status) {
 
@@ -455,19 +478,7 @@
 					});
 				});
 
-				//弹框日历
-				$('.calendar-box').calendar({
-					ele : '.calendar-layer', 
-					title : '',
-					data : [
-						{date:'2017-05-07',data:'107'},
-						{date:'2017-05-08',data:'108'},
-						{date:'2017-05-09',data:'109'},
-						{date:'2017-05-10',data:'110'},
-						{date:'2017-05-11',data:'111'},
-						{date:'2017-05-12',data:'112'},
-					]
-				});
+				
 			});
 		</script>
 	</body>
