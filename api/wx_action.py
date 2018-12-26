@@ -8,6 +8,7 @@ import logging
 import json
 from logic.userlogic import WXUserLogic
 from logic.relative import RelativeLogic
+from logic.teacher import TeacherLogic
 from logic.verify_manage import VerifyManageLogic
 from util.ini_client import ini_load
 from util import convert
@@ -80,6 +81,7 @@ class WXActionHandler(RequestHandler):
         verify_code = convert.bs2utf8(self.get_argument('verify_code', ''))
         edu_session = convert.bs2utf8(self.get_argument('edu_session', ''))
         relative_op = RelativeLogic()
+        teacher_op = TeacherLogic()
         verify_op = VerifyManageLogic()
         wx_op = WXUserLogic()
 
@@ -89,16 +91,28 @@ class WXActionHandler(RequestHandler):
             LOG.error("bind user verify code error: phone:%s" % phone)
             self.finish(json.dumps({'state': 1, 'message': 'verify code error'}))
             return
+        bind_ids = ""
+        old_wx_info = wx_op.info(edu_session)
+        if old_wx_info.get("wx_type") == 1:
+            #verify relative
+            relative_list = relative_op.info_by_phone(phone=phone)
+            if not relative_list:
+                LOG.error("bind user phone not singn relative: phone:%s" % phone)
+                self.finish(json.dumps({'state': 2, 'message': 'phone not singn relative'}))
+                return
+            bind_ids = ",".join([relative_info.id for relative_info in relative_list])
 
-        #verify relative
-        relative_list = relative_op.info_by_phone(phone=phone)
-        if not relative_list:
-            LOG.error("bind user phone not singn relative: phone:%s" % phone)
-            self.finish(json.dumps({'state': 2, 'message': 'phone not singn relative'}))
-            return
-        relative_ids = ",".join([relative_info.id for relative_info in relative_list])
+        if old_wx_info.get("wx_type") == 2:
+            teacher_list = teacher_op.info_by_phone(phone=phone)
+            if not teacher_list:
+                LOG.error("bind user phone not singn teacher: phone:%s" % phone)
+                self.finish(json.dumps({'state': 2, 'message': 'phone not singn teacher'}))
+                return
+            bind_ids = ",".join([teacher_info.id for teacher_info in teacher_list])
+
+
         #verify phone exit
-        old_wx_info = wx_op.info_by_phone(phone)
+        old_wx_info = wx_op.info_by_phone(phone, old_wx_info.get("wx_type"))
         if old_wx_info:
             LOG.error("bind user phone exit: phone:%s" % phone)
             self.finish(json.dumps({'state': 3, 'message': 'phone exit'}))
@@ -107,7 +121,7 @@ class WXActionHandler(RequestHandler):
         #bind phone
         wx_op.update(edu_session, phone=phone)
         self.finish(json.dumps(
-            {'state': 0, 'edu_session': edu_session, 'relative_id': relative_ids, 'message': 'ok'}))
+            {'state': 0, 'edu_session': edu_session, 'bind_ids': bind_ids, 'message': 'ok'}))
 
 
     def update_user_phone(self):
@@ -115,6 +129,7 @@ class WXActionHandler(RequestHandler):
         verify_code = convert.bs2utf8(self.get_argument('verify_code', ''))
         edu_session = convert.bs2utf8(self.get_argument('edu_session', ''))
         relative_op = RelativeLogic()
+        teacher_op = TeacherLogic()
         verify_op = VerifyManageLogic()
         wx_op = WXUserLogic()
 
@@ -129,31 +144,44 @@ class WXActionHandler(RequestHandler):
             self.finish(json.dumps({'state': 3, 'message': 'wx id not singn'}))
             return
 
-        #验证待绑定手机号，是否被占用（微信号认证过，或者家属占用）
-        verify_wx_info = wx_op.info_by_phone(phone)
+        #验证待绑定手机号，是否被占用（微信号认证过，或者家属占用，或教师占用）
+        verify_wx_info = wx_op.info_by_phone(phone, old_wx_info.get("wx_type"))
         if verify_wx_info:
             LOG.error("update user phone, new phone exit wx: phone:%s" % phone)
             self.finish(json.dumps({'state': 3, 'message': 'new phone exit wx'}))
             return
-        verify_relative_list = relative_op.info_by_phone(phone=phone)
-        if verify_relative_list:
-            LOG.error("update user phone, new phone exit relative: phone:%s" % phone)
-            self.finish(json.dumps({'state': 3, 'message': 'new phone exit relative'}))
-            return
 
-        #待更新手机号码的亲属，通过旧手机号(可能存在多个)
-        old_relative_list = relative_op.info_by_phone(phone=old_wx_info.get("phone"))
-        if not old_relative_list:
-            LOG.error("update user phone not singn: phone:%s" % phone)
-            self.finish(json.dumps({'state': 2, 'message': 'old phone not singn'}))
-            return
+        # 新号码已经被其他家属占用
+        if old_wx_info.get("wx_type") == 1:
+            verify_relative_list = relative_op.info_by_phone(phone=phone)
+            if verify_relative_list:
+                LOG.error("update user phone, new phone exit relative: phone:%s" % phone)
+                self.finish(json.dumps({'state': 3, 'message': 'new phone exit relative'}))
+                return
 
-        relative_ids = ",".join([relative_info.id for relative_info in old_relative_list])
-        for relative_info in old_relative_list:
-            relative_op.update(relative_info.id, phone=phone)
-        #更新微信号的手机号码
-        wx_op.update(edu_session, phone=phone)
-        self.finish(json.dumps({'state': 0, 'edu_session': edu_session, 'relative_id': relative_ids, 'message': 'ok'}))
+            # 待更新手机号码的亲属，通过旧手机号(可能存在多个)
+            old_relative_list = relative_op.info_by_phone(phone=old_wx_info.get("phone"))
+            for relative_info in old_relative_list:
+                relative_op.update(relative_info.id, phone=phone)
+            # 更新微信号的手机号码
+            wx_op.update(edu_session, phone=phone)
+            self.finish(
+                json.dumps({'state': 0, 'edu_session': edu_session, 'message': 'ok'}))
+
+        #新号码已经被其他教师占用
+        if old_wx_info.get("wx_type") == 2:
+            verify_teacher_list = teacher_op.info_by_phone(phone=phone)
+            if verify_teacher_list:
+                LOG.error("update user phone, new phone exit teacher: phone:%s" % phone)
+                self.finish(json.dumps({'state': 3, 'message': 'new phone exit teacher'}))
+                return
+            # 待更新手机号码的教师，通过旧手机号(可能存在多个)
+            old_teacher_list = teacher_op.info_by_phone(phone=old_wx_info.get("phone"))
+            for teacher_info in old_teacher_list:
+                teacher_op.update(teacher_info.id, phone=phone)
+            # 更新微信号的手机号码
+            wx_op.update(edu_session, phone=phone)
+            self.finish(json.dumps({'state': 0, 'edu_session': edu_session, 'message': 'ok'}))
 
     def verify_phone_code(self):
         phone = convert.bs2utf8(self.get_argument('phone', ''))

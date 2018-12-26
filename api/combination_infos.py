@@ -28,6 +28,10 @@ class CombinationHandler(RequestHandler):
                 self.student_sign()
             if combination == "student_sign_details":
                 self.student_sign_details()
+            if combination == "teacher_sign":
+                self.student_sign()
+            if combination == "teacher_sign_details":
+                self.student_sign_details()
             if combination == "batch_student_excel":
                 self.batch_student_excel()
         except NotFound as ex:
@@ -74,6 +78,22 @@ class CombinationHandler(RequestHandler):
             self.finish(json.dumps(_))
         else:
             self.finish(json.dumps({'state': 1, 'message': 'action student_sign_details error'}))
+
+    def teacher_sign(self):
+        school_id = convert.bs2utf8(self.get_argument('school_id', ''))
+        grade_id = convert.bs2utf8(self.get_argument('grade_id', ''))
+        class_id = convert.bs2utf8(self.get_argument('class_id', ''))
+        sign_date = convert.bs2utf8(self.get_argument('sign_date', ''))
+        limit = int(self.get_argument('limit', 100))
+        offset = int(self.get_argument('offset', 0))
+
+        teacher_op = TeacherLogic()
+        _ = teacher_op.infos_for_sign(school_id, grade_id, class_id, sign_date, limit, offset)
+
+        if _:
+            self.finish(json.dumps(_))
+        else:
+            self.finish(json.dumps({'state': 1, 'message': 'action student_sign error'}))
 
     def batch_student_excel(self):
         student_id = convert.bs2utf8(self.get_argument('student_id', ''))

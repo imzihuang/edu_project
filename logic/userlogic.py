@@ -195,10 +195,10 @@ class WXUserLogic(Logic):
         wx_info = db_api.wxuser_get(id)
         return self.views(wx_info)
 
-    def info_by_phone(self, phone):
+    def info_by_phone(self, phone, wx_type=1):
         if not phone:
             return
-        wx_info = db_api.wxuser_get_by_phone(phone)
+        wx_info = db_api.wxuser_get_by_phone(phone, wx_type)
         return self.views(wx_info)
 
     def info_by_openid(self, openid):
