@@ -69,17 +69,17 @@
 	}
 	.calendarTip{
 		width: 50%;
+		line-height: 28px;
 	}
-	#addAttendanceContent .calendarTip:nth-child(1) span{
+	.calendarTipPart{
+		padding: 0px 20px;
+	}
+	.calendarTipPart .calendarTip span{
 		width: 2px;
 		height: 2px;
 		border-radius: 50%;
-		background: #ccc;
 	}
-	#addAttendanceContent .calendarTip:nth-child(2) span{
-		width: 2px;
-		height: 2px;
-		border-radius: 50%;
+	.calendarTipPart .calendarTip .calendarTip1{
 		background: #ccc;
 	}
    </style>
@@ -177,14 +177,16 @@
 				<div class="clear"></div>
 			</div>
 			<div class="calendar-box calendar-layer clearfix"></div>
-			<div class="calendarTip fl"><span></span>上午正常打卡，下午未打卡</div>
-			<div class="calendarTip fl"><span></span>上午迟到，下午未打卡</div>
-			<div class="calendarTip fl"><span></span>上午未打卡，下午正常打卡</div>
-			<div class="calendarTip fl"><span></span>上午未打卡，下午早退</div>
-			<div class="calendarTip fl"><span></span>上午正常打卡，下午早退</div>
-			<div class="calendarTip fl"><span></span>上午迟到，下午正常打卡</div>
-			<div class="calendarTip fl"><span></span>上午迟到，下午早退</div>
-			<div class="calendarTip fl"><span></span>出勤</div>
+			<div class="calendarTipPart">
+				<div class="calendarTip fl"><span class="calendarTip1"></span>上午正常打卡，下午未打卡</div>
+				<div class="calendarTip fl"><span class="calendarTip1"></span>上午迟到，下午未打卡</div>
+				<div class="calendarTip fl"><span class="calendarTip1"></span>上午未打卡，下午正常打卡</div>
+				<div class="calendarTip fl"><span class="calendarTip1"></span>上午未打卡，下午早退</div>
+				<div class="calendarTip fl"><span class="calendarTip1"></span>上午正常打卡，下午早退</div>
+				<div class="calendarTip fl"><span class="calendarTip1"></span>上午迟到，下午正常打卡</div>
+				<div class="calendarTip fl"><span class="calendarTip1"></span>上午迟到，下午早退</div>
+				<div class="calendarTip fl"><span class="calendarTip1"></span>出勤</div>
+			</div>
 		</div>
 		
 
