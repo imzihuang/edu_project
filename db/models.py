@@ -263,6 +263,7 @@ class WXUserInfo(Base, ModelBase):
     deleted = Column(Boolean, default=False)
     create_time = Column(DateTime, default=datetime.now, nullable=False)
     updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)
+    wx_type = Column(Integer, default=1)
 
     def to_dict(self):
         return _to_dict(self)
