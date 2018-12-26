@@ -67,6 +67,21 @@
 	.calendar-box{
 		padding: 10px 20px;
 	}
+	.calendarTip{
+		width: 50%;
+	}
+	#addAttendanceContent .calendarTip:nth-child(1) span{
+		width: 2px;
+		height: 2px;
+		border-radius: 50%;
+		background: #ccc;
+	}
+	#addAttendanceContent .calendarTip:nth-child(2) span{
+		width: 2px;
+		height: 2px;
+		border-radius: 50%;
+		background: #ccc;
+	}
    </style>
 	<body class="gray-bg">
 		<div class="wrapper wrapper-content animated fadeIn">
@@ -162,6 +177,14 @@
 				<div class="clear"></div>
 			</div>
 			<div class="calendar-box calendar-layer clearfix"></div>
+			<div class="calendarTip fl"><span></span>上午正常打卡，下午未打卡</div>
+			<div class="calendarTip fl"><span></span>上午迟到，下午未打卡</div>
+			<div class="calendarTip fl"><span></span>上午未打卡，下午正常打卡</div>
+			<div class="calendarTip fl"><span></span>上午未打卡，下午早退</div>
+			<div class="calendarTip fl"><span></span>上午正常打卡，下午早退</div>
+			<div class="calendarTip fl"><span></span>上午迟到，下午正常打卡</div>
+			<div class="calendarTip fl"><span></span>上午迟到，下午早退</div>
+			<div class="calendarTip fl"><span></span>出勤</div>
 		</div>
 		
 
