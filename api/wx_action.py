@@ -13,7 +13,8 @@ from util.ini_client import ini_load
 from util import convert
 
 _conf = ini_load('config/service.ini')
-_dic_con = _conf.get_fields('wx')
+relative_dic_con = _conf.get_fields('relative_wx')
+teacher_dic_con = _conf.get_fields('teacher_wx')
 
 LOG = logging.getLogger(__name__)
 
@@ -43,8 +44,13 @@ class WXActionHandler(RequestHandler):
 
     def login(self):
         code = self.get_argument('code', '')
-        app_id = _dic_con.get("appid")
-        secret = _dic_con.get("secret")
+        wx_type = int(self.get_argument('wx_type', 1))
+        if wx_type == 1:
+            app_id = relative_dic_con.get("appid")
+            secret = relative_dic_con.get("secret")
+        if wx_type == 2:
+            app_id = teacher_dic_con.get("appid")
+            secret = teacher_dic_con.get("secret")
         #https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code
         url = "https://api.weixin.qq.com/sns/jscode2session"
         params = {
@@ -58,6 +64,7 @@ class WXActionHandler(RequestHandler):
         dic_body = json.loads(response.body)
         openid = dic_body.get('openid')
         session_key = dic_body.get('session_key')
+
         #存储openid和session_key,并返回识别session串
         _op = WXUserLogic()
         exit_app = _op.info_by_openid(openid=openid)
@@ -65,7 +72,7 @@ class WXActionHandler(RequestHandler):
             _op.update(exit_app.get("id"), session_key=session_key)
             self.finish(json.dumps({'state': 0, 'session_code': exit_app.get("id"), 'phone': exit_app.get("phone","")}))
         else:
-            _ = _op.input(openid=openid, session_key=session_key)
+            _ = _op.input(openid=openid, session_key=session_key, wx_type=wx_type)
             self.finish(json.dumps({'state': 0, 'session_code': _.get("id")}))
 
     def bind_user(self):
