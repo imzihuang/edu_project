@@ -83,28 +83,28 @@
 	    margin-right: 5px;
 	}
 	.calendarTipPart .calendarTip .calendarTip1{
-		background: #ccc;
+		background: #a94442;
 	}
 	.calendarTipPart .calendarTip .calendarTip2{
-		background: #ccc;
+		background: #bd814b;
 	}
 	.calendarTipPart .calendarTip .calendarTip3{
-		background: #ccc;
+		background: #7b500e;
 	}
 	.calendarTipPart .calendarTip .calendarTip4{
-		background: #ccc;
+		background: #9a9045;
 	}
 	.calendarTipPart .calendarTip .calendarTip5{
-		background: #ccc;
+		background: #729042;
 	}
 	.calendarTipPart .calendarTip .calendarTip6{
-		background: #ccc;
+		background: #72d46d;
 	}
 	.calendarTipPart .calendarTip .calendarTip7{
-		background: #ccc;
+		background: #405d94;
 	}
 	.calendarTipPart .calendarTip .calendarTip8{
-		background: #ccc;
+		background: #1ba0e7;
 	}
    </style>
 	<body class="gray-bg">
@@ -491,22 +491,32 @@
 								calendarData[i].date = msg.sign_data[i].date;
 								calendarData[i].status = msg.sign_data[i].status;
 							}
-//							for(var i=0;i<msg.sign_data.length;i++){
-//								if(calendarData[i].status == )
-//								calendarData[i].status = msg.sign_data[i].status;
-//							}
+							
+							var length = $(".calendar-box .ht-rili-body .ht-rili-onclick").length;
+							for(var i = 0;i < length;i++){
+							    if($(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html() == '10'){
+							    	$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").css('background','#a94442');
+							    }else if($(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html() == '20'){
+							    	$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").css('background','#bd814b');
+							    }else if($(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html() == '01'){
+							    	$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").css('background','#7b500e');
+							    }else if($(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html() == '02'){
+							    	$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").css('background','#9a9045');
+							    }else if($(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html() == '12'){
+							    	$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").css('background','#729042');
+							    }else if($(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html() == '21'){
+							    	$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").css('background','#72d46d');
+							    }else if($(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html() == '22'){
+							    	$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").css('background','#405d94');
+							    }else if($(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html() == '11'){
+							    	$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").css('background','#1ba0e7');
+							    }
+							}
 							//弹框日历
 							$('.calendar-box').calendar({
 								ele : '.calendar-layer', 
 								title : '',
-								data : [
-									{date:'2017-05-07',data:'107'},
-									{date:'2017-05-08',data:'108'},
-									{date:'2017-05-09',data:'109'},
-									{date:'2017-05-10',data:'110'},
-									{date:'2017-05-11',data:'111'},
-									{date:'2017-05-12',data:'112'},
-								]
+								data : calendarData
 							});
 						},
 						complete: function(XMLHttpRequest, status) {
