@@ -34,7 +34,7 @@
 				var dataDate = calendarDate.opt.data[d].date; 
 				flag = checkDate(nowDate,dataDate);
 				if( flag ){
-					riliHtml += '<div class="ht-rili-td ht-rili-onclick" data-date="'+ dataDateStr +'"><span class="ht-rili-day">'+ (k + 1) +'</span><span class="ht-rili-money" data-money="'+ calendarDate.opt.data[d].data +'">&yen;'+ calendarDate.opt.data[d].data +'</span></div>';
+					riliHtml += '<div class="ht-rili-td ht-rili-onclick" data-date="'+ dataDateStr +'"><span class="ht-rili-day">'+ (k + 1) +'</span><span class="ht-rili-money" data-money="'+ calendarDate.opt.data[d].data +'">'+ calendarDate.opt.data[d].data +'</span></div>';
 					break;
 				}
 			}
