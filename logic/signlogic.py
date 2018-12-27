@@ -54,7 +54,10 @@ class SignLogic(Logic):
                 "img_path": file_path,
                 "teacher_img_path": relevance_file_path,
             }
-            db_api.teacher_sign_create(values)
+            _ = db_api.teacher_sign_create(values)
+            _ = db_api.relative_sign_create(values)
+            if _:
+                self.manage_teacher_sign_status(relevance_id, _sign_type)
 
         return values
 
@@ -135,5 +138,55 @@ class SignLogic(Logic):
             _relation_list = db_api.relation_list(relative_id=relative_id)
             relation_info = _relation_list[0]
             return relation_info.student_id
+
+    def manage_teacher_sign_status(self, teacher_id, sign_type):
+        """
+        更新考勤信息,status:
+        上午只认第一次打卡，下午每次签到都要做一次判断，直到最后一次。
+        10：上午正常打卡，下午未打卡
+        20：上午迟到，下午未打卡
+        01：上午未打卡，下午正常打卡
+        02：上午未打卡，下午早退
+        11：出勤
+        12：上午正常打卡，下午早退
+        21：上午迟到，下午正常打卡
+        22: 上午迟到，下午早退
+        :param relevance_id:
+        :param sign_type:
+        :return:
+        """
+        # 判断下上午是否打卡了
+        today = datetime.date.today()
+        now_time = time.strftime('%H:%M:%S', time.localtime(time.time()))
+        sign_status_list = db_api.teacher_sign_status_list(today, today, student_id=student_id)
+        if sign_type == 1:
+            if sign_status_list:
+                #上午只认第一次打卡
+                return
+            status = "10" if now_time < morning else "20"
+            values = {
+                "teacher_id": teacher_id,
+                "sign_date": datetime.date.today(),
+                "status": status,
+                "morning": now_time,
+            }
+            db_api.teacher_sign_status_create(values)
+        if sign_type == 2:
+            if sign_status_list:
+                # 早于下午时间点，正常打卡。否则，下午早退
+                status_2 = "1" if now_time > afternoon else "2"
+                status = sign_status_list[0].status[0]+status_2
+                db_api.teacher_sign_status_update(sign_status_list[0].id, {"status": status, "afternoon": now_time})
+            else:
+                # 不存在存在上午打卡，状态改为出勤
+                LOG.info("now after:%s, %s"%(now_time, afternoon))
+                status = "01" if now_time > afternoon else "02"
+                values = {
+                    "teacher_id": teacher_id,
+                    "sign_date": datetime.date.today(),
+                    "status": status,
+                    "afternoon": now_time
+                }
+                db_api.teacher_sign_status_create(values)
 
 

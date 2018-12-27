@@ -533,9 +533,9 @@ def wxuser_get(id):
         return None  #raise exception.NotFound(code=id)
     return result
 
-def wxuser_get_by_phone(phone):
+def wxuser_get_by_phone(phone, wx_type):
     query = model_query(models.WXUserInfo)
-    result = query.filter_by(phone=phone).first()
+    result = query.filter_by(phone=phone, wx_type=wx_type).first()
     if not result:
         return None
     return result
@@ -625,6 +625,35 @@ def student_sign_status_list(start_time, end_time, offset=0, limit=1000, **filte
     query = model_query(models.StudentStatusInfo, order=True, **filters)
     query = query.filter(models.StudentStatusInfo.sign_date<=end_time).\
         filter(models.StudentStatusInfo.sign_date>=start_time)
+    if offset:
+        query = query.offset(offset)
+    if limit:
+        query = query.limit(limit)
+    return query.all()
+#################student sign status end#####################################
+
+#################student sign status start###################################
+def teacher_sign_status_create(values):
+    if not values.get('id'):
+        values['id'] = common_util.create_id()
+    relation_sign_ref = models.TeacherStatusInfo()
+    relation_sign_ref.update(values)
+    session = get_session()
+    with session.begin():
+        relation_sign_ref.save(session)
+        return values
+
+def teacher_sign_status_update(id, values):
+    query = model_query(models.TeacherStatusInfo).filter_by(id=id)
+    result = query.update(values)
+    if not result:
+        return None  #raise exception.NotFound(code=id)
+    return result
+
+def teacher_sign_status_list(start_time, end_time, offset=0, limit=1000, **filters):
+    query = model_query(models.TeacherStatusInfo, order=True, **filters)
+    query = query.filter(models.TeacherStatusInfo.sign_date<=end_time).\
+        filter(models.TeacherStatusInfo.sign_date>=start_time)
     if offset:
         query = query.offset(offset)
     if limit:

@@ -3,7 +3,7 @@
 
 from random import randint
 import datetime
-from util.convert import *
+from util import convert
 from db import api as db_api
 from logic import Logic
 from util import exception
@@ -15,7 +15,7 @@ class TeacherLogic(Logic):
     def input(self, name="", sex=0, birthday="",
               school_id="", class_id="",
               phone="", position=2, describe="", status="education"):
-        if birthday and not is_date(birthday):
+        if birthday and not convert.is_date(birthday):
             raise exception.FormalError(birthday=birthday)
         if not name:
             raise exception.ParamNone(name="")
@@ -145,6 +145,63 @@ class TeacherLogic(Logic):
         teacher_count = db_api.teacher_count(**filters)
         return {"count": teacher_count, "state": 0, "message": "query success", "data": views_list}
 
+    def infos_for_sign(self, id="", name="",
+                  school_id="",
+                  grade_id="",
+                  class_id="",
+                  phone="", position=0,
+                  limit=100, offset=1):
+        offset = (offset - 1) * limit if offset > 0 else 0
+        filters = dict()
+        if id:
+            filters.update({"id": id})
+        if name:
+            filters.update({"name": name})
+        if position in (1, 2):
+            filters.update({"position": position})
+        if school_id:
+            filters.update({"school_id": school_id})
+        if grade_id:
+            filters.update({"grade_id": grade_id})
+        if class_id:
+            filters.update({"class_id": class_id})
+        if phone:
+            filters.update({"phone": phone})
+
+        # 关联班级名和学校名
+        teacher_list = db_api.teacher_list(offset=offset, limit=limit, **filters)
+
+        # 关联学校和班级，还有学生得签到（学生亲属的签到信息）
+        views_list = self.views(teacher_list)
+        for view in views_list:
+            if view.get("school_id", ""):
+                school_info = db_api.school_get(id=view.get("school_id"))
+                if school_info:
+                    view.update({"school_name": school_info.name})
+            if view.get("grade_info", None):
+                grade_info = view.get("grade_info", None)
+                if grade_info:
+                    view.update({"grade_name": grade_info.get("name")})
+
+            if view.get("class_info", None):
+                class_info = view.get("class_info", None)
+                if class_info:
+                    view.update({"class_info": self.views(class_info)})
+
+            #history
+            teacher_history_lilst = db_api.teacher_history_list(teacher_id=view.get("id"))
+            if teacher_history_lilst:
+                view.update({"status": teacher_history_lilst[0].status})
+
+            sign_count, late_count, early_count, sign_date = self.com_sign(view.get("id"), sign_date)
+            view.update({"sign": sign_count,
+                         "late": late_count,
+                         "early": early_count,
+                         "sign_date": datetime.strftime(sign_date, "%Y-%m")})
+
+        teacher_count = db_api.teacher_count(**filters)
+        return {"count": teacher_count, "state": 0, "message": "query success", "data": views_list}
+
     def delete(self, id="", **kwargs):
         if not id:
             return
@@ -158,3 +215,35 @@ class TeacherLogic(Logic):
     def info(self, id=""):
         teacher_info = db_api.teacher_get(id)
         return self.views(teacher_info)
+
+    def info_by_phone(self, phone=""):
+        if not phone:
+            return
+        filters = dict()
+        if phone:
+            filters.update({"phone": phone})
+
+        teacher_infos = db_api.teacher_list(**filters)
+        return teacher_infos
+
+    def com_sign(self, teacher_id, sign_date=""):
+        """
+        统计亲属签到信息
+        :param teacher_id: 教师编号
+        :return:
+        """
+        sign_date = datetime.strptime(sign_date, "%Y-%m-%d") if convert.is_date(sign_date) else datetime.now()
+        firstDay, lastDay = convert.getMonthFirstDayAndLastDay(sign_date.year, sign_date.month)
+        sign_count = 0  # 出勤
+        late_count = 0  # 早上迟到
+        early_count = 0  # 下午早退
+
+        sign_status_list = db_api.teacher_sign_status_list(firstDay, lastDay, teacher_id=teacher_id)
+        for status_info in sign_status_list:
+            if status_info.status == "11":
+                sign_count += 1
+            if status_info.status[0] == "2":
+                late_count += 1
+            if status_info.status[1] == "2":
+                early_count += 1
+        return sign_count, late_count, early_count, sign_date

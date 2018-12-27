@@ -129,9 +129,9 @@ class StudentLogic(Logic):
         student_count = db_api.student_count(**filters)
         return {"count": student_count, "state": 0, "message": "query success", "data": views_list}
 
-    def infos_for_sign(self, id="", name="",
+    def infos_for_sign_month(self, id="", name="",
                        school_id="",
-                       grade_id="",class_id="",
+                       grade_id="", class_id="",
                        relative_id="", sign_date="",
                        limit=100, offset=1):
         offset = (offset - 1) * limit if offset > 0 else 0
@@ -175,6 +175,57 @@ class StudentLogic(Logic):
                          "sign_date": datetime.strftime(sign_date, "%Y-%m")})
 
         return {"count": student_count, "state": 0, "message": "query success", "data": views_list}
+
+    def infos_for_sign_day(self, id="", name="",
+                       school_id="",
+                       grade_id="", class_id="",
+                       relative_id="", sign_date="",
+                       limit=100, offset=1):
+        offset = (offset - 1) * limit if offset > 0 else 0
+        filters = dict()
+        if id:
+            filters.update({"id": id})
+        if name:
+            filters.update({"name": name})
+        if school_id:
+            filters.update({"school_id": school_id})
+        if grade_id:
+            filters.update({"grade_id": grade_id})
+        if class_id:
+            filters.update({"class_id": class_id})
+        if relative_id:
+            _relation_list = self._get_relations_by_relative(relative_id)
+            if _relation_list:
+                _ids = [_relation.student_id for _relation in _relation_list]
+                filters.update({"id": _ids})
+
+        student_list = db_api.student_list(offset=offset, limit=limit, **filters)
+        student_count = db_api.student_count(**filters)
+
+        # 关联学校和班级，还有学生得签到（学生亲属的签到信息）
+        views_list = self.views(student_list)
+        for view in views_list:
+            school_info = db_api.school_get(id=view.get("school_id"))
+            if school_info:
+                view.update({"school_name": school_info.name})
+            grade_info = view.get("grade_info", None)
+            if grade_info:
+                view.update({"grade_name": grade_info.get("name")})
+            class_info = view.get("class_info", None)
+            if class_info:
+                view.update({"class_name": class_info.get("name")})
+
+            sign_date = datetime.strptime(sign_date, "%Y-%m-%d") if convert.is_date(sign_date) else date.today()
+            sign_status_list = db_api.student_sign_status_list(sign_date, sign_date, student_id=view.get("id"))
+            if sign_status_list:
+                view.update({
+                    "sign_date": sign_status_list[0].sign_date,
+                    "morning": sign_status_list[0].morning,
+                    "afternoon": sign_status_list[0].afternoon
+                })
+
+        return {"count": student_count, "state": 0, "message": "query success", "data": views_list}
+
 
     def info_detail_for_sign(self, id="", start_date="", end_date=""):
         if not id:
