@@ -28,6 +28,8 @@ class CombinationHandler(RequestHandler):
                 self.student_sign()
             if combination == "student_sign_details":
                 self.student_sign_details()
+            if combination == "student_sign_time":
+                self.student_sign_time()
             if combination == "teacher_sign":
                 self.teacher_sign()
             if combination == "teacher_sign_details":
@@ -56,7 +58,7 @@ class CombinationHandler(RequestHandler):
         offset = int(self.get_argument('offset', 0))
 
         student_op = StudentLogic()
-        _ = student_op.infos_for_sign(id=student_id, name=student_name,
+        _ = student_op.infos_for_sign_month(id=student_id, name=student_name,
                                       school_id=school_id,
                                       grade_id=grade_id, class_id=class_id,
                                       relative_id=relative_id, sign_date=sign_date,
@@ -78,6 +80,29 @@ class CombinationHandler(RequestHandler):
             self.finish(json.dumps(_))
         else:
             self.finish(json.dumps({'state': 1, 'message': 'action student_sign_details error'}))
+
+    def student_sign_time(self):
+        school_id = convert.bs2utf8(self.get_argument('school_id', ''))
+        student_id = convert.bs2utf8(self.get_argument('student_id', ''))
+        student_name = convert.bs2utf8(self.get_argument('student_name', ''))
+        relative_id = convert.bs2utf8(self.get_argument('relative_id', ''))
+        grade_id = convert.bs2utf8(self.get_argument('grade_id', ''))
+        class_id = convert.bs2utf8(self.get_argument('class_id', ''))
+        sign_date = convert.bs2utf8(self.get_argument('sign_date', ''))
+        limit = int(self.get_argument('limit', 100))
+        offset = int(self.get_argument('offset', 0))
+
+        student_op = StudentLogic()
+        _ = student_op.infos_for_sign_day(id=student_id, name=student_name,
+                                      school_id=school_id,
+                                      grade_id=grade_id, class_id=class_id,
+                                      relative_id=relative_id, sign_date=sign_date,
+                                      limit=limit, offset=offset
+                                      )
+        if _:
+            self.finish(json.dumps(_))
+        else:
+            self.finish(json.dumps({'state': 1, 'message': 'action student_sign error'}))
 
     def teacher_sign(self):
         teacher_id = convert.bs2utf8(self.get_argument('teacher_id', ''))
