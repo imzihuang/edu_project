@@ -202,6 +202,28 @@ class TeacherLogic(Logic):
         teacher_count = db_api.teacher_count(**filters)
         return {"count": teacher_count, "state": 0, "message": "query success", "data": views_list}
 
+    def info_detail_for_sign(self, id="", start_date="", end_date=""):
+        if not id:
+            raise exception.ParamNone(id=id)
+        teacher_info = db_api.teacher_get(id)
+        if not teacher_info:
+            raise exception.NotFound(id=id)
+
+        # 关联学校和班级，还有学生得签到（学生亲属的签到信息）
+        teacher_info = self.views(teacher_info)
+        sign_detail = self.com_sign_detail(id, start_date, end_date)
+        sign_data = []
+        for sign_status in sign_detail:
+            sign_data.append({
+                "date": datetime.strftime(sign_status.sign_date, "%Y-%m-%d"),
+                "status": sign_status.status,
+                "morning": sign_status.morning if sign_status.morning else "",
+                "afternoon": sign_status.afternoon if sign_status.afternoon else ""
+            })
+
+        teacher_info.update({"sign_data": sign_data})
+        return teacher_info
+
     def delete(self, id="", **kwargs):
         if not id:
             return
@@ -247,3 +269,21 @@ class TeacherLogic(Logic):
             if status_info.status[1] == "2":
                 early_count += 1
         return sign_count, late_count, early_count, sign_date
+
+    def com_sign_detail(self, teacher_id, start_date="", end_date=""):
+        """
+        :param teacher_id:
+        :param start_date:
+        :param end_date:
+        :return:
+        """
+        if not convert.is_date(start_date) or not convert.is_date(end_date):
+            start_date, end_date = convert.getMonthFirstDayAndLastDay(datetime.datetime.now().year, datetime.datetime.now().month)
+        else:
+            start_date = datetime.datetime.strptime(start_date, "%Y-%m-%d")
+            start_date = datetime.date(start_date.year, start_date.month, start_date.day)
+            end_date = datetime.strptime(end_date, "%Y-%m-%d")
+            end_date = datetime.date(end_date.year, end_date.month, end_date.day)
+
+        sign_status_list = db_api.teacher_sign_status_list(start_date, end_date, teacher_id=teacher_id)
+        return sign_status_list
