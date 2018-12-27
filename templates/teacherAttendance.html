@@ -17,16 +17,17 @@
 		<link href="css/style.css" rel="stylesheet" type="text/css" />
 		<link href="js/plugins/layer/skin/default/layer.css" rel="stylesheet" type="text/css" />
 		<link href="css/layui.css" media="all" rel="stylesheet">
-		<link href="css/jquery.monthpicker.css" rel="stylesheet" type="text/css" >
+		<link href="css/jquery.monthpicker.css" rel="stylesheet" type="text/css">
 
 		<script src="js/jquery.min.js"></script>
-        
+
 	</head>
-   <style>
-   	#class-name{
-   		width: 180px;
-   	}
-   </style>
+	<style>
+		#class-name {
+			width: 180px;
+		}
+	</style>
+
 	<body class="gray-bg">
 		<div class="wrapper wrapper-content animated fadeIn">
 			<div class="row">
@@ -43,7 +44,7 @@
 														<label class="control-label">月份：</label>
 														<input type="text" class="input" id="monthly">
 													</div>
-													
+
 													<div class="sendInquiry2" style="float: left;">
 														<label class="control-label">教师姓名：</label>
 														<input type="text" name="" value="" id="teacher-name" />
@@ -91,9 +92,8 @@
 
 		<!--详情内容-->
 		<div id="addInfoContent" style="display: none; width: 500px; padding: 20px;">
-			
+
 		</div>
-		
 
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/plugins/layer/layer.js"></script>
@@ -106,15 +106,14 @@
 			$(document).ready(function() {
 				//搜索框-月份
 				$('#monthly').monthpicker({
-					years: [2018, 2017, 2016, 2015, 2014],
-			        topOffset: 6
-				})
-				//获取学校
+						years: [2018, 2017, 2016, 2015, 2014],
+						topOffset: 6
+					})
+					//获取学校
 				var schoolSelect = JSON.parse(localStorage.getItem("school"));
-			    var school = schoolSelect.id;  
-			    var cardcode = schoolSelect.cardcode;
-			    
-			    
+				var school = schoolSelect.id;
+				var cardcode = schoolSelect.cardcode;
+
 				//获取列表
 				getAjaxData({
 					"name": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
@@ -168,7 +167,7 @@
 										'<td class="center sign">' + msg.data[i].sign + '</td>' +
 										'<td class="center late">' + msg.data[i].late + '</td>' +
 										'<td class="center early">' + msg.data[i].early + '</td>' +
-										'<td><i class="fa fa-calendar areapen" title="查看详情" id = '+ msg.data[i].id +'></td>' +
+										'<td><i class="fa fa-calendar areapen" title="查看详情" id = ' + msg.data[i].id + '></td>' +
 										'</tr>'
 								}
 								$("#tbody").html(strs);
@@ -193,15 +192,15 @@
 					});
 				});
 
-				
 				//添加弹框
-				$('.areapen').click(function() {console.log($(this).parent().siblings(".sign_date").html());
-				    $(".calendar-box").html("");
+				$('.areapen').click(function() {
+					console.log($(this).parent().siblings(".sign_date").html());
+					$(".calendar-box").html("");
 					$(".studentName").html($(this).parent().siblings(".name").html());
 					$(".attendanceInfo .attendance").eq(0).find("span").html($(this).parent().siblings(".sign").html());
 					$(".attendanceInfo .attendance").eq(1).find("span").html($(this).parent().siblings(".late").html());
 					$(".attendanceInfo .attendance").eq(2).find("span").html($(this).parent().siblings(".early").html());
-					$(".attendanceInfo .year").html($(this).parent().siblings(".sign_date").html().substring(0,4));
+					$(".attendanceInfo .year").html($(this).parent().siblings(".sign_date").html().substring(0, 4));
 					$(".attendanceInfo .month").html($(this).parent().siblings(".sign_date").html().substring(5));
 					var data = {
 						"student_id": $(this).attr("id"),
@@ -221,50 +220,59 @@
 						cache: false,
 						timeout: "1000000",
 						success: function(msg) {
-//							var msg = JSON.parse(msg);
+							//							var msg = JSON.parse(msg);
 							console.log(msg)
-							var calendarData = new Array();
-							for(var i=0;i<msg.sign_data.length;i++){
-								calendarData[i] = new Object();
-								calendarData[i].date = msg.sign_data[i].date;
-								calendarData[i].data = msg.sign_data[i].status;
+							if(msg.sign_data.length > 0) {
+								var calendarData = new Array();
+								for(var i = 0; i < msg.sign_data.length; i++) {
+									calendarData[i] = new Object();
+									calendarData[i].date = msg.sign_data[i].date;
+									calendarData[i].data = msg.sign_data[i].status;
+								}
+								console.log(calendarData)
+									//弹框日历
+								$('.calendar-box').calendar({
+									ele: '.calendar-layer',
+									title: '',
+									data: calendarData
+								});
+								var length = $(".calendar-box .ht-rili-body .ht-rili-onclick").length;
+								for(var i = 0; i < length; i++) {
+									if($(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html() == '10') {
+										$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html("");
+										$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").css('background', '#a94442');
+									} else if($(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html() == '20') {
+										$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html("");
+										$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").css('background', '#bd814b');
+									} else if($(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html() == '01') {
+										$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html("");
+										$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").css('background', '#7b500e');
+									} else if($(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html() == '02') {
+										$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html("");
+										$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").css('background', '#9a9045');
+									} else if($(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html() == '12') {
+										$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html("");
+										$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").css('background', '#729042');
+									} else if($(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html() == '21') {
+										$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html("");
+										$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").css('background', '#72d46d');
+									} else if($(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html() == '22') {
+										$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html("");
+										$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").css('background', '#405d94');
+									} else if($(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html() == '11') {
+										$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html("");
+										$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").css('background', '#1ba0e7');
+									}
+								}
+
+							}else{
+								$('.calendar-box').calendar({
+									ele: '.calendar-layer',
+									title: '',
+									data: ''
+								});
 							}
-							console.log(calendarData)
-							//弹框日历
-							$('.calendar-box').calendar({
-								ele : '.calendar-layer', 
-								title : '',
-								data : calendarData
-							});
-							var length = $(".calendar-box .ht-rili-body .ht-rili-onclick").length;
-							for(var i = 0;i < length;i++){
-							    if($(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html() == '10'){
-							    	$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html("");
-							    	$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").css('background','#a94442');
-							    }else if($(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html() == '20'){
-							    	$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html("");
-							    	$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").css('background','#bd814b');
-							    }else if($(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html() == '01'){
-							    	$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html("");
-							    	$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").css('background','#7b500e');
-							    }else if($(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html() == '02'){
-							    	$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html("");
-							    	$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").css('background','#9a9045');
-							    }else if($(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html() == '12'){
-							    	$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html("");
-							    	$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").css('background','#729042');
-							    }else if($(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html() == '21'){
-							    	$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html("");
-							    	$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").css('background','#72d46d');
-							    }else if($(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html() == '22'){
-							    	$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html("");
-							    	$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").css('background','#405d94');
-							    }else if($(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html() == '11'){
-							    	$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").html("");
-							    	$(".calendar-box .ht-rili-body .ht-rili-onclick").eq(i).find(".ht-rili-money").css('background','#1ba0e7');
-							    }
-							}
-							
+
 						},
 						complete: function(XMLHttpRequest, status) {
 
@@ -279,12 +287,11 @@
 						shadeClose: true,
 						content: $('#addAttendanceContent'),
 						yes: function() {
-							
+
 						}
 					});
 				});
 
-				
 			});
 		</script>
 	</body>
