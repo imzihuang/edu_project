@@ -47,15 +47,15 @@ class SignLogic(Logic):
 
         if relevance_type == 2:
             # 老师签到
+            _sign_type = self.sign_type()
             values = {
                 "teacher_id": relevance_id,
-                "type": self.sign_type(),
+                "type": _sign_type,
                 "alias": alias,
                 "img_path": file_path,
                 "teacher_img_path": relevance_file_path,
             }
             _ = db_api.teacher_sign_create(values)
-            _ = db_api.relative_sign_create(values)
             if _:
                 self.manage_teacher_sign_status(relevance_id, _sign_type)
 
@@ -158,7 +158,7 @@ class SignLogic(Logic):
         # 判断下上午是否打卡了
         today = datetime.date.today()
         now_time = time.strftime('%H:%M:%S', time.localtime(time.time()))
-        sign_status_list = db_api.teacher_sign_status_list(today, today, student_id=student_id)
+        sign_status_list = db_api.teacher_sign_status_list(today, today, teacher_id=teacher_id)
         if sign_type == 1:
             if sign_status_list:
                 #上午只认第一次打卡
