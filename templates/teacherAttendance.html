@@ -266,13 +266,22 @@
 								}
 
 							} else {
+								var myDate = new Date();
+								var Year = myDate.getFullYear(); //获取完整的年份(4位,1970-????)
+								var Month = myDate.getMonth() + 1; //获取当前月份(0-11,0代表1月)
+								var Date = myDate.getDate();
+								var taday = Year + '-' + Month + '-' + Date
+								calendarData = [{
+									date: taday,
+									data: ''
+								}]
 								$('.calendar-box').calendar({
 									ele: '.calendar-layer',
 									title: '',
 									data: [{
 										date: '',
-										data: ''
-									} ]
+										data: calendarData
+									}]
 								});
 							}
 
