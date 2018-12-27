@@ -28,8 +28,8 @@ class CombinationHandler(RequestHandler):
                 self.student_sign()
             if combination == "student_sign_details":
                 self.student_sign_details()
-            if combination == "student_sign_time":
-                self.student_sign_time()
+            if combination == "student_sign_day":
+                self.student_sign_day()
             if combination == "teacher_sign":
                 self.teacher_sign()
             if combination == "teacher_sign_details":
@@ -81,7 +81,7 @@ class CombinationHandler(RequestHandler):
         else:
             self.finish(json.dumps({'state': 1, 'message': 'action student_sign_details error'}))
 
-    def student_sign_time(self):
+    def student_sign_day(self):
         school_id = convert.bs2utf8(self.get_argument('school_id', ''))
         student_id = convert.bs2utf8(self.get_argument('student_id', ''))
         student_name = convert.bs2utf8(self.get_argument('student_name', ''))
@@ -121,6 +121,17 @@ class CombinationHandler(RequestHandler):
             self.finish(json.dumps(_))
         else:
             self.finish(json.dumps({'state': 1, 'message': 'action student_sign error'}))
+
+    def teacher_sign_details(self):
+        teacher_id = convert.bs2utf8(self.get_argument('teacher_id', ''))
+        start_date = convert.bs2utf8(self.get_argument('start_date', ''))
+        end_date = convert.bs2utf8(self.get_argument('end_date', ''))
+        teacher_op = TeacherLogic()
+        _ = teacher_op.info_detail_for_sign(teacher_id, start_date, end_date)
+        if _:
+            self.finish(json.dumps(_))
+        else:
+            self.finish(json.dumps({'state': 1, 'message': 'action student_sign_details error'}))
 
     def batch_student_excel(self):
         student_id = convert.bs2utf8(self.get_argument('student_id', ''))

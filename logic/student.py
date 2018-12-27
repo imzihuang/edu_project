@@ -219,9 +219,9 @@ class StudentLogic(Logic):
             sign_status_list = db_api.student_sign_status_list(sign_date, sign_date, student_id=view.get("id"))
             if sign_status_list:
                 view.update({
-                    "sign_date": sign_status_list[0].sign_date,
-                    "morning": sign_status_list[0].morning,
-                    "afternoon": sign_status_list[0].afternoon
+                    "sign_date": datetime.strftime(sign_date, "%Y-%m-%d"),
+                    "morning": sign_status_list[0].morning if sign_status_list[0].morning else "",
+                    "afternoon": sign_status_list[0].afternoon if sign_status_list[0].afternoon else ""
                 })
 
         return {"count": student_count, "state": 0, "message": "query success", "data": views_list}
@@ -243,8 +243,8 @@ class StudentLogic(Logic):
             sign_data.append({
                 "date": datetime.strftime(sign_status.sign_date, "%Y-%m-%d"),
                 "status": sign_status.status,
-                "morning": sign_status.morning,
-                "afternoon": sign_status.afternoon
+                "morning": sign_status.morning if sign_status.morning else "",
+                "afternoon": sign_status.afternoon if sign_status.afternoon else ""
             })
             #result.update({datetime.strftime(sign_status.sign_date, "%Y-%m-%d"): sign_status.status})
 
@@ -354,10 +354,10 @@ class StudentLogic(Logic):
             end_date = datetime.strptime(end_date, "%Y-%m-%d")
             end_date = date(end_date.year, end_date.month, end_date.day)
         LOG.info("sign start end:%r, %r"%(start_date, end_date))
-        result={}
+        #result={}
         sign_status_list = db_api.student_sign_status_list(start_date, end_date, student_id=student_id)
-        for sign_status in sign_status_list:
-            result.update({datetime.strftime(sign_status.sign_date, "%Y-%m-%d"): sign_status.status})
+        # for sign_status in sign_status_list:
+        #     result.update({datetime.strftime(sign_status.sign_date, "%Y-%m-%d"): sign_status.status})
 
         return sign_status_list
 
