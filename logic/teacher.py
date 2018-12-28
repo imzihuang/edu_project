@@ -255,7 +255,7 @@ class TeacherLogic(Logic):
         :param teacher_id: 教师编号
         :return:
         """
-        sign_date = datetime.strptime(sign_date, "%Y-%m-%d") if convert.is_date(sign_date) else datetime.now()
+        sign_date = datetime.strptime(sign_date, "%Y-%m-%d") if convert.is_date(sign_date) else datetime.datetime.now()
         firstDay, lastDay = convert.getMonthFirstDayAndLastDay(sign_date.year, sign_date.month)
         sign_count = 0  # 出勤
         late_count = 0  # 早上迟到
