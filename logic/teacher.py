@@ -150,6 +150,7 @@ class TeacherLogic(Logic):
                   grade_id="",
                   class_id="",
                   phone="", position=0,
+                  sign_date="",
                   limit=100, offset=1):
         offset = (offset - 1) * limit if offset > 0 else 0
         filters = dict()
