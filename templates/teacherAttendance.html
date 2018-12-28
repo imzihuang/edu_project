@@ -203,7 +203,7 @@
 					$(".attendanceInfo .year").html($(this).parent().siblings(".sign_date").html().substring(0, 4));
 					$(".attendanceInfo .month").html($(this).parent().siblings(".sign_date").html().substring(5));
 					var data = {
-						"student_id": $(this).attr("id"),
+						"teacher_id": $(this).attr("id"),
 						"start_date": $(".sign_date").html(),
 						'end_date': $(".sign_date").html(),
 					}
