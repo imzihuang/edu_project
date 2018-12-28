@@ -213,7 +213,7 @@
 							"withCredentials": true
 						},
 						contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-						url: "/student_sign_details/combination_infos",
+						url: "/teacher_sign_details/combination_infos",
 						data: data,
 						dataType: 'json',
 						jsonpCallback: '',
@@ -221,9 +221,9 @@
 						timeout: "1000000",
 						success: function(msg) {
 							//							var msg = JSON.parse(msg);
+							var calendarData = new Array();
 							console.log(msg)
 							if(msg.sign_data.length > 0) {
-								var calendarData = new Array();
 								for(var i = 0; i < msg.sign_data.length; i++) {
 									calendarData[i] = new Object();
 									calendarData[i].date = msg.sign_data[i].date;
@@ -266,22 +266,19 @@
 								}
 
 							} else {
-								var myDate = new Date(2018, 12, 27);
-								var Year = myDate.getFullYear(); 
-								var Month = myDate.getMonth() + 1; 
-								var Date = myDate.getDate();
-								var taday = Year + '-' + Month + '-' + Date
+								var nowyear = new Date().getFullYear(); 
+								var nowmonth = new Date().getMonth() + 1; 
+								var nowdate = new Date().getDate();
+								var taday = nowyear + '-' + nowmonth + '-' + nowdate
 								calendarData = [{
 									date: taday,
 									data: ''
 								}]
+								console.log(calendarData)
 								$('.calendar-box').calendar({
 									ele: '.calendar-layer',
 									title: '',
-									data: [{
-										date: '',
-										data: calendarData
-									}]
+									data: calendarData
 								});
 							}
 
