@@ -509,22 +509,22 @@
 
 							} else {
 //								var myDate = new Date();
-//								var Year = myDate.getFullYear(); 
-//								var Month = myDate.getMonth() + 1; 
-//								var Date = myDate.getDate();
-//								var taday = Year + '-' + Month + '-' + Date
-//								calendarData = [{
-//									date: taday,
-//									data: ''
-//								}]
-//								$('.calendar-box').calendar({
-//									ele: '.calendar-layer',
-//									title: '',
-//									data: [{
-//										date: '',
-//										data: calendarData
-//									}]
-//								});
+								var Year = new Date().getFullYear(); 
+								var Month = new Date().getMonth() + 1; 
+								var Date = new Date().getDate();
+								var taday = Year + '-' + Month + '-' + Date
+								calendarData = [{
+									date: taday,
+									data: ''
+								}]
+								$('.calendar-box').calendar({
+									ele: '.calendar-layer',
+									title: '',
+									data: [{
+										date: '',
+										data: calendarData
+									}]
+								});
 							}
 
 						},
