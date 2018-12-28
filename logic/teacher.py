@@ -150,6 +150,7 @@ class TeacherLogic(Logic):
                   grade_id="",
                   class_id="",
                   phone="", position=0,
+                  sign_date="",
                   limit=100, offset=1):
         offset = (offset - 1) * limit if offset > 0 else 0
         filters = dict()
@@ -197,7 +198,7 @@ class TeacherLogic(Logic):
             view.update({"sign": sign_count,
                          "late": late_count,
                          "early": early_count,
-                         "sign_date": datetime.strftime(sign_date, "%Y-%m")})
+                         "sign_date": datetime.datetime.strftime(sign_date, "%Y-%m")})
 
         teacher_count = db_api.teacher_count(**filters)
         return {"count": teacher_count, "state": 0, "message": "query success", "data": views_list}
@@ -254,7 +255,7 @@ class TeacherLogic(Logic):
         :param teacher_id: 教师编号
         :return:
         """
-        sign_date = datetime.strptime(sign_date, "%Y-%m-%d") if convert.is_date(sign_date) else datetime.now()
+        sign_date = datetime.datetime.strptime(sign_date, "%Y-%m-%d") if convert.is_date(sign_date) else datetime.datetime.now()
         firstDay, lastDay = convert.getMonthFirstDayAndLastDay(sign_date.year, sign_date.month)
         sign_count = 0  # 出勤
         late_count = 0  # 早上迟到

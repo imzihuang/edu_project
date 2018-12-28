@@ -111,11 +111,19 @@ class CombinationHandler(RequestHandler):
         grade_id = convert.bs2utf8(self.get_argument('grade_id', ''))
         class_id = convert.bs2utf8(self.get_argument('class_id', ''))
         sign_date = convert.bs2utf8(self.get_argument('sign_date', ''))
+        phone = self.get_argument('phone', '')
         limit = int(self.get_argument('limit', 100))
         offset = int(self.get_argument('offset', 0))
 
         teacher_op = TeacherLogic()
-        _ = teacher_op.infos_for_sign(teacher_id, teacher_name, school_id, grade_id, class_id, sign_date, limit, offset)
+        _ = teacher_op.infos_for_sign(id=teacher_id,
+                                      name=teacher_name,
+                                      school_id=school_id,
+                                      grade_id=grade_id,
+                                      class_id=class_id,
+                                      phone=phone,
+                                      sign_date=sign_date,
+                                      limit=limit, offset=offset)
 
         if _:
             self.finish(json.dumps(_))
