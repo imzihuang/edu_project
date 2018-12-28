@@ -411,6 +411,7 @@ body.mini-navbar .logo-element {
 
 .fa-pencil, .fa-calendar {
 	color: #1ba0e7;
+	cursor: pointer;
 }
 
 .fa-pencil:hover {
