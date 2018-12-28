@@ -215,7 +215,7 @@ class TeacherLogic(Logic):
         sign_data = []
         for sign_status in sign_detail:
             sign_data.append({
-                "date": datetime.strftime(sign_status.sign_date, "%Y-%m-%d"),
+                "date": datetime.datetime.strftime(sign_status.sign_date, "%Y-%m-%d"),
                 "status": sign_status.status,
                 "morning": sign_status.morning if sign_status.morning else "",
                 "afternoon": sign_status.afternoon if sign_status.afternoon else ""
