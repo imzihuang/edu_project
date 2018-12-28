@@ -464,8 +464,8 @@
 						success: function(msg) {
 							//							var msg = JSON.parse(msg);
 							console.log(msg)
+							var calendarData = new Array();
 							if(msg.sign_data.length > 0) {
-								var calendarData = new Array();
 								for(var i = 0; i < msg.sign_data.length; i++) {
 									calendarData[i] = new Object();
 									calendarData[i].date = msg.sign_data[i].date;
