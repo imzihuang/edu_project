@@ -67,9 +67,10 @@ class FaceLogic(Logic):
         face_info = db_api.face_get(id=id)
         if not face_info:
             return "id not exit"
-
-        _ = face_recognition_yyl.Face_Remove(face_info.school_id, face_info.face_token)
-        LOG.info("remove facc:%r"%_)
+        face_count = db_api.face_list(face_token=face_info.face_token)
+        if face_count>1:
+            _ = face_recognition_yyl.Face_Remove(face_info.school_id, face_info.face_token)
+            LOG.info("remove facc:%r"%_)
 
         _ = db_api.face_destroy(id)
 
