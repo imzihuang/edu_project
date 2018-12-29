@@ -262,12 +262,12 @@ class InfosHandler(RequestHandler):
         }
 
     def _get_teacher_sign_argument(self):
-        relative_id = self.get_argument('relative_id', '')
+        teacher_id = self.get_argument('teacher_id', '')
         start_time = self.get_argument('start_time', '')
         end_time = self.get_argument('end_time', '')
         return {
             "relevance_type": 2,
-            "teacher_id": relative_id,
+            "relevance_id": teacher_id,
             "start_time": start_time,
             "end_time": end_time,
         }
