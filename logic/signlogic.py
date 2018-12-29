@@ -66,7 +66,16 @@ class SignLogic(Logic):
         start_time = datetime.datetime.strptime(start_time, "%Y-%m-%d %H:%M:%S")
         end_time = datetime.datetime.strptime(end_time, "%Y-%m-%d %H:%M:%S")
         if relevance_type==2:
-            #teacher
+            sign_list = db_api.teacher_sign_list(start_time, end_time, offset, limit, relative_id=relevance_id)
+            view_list = self.views(sign_list)
+            if not view_list:
+                return {"count": 0, "state": 0, "message": "query success", "data": []}
+            for view in view_list:
+                view.update({"img_path": "image/tmp/" + view.get("img_path", "")})
+                view.update({"relative_img_path": "image/face/" + view.get("relative_img_path", "")})
+
+            sign_count = db_api.teacher_sign_count(start_time, end_time, relative_id=relevance_id)
+            return {"count": sign_count, "state": 0, "message": "query success", "data": view_list}
             pass
 
         if relevance_type in (1, 3):

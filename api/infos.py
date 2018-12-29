@@ -73,6 +73,10 @@ class InfosHandler(RequestHandler):
                 _value = self._get_relative_sign_argument()
                 _op = SignLogic()
 
+            if infos_obj == "teacher_sign":
+                _value = self._get_teacher_sign_argument()
+                _op = SignLogic()
+
             if infos_obj == "user":
                 _value = self._get_user_argument()
                 _op = UserLogic()
@@ -252,6 +256,17 @@ class InfosHandler(RequestHandler):
         end_time = self.get_argument('end_time', '')
         return {
             "relevance_type": 1,
+            "relevance_id": relative_id,
+            "start_time": start_time,
+            "end_time": end_time,
+        }
+
+    def _get_teacher_sign_argument(self):
+        relative_id = self.get_argument('relative_id', '')
+        start_time = self.get_argument('start_time', '')
+        end_time = self.get_argument('end_time', '')
+        return {
+            "relevance_type": 2,
             "relevance_id": relative_id,
             "start_time": start_time,
             "end_time": end_time,
