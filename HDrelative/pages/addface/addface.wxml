@@ -1,0 +1,42 @@
+<!--pages/addface/addface.wxml-->
+<view class="container">
+  <view class="table">
+    <view class="tr">
+      <view class="th" style='width:20%'>照片</view>
+      <view class="th" style='width:15%'>接送人</view>
+      <view class="th" style='width:40%'>添加日期</view>
+      <view class="th" style='width:25%'>设置默认图片</view>
+    </view>
+    <view wx:for-items="{{items}}" class="tr touch-item {{item.isTouchMove ? 'touch-move-active' : ''}}" data-index="{{index}}" bindtouchstart="touchstart" bindtouchmove="touchmove" wx:key="">
+      <view class='content'>
+        <view wx:if='{{item.relevance_type == 1}}'>
+          <view class='td' style='width:20%'>
+            <image src='{{imgUrlTitle}}/edu/{{item.img_path}}'></image>
+          </view>
+          <view class="td" style='width:15%'>
+            <view>{{relativeName}}</view>
+          </view>
+          <view class="td" style='width:40%;padding-top:55rpx'> {{item.create_time}} </view>
+          <view class="td" style='width:25%;padding-top:55rpx'>
+            <switch checked='{{item.activate}}' bindchange="changeProperty" color='#1ba0e7' style='max-width:120rpx' id='{{item.id}}' />
+          </view>
+        </view>
+        <view wx:else='{{item.relevance_type == 3}}'>
+          <view class='td' style='width:20%'>
+            <image src='{{imgUrlTitle}}/edu/{{item.img_path}}'></image>
+          </view>
+          <view class="td" style='width:15%'>
+            <view>{{item.alias}}</view>
+          </view>
+          <view class="td" style='width:40%;padding-top:55rpx'> {{item.create_time}} </view>
+          <view class="td" style='width:25%;padding-top:55rpx'>
+            <switch checked='{{item.activate}}' bindchange="changeProperty" color='#1ba0e7' style='max-width:120rpx' id='{{item.id}}' />
+          </view>
+        </view>
+      </view>
+      <view class="del" catchtap="del" data-index="{{index}}" id='{{item.id}}'>删除</view>
+    </view>
+  </view>
+  <button class='addRelativeFace' bindtap='goaddrelativeface' style='display:{{addRelativeBtn}}'>家属人脸上传</button>
+  <button class='addPerson' bindtap='goAddfacedetail'>添加接送人员</button>
+</view>

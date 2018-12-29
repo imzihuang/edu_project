@@ -1,0 +1,9 @@
+<view>
+  <label>家长姓名：</label>{{relativeName}}
+</view>
+<view>
+  <label>手机号码：</label>{{relativePhone}}
+</view>
+<view>
+  <label>关系：</label>{{relative}}
+</view>

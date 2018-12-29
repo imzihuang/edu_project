@@ -1,0 +1,16 @@
+<!--pages/login/login.wxml-->
+<view class='content'>
+  <view class='title'>验证码登录</view>
+  <view>
+    <input name='userName'  class='userName' placeholder='请输入手机号' bindinput="userNameInput" />
+  </view>
+  <view class='code_part'>
+    <input name='userCode'  class='userCode' placeholder='请输入验证码' bindinput="userPasswordInput" />
+    <button class='code_btn {{code_btn_no == "false" ? code_btn_no : ""}}' bindtap="getCode" disabled='{{code_btn_no}}'>获取验证码</button>
+  </view>
+  <view class='tip'>提示：如果还未加入学校，请联系班主任</view>
+
+  <view>
+    <button class='login_btn' bindtap="logIn">登录</button>
+  </view>
+</view>

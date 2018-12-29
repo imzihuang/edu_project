@@ -1,0 +1,76 @@
+.top {
+  height: 80rpx;
+  width: 100%;
+  border-bottom: 1rpx solid #efefef;
+  position: relative;
+  margin-bottom: 10rpx;
+}
+
+.top span {
+  background: #efefef;
+  color: #1ba0e7;
+  font-size: 24rpx;
+  line-height: 80rpx;
+  width: 50%;
+  height: 100%;
+  float: left;
+  border: none;
+  text-align: center;
+}
+
+.active {
+  background: #fff !important;
+  color: #555 !important;
+}
+
+.triangle {
+  border-color: #fff #efefef #efefef #efefef;
+  border-style: solid;
+  border-width: 40rpx;
+  width: 0;
+  height: 0;
+  position: absolute;
+  transform: rotate(270deg);
+  left: 50%;
+}
+
+input {
+  width: 94%;
+  margin: 0 auto;
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 28rpx;
+  border-bottom: 1rpx solid #ddd;
+}
+
+.code_part {
+  position: relative;
+}
+
+.code_btn {
+  font-size: 26rpx;
+  position: absolute;
+  right: 3%;
+  top:110rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  border:1rpx solid #1ba0e7;
+  background: #ffffff;
+  color: #1ba0e7;
+  border-radius: 5rpx;
+  z-index: 1000000;
+}
+.code_btn::after {
+  border:0rpx solid #1ba0e7;
+  border-radius: 5rpx;
+}
+.code_btn::before {
+  border:0rpx solid #1ba0e7;
+  border-radius: 5rpx;
+}
+.submit{
+  width: 94%;
+  margin-top: 80rpx;
+  background: #1ba0e7;
+  color: #fff;
+}

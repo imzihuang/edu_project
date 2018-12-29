@@ -1,0 +1,158 @@
+<!--pages/index/index.wxml-->
+<view class="page" id='page'>
+  <!-- 侧滑内容 -->
+  <view class="page-top {{open ? 'page-top-show' : ''}}">
+    <view wx:if='{{nav_list.length == 0}}'>
+      <text style='font-size:28rpx;margin-left:20rpx'>暂无班级</text>
+    </view>
+    <view wx:else='{{nav_list.length != 0}}'>
+      <view class="nav-list" wx:for-items="{{nav_list}}" bindtap="open_list" wx:key="name">
+        <view wx:if='{{item.checked ==true}}' class='checkedStudent' bindtap="changeStudent">
+          {{item.class_name}}
+          <view class='triangle_border_nw'></view>
+        </view>
+        <text wx:else='{{item.checked !=true}}' bindtap="changeStudent">{{item.class_name}}</text>
+      </view>
+    </view>
+  </view>
+  <view class="page-bottom">
+    <!-- 侧滑 -->
+    <image class="off-nav-list" bindtap="off_canvas" src="../images/btn.png"></image>
+    <view wx:if='{{nav_list.length == 0}}'>
+      <view class="page-bottom-content">
+        {{teacher_name}}
+        <text style='margin-left:20rpx;color:#1ba0e7;font-size:24rpx;'>暂无班级</text>
+      </view>
+    </view>
+    <view wx:else='{{nav_list.length != 0}}'>
+      <view class="page-bottom-content" wx:for-items="{{nav_list}}" wx:key="checked">
+        {{teacher_name}}
+        <text wx:if='{{item.checked ==true}}' style='margin-left:20rpx;color:#1ba0e7;font-size:24rpx;'>{{item.class_name}}</text>
+      </view>
+    </view>
+    <view class="page-mask {{open ? '' : 'page-mask-hide'}}" bindtap="off_canvas"></view>
+    <!-- 侧滑结束 -->
+    <!-- 轮播 -->
+    <view class="page-section page-section-spacing swiper">
+      <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" circular="{{circular}}" vertical="{{vertical}}" interval="{{interval}}" duration="{{duration}}" previous-margin="{{previousMargin}}px" next-margin="{{nextMargin}}px">
+        <block wx:for="{{background}}" wx:key="*this">
+          <swiper-item>
+            <view class="swiper-item {{item}}">
+              <image src='../images/{{item}}.jpg'></image>
+            </view>
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+    <!-- 轮播结束 -->
+    <view class='function-list'>
+      <view class='function-attendance'>
+        <button bindtap='goAttendance'>
+          <view class='imgPart'>
+            <image src='../images/attendance.png'></image>
+          </view>
+          <view class='function-text'>教师考勤</view>
+        </button>
+      </view>
+      <view class='function-studentAttendance'>
+        <button bindtap='goStudentAttendance'>
+          <view class='imgPart'>
+            <image src='../images/studentAttendance.png'></image>
+          </view>
+          <view class='function-text'>学生签到</view>
+        </button>
+      </view>
+      <view class='function-approve'>
+        <button bindtap='goAddface'>
+          <view class='imgPart'>
+            <image src='../images/approve.png'></image>
+          </view>
+          <view class='function-text'>审批管理</view>
+        </button>
+      </view>
+      <view class='function-timetable'>
+        <button bindtap='goAddface'>
+          <view class='imgPart'>
+            <image src='../images/timetable.png'></image>
+          </view>
+          <view class='function-text'>教师课表</view>
+        </button>
+      </view>
+    </view>
+    <!-- 日历主体 -->
+    <view class='calendar'>
+      <view class='header'>
+        <view wx:for='{{date}}' wx:key='' class='{{(index == todayIndex) && isTodayWeek ? "weekMark" : ""}} '>{{item}}
+          <view></view>
+        </view>
+      </view>
+
+      <view class='date-box'>
+        <block wx:for='{{dateArr}}' wx:key=''>
+          <view class='{{isToday == item.isToday ? "nowDay" : ""}}' bindtap='changeDay'>
+            <view class='date-head' bindtap='lookHuoDong' data-year='{{year}}' data-month='{{month}}' data-datenum='{{item.dateNum}}'>
+              <view class='{{item.disabled == false ? "signdisabled" : ""}}'>{{item.dateNum}}</view>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+    <!-- 日历end -->
+    <view style='position:relative;' class='signPart'>
+      <view class='listPart {{isScroll == true ? "scrollSign" : ""}} {{isScrollUp == true ? "scrollSignUp" : ""}}' style='position:absolute;width:100%;background:#fff'>
+        <view wx:if='{{signLength == 0}}'>
+          <view class='center noSign'>暂无签到记录</view>
+        </view>
+        <view wx:else='{{signLength != 0}}'>
+          <view class='phonePart' wx:for='{{sign_list}}' wx:key='' wx:for-index="bindex">
+            <view class='avatar fl'>
+              <image src='{{item.teacher_img_path}}' binderror="binderrorImgPath" data-bindex='{{bindex}}'></image>
+            </view>
+            <view class='phoneContent fl'>
+              <view class='name'>{{item.alias}}</view>
+              <view class='timeList'>
+                <image src='../images/calendar.png' class='fl'></image>
+                <text class='date fl'>{{item.time}}</text>
+                <image src='../images/time.png' class='fl'></image>
+                <text class='time fl'>{{item.timeDetail}}</text>
+              </view>
+              <view class='phoneList'>
+                <image src='{{item.img_path}}' binderror="binderrorRelativeImgPath" data-bindex='{{bindex}}'></image>
+              </view>
+              <view class='tip'>于{{item.timeDetail}}{{item.type}}</view>
+            </view>
+            <view style='clear:both'></view>
+          </view>
+        </view>
+      </view>
+      <!-- 隐藏块 -->
+      <view class='listPart'>
+        <view wx:if='{{signLength == 0}}'>
+          <view class='center noSign'>暂无签到记录</view>
+        </view>
+        <view wx:else='{{signLength != 0}}'>
+          <view class='phonePart' wx:for='{{sign_list}}' wx:key='' wx:for-index="bindex">
+            <view class='avatar fl'>
+              <image src='{{item.relative_img_path}}' binderror="binderrorImgPath" data-bindex='{{bindex}}'></image>
+            </view>
+            <view class='phoneContent fl'>
+              <view class='name'>{{item.alias}}</view>
+              <view class='timeList'>
+                <image src='../images/calendar.png' class='fl'></image>
+                <text class='date fl'>{{item.time}}</text>
+                <image src='../images/time.png' class='fl'></image>
+                <text class='time fl'>{{item.timeDetail}}</text>
+              </view>
+              <view class='phoneList'>
+                <image src='{{item.img_path}}' binderror="binderrorRelativeImgPath" data-bindex='{{bindex}}'></image>
+              </view>
+              <view class='tip'>于{{item.timeDetail}}{{item.type}}</view>
+            </view>
+            <view style='clear:both'></view>
+          </view>
+        </view>
+      </view>
+      <!-- 隐藏块 -->
+    </view>
+  </view>
+</view>

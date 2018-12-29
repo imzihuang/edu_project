@@ -1,0 +1,60 @@
+<view class='content'>
+  <!-- 日历年月 -->
+  <view class='calendar_title flex_nowrap'>
+    <view class='calendar_position'>
+      <view class='icon fl' bindtap='lastMonth'>
+        <image src='../images/left.png' />
+      </view>
+      <view class='fl calendar_time'>{{year}}年{{month}}月</view>
+      <view class='icon fl' bindtap='nextMonth'>
+        <image src='../images/right.png' />
+      </view>
+      <view style='clear:both'></view>
+    </view>
+  </view>
+
+  <!-- 日历主体 -->
+  <view class='calendar'>
+    <view class='header'>
+      <view wx:for='{{date}}' wx:key='' class='{{(index == todayIndex) && isTodayWeek ? "weekMark" : ""}}'>{{item}}
+        <view></view>
+      </view>
+    </view>
+
+    <view class='date-box'>
+      <block wx:for='{{dateArr}}' wx:key=''>
+        <view class='{{isToday == item.isToday ? "nowDay" : ""}}'>
+          <view class='date-head {{item.disabled == false ? "signdisabled" : ""}}' bindtap='lookHuoDong' data-year='{{year}}' data-month='{{month}}' data-datenum='{{item.dateNum}}'>
+            <view>{{item.dateNum}}</view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+  <view class='listContent'>
+    <view wx:if='{{signLength == 0}}'>
+      <view class='center noSign'>暂无签到记录</view>
+    </view>
+    <view wx:else='{{signLength != 0}}'>
+      <view class='phonePart' wx:for='{{sign_list}}' wx:key='' wx:for-index="bindex">
+        <view class='avatar fl'>
+          <image src='{{item.teacher_img_path}}' binderror="binderrorImgPath" data-bindex='{{bindex}}'></image>
+        </view>
+        <view class='phoneContent fl'>
+          <view class='name'>{{item.alias}}</view>
+          <view class='timeList'>
+            <image src='../images/calendar.png' class='fl'></image>
+            <text class='date fl'>{{item.time}}</text>
+            <image src='../images/time.png' class='fl'></image>
+            <text class='time fl'>{{item.timeDetail}}</text>
+          </view>
+          <view class='phoneList'>
+            <image src='{{item.img_path}}' binderror="binderrorRelativeImgPath" data-bindex='{{bindex}}'></image>
+          </view>
+          <view class='tip'>于{{item.timeDetail}}{{item.type}}</view>
+        </view>
+        <view style='clear:both'></view>
+      </view>
+    </view>
+  </view>
+</view>

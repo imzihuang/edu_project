@@ -1,0 +1,39 @@
+/* pages/addfacedetail/addfacedetail.wxss */
+.content{
+  padding: 50rpx;
+}
+view{
+  font-size: 28rpx;
+  line-height: 80rpx;
+  color: #555;
+}
+.listView{
+  width: 100%;
+  min-height: 80rpx;
+  margin-bottom: 30rpx;
+  border-bottom: 1rpx solid #efefef;
+}
+input{
+  float: left;
+  margin-top: 14rpx;
+}
+.labelView{
+  width: 100rpx;
+  text-align: right;
+  float: left;
+  margin-right: 20rpx;
+}
+.upImgDetail image{
+  width: 160rpx;
+  height: 160rpx;
+}
+button{
+  color: #fff;
+  margin-bottom: 10rpx;
+}
+.upImg{
+  margin-top: 120rpx;
+}
+.replyBtn{
+  background:#1ba0e7;
+}

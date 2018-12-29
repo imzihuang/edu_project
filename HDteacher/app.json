@@ -1,0 +1,48 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/index/index",
+    "pages/attendance/attendance",
+    "pages/addrelativeface/addrelativeface",
+    "pages/info/info",
+    "pages/changephone/changephone",
+    "pages/changenewphone/changenewphone",
+    "pages/myinfo/myinfo",
+    "pages/studentAttendance/studentAttendance"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTitleText": "有教",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#eeeeee",
+    "backgroundTextStyle": "light"
+  },
+  "tabBar": {
+    "selectedColor": "#1ba0e7",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "校园",
+        "iconPath": "pages/images/home.png",
+        "selectedIconPath": "pages/images/home_focus.png"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "text": "家园",
+        "iconPath": "pages/images/platform.png",
+        "selectedIconPath": "pages/images/platform_focus.png"
+      },
+      {
+        "pagePath": "pages/info/info",
+        "text": "我的",
+        "iconPath": "pages/images/myinfo.png",
+        "selectedIconPath": "pages/images/myinfo_focus.png"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 60000,
+    "downloadFile": 60000
+  },
+  "debug": true
+}

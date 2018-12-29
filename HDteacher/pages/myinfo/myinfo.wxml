@@ -1,0 +1,15 @@
+<view>
+  <label>姓名：</label>{{teacherName}}
+</view>
+<view>
+  <label>手机号码：</label>{{teacherPhone}}
+</view>
+<view>
+  <label>任教年级：</label>{{gradeName}}
+</view>
+<view>
+  <label>任教班级：</label>{{className}}
+</view>
+<view>
+  <label>状态：</label>{{status}}
+</view>

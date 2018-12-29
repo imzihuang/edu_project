@@ -1,0 +1,13 @@
+<view class="top">
+  <span class="active">1 验证身份</span>
+  <span>2 绑定新手机</span>
+  <view class='triangle'></view>
+</view>
+  <view>
+    <input name='userName'  class='userName' placeholder='{{userName}}' bindinput="userNameInput"  value='{{userName}}' disabled='disabled'/>
+    <button class='code_btn' bindtap="getCode">获取验证码</button>
+  </view>
+  <view class='code_part'>
+    <input name='userCode'  class='userCode' placeholder='请输入验证码' bindinput="userPasswordInput" />
+  </view>
+  <button class='submit' bindtap="submitCode">确定</button>

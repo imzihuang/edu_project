@@ -1,0 +1,16 @@
+<!--pages/addfacedetail/addfacedetail.wxml-->
+<view class='content'>
+<view class='listView'>
+  <view class='labelView'>名称：</view>
+  <input placeholder="请输入名称" auto-focus bindinput="otherRelativeInput"/>
+</view>
+<view class='listView' style='border-bottom:none'>
+<view class='labelView'>图片：</view>
+<view class='upImgDetail'>
+   <image src='{{imgpaths}}'></image>
+</view>
+</view>
+<button bindtap='upImg' type='warn' class='upImg'>上传图片</button>
+<button class='replyBtn' bindtap='replyBtn'>确认</button>
+<button type="default" bindtap='backBtn'>取消</button>
+</view>

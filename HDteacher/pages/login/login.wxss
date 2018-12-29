@@ -1,0 +1,46 @@
+/* pages/login/login.wxss */
+.title{
+  font-size: 34rpx;
+  color: #555;
+  font-weight: 600;
+  margin: 60rpx 0rpx 60rpx 0rpx;
+}
+.content{
+  padding:0rpx 60rpx; 
+}
+input{
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 30rpx;
+  border-bottom: 1rpx solid #ddd;
+}
+.code_part{
+  position: relative;
+}
+.code_btn{
+  font-size: 26rpx;
+  position: absolute;
+  right: 0rpx;
+  top: 20rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  background: #1ba0e7;
+  color: #fff;
+}
+.tip{
+  font-size: 22rpx;
+  color: #999;
+  line-height: 60rpx;
+}
+.login_btn{
+  margin-top: 80rpx;
+  background: #1ba0e7;
+  color: #fff;
+}
+.userCode{
+  padding-right:200rpx;
+}
+.code_btn_no{
+  color:#ccc;
+  background:#fff;
+}

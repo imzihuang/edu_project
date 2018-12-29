@@ -1,0 +1,15 @@
+<view>
+  <label>学生姓名：</label>{{studentName}}
+</view>
+<view>
+  <label>出生日期：</label>{{studentBirthday}}
+</view>
+<view>
+  <label>学生性别：</label>{{studentSex}}
+</view>
+<view>
+  <label>所在年级：</label>{{studentGrade}}
+</view>
+<view>
+  <label>所在班级：</label>{{studentClass}}
+</view>

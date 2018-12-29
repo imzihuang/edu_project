@@ -1,0 +1,36 @@
+<view class = 'topTitle center'>{{grade_name}}{{class_name}}学生签到统计</view>
+<view class='topTitle center'>{{now_month}}月{{now_date}}日  <text style='margin-left:20rpx'>{{week}}</text></view>
+<view class='topTitle center attendanceInfo'>
+  <text>已签到3人</text>
+  <text>未签到3人</text>
+  <text>请假3人</text>
+</view>
+<picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+    <view class="picker searchLabel">
+      状态查询：{{array[index]}}
+    </view>
+    <image src='../images/right.png'></image>
+</picker>
+<!-- 表格 -->
+<view class="table">
+  <view class="tr bg-w" style='padding:0rpx;height:2rem'>
+    <view class="th">姓名</view>
+    <view class="th">状态</view>
+    <view class="th">签到时间</view>
+    <view class="th">联系方式</view>
+  </view>
+  <block wx:for="{{listData}}" wx:key="{{code}}">
+    <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+      <view class="td">{{item.code}}</view>
+      <view class="td">{{item.text}}</view>
+      <view class="td">{{item.time}}</view>
+      <view class="td">{{item.type}}</view>
+    </view>
+    <view class="tr" wx:else>
+      <view class="td">{{item.code}}</view>
+      <view class="td">{{item.text}}</view>
+      <view class="td">{{item.text}}</view>
+      <view class="td">{{item.type}}</view>
+    </view>
+  </block>
+</view>

@@ -1,0 +1,22 @@
+<view class='studentInfo'>
+  <view class='studentInfoLogo'>
+    <image src='../images/a9.jpg'></image>
+  </view>
+  <view class='studentInfoDetail'>
+    <view>教师姓名：{{teacher_name}}</view>
+    <view>年级：{{grade_name}}</view>
+    <view>班级：{{class_name}}</view>
+  </view>
+</view>
+<navigator url="/pages/addrelativeface/addrelativeface" hover-class="navigator-hover">
+    添加人脸
+    <image src='../images/right.png'></image>
+</navigator>
+<navigator url="/pages/myinfo/myinfo" hover-class="navigator-hover">
+    我的信息
+    <image src='../images/right.png'></image>
+</navigator>
+<navigator url="/pages/changephone/changephone" hover-class="navigator-hover">
+    更改手机号
+    <image src='../images/right.png'></image>
+</navigator>
