@@ -5,6 +5,7 @@ from db import api as db_api
 from datetime import datetime
 from logic import Logic
 from util import exception
+from util.face_recognition_api import face_recognition_yyl
 import logging
 LOG = logging.getLogger(__name__)
 
@@ -66,6 +67,9 @@ class FaceLogic(Logic):
         face_info = db_api.face_get(id=id)
         if not face_info:
             return "id not exit"
+
+        _ = face_recognition_yyl.Face_Remove(face_info.school_id, face_info.face_token)
+        LOG.info("remove facc:%r"%_)
 
         _ = db_api.face_destroy(id)
 
