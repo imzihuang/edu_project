@@ -267,7 +267,7 @@ class InfosHandler(RequestHandler):
         end_time = self.get_argument('end_time', '')
         return {
             "relevance_type": 2,
-            "relevance_id": relative_id,
+            "teacher_id": relative_id,
             "start_time": start_time,
             "end_time": end_time,
         }
