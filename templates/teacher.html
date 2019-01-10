@@ -253,7 +253,7 @@
 		<script type="text/javascript">
 			$(document).ready(function() {
 				
-
+                var teacherId = '';
 				//获取学校
 				var schoolSelect = JSON.parse(localStorage.getItem("school"));
 				var school = schoolSelect.id;
@@ -500,7 +500,7 @@
 											'<td class="center data_class_name" id ="' + class_info_id + '">' + class_info_name + '</td>' +
 											'<td class="center data_status">' + msg.data[i].status + '</td>' +
 											'<td class="center data_time" name ="' + msg.data[i].birthday + '">' + msg.data[i].create_time + '</td>' +
-											'<td><i class="fa fa-pencil areapen" title="修改"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除" id = "' + msg.data[i].id + '"></i></td>' +
+											'<td><i class="fa fa-pencil areapen" title="修改" _id ="' + msg.data[i].id + '"></i>&nbsp;&nbsp;<i class="fa fa-close" title="删除" id = "' + msg.data[i].id + '"></i></td>' +
 											'</tr>'
 									}
 									$("#tbody").html(strs);
@@ -845,6 +845,7 @@
 									}
 								}
 								var data = {
+									'id': teacherId,
 									'name': $("#edit_name").val(),
 									'sex': $("input[name='editsex']:checked").val(),
 									'position': $("#edit_post option:selected").val(),
@@ -886,6 +887,8 @@
 
 				//编辑弹框
 				$('.areapen').click(function() {
+					//获取教师id
+					teacherId = $(this).attr("_id");
 					//初始化赋值
 					$(".errorPart").html("");
 					$(".errorPartEditSpt").css("display", "none");
