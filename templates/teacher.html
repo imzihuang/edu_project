@@ -365,7 +365,7 @@
 							if(msg.data.length > 0) {
 								for(var i = 0; i < msg.data.length; i++) {
 									str += '<option value=' + msg.data[i].id + '>' + msg.data[i].name + '</option>';
-									layerSrt += '<div class="classNameList"><input type="checkbox" name="checkboxClassName"' +
+									layerSrt += '<div class="classNameList"><input type="radio" name="checkboxClassName"' +
 										'value="' + msg.data[i].id + '" /><span class="className">' + msg.data[i].name + '</span></div>'
 								}
 								layerSrt = layerSrt + '<div style="clear:both"></div>'
@@ -800,7 +800,7 @@
 								var layerSrt = '';
 								if(msg.data.length > 0) {
 									for(var i = 0; i < msg.data.length; i++) {
-										layerSrt += '<div class="classNameList"><input type="checkbox" name="checkboxClassName"' +
+										layerSrt += '<div class="classNameList"><input type="radio" name="checkboxClassName"' +
 											'value="' + msg.data[i].id + '" /><span class="className">' + msg.data[i].name + '</span></div>'
 									}
 									layerSrt = layerSrt + '<div style="clear:both"></div>'
