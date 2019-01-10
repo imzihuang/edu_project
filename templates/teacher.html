@@ -79,7 +79,7 @@
 														<label class="control-label">状态：</label>
 														<select id="teacher-state">
 															<option value="">--请选择--</option>
-															<option value="education">在职</option>
+															<option value="education">在教</option>
 															<option value="dimission">离职</option>
 															<option value="holiday">休假</option>
 														</select>
@@ -215,7 +215,7 @@
 				<div style="margin: 20px 0;">
 					<span>状态：</span>
 					<select style="width: 350px;" id="edit_status" name="edit_status">
-						<option value="education">在职</option>
+						<option value="education">在教</option>
 						<option value="dimission">离职</option>
 						<option value="holiday">休假</option>
 					</select>
@@ -781,6 +781,7 @@
 									$(".errorPart").html("");
 									$(".errorPartEditSpt").css("display", "none");
 									$("#edit_grade").val($(this).parent("td").siblings(".data_grade_name").attr("id"));
+									$("#edit_status").val($(this).parent("td").siblings(".data_status").attr("_id"));
 									//初始化班级
 									var a = $(this).parent("td").siblings(".data_class_name").attr("id");
 									var a = a.split(",");
