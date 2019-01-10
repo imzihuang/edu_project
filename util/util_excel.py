@@ -4,6 +4,19 @@ import StringIO
 import xlwt as ExcelWrite
 import xlrd as ExcelRead
 
+'''
+设置单元格样式
+'''
+def set_style(name, height, bold=False):
+    style = ExcelWrite.XFStyle() # 初始化样式
+    font = ExcelWrite.Font() # 为样式创建字体
+    font.name = name # 'Times New Roman'
+    font.bold = bold
+    font.color_index = 4
+    font.height = height
+    style.font = font
+    return style
+
 def make_student_header(sheet, student_relative_list):
     row_zero = 0
     row_one = 1
@@ -18,8 +31,8 @@ def make_student_header(sheet, student_relative_list):
                     continue
                 sheet.write(row_one, col, excel_header.get(k, k))
                 col += 1
-        sheet.write_merge(row_zero, row_zero, 0, col-1, "学生".decode('utf-8'))
-        col_merge = col - 1
+        sheet.write_merge(row_zero, row_zero, 0, col-1, "学生".decode('utf-8'), set_style("Times New Roman", 220, True))
+        col_merge = col
         relative_list = student_dict.get("relative_list", [])
         num = 1
         for relative_info in relative_list:
@@ -31,7 +44,7 @@ def make_student_header(sheet, student_relative_list):
                 sheet.write(row_one, col, excel_header.get(k, k))
                 col += 1
             sheet.write_merge(row_zero, row_zero, col_merge, col - 1, "联系人".decode('utf-8')+str(num))
-            col_merge = col - 1
+            col_merge = col
             num += 1
 
 
