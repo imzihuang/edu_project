@@ -361,12 +361,14 @@ class StudentLogic(Logic):
 
         return sign_status_list
 
-    def student_relative_excel(self, student_id="", student_name="", grade_id="", class_id=""):
+    def student_relative_excel(self, student_id="", student_name="", school_id="", grade_id="", class_id=""):
         filters = {}
         if student_id:
             filters.update({"id": student_id})
         if student_name:
             filters.update({"name": student_name})
+        if school_id:
+            filters.update({"school_id": school_id})
         if grade_id:
             filters.update({"grade_id": grade_id})
         if class_id:
