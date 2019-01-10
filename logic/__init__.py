@@ -19,7 +19,7 @@ class Logic(object):
 
     def views(self, models):
         if not models:
-            return
+            return []
         if isinstance(models, dict):
             return models
         if isinstance(models, list):

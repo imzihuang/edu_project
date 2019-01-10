@@ -4,27 +4,48 @@ import StringIO
 import xlwt as ExcelWrite
 import xlrd as ExcelRead
 
+'''
+设置单元格样式
+'''
+def set_style(name, height, bold=False):
+    style = ExcelWrite.XFStyle() # 初始化样式
+    font = ExcelWrite.Font() # 为样式创建字体
+    font.name = name # 'Times New Roman'
+    font.bold = bold
+    font.color_index = 4
+    font.height = height
+    style.font = font
+    return style
+
 def make_student_header(sheet, student_relative_list):
-    row = 0
+    row_zero = 0
+    row_one = 1
     for student_dict in student_relative_list:
         col = 0
+        col_merge = 0
         for k in student_dict:
             if k!="relative_list":
                 if k == "name":
                     k="student_name"
                 if k not in excel_header:
                     continue
-                sheet.write(row, col, excel_header.get(k, k))
+                sheet.write(row_one, col, excel_header.get(k, k))
                 col += 1
+        sheet.write_merge(row_zero, row_zero, 0, col-1, "学生".decode('utf-8'), set_style("Times New Roman", 220, True))
+        col_merge = col
         relative_list = student_dict.get("relative_list", [])
+        num = 1
         for relative_info in relative_list:
             for k in relative_info:
                 if k == "name":
                     k = "relative_name"
                 if k not in excel_header:
                     continue
-                sheet.write(row, col, excel_header.get(k, k))
+                sheet.write(row_one, col, excel_header.get(k, k))
                 col += 1
+            sheet.write_merge(row_zero, row_zero, col_merge, col - 1, "联系人".decode('utf-8')+str(num))
+            col_merge = col
+            num += 1
 
 
 def make_student_excel(student_relative_list):
@@ -34,7 +55,7 @@ def make_student_excel(student_relative_list):
     sheet = xls.add_sheet("student_relative", cell_overwrite_ok=True)
 
     make_student_header(sheet, student_relative_list)
-    row = 1
+    row = 2
     #填充每行的数据
     for student_dict in student_relative_list:
         col = 0
