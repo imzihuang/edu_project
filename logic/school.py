@@ -3,7 +3,7 @@
 
 from random import randint
 import datetime
-from util.convert import *
+from util import convert
 from util.exception import ParamExist
 from util.ini_client import ini_load
 from util.face_recognition_api import face_recognition_yyl
@@ -25,7 +25,7 @@ class SchoolLogic(Logic):
             LOG.error("school name or cardcode is None")
             return
         if db_api.school_list(name=name):
-            raise ParamExist(key="name", value=name)
+            raise ParamExist(name=convert.bs2unicode(name))
         values = {
             "name": name,
             "cardcode": cardcode,

@@ -68,12 +68,12 @@ class TeacherLogic(Logic):
                 "grade_id": class_info.grade_id,
             })
         name=kwargs.get("name", "")
-        if name and teacher_info.name != name and db_api.teacher_list(name=name):
-            raise exception.ParamExist(key="name", value=name)
+        if name and convert.bs2utf8(teacher_info.name) != name and db_api.teacher_list(name=name):
+            raise exception.ParamExist(name=name)
 
         phone = kwargs.get("phone", "")
-        if phone and teacher_info.phone != phone and db_api.teacher_list(phone=phone):
-            raise exception.ParamExist(key="phone", value=phone)
+        if phone and convert.bs2utf8(teacher_info.phone) != phone and db_api.teacher_list(phone=phone):
+            raise exception.ParamExist(phone=phone)
 
         _ = db_api.teacher_update(id, kwargs)
         return _

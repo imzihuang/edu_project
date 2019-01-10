@@ -19,7 +19,7 @@ class RelativeLogic(Logic):
         if phone and not convert.is_mobile(phone):
             raise exception.FormalError(phone=phone)
         if not name:
-            raise exception.ParamNone(name=name)
+            raise exception.ParamNone(name=convert.bs2unicode(name))
         if phone:
             relative_list = db_api.relative_list(phone=phone)
             if relative_list and convert.bs2utf8(relative_list[0].name) != name:

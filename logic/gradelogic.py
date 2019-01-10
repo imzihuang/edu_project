@@ -3,7 +3,7 @@
 
 from random import randint
 import datetime
-from util.convert import *
+from util import convert
 from util import exception
 from db import api as db_api
 from logic import Logic
@@ -36,7 +36,7 @@ class GradeLogic(Logic):
                 raise exception.NotFound(school_id=kwargs.get("school_id", ""))
 
         name = kwargs.get("name", "")
-        if name and garde_info.name != name and db_api.teacher_list(name=name):
+        if name and convert.bs2utf8(garde_info.name) != name and db_api.teacher_list(name=name):
             raise exception.ParamExist(grade_name=name)
 
         _ = db_api.grade_update(id, kwargs)
