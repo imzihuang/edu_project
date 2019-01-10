@@ -3,7 +3,7 @@
 
 from random import randint
 import datetime
-from util.convert import *
+from util import convert
 from db import api as db_api
 from logic import Logic
 from util import exception
@@ -40,7 +40,7 @@ class ClassLogic(Logic):
             kwargs.update({"school_id": _.school_id})
 
         name = kwargs.get("name", "")
-        if name and class_info.name != name and db_api.class_list(name=name):
+        if name and convert.bs2utf8(class_info.name) != name and db_api.class_list(name=name):
             raise exception.ParamExist(class_name=name)
 
         _ = db_api.class_update(id, kwargs)

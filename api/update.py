@@ -126,7 +126,8 @@ class UpdateHandler(RequestHandler):
     def _get_teacher_argument(self):
         id = convert.bs2utf8(self.get_argument('id', ''))
         name = convert.bs2utf8(self.get_argument('name', ''))
-        sex = int(self.get_argument('sex', 0))
+        sex = int(self.get_argument('sex', -1))
+        position = int(self.get_argument('position', 0))
         birthday = convert.bs2utf8(self.get_argument('birthday', ""))
         class_id = convert.bs2utf8(self.get_argument('class_id', ''))
         phone = convert.bs2utf8(self.get_argument('phone', ''))
@@ -134,8 +135,10 @@ class UpdateHandler(RequestHandler):
         result = {}
         if name:
             result.update({"name": name})
-        if sex:
+        if sex > -1:
             result.update({"sex": sex})
+        if position > 0:
+            result.update({"position": position})
         if birthday:
             result.update({"birthday": birthday})
         if class_id:
@@ -150,7 +153,7 @@ class UpdateHandler(RequestHandler):
     def _get_student_argument(self):
         id = convert.bs2utf8(self.get_argument('id', ''))
         name = convert.bs2utf8(self.get_argument('name', ''))
-        sex = int(self.get_argument('sex', 0))
+        sex = int(self.get_argument('sex', -1))
         birthday = convert.bs2utf8(self.get_argument('birthday', ""))
         class_id = convert.bs2utf8(self.get_argument('class_id', ''))
         status = convert.bs2utf8(self.get_argument('status', ''))
@@ -159,7 +162,7 @@ class UpdateHandler(RequestHandler):
         result = {}
         if name:
             result.update({"name": name})
-        if sex:
+        if sex>-1:
             result.update({"sex": sex})
         if birthday:
             result.update({"birthday": birthday})
@@ -176,14 +179,14 @@ class UpdateHandler(RequestHandler):
     def _get_relative_argument(self):
         id = convert.bs2utf8(self.get_argument('id', ''))
         name = convert.bs2utf8(self.get_argument('name', ''))
-        sex = int(self.get_argument('sex', 0))
-        birthday = convert.bs2utf8(self.get_argument('birthday', 0))
+        sex = int(self.get_argument('sex', -1))
+        birthday = convert.bs2utf8(self.get_argument('birthday', ''))
         phone = convert.bs2utf8(self.get_argument('phone', ''))
         describe = convert.bs2utf8(self.get_argument('describe', ''))
         result = {}
         if name:
             result.update({"name": name})
-        if sex:
+        if sex>-1:
             result.update({"sex": sex})
         if birthday:
             result.update({"birthday": birthday})

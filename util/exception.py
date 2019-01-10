@@ -39,6 +39,7 @@ class ExpressException(Exception):
                     _message += '{k}:{v};'.format(v=v, k=k)
                 #message = self.message % kwargs
                 message = self.message % {"message": _message}
+                message = message.decode('utf-8')
 
             except Exception:
                 # NOTE(melwitt): This is done in a separate method so it can be
@@ -76,7 +77,7 @@ class ExpressException(Exception):
         return self.msg
 
 class NotFound(ExpressException):
-    message = "Resource could not be found. %(message)s"
+    message = u"Resource could not be found. %(message)s"
     code = 404
     safe = True
 

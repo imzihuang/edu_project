@@ -36,9 +36,9 @@ class UserLogic(Logic):
         if not convert.is_mobile(phone):
             raise FormalError(phone=phone)
         if db_api.user_list(name=name):
-            raise ParamExist(key="name", value=name)
+            raise ParamExist(name=name)
         if db_api.user_list(phone=phone):
-            raise ParamExist(key="phone", value=phone)
+            raise ParamExist(phone=phone)
         values = {
             "name": name,
             "pwd": encry_md5(pwd.strip()),
@@ -67,12 +67,11 @@ class UserLogic(Logic):
             if not _:
                 raise NotFound(school_id=kwargs.get("school_id", ""))
         name = kwargs.get("name", "")
-        if name and user_info.name!=name and db_api.user_list(name=name):
-            raise ParamExist(key="name", value=name)
+        if name and convert.bs2utf8(user_info.name)!=name and db_api.user_list(name=name):
+            raise ParamExist(name=name)
         phone = kwargs.get("phone", "")
-        LOG.info("kwargs 333:%r" % kwargs)
-        if phone and user_info.phone!=phone and db_api.user_list(phone=phone):
-            raise ParamExist(key="phone", value=phone)
+        if phone and convert.bs2unicode(user_info.phone)!=phone and db_api.user_list(phone=phone):
+            raise ParamExist(phone=phone)
         if kwargs.get("pwd", ""):
             kwargs.pop("pwd")
         LOG.info("kwargs 444:%r" % kwargs)
@@ -154,10 +153,10 @@ class WXUserLogic(Logic):
 
     def input(self, openid="", session_key="", phone="", wx_type=1):
         if db_api.wxuser_list(openid=openid):
-            raise ParamExist(key="openid", value=openid)
+            raise ParamExist(openid=openid)
 
         if db_api.wxuser_list(session_key=session_key):
-            raise ParamExist(key="session_key", value=session_key)
+            raise ParamExist(session_key=session_key)
 
         values = {
             "openid": openid,
