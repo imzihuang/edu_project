@@ -144,11 +144,12 @@ class CombinationHandler(RequestHandler):
     def batch_student_excel(self):
         student_id = convert.bs2utf8(self.get_argument('student_id', ''))
         student_name = convert.bs2utf8(self.get_argument('student_name', ''))
+        school_id = convert.bs2utf8(self.get_argument('school_id', ''))
         grade_id = convert.bs2utf8(self.get_argument('grade_id', ''))
         class_id = convert.bs2utf8(self.get_argument('class_id', ''))
         student_op = StudentLogic()
 
-        _data = student_op.student_relative_excel(student_id, student_name, grade_id, class_id)
+        _data = student_op.student_relative_excel(student_id, student_name, school_id, grade_id, class_id)
         _excel = util_excel.make_student_excel(_data)
         self.write(_excel)
         self.set_header('Content-Type', 'application/octet-stream')
