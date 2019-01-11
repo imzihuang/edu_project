@@ -131,6 +131,7 @@ class UpdateHandler(RequestHandler):
         birthday = convert.bs2utf8(self.get_argument('birthday', ""))
         class_id = convert.bs2utf8(self.get_argument('class_id', ''))
         phone = convert.bs2utf8(self.get_argument('phone', ''))
+        status = convert.bs2utf8(self.get_argument('status', ''))
         describe = convert.bs2utf8(self.get_argument('describe', ''))
         result = {}
         if name:
@@ -145,6 +146,8 @@ class UpdateHandler(RequestHandler):
             result.update({"class_id": class_id})
         if phone:
             result.update({"phone": phone})
+        if status:
+            result.update({"status": status})
         if describe:
             result.update({"describe": describe})
         return id, result

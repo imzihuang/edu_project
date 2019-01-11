@@ -81,7 +81,7 @@ class TeacherLogic(Logic):
         if kwargs.get("status", ""):
             history_values = {
                 "teacher_id": id,
-                "status": status
+                "status": kwargs.get("status", "")
             }
             db_api.teacher_history_create(history_values)
         return _
