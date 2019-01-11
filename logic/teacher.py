@@ -29,7 +29,8 @@ class TeacherLogic(Logic):
             #"birthday": birthday,
             "school_id": school_id,
             "phone": phone,
-            "describe": describe
+            "describe": describe,
+            "status": status
         }
         if class_id:
             class_info = db_api.class_get(id=class_id)
@@ -50,7 +51,7 @@ class TeacherLogic(Logic):
                 "status": status
             }
             db_api.teacher_history_create(history_values)
-            teacher_obj.update({"status": status})
+            #teacher_obj.update({"status": status})
         return teacher_obj
 
     def update(self, id="", **kwargs):
@@ -76,13 +77,20 @@ class TeacherLogic(Logic):
             raise exception.ParamExist(phone=phone)
 
         _ = db_api.teacher_update(id, kwargs)
+
+        if kwargs.get("status", ""):
+            history_values = {
+                "teacher_id": id,
+                "status": kwargs.get("status", "")
+            }
+            db_api.teacher_history_create(history_values)
         return _
 
     def infos(self, id="", name="",
               school_id="", school_name="",
               grade_id="", grade_name="",
               class_id="", class_name="",
-              phone="", position=0,
+              phone="", status="", position=0,
               limit=100, offset=1):
         offset = (offset - 1) * limit if offset > 0 else 0
         filters = dict()
@@ -92,6 +100,8 @@ class TeacherLogic(Logic):
             filters.update({"name": name})
         if position in (1, 2):
             filters.update({"position": position})
+        if status:
+            filters.update({"status": status})
         if school_id or school_name:
             if not school_id:
                 _school_list = db_api.school_list(name=school_name)
@@ -138,10 +148,12 @@ class TeacherLogic(Logic):
                 if class_info:
                     view.update({"class_info": self.views(class_info)})
 
+            """
             #history
             teacher_history_lilst = db_api.teacher_history_list(teacher_id=view.get("id"))
             if teacher_history_lilst:
                 view.update({"status": teacher_history_lilst[0].status})
+            """
         teacher_count = db_api.teacher_count(**filters)
         return {"count": teacher_count, "state": 0, "message": "query success", "data": views_list}
 

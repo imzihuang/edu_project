@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from db import api as db_api
+from util import exception
 from logic import Logic
 import logging
 
@@ -10,16 +11,18 @@ LOG = logging.getLogger(__name__)
 class Teacher_HistoryLogic(Logic):
     def input(self, teacher_id, status, describe=""):
         if not teacher_id or not status:
-            LOG.error("student_id name or status is None")
-            return
+            raise exception.ParamNone(teacher_id=teacher_id, status=status)
         if not db_api.teacher_get(id=teacher_id):
-            return
+            raise exception.NotFound(teacher_id=teacher_id)
         values = {
             "teacher_id": teacher_id,
             "status": status,
             "describe": describe
         }
         _ = db_api.teacher_history_create(values)
+        if _:
+            # get latest status
+            db_api.teacher_update(teacher_id, {"status": status})
         return values
 
     def update(self, id="", **kwargs):
