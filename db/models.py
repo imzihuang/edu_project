@@ -89,6 +89,7 @@ class TeacherInfo(Base, ModelBase):
     phone = Column(VARCHAR(36))
     position = Column(Integer, default=2)
     describe = Column(VARCHAR(500))
+    status = Column(VARCHAR(36), default="education")
     deleted = Column(Boolean, default=False)
     create_time = Column(DateTime, default=datetime.now, nullable=False)
     updated_time = Column(DateTime, default=datetime.now, onupdate=datetime.now)

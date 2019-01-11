@@ -141,6 +141,8 @@ class InfosHandler(RequestHandler):
         class_id = self.get_argument('class_id', '')
         class_name = self.get_argument('class_name', '')
         phone = self.get_argument('phone', '')
+        status = self.get_argument('status', '')
+        position = int(self.get_argument('position', 0))
         return {
             "id": id,
             "name": name,
@@ -150,7 +152,9 @@ class InfosHandler(RequestHandler):
             "grade_name": grade_name,
             "class_id": class_id,
             "class_name": class_name,
-            "phone": phone
+            "phone": phone,
+            "status": status,
+            "position": position
         }
 
     def _get_teacher_history_argument(self):
