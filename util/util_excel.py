@@ -119,9 +119,12 @@ def make_teacher_excel(teacher_list):
         for k, v in teacher_dict.items():
             if k == "name":
                 k = "teacher_name"
+            if k == "status":
+                v = translation.get(v, v)
             if k not in teacher_excel_header:
                 continue
             col = col_teacher_dict.get(k)
+
             sheet.write(row, col, v)
         row += 1
     sf = StringIO.StringIO()
@@ -185,6 +188,14 @@ teacher_excel_header={
     "phone": "电话号码".decode('utf-8'),
     "status": "状态".decode('utf-8'),
     "position": "职位".decode('utf-8'),
+}
+
+#状态手动翻译
+
+translation = {
+    "education": "在教".decode("utf-8"),
+    "holiday": "休假".decode("utf-8"),
+    "dimission": "离职".decode("utf-8")
 }
 
 
