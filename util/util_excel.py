@@ -85,16 +85,22 @@ def make_student_excel(student_relative_list):
     sf.close()
     return contents
 
+col_teacher_dict={}
+
 def make_teacher_header(sheet, teacher_list):
     row = 0
+    col = 0
     for teacher_dict in teacher_list:
-        col = 0
         for k in teacher_dict:
             if k == "name":
                 k="teacher_name"
             if k not in teacher_excel_header:
                 continue
+            if k in col_teacher_dict:
+                #防止重复填写
+                continue
             sheet.write(row, col, teacher_excel_header.get(k, k))
+            col_teacher_dict.update({k:col})
             col += 1
 
 def make_teacher_excel(teacher_list):
@@ -110,14 +116,13 @@ def make_teacher_excel(teacher_list):
     make_teacher_header(sheet, teacher_list)
     row = 1
     for teacher_dict in teacher_list:
-        col = 0
         for k, v in teacher_dict.items():
             if k == "name":
-                k="teacher_name"
+                k = "teacher_name"
             if k not in teacher_excel_header:
                 continue
+            col = col_teacher_dict.get(k)
             sheet.write(row, col, v)
-            col += 1
         row += 1
     sf = StringIO.StringIO()
     xls.save(sf)

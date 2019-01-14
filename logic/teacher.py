@@ -132,28 +132,26 @@ class TeacherLogic(Logic):
         teacher_list = db_api.teacher_list(offset=offset, limit=limit, **filters)
         views_list = self.views(teacher_list)
         for view in views_list:
+            view.update({"school_name": ""})
             if view.get("school_id", ""):
                 school_info = db_api.school_get(id=view.get("school_id"))
                 if school_info:
                     view.update({"school_name": school_info.name})
-                else:
-                    view.update({"school_name": ""})
+
+            view.update({"grade_name": ""})
             if view.get("grade_id", ""):
                 grade_info = view.get("grade_info", None)
                 # grade_info = db_api.grade_get(id=view.get("grade_id"))
                 if grade_info:
                     view.update({"grade_name": grade_info.get("name")})
-                else:
-                    view.update({"grade_name": ""})
 
+            view.update({"class_name": ""})
             if view.get("class_id", ""):
                 class_info = view.get("class_info", None)
                 # class_info = db_api.class_get(id=view.get("class_id"))
                 if class_info:
                     view.update({"class_info": self.views(class_info)})
                     view.update({"class_name": class_info.get("name")})
-                else:
-                    view.update({"class_name": ""})
 
             """
             #history
