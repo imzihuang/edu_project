@@ -94,7 +94,7 @@ def make_teacher_header(sheet, teacher_list):
                 k="teacher_name"
             if k not in teacher_excel_header:
                 continue
-            sheet.write(row, col, teacher_dict.get(k, k))
+            sheet.write(row, col, teacher_excel_header.get(k, k))
             col += 1
 
 def make_teacher_excel(teacher_list):

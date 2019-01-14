@@ -165,7 +165,7 @@ class CombinationHandler(RequestHandler):
         teacher_op = TeacherLogic()
         _data = teacher_op.infos(school_id=school_id, grade_id=grade_id, status=status,limit=1000)
 
-        _excel = util_excel.make_teacher_excel(_data)
+        _excel = util_excel.make_teacher_excel(_data.get("data", []))
         self.write(_excel)
         self.set_header('Content-Type', 'application/octet-stream')
         self.set_header('Content-Disposition', 'attachment; filename=teacher.xls')
