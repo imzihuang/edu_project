@@ -145,7 +145,7 @@ def demo_read_excel(file_path):
 
 
 excel_header={
-    "id": "编号".decode('utf-8'),
+    #"id": "编号".decode('utf-8'),
     "student_name": "学生名称".decode('utf-8'),
     "relative_name": "家长名称".decode('utf-8'),
     "sex": "性别".decode('utf-8'),
