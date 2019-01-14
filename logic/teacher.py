@@ -136,6 +136,8 @@ class TeacherLogic(Logic):
                 school_info = db_api.school_get(id=view.get("school_id"))
                 if school_info:
                     view.update({"school_name": school_info.name})
+                else:
+                    view.update({"school_name": ""})
             if view.get("grade_id", ""):
                 grade_info = view.get("grade_info", None)
                 # grade_info = db_api.grade_get(id=view.get("grade_id"))
