@@ -141,12 +141,17 @@ class TeacherLogic(Logic):
                 # grade_info = db_api.grade_get(id=view.get("grade_id"))
                 if grade_info:
                     view.update({"grade_name": grade_info.get("name")})
+                else:
+                    view.update({"grade_name": ""})
 
             if view.get("class_id", ""):
                 class_info = view.get("class_info", None)
                 # class_info = db_api.class_get(id=view.get("class_id"))
                 if class_info:
                     view.update({"class_info": self.views(class_info)})
+                    view.update({"class_name": class_info.get("name")})
+                else:
+                    view.update({"class_name": ""})
 
             """
             #history
