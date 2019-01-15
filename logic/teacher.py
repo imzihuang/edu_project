@@ -54,6 +54,21 @@ class TeacherLogic(Logic):
             #teacher_obj.update({"status": status})
         return teacher_obj
 
+    def batch_input(self, teacher_data):
+        # verify phone
+        phone_data = []
+        for teacher_info in teacher_data:
+            if teacher_info.get("phone", ""):
+                phone_data.append(teacher_info.get("phone"))
+        exist_teacher_data = db_api.teacher_list(phone=phone_data)
+        if exist_teacher_data:
+            exist_phones = [teacher_info.phone for teacher_info in exist_teacher_data]
+            return "phone exist", ",".join(exist_phones)
+
+        
+
+
+
     def update(self, id="", **kwargs):
         if not id or not kwargs:
             raise exception.ParamNone(id=id)

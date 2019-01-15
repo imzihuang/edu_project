@@ -17,10 +17,15 @@ from logic.relative import RelativeLogic
 from logic.relation import RelationLogic
 from logic.teacher_history import Teacher_HistoryLogic
 from logic.student_history import Student_HistoryLogic
+from util import util_excel
 
 LOG = logging.getLogger(__name__)
 
 class CombinationHandler(RequestHandler):
+    def initialize(self, static_path, excel_path, **kwds):
+        self.static_path = static_path
+        self.excel_path = excel_path
+
     @auth_api_login
     def post(self, combination):
         try:
@@ -30,6 +35,9 @@ class CombinationHandler(RequestHandler):
                 self.bath_update_relative()
             if combination == "delete_student_relative":
                 self.delete_student_relative()
+            if combination == "batch_teacher_excel":
+                self.batch_teacher_excel()
+
         except Exception as ex:
             LOG.error("combination %s error:%s"%(combination, ex))
             self.finish(json.dumps({'state': 10, 'message': 'combination input error'}))
@@ -155,6 +163,29 @@ class CombinationHandler(RequestHandler):
             self.finish(json.dumps({'state': 0, 'message': 'delete student success'}))
         else:
             self.finish(json.dumps({'state': 1, 'message': message}))
+
+    def batch_teacher_excel(self):
+        student_excels = self.request.files.get('student_excel', '')
+        if not student_excels:
+            LOG.error("student excel is none")
+            self.finish(json.dumps({'state': 3, 'message': 'excel is none'}))
+            return
+        student_excel = student_excels[0]
+        filename = student_excel['filename']
+        filename = "teacher" + "." + filename.rpartition(".")[-1]
+        file_path = self.static_path + self.excel_path + filename
+
+        with open(file_path, 'wb') as up:
+            up.write(student_excel['body'])
+
+        teacher_data = util_excel.read_teacher_excel(file_path)
+
+
+
+
+
+
+
 
 
 

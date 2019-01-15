@@ -133,10 +133,38 @@ def make_teacher_excel(teacher_list):
     sf.close()
     return contents
 
+def read_teacher_excel(file_path):
+    ExcelFile = ExcelRead.open_workbook(file_path)
+    sheet = ExcelFile.sheet_by_name('teacher_info')
+
+    nrows = sheet.nrows
+    #ncols = sheet.ncols
+
+    data = []
+    for i in range(1, nrows):
+        row_data = sheet.row(i)
+        dict_info = {
+            "status": row_data[1].value.encode('utf-8'),
+            "name": row_data[2].value.encode('utf-8'),
+            "class_name": row_data[3].value.encode('utf-8'),
+            "phone": row_data[4].value.encode('utf-8'),
+            "birthday": row_data[5].value.encode('utf-8'),
+            "grade_name": row_data[7].value.encode('utf-8'),
+            "position": row_data[8].value.encode('utf-8'),
+            "sex": row_data[9].value.encode('utf-8'),
+            "school_name": row_data[10].value.encode('utf-8'),
+        }
+        data.append(dict_info)
+    return data
+
+
+
+
 def demo_read_excel(file_path):
     ExcelFile = ExcelRead.open_workbook(file_path)
     # 获取目标EXCEL文件sheet名
     print(ExcelFile.sheet_names())
+
 
     # ------------------------------------
     # 若有多个sheet，则需要指定读取目标sheet例如读取sheet2
