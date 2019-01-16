@@ -38,7 +38,9 @@ def batch_input_teacher(teacher_data):
             for teacher_info in teacher_data:
                 if not teacher_info.get('id'):
                     teacher_info['id'] = common_util.create_id()  # str(uuid.uuid4())
-                session.add(teacher_info)
+                teacher_ref = models.ClassInfo()
+                teacher_ref.update(teacher_info)
+                session.add(teacher_ref)
             session.commit()
         except Exception as ex:
             session.rollback()

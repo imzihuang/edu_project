@@ -133,7 +133,7 @@ def make_teacher_excel(teacher_list):
     sf.close()
     return contents
 
-def read_teacher_excel(file_path):
+def read_teacher_excel(school_id, file_path):
     ExcelFile = ExcelRead.open_workbook(file_path)
     sheet = ExcelFile.sheet_by_name('teacher_info')
 
@@ -149,12 +149,63 @@ def read_teacher_excel(file_path):
             "phone": row_data[3].value.encode('utf-8'),
             "birthday": row_data[4].value.encode('utf-8'),
             "position": int(row_data[5].value),
-            "sex": row_data[6].value.encode('utf-8'),
+            "sex": int(row_data[6].value),
+            "school_id": school_id
         }
         data.append(dict_info)
     return data
 
+def read_student_excel(school_id, class_id, file_path):
+    ExcelFile = ExcelRead.open_workbook(file_path)
+    sheet = ExcelFile.sheet_by_name('teacher_info')
 
+    nrows = sheet.nrows
+    #ncols = sheet.ncols
+
+    data = []
+    for i in range(1, nrows):
+        row_data = sheet.row(i)
+
+        relative_list = []
+        if row_data[4].value:
+            relative_info = {
+                "name": row_data[4].value.encode('utf-8'),
+                "birthday": row_data[5].value.encode('utf-8'),
+                "phone": row_data[6].value.encode('utf-8'),
+                "relation": row_data[7].value.encode('utf-8'),
+                "sex": int(row_data[8].value),
+                "class_id": class_id
+            }
+            relative_list.append(relative_info)
+        if row_data[9].value:
+            relative_info = {
+                "name": row_data[9].value.encode('utf-8'),
+                "birthday": row_data[10].value.encode('utf-8'),
+                "phone": row_data[11].value.encode('utf-8'),
+                "relation": row_data[12].value.encode('utf-8'),
+                "sex": int(row_data[13].value),
+            }
+            relative_list.append(relative_info)
+        if row_data[14].value:
+            relative_info = {
+                "name": row_data[14].value.encode('utf-8'),
+                "birthday": row_data[15].value.encode('utf-8'),
+                "phone": row_data[16].value.encode('utf-8'),
+                "relation": row_data[17].value.encode('utf-8'),
+                "sex": int(row_data[18].value),
+            }
+            relative_list.append(relative_info)
+
+        student_info = {
+            "name": row_data[1].value.encode('utf-8'),
+            "sex": int(row_data[2].value),
+            "birthday": row_data[3].value.encode('utf-8'),
+            "school_id": school_id,
+            "relative_list": relative_list
+        }
+
+        data.append(student_info)
+    return data
 
 
 def demo_read_excel(file_path):
