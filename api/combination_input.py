@@ -36,6 +36,8 @@ class CombinationHandler(RequestHandler):
                 self.delete_student_relative()
             if combination == "batch_teacher_excel":
                 self.batch_teacher_excel()
+            if combination == "batch_student_excel":
+                self.batch_student_excel()
 
         except Exception as ex:
             LOG.error("combination %s error:%s"%(combination, ex))
