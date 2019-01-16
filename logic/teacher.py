@@ -5,6 +5,7 @@ from random import randint
 import datetime
 from util import convert
 from db import api as db_api
+from db import combination as combination_api
 from logic import Logic
 from util import exception
 
@@ -56,6 +57,8 @@ class TeacherLogic(Logic):
 
     def batch_input(self, teacher_data):
         # verify phone
+        if not teacher_data or not isinstance(teacher_data, list):
+            raise exception.ParamNone(teacher_data="")
         phone_data = []
         for teacher_info in teacher_data:
             if teacher_info.get("phone", ""):
@@ -63,10 +66,10 @@ class TeacherLogic(Logic):
         exist_teacher_data = db_api.teacher_list(phone=phone_data)
         if exist_teacher_data:
             exist_phones = [teacher_info.phone for teacher_info in exist_teacher_data]
-            return "phone exist", ",".join(exist_phones)
+            return False, "phone exist" + ",".join(exist_phones)
 
-        
-
+        combination_api.batch_input_teacher(exist_teacher_data)
+        return True, "batch success"
 
 
     def update(self, id="", **kwargs):

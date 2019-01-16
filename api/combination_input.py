@@ -7,7 +7,6 @@ import logging
 
 from util import convert
 from api.base_auth import auth_api_login
-from logic import Logic
 from logic.school import SchoolLogic
 from logic.gradelogic import GradeLogic
 from logic.classlogic import ClassLogic
@@ -168,7 +167,7 @@ class CombinationHandler(RequestHandler):
         student_excels = self.request.files.get('student_excel', '')
         if not student_excels:
             LOG.error("student excel is none")
-            self.finish(json.dumps({'state': 3, 'message': 'excel is none'}))
+            self.finish(json.dumps({'state': 2, 'message': 'excel is none'}))
             return
         student_excel = student_excels[0]
         filename = student_excel['filename']
@@ -179,7 +178,12 @@ class CombinationHandler(RequestHandler):
             up.write(student_excel['body'])
 
         teacher_data = util_excel.read_teacher_excel(file_path)
-
+        teacher_op = TeacherLogic()
+        _ = teacher_op.batch_input(teacher_data)
+        if _[0]:
+            self.finish(json.dumps({'state': 0, 'message': _[1]}))
+        else:
+            self.finish(json.dumps({'state': 1, 'message': _[1]}))
 
 
 

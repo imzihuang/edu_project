@@ -146,13 +146,10 @@ def read_teacher_excel(file_path):
         dict_info = {
             "status": row_data[1].value.encode('utf-8'),
             "name": row_data[2].value.encode('utf-8'),
-            "class_name": row_data[3].value.encode('utf-8'),
-            "phone": row_data[4].value.encode('utf-8'),
-            "birthday": row_data[5].value.encode('utf-8'),
-            "grade_name": row_data[7].value.encode('utf-8'),
-            "position": row_data[8].value.encode('utf-8'),
-            "sex": row_data[9].value.encode('utf-8'),
-            "school_name": row_data[10].value.encode('utf-8'),
+            "phone": row_data[3].value.encode('utf-8'),
+            "birthday": row_data[4].value.encode('utf-8'),
+            "position": int(row_data[5].value),
+            "sex": row_data[6].value.encode('utf-8'),
         }
         data.append(dict_info)
     return data
