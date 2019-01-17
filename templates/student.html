@@ -340,8 +340,9 @@
 
 				}
                 //批量上传
-                $("#addManage").click(function(){
+                $("#addManage").click(function(e){
                 	$("#upload").click();
+                	e.preventDefault();
                 	ajaxFileUpload(upload);
                 });
                 function ajaxFileUpload(DOMId){
