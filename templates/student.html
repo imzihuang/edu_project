@@ -344,7 +344,8 @@
                 $("#addManage").click(function(e){
                 	$("#upload").click();
                 	e.preventDefault();
-                	var uploadId={"fileElementId":"upload"};
+                	var param={"school_id":school};
+                	var uploadId={"fileElementId":"upload","data":param};
                 	console.log(uploadId.fileElementId)
                 	ajaxFileUpload(uploadId);
                 });
@@ -356,7 +357,7 @@
 				        secureuri: false,
 				        fileElementId: DOMId.fileElementId,
 				        dataType:'text/plain',
-				        data:param,
+				        data:DOMId.data,
 				        success: function(data, status){  
 				        	top.location.reload();
 				        },
