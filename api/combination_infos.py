@@ -36,6 +36,8 @@ class CombinationHandler(RequestHandler):
                 self.teacher_sign_details()
             if combination == "batch_student_excel":
                 self.batch_student_excel()
+            if combination == "batch_teacher_excel":
+                self.batch_teacher_excel()
         except NotFound as ex:
             LOG.error("combination info %s param not data:%s" % (combination, ex))
             self.finish(json.dumps({'state': 2, 'message': 'param not data'}))
@@ -155,6 +157,20 @@ class CombinationHandler(RequestHandler):
         self.set_header('Content-Type', 'application/octet-stream')
         self.set_header('Content-Disposition', 'attachment; filename=student.xls')
         self.finish()
+
+    def batch_teacher_excel(self):
+        school_id = convert.bs2utf8(self.get_argument('school_id', ''))
+        grade_id = convert.bs2utf8(self.get_argument('grade_id', ''))
+        status = convert.bs2utf8(self.get_argument('status', ''))
+        teacher_op = TeacherLogic()
+        _data = teacher_op.infos(school_id=school_id, grade_id=grade_id, status=status,limit=1000)
+
+        _excel = util_excel.make_teacher_excel(_data.get("data", []))
+        self.write(_excel)
+        self.set_header('Content-Type', 'application/octet-stream')
+        self.set_header('Content-Disposition', 'attachment; filename=teacher.xls')
+        self.finish()
+
 
 
 

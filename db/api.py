@@ -39,7 +39,7 @@ def model_query(model, session=None, order=False, read_deleted="no", desc=True, 
 
 #####################school begin################################
 def school_create(values):
-    if not values.get('id'):
+    if not values.get('id', ''):
         values['id'] = common_util.create_id()#str(uuid.uuid4())
     school_ref = models.SchoolInfo()
     school_ref.update(values)
@@ -183,7 +183,7 @@ def class_deleted(id):
 
 #####################teacher begin################################
 def teacher_create(values):
-    if not values.get('id'):
+    if not values.get('id', ''):
         values['id'] = common_util.create_id()
     teacher_ref = models.TeacherInfo()
     teacher_ref.update(values)

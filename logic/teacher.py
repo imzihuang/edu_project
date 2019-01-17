@@ -5,6 +5,7 @@ from random import randint
 import datetime
 from util import convert
 from db import api as db_api
+from db import combination as combination_api
 from logic import Logic
 from util import exception
 
@@ -53,6 +54,23 @@ class TeacherLogic(Logic):
             db_api.teacher_history_create(history_values)
             #teacher_obj.update({"status": status})
         return teacher_obj
+
+    def batch_input(self, teacher_data):
+        # verify phone
+        if not teacher_data or not isinstance(teacher_data, list):
+            raise exception.ParamNone(teacher_data="")
+        phone_data = []
+        for teacher_info in teacher_data:
+            if teacher_info.get("phone", ""):
+                phone_data.append(teacher_info.get("phone"))
+        exist_teacher_data = db_api.teacher_list(phone=phone_data)
+        if exist_teacher_data:
+            exist_phones = [teacher_info.phone for teacher_info in exist_teacher_data]
+            return False, "phone exist" + ",".join(exist_phones)
+
+        combination_api.batch_input_teacher(exist_teacher_data)
+        return True, "batch success"
+
 
     def update(self, id="", **kwargs):
         if not id or not kwargs:
@@ -132,21 +150,26 @@ class TeacherLogic(Logic):
         teacher_list = db_api.teacher_list(offset=offset, limit=limit, **filters)
         views_list = self.views(teacher_list)
         for view in views_list:
+            view.update({"school_name": ""})
             if view.get("school_id", ""):
                 school_info = db_api.school_get(id=view.get("school_id"))
                 if school_info:
                     view.update({"school_name": school_info.name})
+
+            view.update({"grade_name": ""})
             if view.get("grade_id", ""):
                 grade_info = view.get("grade_info", None)
                 # grade_info = db_api.grade_get(id=view.get("grade_id"))
                 if grade_info:
                     view.update({"grade_name": grade_info.get("name")})
 
+            view.update({"class_name": ""})
             if view.get("class_id", ""):
                 class_info = view.get("class_info", None)
                 # class_info = db_api.class_get(id=view.get("class_id"))
                 if class_info:
                     view.update({"class_info": self.views(class_info)})
+                    view.update({"class_name": class_info.get("name")})
 
             """
             #history
