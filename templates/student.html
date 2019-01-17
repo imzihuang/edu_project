@@ -84,7 +84,7 @@
 															<th colspan="6" style="text-align: left; background: none;padding: 10px 0px;">
 																<button class="btn btn-primary btn-myown" id="addInfo">+添加</button>&nbsp;&nbsp;
 																<button class="btn btn-primary btn-myown" id="addManage">批量导入
-																<input type="file" id="upload" name="upload"/></button>
+																<input type="file" id="upload" name="upload" style="display:none" /></button>
 																<a href="https://www.cloudyl.cn/edu/lib/student_model.xls"><button class="btn btn-primary btn-myown" id="addManageDown">下载导入模板</button></a>
 																<a href="https://www.cloudyl.cn/batch_student_excel/combination_infos"><button class="btn btn-primary btn-myown" id="moreManageDown">批量下载</button></a>
 															</th>
@@ -282,6 +282,7 @@
 		<script src="js/moment.js" charset="utf-8"></script>
 		<script src="js/daterangepicker.js" charset="utf-8"></script>
 		<script src="js/common.js" charset="utf-8"></script>
+		v<script src="js/ajaxfileupload.js" charset="utf-8"></script>
 		<script type="text/javascript">
 			$(document).ready(function() {
 				TimeSelectOption($('#add_time'));
@@ -340,6 +341,7 @@
 				}
                 //批量上传
                 $("#addManage").click(function(){
+                	$("#upload").click();
                 	ajaxFileUpload(upload);
                 });
                 function ajaxFileUpload(DOMId){
