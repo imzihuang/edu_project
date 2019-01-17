@@ -345,8 +345,7 @@
                 	ajaxFileUpload(upload);
                 });
                 function ajaxFileUpload(DOMId){
-				    var param={"school_id":school,
-				            "class_id":"",};
+				    var param={"school_id":school};
 				    $.ajaxFileUpload({
 				        url:'/batch_student_excel/combination_input',
 				        type:'post',
