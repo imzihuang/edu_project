@@ -337,6 +337,28 @@
 					})
 
 				}
+                //批量下载
+                $("#moreManageDown").click(function(){
+                	$.ajax({
+						method: 'GET',
+						xhrFields: {
+							"withCredentials": true
+						},
+						contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+						url: "/batch_student_excel/combination_infos",
+						data: data,
+						dataType: 'json',
+						jsonpCallback: '',
+						cache: false,
+						timeout: "1000000",
+						success: function(msg) {
+							alert(111);
+						},
+						complete: function(XMLHttpRequest, status) {
+
+						}
+					})
+                });
 
 				//切换年级
 				$("#grade-name").change(function() {
