@@ -344,7 +344,8 @@
                 $("#addManage").click(function(e){
                 	$("#upload").click();
                 	e.preventDefault();
-                	ajaxFileUpload(upload);
+                	var uploadId={"fileElementId":"upload"};
+                	ajaxFileUpload(uploadId);
                 });
                 function ajaxFileUpload(DOMId){
 				    var param={"school_id":school};
