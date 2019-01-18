@@ -841,7 +841,7 @@
 											icon: 1,
 											time: 800
 										});
-										window.location.reload();
+										// window.location.reload();
 									},
 									error: function() {
 										layer.msg('编辑失败');
@@ -953,7 +953,7 @@
 									icon: 1,
 									time: 800 //2s后自动关闭
 								});
-								window.location.reload();
+								// window.location.reload();
 							},
 							error: function() {
 								layer.msg('删除失败');
@@ -972,8 +972,7 @@
 						reportrangeId.val(time);
 					} else {
 						time = moment().format('YYYY-MM-DD');
-					}console.log(moment().format('YYYY-MM-DD'))
-					console.log(time)
+					}
 					reportrangeId.daterangepicker({
 						startDate: time,
 						singleDatePicker: true,
