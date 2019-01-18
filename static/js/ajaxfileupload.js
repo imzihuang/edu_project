@@ -44,11 +44,12 @@ jQuery.extend({
         $(form).css('top', '-1200px');
         $(form).css('left', '-1200px');
         $(form).appendTo('body');   
-        if(data){
+        if(data){console.log("2222")
               for(var i in data){
                   $('<input type="hidden" name="'+i+'" value="'+data[i]+'"/>').appendTo(form);
               }
         }
+        console.log(form)
         return form;
     },
 
