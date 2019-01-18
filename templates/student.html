@@ -346,10 +346,10 @@
                 	e.preventDefault();
                 	var param={"school_id":school};
                 	var uploadId={"fileElementId":"upload","data":param};
-                	console.log(uploadId.fileElementId)
+                	console.log(uploadId.data)
                 	ajaxFileUpload(uploadId);
                 });
-                function ajaxFileUpload(DOMId){alert(123)
+                function ajaxFileUpload(DOMId){
 				    var param={"school_id":school};
 				    $.ajaxFileUpload({
 				        url:'/batch_student_excel/combination_input',
