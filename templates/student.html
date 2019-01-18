@@ -514,15 +514,15 @@
 								for(var i = 0; i < msg.data.length; i++) {
 									var relation = ''
 									if(msg.data[i].relation_list[0].relation == "father"){
-                                        relation == "父亲"
+                                        relation = "父亲"
 									}else if(msg.data[i].relation_list[0].relation == "moter"){
-										 relation == "母亲"
+										 relation = "母亲"
 									}else if(msg.data[i].relation_list[0].relation == "grandfather"){
-										 relation == "爷爷"
+										 relation = "爷爷"
 									}else if(msg.data[i].relation_list[0].relation == "grandmother"){
-										 relation == "奶奶"
+										 relation = "奶奶"
 									}else{
-										relation == "暂无"
+										relation = "暂无"
 									}
 									strs += '<tr class="gradeX">' +
 										'<td class="data_name" title = '+ msg.data[i].id +'>' + msg.data[i].name + '</td>' +
