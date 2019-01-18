@@ -705,7 +705,7 @@
 									icon: 1,
 									time: 800
 								});
-								// window.location.reload();
+								window.location.reload();
 							},
 							error: function() {
 								layer.msg('添加失败');
@@ -865,7 +865,7 @@
 
 				//编辑弹框
 				$('.areapen').click(function() {
-					$("input").val("");
+					$("input[type = 'text']").val("");
 					$(".editRelativeBtn").val("+");
 					$(".errorPart").html("");
 					$(".errorPartSpt").css("display","none")
