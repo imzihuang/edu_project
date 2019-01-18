@@ -122,7 +122,7 @@ class CombinationHandler(RequestHandler):
 
         #check params
         _check = self._check_student_relative(student_relative_info)
-        if _check != 0:
+        if _check[0] != 0:
             self.finish(json.dumps({'state': _check[0], 'message': _check[1]}))
             return
 
