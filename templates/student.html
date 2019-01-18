@@ -512,11 +512,23 @@
 							var strs = '';
 							if(msg.data.length > 0) {
 								for(var i = 0; i < msg.data.length; i++) {
+									var relation = ''
+									if(msg.data[i].relation_list[0].relation == "father"){
+                                        relation == "父亲"
+									}else if(msg.data[i].relation_list[0].relation == "moter"){
+										 relation == "母亲"
+									}else if(msg.data[i].relation_list[0].relation == "grandfather"){
+										 relation == "爷爷"
+									}else if(msg.data[i].relation_list[0].relation == "grandmother"){
+										 relation == "奶奶"
+									}else{
+										relation == "暂无"
+									}
 									strs += '<tr class="gradeX">' +
 										'<td class="data_name" title = '+ msg.data[i].id +'>' + msg.data[i].name + '</td>' +
 										'<td>' + msg.data[i].grade_name + '</td>' +
 										'<td>' + msg.data[i].class_name + '</td>' +
-										'<td class="center data_id">' + msg.data[i].relation_list[0].relation + '</td>' +
+										'<td class="center data_id">' + relation + '</td>' +
 										'<td class="center">' + msg.data[i].relation_list[0].relation_info.name + '</td>' +
 										'<td class="center">' + msg.data[i].relation_list[0].relation_info.phone + '</td>' +
 										'<td class="center">' + msg.data[i].create_time + '</td>' +
@@ -842,7 +854,7 @@
 											icon: 1,
 											time: 800
 										});
-										// window.location.reload();
+										window.location.reload();
 									},
 									error: function() {
 										layer.msg('编辑失败');
@@ -954,7 +966,7 @@
 									icon: 1,
 									time: 800 //2s后自动关闭
 								});
-								// window.location.reload();
+								window.location.reload();
 							},
 							error: function() {
 								layer.msg('删除失败');
