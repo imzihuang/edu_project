@@ -968,11 +968,12 @@
 
 				function TimeSelectOption(reportrangeId, time) {
 					console.log(time)
-					if(time != '' || time != undefined || time != null || time != 'null' ) {
+					if(time != '' && time != undefined && time != null && time != 'null' ) {
 						reportrangeId.val(time);
 					} else {
 						time = moment().format('YYYY-MM-DD');
-					}console.log(time)
+					}console.log(moment().format('YYYY-MM-DD'))
+					console.log(time)
 					reportrangeId.daterangepicker({
 						startDate: time,
 						singleDatePicker: true,
