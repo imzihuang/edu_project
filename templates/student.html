@@ -967,7 +967,7 @@
 				var beginTimeTake;
 
 				function TimeSelectOption(reportrangeId, time) {
-					if(time != '' || time != undefined) {
+					if(time != '' || time != undefined || time != null ) {
 						reportrangeId.val(time);
 					} else {
 						time = moment().format('YYYY-MM-DD');
