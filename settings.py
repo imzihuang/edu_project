@@ -18,6 +18,7 @@ default_settings = {
     'log_error': "./log/edu_error.log",
     'face_path': '/image/face/',
     'tmp_path': '/image/tmp/',
+    'excel_path': '/excel/tmp',
 }
 
 models = []
