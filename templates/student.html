@@ -476,8 +476,8 @@
 					$("#parent-name").val(log_relative_name);
 					$("#parent-phone").val(log_relative_phone);
 					$("#grade-name").val(log_grade_id);
-					// $("#grade-name").change();
-					// $("#class-name").val(log_class_id);
+					$("#grade-name").change();
+					$("#class-name").val(log_class_id);
 					//获取列表
 					getAjaxData({
 						"school_id": school,
@@ -489,7 +489,7 @@
 						"limit": 20,
 						"offset": log_offset,
 					});
-					localStorage.removeItem('studentHistory');
+					// localStorage.removeItem('studentHistory');
 				}else{
 					//获取列表
 					getAjaxData({
