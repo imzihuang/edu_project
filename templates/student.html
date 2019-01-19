@@ -287,6 +287,11 @@
 		<script type="text/javascript">
 			$(document).ready(function() {
 				TimeSelectOption($('#add_time'));
+				var log_grade_id;
+				var log_class_id;
+				var log_name;
+				var log_relative_name;
+				var log_relative_phone;
 				//获取学校
 				var schoolSelect = JSON.parse(localStorage.getItem("school"));
 			    var school = schoolSelect.id;  
@@ -457,18 +462,40 @@
 					})
 
 				}
-
-				//获取列表
-				getAjaxData({
-					"school_id": school,
-					"class_id": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
-					"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
-					"name": $("#student-name").val() == '' ? undefined : $("#student-name").val(),
-					"relative_name": $("#parent-name").val() == '' ? undefined : $("#parent-name").val(),
-					"relative_phone": $("#parent-phone").val() == '' ? undefined : $("#parent-phone").val(),
-					"limit": 20,
-					"offset": 1,
-				});
+                
+                if(localStorage.getItem("studentHistory")){
+					var dateHistoryLog = JSON.parse(localStorage.getItem("studentHistory"));
+					log_grade_id = dateHistory.grade_id;
+					log_class_id = dateHistory.class_id;
+					log_name = dateHistory.name;
+					log_relative_name = dateHistory.relative_name;
+					log_relative_phone = dateHistory.relative_phone;
+					log_offset = dateHistory.offset;
+					//获取列表
+					getAjaxData({
+						"school_id": school,
+						"class_id": log_class_id == '' ? undefined : log_class_id,
+						"grade_id": log_grade_id == '' ? undefined : log_grade_id,
+						"name": log_name == '' ? undefined : log_name,
+						"relative_name": log_relative_name == '' ? undefined : log_relative_name,
+						"relative_phone": log_relative_phone == '' ? undefined : log_relative_phone,
+						"limit": 20,
+						"offset": log_offset,
+					});
+					localStorage.removeItem('studentHistory');
+				}else{
+					//获取列表
+					getAjaxData({
+						"school_id": school,
+						"class_id": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
+						"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
+						"name": $("#student-name").val() == '' ? undefined : $("#student-name").val(),
+						"relative_name": $("#parent-name").val() == '' ? undefined : $("#parent-name").val(),
+						"relative_phone": $("#parent-phone").val() == '' ? undefined : $("#parent-phone").val(),
+						"limit": 20,
+						"offset": 1,
+					});
+				}
 
 				function getAjaxData(senddata) {
 					$.ajax({
@@ -523,7 +550,7 @@
 										 relation = "奶奶"
 									}else{
 										relation = "暂无"
-									}console.log(relation)
+									}
 									strs += '<tr class="gradeX">' +
 										'<td class="data_name" title = '+ msg.data[i].id +'>' + msg.data[i].name + '</td>' +
 										'<td>' + msg.data[i].grade_name + '</td>' +
@@ -544,10 +571,22 @@
 								if(localStorage.getItem("studentHistory")){
 									var dateHistory = JSON.parse(localStorage.getItem("studentHistory"));
 									dateHistory.id = $(this).attr("title");
+									dateHistory.grade_id = $("#grade-name").val();
+									dateHistory.class_id = $("#class-name").val();
+									dateHistory.name = $("#student-name").val();
+									dateHistory.relative_name = $("#parent-name").val();
+									dateHistory.relative_phone = $("#parent-phone").val();
+									dateHistory.offset = $(".layui-input").val();
 									window.localStorage.setItem("studentHistory", JSON.stringify(dateHistory));
 								}else{
 									var dateHistory = new Object();
 									dateHistory.id = $(this).attr("title");
+									dateHistory.grade_id = $("#grade-name").val();
+									dateHistory.class_id = $("#class-name").val();
+									dateHistory.name = $("#student-name").val();
+									dateHistory.relative_name = $("#parent-name").val();
+									dateHistory.relative_phone = $("#parent-phone").val();
+									dateHistory.offset = $(".layui-input").val();
 									window.localStorage.setItem("studentHistory", JSON.stringify(dateHistory));
 								}
 								top.location.href = "index.html#studentHistory.html";
