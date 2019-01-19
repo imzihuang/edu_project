@@ -471,6 +471,13 @@
 					log_relative_name = dateHistoryLog.relative_name;
 					log_relative_phone = dateHistoryLog.relative_phone;
 					log_offset = dateHistoryLog.offset;
+					//搜索赋值
+					$("#student-name").val(log_name);
+					$("#parent-name").val(log_relative_name);
+					$("#parent-phone").val(log_relative_phone);
+					$("#grade-name").val(log_grade_id);
+					$("#grade-name").change();
+					$("#class-name").val(log_class_id);
 					//获取列表
 					getAjaxData({
 						"school_id": school,
