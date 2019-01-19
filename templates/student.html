@@ -465,12 +465,12 @@
                 
                 if(localStorage.getItem("studentHistory")){
 					var dateHistoryLog = JSON.parse(localStorage.getItem("studentHistory"));
-					log_grade_id = dateHistory.grade_id;
-					log_class_id = dateHistory.class_id;
-					log_name = dateHistory.name;
-					log_relative_name = dateHistory.relative_name;
-					log_relative_phone = dateHistory.relative_phone;
-					log_offset = dateHistory.offset;
+					log_grade_id = dateHistoryLog.grade_id;
+					log_class_id = dateHistoryLog.class_id;
+					log_name = dateHistoryLog.name;
+					log_relative_name = dateHistoryLog.relative_name;
+					log_relative_phone = dateHistoryLog.relative_phone;
+					log_offset = dateHistoryLog.offset;
 					//获取列表
 					getAjaxData({
 						"school_id": school,
