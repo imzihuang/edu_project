@@ -301,6 +301,48 @@
 								$("#edit_grade").html('<option value="">---无---</option>');
 
 							}
+							if(localStorage.getItem("teacherHistory")){
+								var dateHistoryLog = JSON.parse(localStorage.getItem("teacherHistory"));
+								log_grade_id = dateHistoryLog.grade_id;
+								log_class_id = dateHistoryLog.class_id;
+								log_teacher_name = dateHistoryLog.teacher_name;
+								log_teacher_phone = dateHistoryLog.teacher_phone;
+								log_teacher_president = dateHistoryLog.teacher_president;
+								log_teacher_state = dateHistoryLog.teacher_state;
+								log_offset = dateHistoryLog.offset;
+								//搜索赋值
+								$("#teacher-name").val(log_teacher_name);
+								$("#teacher-phone").val(log_teacher_phone);
+								$("#teacher-president").val(log_teacher_president);
+								$("#teacher-state").val(log_teacher_state);
+								$("#grade-name").val(log_grade_id);
+								$("#grade-name").change();
+								$("#class-name").val(log_class_id);
+								//获取列表
+								getAjaxData({
+									"name": log_teacher_name == '' ? undefined : log_teacher_name,
+									"phone": log_teacher_phone == '' ? undefined : log_teacher_phone,
+									"grade_id": log_grade_id == '' ? undefined : log_grade_id,
+									"class_id": log_class_id == '' ? undefined : log_class_id,
+									"position": log_teacher_president == '' ? undefined : log_teacher_president,
+									"status": log_teacher_state == '' ? undefined : log_teacher_state,
+									"limit": 20,
+									"offset": log_offset,
+								});
+								localStorage.removeItem('teacherHistory');
+							}else{
+								//获取列表
+								getAjaxData({
+									"name": $("#teacher-name").val() == '' ? undefined : $("#teacher-name").val(),
+									"phone": $("#teacher-phone").val() == '' ? undefined : $("#teacher-phone").val(),
+									"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
+									"class_id": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
+									"position": $("#teacher-president").val() == '' ? undefined : $("#teacher-president").val(),
+									"status": $("#teacher-state").val() == '' ? undefined : $("#teacher-state").val(),
+									"limit": 20,
+									"offset": 1,
+								});
+				            }
 						},
 						complete: function(XMLHttpRequest, status) {
 
@@ -399,16 +441,16 @@
 
 				}
 
-				getAjaxData({
-					"name": $("#teacher-name").val() == '' ? undefined : $("#teacher-name").val(),
-					"phone": $("#teacher-phone").val() == '' ? undefined : $("#teacher-phone").val(),
-					"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
-					"class_id": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
-					"position": $("#teacher-president").val() == '' ? undefined : $("#teacher-president").val(),
-					"status": $("#teacher-state").val() == '' ? undefined : $("#teacher-state").val(),
-					"limit": 20,
-					"offset": 1,
-				});
+				// getAjaxData({
+				// 	"name": $("#teacher-name").val() == '' ? undefined : $("#teacher-name").val(),
+				// 	"phone": $("#teacher-phone").val() == '' ? undefined : $("#teacher-phone").val(),
+				// 	"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
+				// 	"class_id": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
+				// 	"position": $("#teacher-president").val() == '' ? undefined : $("#teacher-president").val(),
+				// 	"status": $("#teacher-state").val() == '' ? undefined : $("#teacher-state").val(),
+				// 	"limit": 20,
+				// 	"offset": 1,
+				// });
 
 				//列表
 				function getAjaxData(senddata) {
@@ -508,10 +550,24 @@
 									if(localStorage.getItem("teacherHistory")) {
 										var dateHistory = JSON.parse(localStorage.getItem("teacherHistory"));
 										dateHistory.id = $(this).attr("title");
+										dateHistory.grade_id = $("#grade-name").val();
+										dateHistory.class_id = $("#class-name").val();
+										dateHistory.teacher_name = $("#teacher-name").val();
+										dateHistory.teacher_phone= $("#teacher-phone").val();
+										dateHistory.teacher_president = $("#teacher-president").val();
+										dateHistory.teacher_state = $("#teacher-state").val();
+										dateHistory.offset = $(".layui-input").val();
 										window.localStorage.setItem("teacherHistory", JSON.stringify(dateHistory));
 									} else {
 										var dateHistory = new Object();
 										dateHistory.id = $(this).attr("title");
+										dateHistory.grade_id = $("#grade-name").val();
+										dateHistory.class_id = $("#class-name").val();
+										dateHistory.teacher_name = $("#teacher-name").val();
+										dateHistory.teacher_phone= $("#teacher-phone").val();
+										dateHistory.teacher_president = $("#teacher-president").val();
+										dateHistory.teacher_state = $("#teacher-state").val();
+										dateHistory.offset = $(".layui-input").val();
 										window.localStorage.setItem("teacherHistory", JSON.stringify(dateHistory));
 									}
 									top.location.href = "index.html#teacherHistory.html";
