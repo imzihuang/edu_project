@@ -301,7 +301,7 @@
 
 				function gradeInput() {
 					var data = {
-						"limit": 20,
+						"limit": $(".layui-laypage-limits select").val(),
 						"offset": 1,
 						'school_id': school,
 					}
@@ -361,7 +361,7 @@
 									"name": log_name == '' ? undefined : log_name,
 									"relative_name": log_relative_name == '' ? undefined : log_relative_name,
 									"relative_phone": log_relative_phone == '' ? undefined : log_relative_phone,
-									"limit": 20,
+									"limit": $(".layui-laypage-limits select").val(),
 									"offset": log_offset,
 								});
 								localStorage.removeItem('studentHistory');
@@ -374,7 +374,7 @@
 									"name": $("#student-name").val() == '' ? undefined : $("#student-name").val(),
 									"relative_name": $("#parent-name").val() == '' ? undefined : $("#parent-name").val(),
 									"relative_phone": $("#parent-phone").val() == '' ? undefined : $("#parent-phone").val(),
-									"limit": 20,
+									"limit": $(".layui-laypage-limits select").val(),
 									"offset": 1,
 								});
 				            }
@@ -418,7 +418,7 @@
 						$("#class-name").html('<option value="">---请选择班级---</option>');
 					}else{
 						classInput({
-							"limit": 20,
+							"limit": $(".layui-laypage-limits select").val(),
 							"offset": 1,
 							'school_id': school,
 							"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
@@ -432,7 +432,7 @@
 						$("#add_class").html('<option value="">---请选择班级---</option>');
 					}else{
 						classInput({
-							"limit": 20,
+							"limit": $(".layui-laypage-limits select").val(),
 							"offset": 1,
 							'school_id': school,
 							"grade_id": $("#add_grade").val() == '' ? undefined : $("#add_grade").val(),
@@ -446,7 +446,7 @@
 						$("#edit_class").html('<option value="">---请选择班级---</option>');
 					}else{
 						classInput({
-							"limit": 20,
+							"limit": $(".layui-laypage-limits select").val(),
 							"offset": 1,
 							'school_id': school,
 							"grade_id": $("#edit_grade").val() == '' ? undefined : $("#edit_grade").val(),
@@ -860,7 +860,7 @@
 							var editData = {
 								"school_id": school,
 								"id": $(this).attr("name"),
-								"limit": 20,
+								"limit": $(".layui-laypage-limits select").val(),
 								"offset": 1,
 							};
 							$.ajax({
@@ -979,7 +979,7 @@
 						"name": $("#student-name").val() == '' ? undefined : $("#student-name").val(),
 						"relative_name": $("#parent-name").val() == '' ? undefined : $("#parent-name").val(),
 						"relative_phone": $("#parent-phone").val() == '' ? undefined : $("#parent-phone").val(),
-						"limit": 20,
+						"limit": $(".layui-laypage-limits select").val(),
 						"offset": 1,
 					});
 				});
