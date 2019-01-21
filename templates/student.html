@@ -574,6 +574,363 @@
 							} else {
 								$("#tbody").html('<tr><td colspan="8" style="text-align:center;font-size:18px;color:#666;padding:50px;background:#fff;height:318px;">暂无数据！</td></tr>');
 							}
+							//添加校验
+						var layerIndex;
+
+						$("#add_grade").click(function() {
+							$(".selectPart .errorPartS").css("display", "none");
+						});
+
+						jQuery.validator.addMethod("isPhone", function(value, element) {
+							var reg = /^[1][3,4,5,7,8][0-9]{9}$/;
+							var phoneNum = $("#relative_phone_add").val();
+							var flag = reg.test(phoneNum);
+							return flag;
+						}, "请正确填写手机号码");
+		                
+		                jQuery.validator.addMethod("isPhoneEdit", function(value, element) {
+							var reg = /^[1][3,4,5,7,8][0-9]{9}$/;
+							var phoneNum = $("#relative_phone_edit").val();
+							var flag = reg.test(phoneNum);
+							return flag;
+						}, "请正确填写手机号码");
+						$("#addInfoContentform").validate({
+							focusCleanup: true,
+							focusInvalid: false,
+							debug: true,
+							rules: {
+									add_name: {
+										required: true,
+									},
+									relative_name: {
+										required: true,
+									},
+									relative_phone: {
+										required: true,
+										isPhone: true,
+									}
+							},
+							messages: {
+									add_name: {
+										required: '必填',
+									},
+									relative_name: {
+										required: '必填',
+									},
+									relative_phone: {
+										required: '必填',
+										isPhone: '请正确填写手机号码',
+									}
+							},
+							submitHandler: function(form) {
+								if($("#add_class").val() == '' || $("#add_class").val() == undefined) {
+									$(".errorPartAddClass").css("display", "block");
+									if($("#add_time").val() == '' || $("#add_time").val() == undefined) {
+										$(".errorPartAddTime").css("display", "block");
+										return false;
+									}
+									return false;
+								}
+
+								var addRelativeLength = $(".addRelative .addRelativeList").length;
+								var relative_list = new Array();
+								for(var i = 0; i < addRelativeLength; i++) {
+									relative_list[i] = new Object();
+									relative_list[i].name = $(".addRelative .addRelativeList").eq(i).find(".relative_name").val();
+									relative_list[i].phone = $(".addRelative .addRelativeList").eq(i).find(".relative_phone").val();
+									relative_list[i].relation = $(".addRelative .addRelativeList").eq(i).find("select option:selected").val();
+								}
+								for(var j = 0; j < addRelativeLength; j++) {
+									if(relative_list[j].name == '' || relative_list[j].phone == '') {
+										relative_list[j] = '';
+									}
+								}
+		                        for(var j = 0; j < addRelativeLength; j++) {
+		                        	var c = $.inArray('',relative_list);
+		                        	if(c != -1){
+		                        		relative_list.splice(c,1);
+		                        	}
+		                        }
+		                        
+								var data = {
+									'name': $("#add_name").val(),
+									'birthday': $("#add_time").val(),
+									'sex': $("input[name='addsex']:checked").val(),
+									'class_id': $("#add_class").val(),
+									'describe': $("#add_remarks").val(),
+									'relative_list': JSON.stringify(relative_list),
+								}
+								$.ajax({
+									type: "POST",
+									contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+									url: "/student_relative/combination_input",
+									async: false,
+									data: data,
+									timeout: "30000",
+									success: function(msg) {
+										layer.closeAll();
+										layer.msg('添加成功', {
+											icon: 1,
+											time: 800
+										});
+										window.location.reload();
+									},
+									error: function() {
+										layer.msg('添加失败');
+										console.log("error");
+									}
+								});
+
+							},
+							errorPlacement: function(error, element) {
+								error.appendTo(element.parent().find(".errorPart"));
+							},
+							success: function() {}
+						});
+
+						//添加弹框
+						$('#addInfo').click(function() {
+							$("input[type='text']").val("");
+							$(".errorPart").html("");
+							$("#add_grade").html('<option value="">--请选择年级--</option>');
+							$("#add_class").html('<option value="">--请选择班级--</option>');
+							$(".errorPartSpt").css("display", "none");
+							gradeInput();
+							layerIndex = layer.open({
+								title: '添加学生',
+								type: 1,
+								skin: 'layui-layer-demo',
+								anim: 2,
+								shadeClose: true,
+								btn: ['确定', '取消'],
+								content: $('#addInfoContent'),
+								yes: function() {
+									$("#addInfoContentSubmit").click();
+									if($("#add_class").val() == '' || $("#add_class").val() == undefined) {
+										$(".errorPartAddClass").css("display", "block");
+									}
+									if($("#add_time").val() == '' || $("#add_time").val() == undefined) {
+										$(".errorPartAddTime").css("display", "block");
+									}
+								}
+							});
+						});
+
+						//编辑校验
+						$("#editAreaContentform").validate({
+							focusCleanup: true,
+							focusInvalid: false,
+							debug: true,
+							rules: {
+								edit_name: {
+									required: true,
+								},
+								relative_name: {
+									required: true,
+								},
+								relative_phone: {
+									required: true,
+									isPhoneEdit: true,
+								}
+							},
+							messages: {
+								edit_name: {
+									required: '必填',
+								},
+								relative_name: {
+									required: '必填',
+								},
+								relative_phone: {
+									required: '必填',
+									isPhoneEdit: '请正确填写手机号码',
+								}
+							},
+							submitHandler: function(form) {
+								if($("#edit_class").val() == '' || $("#edit_class").val() == undefined) {
+									$(".errorPartEditClass").css("display", "block");
+									if($("#edit_time").val() == '' || $("#edit_time").val() == undefined) {
+										$(".errorPartEditTime").css("display", "block");console.log(时间我空)
+										return false;
+									}
+									return false;
+								}
+								
+								var data = {
+									'name':$("#edit_name").val(),
+									'id': $("#edit_name").attr("title"),
+									'sex': $("input[name='editsex']:checked").val(),
+									'birthday': $("#edit_time").val(),
+									'describe': $("#edit_remarks").val(),
+								}
+								console.log($("input[name='editsex']:checked").val())
+								$.ajax({
+									type: "POST",
+									contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+									url: "/student/update",
+									async: false,
+									data: data,
+									timeout: "30000",
+									success: function(msg) {
+										
+										var editRelativeLength = $(".editRelative .editRelativeList").length;
+										var relative_list = new Array();
+										for(var i = 0; i < editRelativeLength; i++) {
+											relative_list[i] = new Object();
+											relative_list[i].id = $(".editRelative .editRelativeList").eq(i).find(".edit_relative").attr("id");
+											relative_list[i].name = $(".editRelative .editRelativeList").eq(i).find(".relative_name").val();
+											relative_list[i].phone = $(".editRelative .editRelativeList").eq(i).find(".relative_phone").val();
+											relative_list[i].relation = $(".editRelative .editRelativeList").eq(i).find("select option:selected").val();
+										}
+										for(var i = 0; i < editRelativeLength; i++) {
+											if(relative_list[i].name == '' || relative_list[i].phone == '') {
+												relative_list[i] = '';
+											}
+										}
+										for(var j = 0; j < editRelativeLength; j++) {
+				                            var c = $.inArray('',relative_list);
+				                        	if(c != -1){
+				                        		relative_list.splice(c,1);
+				                        	}
+				                        }
+		                                
+										var relativeData = {
+												'student_id': $("#edit_name").attr("title"),
+												'relative_list': JSON.stringify(relative_list),
+											}
+										$.ajax({
+											type: "POST",
+											contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+											url: "/bath_update_relative/combination_input",
+											async: false,
+											data: relativeData,
+											timeout: "30000",
+											success: function(msg) {
+												layer.closeAll();
+												layer.msg('编辑成功', {
+													icon: 1,
+													time: 800
+												});
+												window.location.reload();
+											},
+											error: function() {
+												layer.msg('编辑失败');
+												console.log("error");
+											}
+										});
+											},
+											error: function() {
+												layer.msg('编辑失败');
+												console.log("error");
+											}
+										});
+							},
+
+							errorPlacement: function(error, element) {
+								error.appendTo(element.parent().find(".errorPart"));
+							},
+							success: function() {}
+						});
+
+						//编辑弹框
+						$('.areapen').click(function() {
+							$("input[type = 'text']").val("");
+							$(".editRelativeBtn").val("+");
+							$(".errorPart").html("");
+							$(".errorPartSpt").css("display","none")
+							$(".selectPart .errorPartS").css("display", "none");
+							layerIndex = layer.open({
+								title: '修改学生信息',
+								type: 1,
+								skin: 'layui-layer-demo',
+								closeBtn: 0,
+								anim: 2,
+								shadeClose: true,
+								btn: ['确定', '取消'],
+								content: $('#editAreaContent'),
+								yes: function() {
+									$("#editAreaContentSubmit").click();
+									if($("#edit_class").val() == '' || $("#edit_class").val() == undefined) {
+										$(".errorPartEditClass").css("display", "block");
+									}
+									if($("#edit_time").val() == '' || $("#edit_time").val() == undefined) {
+										$(".errorPartEditTime").css("display", "block");
+									}
+								}
+							});
+							var editData = {
+								"school_id": school,
+								"id": $(this).attr("name"),
+								"limit": 20,
+								"offset": 1,
+							};
+							$.ajax({
+								type: "GET",
+								contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+								url: "/student/infos",
+								async: false,
+								data: editData,
+								timeout: "30000",
+								success: function(msg) {
+									var msg = JSON.parse(msg);console.log(msg);
+									$("#edit_name").val(msg.data[0].name);
+									$("#edit_name").attr("title",msg.data[0].id);
+									TimeSelectOption($('#edit_time'), msg.data[0].birthday);
+									$("input[name='editsex'][value='" + msg.data[0].sex + "']").prop("checked", "checked");
+									$("#edit_remarks").val(msg.data[0].describe);
+									$("#edit_grade").val(msg.data[0].grade_id);
+									$("#edit_grade").change();
+									$("#edit_class").val(msg.data[0].class_id);
+									for(var i = 0; i < msg.data[0].relation_list.length; i++) {
+										if(i < 3) {
+											$(".editRelative .editRelativeList").eq(i).find(".edit_relative").val(msg.data[0].relation_list[i].relation);
+											$(".editRelative .editRelativeList").eq(i).find(".edit_relative").attr("id",msg.data[0].relation_list[i].relative_id);
+											$(".editRelative .editRelativeList").eq(i).find(".relative_name").val(msg.data[0].relation_list[i].relation_info.name);
+											$(".editRelative .editRelativeList").eq(i).find(".relative_phone").val(msg.data[0].relation_list[i].relation_info.phone);
+										}else{
+											$(".editRelativeBtn").click();
+											$(".editRelative .editRelativeList").eq(i).find(".edit_relative").val(msg.data[0].relation_list[i].relation);
+											$(".editRelative .editRelativeList").eq(i).find(".edit_relative").attr("id",msg.data[0].relation_list[i].relative_id);
+											$(".editRelative .editRelativeList").eq(i).find(".relative_name").val(msg.data[0].relation_list[i].relation_info.name);
+											$(".editRelative .editRelativeList").eq(i).find(".relative_phone").val(msg.data[0].relation_list[i].relation_info.phone);
+										}
+
+									}
+								},
+								error: function() {}
+							});
+						});
+
+						//删除
+						$('#tbody .fa-close').click(function() {
+							var deleteId = $(this).attr('id');
+							layer.confirm('确定删除选中的学生？', {
+								btn: ['确定', '取消']
+							}, function() {
+								var data = {
+									'student_id': deleteId
+								}
+								$.ajax({
+									type: "POST",
+									contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
+									url: "/delete_student_relative/combination_input",
+									async: false,
+									data: data,
+									timeout: "30000",
+									success: function(msg) {
+										layer.closeAll();
+										layer.msg('删除成功', {
+											icon: 1,
+											time: 800 //2s后自动关闭
+										});
+										window.location.reload();
+									},
+									error: function() {
+										layer.msg('删除失败');
+										console.log("error");
+									}
+								});
+							});
+						});
 							//学生历史
 							$(".data_name").click(function(){
 								if(localStorage.getItem("studentHistory")){
@@ -665,363 +1022,7 @@
 				$("#add_time").focus(function() {
 					$(".errorPartAddTime").css("display", "none");
 				});
-				//添加校验
-				var layerIndex;
-
-				$("#add_grade").click(function() {
-					$(".selectPart .errorPartS").css("display", "none");
-				});
-
-				jQuery.validator.addMethod("isPhone", function(value, element) {
-					var reg = /^[1][3,4,5,7,8][0-9]{9}$/;
-					var phoneNum = $("#relative_phone_add").val();
-					var flag = reg.test(phoneNum);
-					return flag;
-				}, "请正确填写手机号码");
-                
-                jQuery.validator.addMethod("isPhoneEdit", function(value, element) {
-					var reg = /^[1][3,4,5,7,8][0-9]{9}$/;
-					var phoneNum = $("#relative_phone_edit").val();
-					var flag = reg.test(phoneNum);
-					return flag;
-				}, "请正确填写手机号码");
-				$("#addInfoContentform").validate({
-					focusCleanup: true,
-					focusInvalid: false,
-					debug: true,
-					rules: {
-							add_name: {
-								required: true,
-							},
-							relative_name: {
-								required: true,
-							},
-							relative_phone: {
-								required: true,
-								isPhone: true,
-							}
-					},
-					messages: {
-							add_name: {
-								required: '必填',
-							},
-							relative_name: {
-								required: '必填',
-							},
-							relative_phone: {
-								required: '必填',
-								isPhone: '请正确填写手机号码',
-							}
-					},
-					submitHandler: function(form) {
-						if($("#add_class").val() == '' || $("#add_class").val() == undefined) {
-							$(".errorPartAddClass").css("display", "block");
-							if($("#add_time").val() == '' || $("#add_time").val() == undefined) {
-								$(".errorPartAddTime").css("display", "block");
-								return false;
-							}
-							return false;
-						}
-
-						var addRelativeLength = $(".addRelative .addRelativeList").length;
-						var relative_list = new Array();
-						for(var i = 0; i < addRelativeLength; i++) {
-							relative_list[i] = new Object();
-							relative_list[i].name = $(".addRelative .addRelativeList").eq(i).find(".relative_name").val();
-							relative_list[i].phone = $(".addRelative .addRelativeList").eq(i).find(".relative_phone").val();
-							relative_list[i].relation = $(".addRelative .addRelativeList").eq(i).find("select option:selected").val();
-						}
-						for(var j = 0; j < addRelativeLength; j++) {
-							if(relative_list[j].name == '' || relative_list[j].phone == '') {
-								relative_list[j] = '';
-							}
-						}
-                        for(var j = 0; j < addRelativeLength; j++) {
-                        	var c = $.inArray('',relative_list);
-                        	if(c != -1){
-                        		relative_list.splice(c,1);
-                        	}
-                        }
-                        
-						var data = {
-							'name': $("#add_name").val(),
-							'birthday': $("#add_time").val(),
-							'sex': $("input[name='addsex']:checked").val(),
-							'class_id': $("#add_class").val(),
-							'describe': $("#add_remarks").val(),
-							'relative_list': JSON.stringify(relative_list),
-						}
-						$.ajax({
-							type: "POST",
-							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-							url: "/student_relative/combination_input",
-							async: false,
-							data: data,
-							timeout: "30000",
-							success: function(msg) {
-								layer.closeAll();
-								layer.msg('添加成功', {
-									icon: 1,
-									time: 800
-								});
-								window.location.reload();
-							},
-							error: function() {
-								layer.msg('添加失败');
-								console.log("error");
-							}
-						});
-
-					},
-					errorPlacement: function(error, element) {
-						error.appendTo(element.parent().find(".errorPart"));
-					},
-					success: function() {}
-				});
-
-				//添加弹框
-				$('#addInfo').click(function() {
-					$("input[type='text']").val("");
-					$(".errorPart").html("");
-					$("#add_grade").html('<option value="">--请选择年级--</option>');
-					$("#add_class").html('<option value="">--请选择班级--</option>');
-					$(".errorPartSpt").css("display", "none");
-					gradeInput();
-					layerIndex = layer.open({
-						title: '添加学生',
-						type: 1,
-						skin: 'layui-layer-demo',
-						anim: 2,
-						shadeClose: true,
-						btn: ['确定', '取消'],
-						content: $('#addInfoContent'),
-						yes: function() {
-							$("#addInfoContentSubmit").click();
-							if($("#add_class").val() == '' || $("#add_class").val() == undefined) {
-								$(".errorPartAddClass").css("display", "block");
-							}
-							if($("#add_time").val() == '' || $("#add_time").val() == undefined) {
-								$(".errorPartAddTime").css("display", "block");
-							}
-						}
-					});
-				});
-
-				//编辑校验
-				$("#editAreaContentform").validate({
-					focusCleanup: true,
-					focusInvalid: false,
-					debug: true,
-					rules: {
-						edit_name: {
-							required: true,
-						},
-						relative_name: {
-							required: true,
-						},
-						relative_phone: {
-							required: true,
-							isPhoneEdit: true,
-						}
-					},
-					messages: {
-						edit_name: {
-							required: '必填',
-						},
-						relative_name: {
-							required: '必填',
-						},
-						relative_phone: {
-							required: '必填',
-							isPhoneEdit: '请正确填写手机号码',
-						}
-					},
-					submitHandler: function(form) {
-						if($("#edit_class").val() == '' || $("#edit_class").val() == undefined) {
-							$(".errorPartEditClass").css("display", "block");
-							if($("#edit_time").val() == '' || $("#edit_time").val() == undefined) {
-								$(".errorPartEditTime").css("display", "block");console.log(时间我空)
-								return false;
-							}
-							return false;
-						}
-						
-						var data = {
-							'name':$("#edit_name").val(),
-							'id': $("#edit_name").attr("title"),
-							'sex': $("input[name='editsex']:checked").val(),
-							'birthday': $("#edit_time").val(),
-							'describe': $("#edit_remarks").val(),
-						}
-						console.log($("input[name='editsex']:checked").val())
-						$.ajax({
-							type: "POST",
-							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-							url: "/student/update",
-							async: false,
-							data: data,
-							timeout: "30000",
-							success: function(msg) {
-								
-								var editRelativeLength = $(".editRelative .editRelativeList").length;
-								var relative_list = new Array();
-								for(var i = 0; i < editRelativeLength; i++) {
-									relative_list[i] = new Object();
-									relative_list[i].id = $(".editRelative .editRelativeList").eq(i).find(".edit_relative").attr("id");
-									relative_list[i].name = $(".editRelative .editRelativeList").eq(i).find(".relative_name").val();
-									relative_list[i].phone = $(".editRelative .editRelativeList").eq(i).find(".relative_phone").val();
-									relative_list[i].relation = $(".editRelative .editRelativeList").eq(i).find("select option:selected").val();
-								}
-								for(var i = 0; i < editRelativeLength; i++) {
-									if(relative_list[i].name == '' || relative_list[i].phone == '') {
-										relative_list[i] = '';
-									}
-								}
-								for(var j = 0; j < editRelativeLength; j++) {
-		                            var c = $.inArray('',relative_list);
-		                        	if(c != -1){
-		                        		relative_list.splice(c,1);
-		                        	}
-		                        }
-                                
-								var relativeData = {
-										'student_id': $("#edit_name").attr("title"),
-										'relative_list': JSON.stringify(relative_list),
-									}
-								$.ajax({
-									type: "POST",
-									contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-									url: "/bath_update_relative/combination_input",
-									async: false,
-									data: relativeData,
-									timeout: "30000",
-									success: function(msg) {
-										layer.closeAll();
-										layer.msg('编辑成功', {
-											icon: 1,
-											time: 800
-										});
-										window.location.reload();
-									},
-									error: function() {
-										layer.msg('编辑失败');
-										console.log("error");
-									}
-								});
-									},
-									error: function() {
-										layer.msg('编辑失败');
-										console.log("error");
-									}
-								});
-					},
-
-					errorPlacement: function(error, element) {
-						error.appendTo(element.parent().find(".errorPart"));
-					},
-					success: function() {}
-				});
-
-				//编辑弹框
-				$('.areapen').click(function() {
-					$("input[type = 'text']").val("");
-					$(".editRelativeBtn").val("+");
-					$(".errorPart").html("");
-					$(".errorPartSpt").css("display","none")
-					$(".selectPart .errorPartS").css("display", "none");
-					layerIndex = layer.open({
-						title: '修改学生信息',
-						type: 1,
-						skin: 'layui-layer-demo',
-						closeBtn: 0,
-						anim: 2,
-						shadeClose: true,
-						btn: ['确定', '取消'],
-						content: $('#editAreaContent'),
-						yes: function() {
-							$("#editAreaContentSubmit").click();
-							if($("#edit_class").val() == '' || $("#edit_class").val() == undefined) {
-								$(".errorPartEditClass").css("display", "block");
-							}
-							if($("#edit_time").val() == '' || $("#edit_time").val() == undefined) {
-								$(".errorPartEditTime").css("display", "block");
-							}
-						}
-					});
-					var editData = {
-						"school_id": school,
-						"id": $(this).attr("name"),
-						"limit": 20,
-						"offset": 1,
-					};
-					$.ajax({
-						type: "GET",
-						contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-						url: "/student/infos",
-						async: false,
-						data: editData,
-						timeout: "30000",
-						success: function(msg) {
-							var msg = JSON.parse(msg);console.log(msg);
-							$("#edit_name").val(msg.data[0].name);
-							$("#edit_name").attr("title",msg.data[0].id);
-							TimeSelectOption($('#edit_time'), msg.data[0].birthday);
-							$("input[name='editsex'][value='" + msg.data[0].sex + "']").prop("checked", "checked");
-							$("#edit_remarks").val(msg.data[0].describe);
-							$("#edit_grade").val(msg.data[0].grade_id);
-							$("#edit_grade").change();
-							$("#edit_class").val(msg.data[0].class_id);
-							for(var i = 0; i < msg.data[0].relation_list.length; i++) {
-								if(i < 3) {
-									$(".editRelative .editRelativeList").eq(i).find(".edit_relative").val(msg.data[0].relation_list[i].relation);
-									$(".editRelative .editRelativeList").eq(i).find(".edit_relative").attr("id",msg.data[0].relation_list[i].relative_id);
-									$(".editRelative .editRelativeList").eq(i).find(".relative_name").val(msg.data[0].relation_list[i].relation_info.name);
-									$(".editRelative .editRelativeList").eq(i).find(".relative_phone").val(msg.data[0].relation_list[i].relation_info.phone);
-								}else{
-									$(".editRelativeBtn").click();
-									$(".editRelative .editRelativeList").eq(i).find(".edit_relative").val(msg.data[0].relation_list[i].relation);
-									$(".editRelative .editRelativeList").eq(i).find(".edit_relative").attr("id",msg.data[0].relation_list[i].relative_id);
-									$(".editRelative .editRelativeList").eq(i).find(".relative_name").val(msg.data[0].relation_list[i].relation_info.name);
-									$(".editRelative .editRelativeList").eq(i).find(".relative_phone").val(msg.data[0].relation_list[i].relation_info.phone);
-								}
-
-							}
-						},
-						error: function() {}
-					});
-				});
-
-				//删除
-				$('#tbody .fa-close').click(function() {
-					var deleteId = $(this).attr('id');
-					layer.confirm('确定删除选中的学生？', {
-						btn: ['确定', '取消']
-					}, function() {
-						var data = {
-							'student_id': deleteId
-						}
-						$.ajax({
-							type: "POST",
-							contentType: "application/x-www-form-urlencoded;chartset=UTF-8",
-							url: "/delete_student_relative/combination_input",
-							async: false,
-							data: data,
-							timeout: "30000",
-							success: function(msg) {
-								layer.closeAll();
-								layer.msg('删除成功', {
-									icon: 1,
-									time: 800 //2s后自动关闭
-								});
-								window.location.reload();
-							},
-							error: function() {
-								layer.msg('删除失败');
-								console.log("error");
-							}
-						});
-					});
-				});
+				
 
 				//添加弹框日期
 				var beginTimeTake;
