@@ -26,15 +26,14 @@ class SignLogic(Logic):
             return 2
         return 1
 
-    def input(self, relevance_type=1, relevance_id="", alias="", file_path="", relevance_file_path=""):
+    def input(self, relevance_type=1, phone="", alias="", file_path="", relevance_file_path=""):
         if relevance_type not in (1, 2, 3):
             return
-        values = dict()
         if relevance_type in (1, 3):
             #家属签到
             _sign_type = self.sign_type()
             values = {
-                "relative_id": relevance_id,
+                "phone": phone,
                 "type": _sign_type,
                 "alias": alias,
                 "img_path": file_path,
@@ -42,14 +41,19 @@ class SignLogic(Logic):
             }
             _ = db_api.relative_sign_create(values)
             if _:
-                student_id = self._get_student_id_by_relative(relative_id=relevance_id)
-                self.manage_student_sign_status(student_id, _sign_type)
+                relative_infos = db_api.relative_list(phone=phone)
+                relative_ids = [relative_info.id for relative_info in relative_infos]
+                relation_infos = db_api.relation_list(relative_id=relative_ids)
+                for relation_info in relation_infos:
+                    # 一个家属可能多个学生
+                    #student_id = self._get_student_id_by_relative(relative_id=relative_id)
+                    self.manage_student_sign_status(relation_info.student_id, _sign_type)
 
         if relevance_type == 2:
             # 老师签到
             _sign_type = self.sign_type()
             values = {
-                "teacher_id": relevance_id,
+                "phone": phone,
                 "type": _sign_type,
                 "alias": alias,
                 "img_path": file_path,
@@ -57,9 +61,9 @@ class SignLogic(Logic):
             }
             _ = db_api.teacher_sign_create(values)
             if _:
-                self.manage_teacher_sign_status(relevance_id, _sign_type)
+                self.manage_teacher_sign_status(phone, _sign_type)
 
-        return values
+        return True
 
     def infos(self, relevance_type=1, relevance_id="", start_time="", end_time="", limit=100, offset=0):
         offset = (offset - 1) * limit if offset > 0 else 0
@@ -141,11 +145,6 @@ class SignLogic(Logic):
                 }
                 db_api.student_sign_status_create(values)
 
-    def _get_student_id_by_relative(self, relative_id):
-        if relative_id:
-            _relation_list = db_api.relation_list(relative_id=relative_id)
-            relation_info = _relation_list[0]
-            return relation_info.student_id
 
     def manage_teacher_sign_status(self, teacher_id, sign_type):
         """

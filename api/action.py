@@ -150,25 +150,25 @@ class ActionHandler(RequestHandler):
 
     @auth_api_login
     def face_auth(self):
-        relevance_id = convert.bs2utf8(self.get_argument('relevance_id', ''))
+        phone = convert.bs2utf8(self.get_argument('phone', ''))
+        #relevance_id = convert.bs2utf8(self.get_argument('relevance_id', ''))
         relevance_type = int(self.get_argument('relevance_type', 1))
         school_id = convert.bs2utf8(self.get_argument('school_id', ''))
         alias = convert.bs2utf8(self.get_argument('alias', ''))
-        if not relevance_id:
-            self.finish(json.dumps({'state': 1, 'message': 'relevance_id is None'}))
+        if not phone:
+            self.finish(json.dumps({'state': 1, 'message': 'phone is None'}))
             return
 
         if not school_id:
             if relevance_type == 2:
                 #teacher
                 teacher_op = TeacherLogic()
-                teacher_info = teacher_op.info(relevance_id)
+                teacher_info = teacher_op.info_by_phone(phone)
                 school_id = teacher_info.get("school_id", "")
             if relevance_type in (1, 3):
                 #relative
                 relative_op = RelativeLogic()
-                relative_info = relative_op.info(relevance_id)
-                school_id = relative_info.get("school_id", "")
+                school_id = relative_op.school_id_by_phone(phone)
 
         if not school_id:
             LOG.error("school_id is none")
@@ -176,7 +176,7 @@ class ActionHandler(RequestHandler):
             return
 
         face_op = FaceLogic()
-        _verify = face_op.verify_authd(relevance_id, relevance_type)
+        _verify = face_op.verify_authd(phone, relevance_type)
         if _verify:
             LOG.error("The face token data has been stored.")
             self.finish(json.dumps({'state': 2, 'message': 'The face token has been stored.'}))
@@ -191,8 +191,7 @@ class ActionHandler(RequestHandler):
             return
         img = imgs[0]
         filename = img['filename']
-        filename = relevance_id + "_" + str(int(time.time())) + "." + filename.rpartition(".")[-1]
-        #file_path = self.static_path + self.face_path + relevance_id + '.jpg'
+        filename = phone + "_" + str(int(time.time())) + "." + filename.rpartition(".")[-1]
         file_path = self.static_path + self.face_path + filename
         LOG.info("file path:%s" % file_path)
         with open(file_path, 'wb') as up:
@@ -217,7 +216,7 @@ class ActionHandler(RequestHandler):
             self.finish(json.dumps({'state': 4, 'message': face_token, 'code': code}))
             return
 
-        _ = face_op.input(school_id, relevance_id, face_token, faceset_token, filename, relevance_type=relevance_type, alias=alias)
+        _ = face_op.input(school_id, phone, face_token, faceset_token, filename, relevance_type=relevance_type, alias=alias)
         if _:
             self.finish(json.dumps({'state': 0, 'message': 'face auth ok'}))
         else:
@@ -276,7 +275,7 @@ class ActionHandler(RequestHandler):
         else:
             for face_info in face_list:
                 sign_op.input(face_info.get("relevance_type", 1),
-                              face_info.get("relevance_id", ""),
+                              face_info.get("phone", ""),
                               face_info.get("alias", ""),
                               filename,
                               face_info.get("img_path", ""))

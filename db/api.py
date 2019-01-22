@@ -206,6 +206,13 @@ def teacher_get(id):
         return None  #raise exception.NotFound(code=id)
     return result
 
+def teacher_get_byphone(phone):
+    query = model_query(models.TeacherInfo, read_deleted="yes")
+    result = query.filter_by(phone=phone).first()
+    if not result:
+        return None
+    return result
+
 def teacher_list(offset=0, limit=1000, **filters):
     query = model_query(models.TeacherInfo, order=True, **filters)
     if offset:

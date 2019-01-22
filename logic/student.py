@@ -71,7 +71,7 @@ class StudentLogic(Logic):
               school_id="", school_name="",
               grade_id="", grade_name="",
               class_id="", class_name="",
-              relative_id="", relative_name="",
+              relative_id="", relative_name="", phone="",
               limit=100, offset=1):
         offset = (offset - 1) * limit if offset > 0 else 0
         filters = dict()
@@ -103,8 +103,8 @@ class StudentLogic(Logic):
                 class_id = [class_info.id for class_info in _class_list]
             filters.update({"class_id": class_id})
 
-        if relative_id or relative_name:
-            _relation_list = self._get_relations_by_relative(relative_id, relative_name)
+        if relative_id or relative_name or phone:
+            _relation_list = self._get_relations_by_relative(relative_id, relative_name, phone)
             if _relation_list:
                 _ids = [_relation.student_id for _relation in _relation_list]
                 filters.update({"id": _ids})
@@ -253,12 +253,15 @@ class StudentLogic(Logic):
 
 
 
-    def _get_relations_by_relative(self, relative_id="", relative_name=""):
+    def _get_relations_by_relative(self, relative_id="", relative_name="", phone=""):
         if relative_id:
             _relation_list = db_api.relation_list(relative_id=relative_id)
             return _relation_list
 
         _relative_list = db_api.relative_list(name=relative_name)
+        if not _relative_list:
+            _relative_list = db_api.relative_list(phone=phone)
+
         relative_id = [_relative.id for _relative in _relative_list]
         _relation_list = db_api.relation_list(relative_id=relative_id)
         return _relation_list

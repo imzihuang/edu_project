@@ -180,6 +180,7 @@ class InfosHandler(RequestHandler):
         class_name = self.get_argument('class_name', '')
         relative_id = self.get_argument('relative_id', '')
         relative_name = self.get_argument('relative_name', '')
+        phone = self.get_argument('phone', '')
         return {
             "id": id,
             "name": name,
@@ -190,7 +191,8 @@ class InfosHandler(RequestHandler):
             "class_id": class_id,
             "class_name": class_name,
             "relative_id": relative_id,
-            "relative_name": relative_name
+            "relative_name": relative_name,
+            "phone": phone
         }
 
     def _get_student_history_argument(self):
@@ -246,11 +248,11 @@ class InfosHandler(RequestHandler):
 
     def _get_face_argument(self):
         id = self.get_argument('id', '')
-        relevance_id = self.get_argument('relevance_id', '')
+        phone = self.get_argument('phone', '')
         relevance_type = int(self.get_argument('relevance_type', 0))
         return {
             "id": id,
-            "relevance_id": relevance_id,
+            "phone": phone,
             "relevance_type": relevance_type,
         }
 

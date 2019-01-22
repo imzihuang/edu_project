@@ -195,7 +195,7 @@ class RelevanceFace(Base, ModelBase):
     __tablename__ = 'relevance_face'
     id = Column(VARCHAR(36), primary_key=True)
     school_id = Column(VARCHAR(36))
-    relevance_id = Column(VARCHAR(36), nullable=False)
+    phone = Column(VARCHAR(36), nullable=False)
     relevance_type = Column(Integer, default=1)
     student_id = Column(VARCHAR(36))
     face_token = Column(VARCHAR(36), nullable=False)

@@ -82,6 +82,17 @@ class RelativeLogic(Logic):
             relative_info.update({"school_id": student_info.school_id})
         return relative_info
 
+    def school_id_by_phone(self, phone=""):
+        # get first school's id of student
+        if not phone:
+            return
+        relative_infos = db_api.relative_list(phone=phone)
+        relative_ids = [relative_info.id for relative_info in relative_infos]
+        relation_list = db_api.relation_list(relative_id=relative_ids)
+        if relation_list:
+            student_info = db_api.student_get(relation_list[0].student_id)
+            return student_info.school_id
+
     def info_by_phone(self, phone=""):
         if not phone:
             return

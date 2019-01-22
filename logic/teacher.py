@@ -274,6 +274,10 @@ class TeacherLogic(Logic):
         teacher_info = db_api.teacher_get(id)
         return self.views(teacher_info)
 
+    def info_byphone(self, phone=""):
+        teacher_info = db_api.teacher_get_byphone(phone)
+        return self.views(teacher_info)
+
     def info_by_phone(self, phone=""):
         if not phone:
             return
