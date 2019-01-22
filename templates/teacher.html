@@ -1054,7 +1054,7 @@
 						"class_id": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
 						"position": $("#teacher-president").val() == '' ? undefined : $("#teacher-president").val(),
 						"status": $("#teacher-state").val() == '' ? undefined : $("#teacher-state").val(),
-						"limit": 20,
+						"limit":$(".layui-laypage-limits select").val(),
 						"offset": 1,
 					});
 				});

@@ -238,8 +238,8 @@
 													"name": $("#person-name").val() == '' ? undefined : $("#person-name").val(),
 													"school_id": personSchool,
 													"phone": $("#person-phone").val() == '' ? undefined : $("#person-phone").val(),
-													"limit": 20,
-													"offset": 1,
+													"limit": e.limit,
+													"offset": e.curr,
 												});
 											}
 										}
@@ -347,7 +347,7 @@
 						"name": $("#person-name").val() == '' ? undefined : $("#person-name").val(),
 						"school_id": personSchool,
 						"phone": $("#person-phone").val() == '' ? undefined : $("#person-phone").val(),
-						"limit": 20,
+						"limit": $(".layui-laypage-limits select").val(),
 						"offset": 1,
 					});
 				});

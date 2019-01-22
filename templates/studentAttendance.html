@@ -386,8 +386,8 @@
 													"date": $("#monthly").val() == '' ? undefined : $("#monthly").val(),
 													"student_name": $("#student-name").val() == '' ? undefined : $("#student-name").val(),
 													"school_id": school,
-													"limit": 20,
-													"offset": 1,
+													"limit": e.limit,
+													"offset": e.curr,
 												});
 											}
 										}
@@ -427,7 +427,7 @@
 						"date": $("#monthly").val() == '' ? undefined : $("#monthly").val(),
 						"student_name": $("#student-name").val() == '' ? undefined : $("#student-name").val(),
 						"school_id": school,
-						"limit": 20,
+						"limit": $(".layui-laypage-limits select").val(),
 						"offset": 1,
 					});
 				});

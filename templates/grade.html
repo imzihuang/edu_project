@@ -146,8 +146,8 @@
 												getAjaxData({
 													"name": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
 													"school_id": school,
-													"limit": 20,
-													"offset": 1,
+													"limit": e.limit,
+													"offset": e.curr,
 												});
 											}
 										}
@@ -239,7 +239,7 @@
 					getAjaxData({
 						"name": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
 						"school_id": school,
-						"limit": 20,
+						"limit": $(".layui-laypage-limits select").val(),
 						"offset": 1,
 					});
 				});

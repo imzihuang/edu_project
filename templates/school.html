@@ -157,8 +157,8 @@
 												var district = "";
 												getAjaxData({
 													"name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
-													"limit": 20,
-													"offset": 1,
+													"limit": e.limit,
+													"offset": e.curr,
 												});
 											}
 										}
@@ -250,7 +250,7 @@
 				$("#searchBtn").click(function() {
 					getAjaxData({
 						"name": $("#school-name").val() == '' ? undefined : $("#school-name").val(),
-						"limit": 20,
+						"limit": $(".layui-laypage-limits select").val(),
 						"offset": 1,
 					});
 				});

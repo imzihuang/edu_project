@@ -349,7 +349,7 @@
 					getAjaxData({
 						"name": $("#class-name").val() == '' ? undefined : $("#class-name").val(),
 						"grade_id": $("#grade-name").val() == '' ? undefined : $("#grade-name").val(),
-						"limit": 20,
+						"limit": $(".layui-laypage-limits select").val(),
 						"offset": 1,
 					});
 				});
