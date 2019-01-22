@@ -200,15 +200,14 @@ class ActionHandler(RequestHandler):
 
         self._img_resize(file_path)
 
-        code, face_token = face_recognition_yyl.Face_Search(file_path, school_id)
+
+        # 通过第三方api获取人脸特征
+        #identy_code, face_token = face_util.face_identy(file_path)
+        code, face_token = face_recognition_yyl.Face_Detect(file_path)
         if code != 200:
-            # 通过第三方api获取人脸特征
-            #identy_code, face_token = face_util.face_identy(file_path)
-            code, face_token = face_recognition_yyl.Face_Detect(file_path)
-            if code != 200:
-                LOG.error("detect face error:%s"%code)
-                self.finish(json.dumps({'state': 4, 'message': face_token, 'code': code}))
-                return
+            LOG.error("detect face error:%s"%code)
+            self.finish(json.dumps({'state': 4, 'message': face_token, 'code': code}))
+            return
         # 将特征写入数据库
         code, faceset_token = face_recognition_yyl.Face_Add(school_id, face_token)
         if code != 200:
