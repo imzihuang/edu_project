@@ -236,7 +236,7 @@
 												}
 												getAjaxData({
 													"name": $("#person-name").val() == '' ? undefined : $("#person-name").val(),
-													"school_id": personSchool,
+													"school_id": personSchool == '--请选择学校--' ? undefined : $("#person-name").val(),
 													"phone": $("#person-phone").val() == '' ? undefined : $("#person-phone").val(),
 													"limit": e.limit,
 													"offset": e.curr,
